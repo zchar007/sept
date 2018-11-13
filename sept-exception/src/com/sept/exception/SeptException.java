@@ -41,4 +41,8 @@ public class SeptException extends Exception {
 	public int getErrorCode() {
 		return this.errcode;
 	}
+	@Override
+	public void printStackTrace() {
+		super.printStackTrace();
+	}
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.sept.exception.AppException;
+import com.sept.exception.ApplicationException;
 import com.sept.io.exception.IOException;
 
 public final class FileUtil {
@@ -22,15 +22,14 @@ public final class FileUtil {
 	 * 遍历一个目录中的所有文件，包括子目录,写入文件中（防止文件过多）
 	 * 
 	 * @param path
-	 * @param fliter
-	 *            ：要获取的后缀名串
+	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
 	 * @throws IOException
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormPath(String path, String filter, String resultFile)
-			throws AppException, IOException {
+			throws ApplicationException, IOException {
 		File file = new File(path);
 		return getFilesFormFile(file, filter, resultFile);
 	}
@@ -39,23 +38,23 @@ public final class FileUtil {
 	 * 遍历一个目录中的所有文件，包括子目录,写入文件中（防止文件过多）
 	 * 
 	 * @param path
-	 * @param fliter
-	 *            ：要获取的后缀名串
+	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
 	 * @throws IOException
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormFile(File file, String filter, String resultFile)
-			throws AppException, IOException {
+			throws ApplicationException, IOException {
 		HashMap<String, Object> hm = new HashMap<>();
 		long size = 0;
 		int fileNumber = 0;
 		HashSet<String> hsFilter = new HashSet<String>();
-		String[] filters = filter.split(",");
-
-		for (int i = 0; i < filters.length; i++) {
-			hsFilter.add(filters[i]);
+		if (null != filter && !filter.trim().isEmpty()) {
+			String[] filters = filter.split(",");
+			for (int i = 0; i < filters.length; i++) {
+				hsFilter.add(filters[i]);
+			}
 		}
 		// 如果是文件直接返回
 		if (file.isFile()) {
@@ -99,13 +98,13 @@ public final class FileUtil {
 	 * 遍历一个目录中的所有文件，包括子目录
 	 * 
 	 * @param path
-	 * @param fliter
-	 *            ：要获取的后缀名串
+	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
-	public final static HashMap<String, Object> getFilesFormPath(String path, String filter) throws AppException {
+	public final static HashMap<String, Object> getFilesFormPath(String path, String filter)
+			throws ApplicationException {
 		File file = new File(path);
 		return getFilesFormFile(file, filter);
 	}
@@ -114,24 +113,26 @@ public final class FileUtil {
 	 * 遍历一个目录中的所有文件，包括子目录
 	 * 
 	 * @param path
-	 * @param fliter
-	 *            ：要获取的后缀名串
+	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
 	@SuppressWarnings("unchecked")
-	public final static HashMap<String, Object> getFilesFormFile(File file, String filter) throws AppException {
+	public final static HashMap<String, Object> getFilesFormFile(File file, String filter) throws ApplicationException {
 		HashMap<String, Object> pdo = new HashMap<String, Object>();
 		ArrayList<File> alFiles = new ArrayList<File>();
 		long size = 0;
 		HashSet<String> hsFilter = new HashSet<String>();
-		String[] filters = filter.split(",");
-		for (int i = 0; i < filters.length; i++) {
-			hsFilter.add(filters[i]);
+		if (null != filter && !filter.trim().isEmpty()) {
+			String[] filters = filter.split(",");
+			for (int i = 0; i < filters.length; i++) {
+				hsFilter.add(filters[i]);
+			}
 		}
 		// 如果是文件直接返回
 		if (file.isFile()) {
+			// 如果此文件不能通过过滤
 			if (hsFilter.size() > 0 && !hsFilter.contains(getFileType(file))) {
 				pdo.put("files", alFiles);
 				pdo.put("length", 0L);
@@ -335,9 +336,9 @@ public final class FileUtil {
 		}
 	}
 
-	public static void main(String[] args) throws AppException, IOException {
-		HashMap<String, Object> pdo = FileUtil.getFilesFormFile(new File("E:\\Ant_Framework\\SEPT_FRAMEWORK\\sept"),
-				"xml", "D://test.data");
+	public static void main(String[] args) throws ApplicationException, IOException {
+		HashMap<String, Object> pdo = FileUtil.getFilesFormPath("F:\\仓库_待整理\\[白鹿原]第58集_bd.mp4", "");
+
 		System.out.println(pdo);
 
 	}
