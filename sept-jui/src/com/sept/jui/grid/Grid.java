@@ -1,27 +1,30 @@
 package com.sept.jui.grid;
 
-import com.sept.datastructure.set.DataObject;
-import com.sept.datastructure.set.DataStore;
-import com.sept.exception.AppException;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+
+import com.sept.datastructure.DataObject;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.exception.DataException;
+import com.sept.jui.exception.JUIException;
 
 public class Grid extends JComponent implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -40,15 +43,23 @@ public class Grid extends JComponent implements ActionListener {
 	private GridModel gridModel;
 	private boolean showLineNumber;
 	private JPopupMenu popupMenu;
+	private JMenuItem menuItem_add;
+	private JMenuItem menuItem_delete;
+	private JMenuItem menuItem_clear;
 
 	public Grid() {
-		this.gridColumns = new ArrayList();
+		this.gridColumns = new ArrayList<GridColumn>();
 		this.dsData = new DataStore();
 		setLayout(new BorderLayout(0, 0));
 		this.scrollPane = new JScrollPane();
-		add(this.scrollPane, "Center");
+		add(this.scrollPane, BorderLayout.CENTER);
 	}
 
+	/**
+	 * 增加一列
+	 * 
+	 * @param gridClumn
+	 */
 	public void addColumn(GridColumn gridClumn) {
 		if (gridClumn == null) {
 			return;
@@ -56,13 +67,25 @@ public class Grid extends JComponent implements ActionListener {
 		this.gridColumns.add(gridClumn);
 	}
 
+	/**
+	 * 增加一列
+	 * 
+	 * @param gridClumn
+	 */
 	public void addColumn(String showName, String realName, String columnType, String defautValue, String dsCode,
-			boolean readonly) throws AppException {
+			boolean readonly) throws JUIException {
 		GridColumn gridClumn = new GridColumn(showName, realName, columnType, defautValue, dsCode, readonly);
 		this.gridColumns.add(gridClumn);
 	}
 
-	public void addRow(DataObject para) throws AppException {
+	/**
+	 * 增加一行
+	 * 
+	 * @param para
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	public void addRow(DataObject para) throws JUIException, DataException {
 		if (para == null) {
 			return;
 		}
@@ -74,7 +97,14 @@ public class Grid extends JComponent implements ActionListener {
 		updateDatas();
 	}
 
-	public void addRows(DataStore para) throws AppException {
+	/**
+	 * 增加多行
+	 * 
+	 * @param para
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	public void addRows(DataStore para) throws JUIException, DataException {
 		if (para == null) {
 			return;
 		}
@@ -91,21 +121,45 @@ public class Grid extends JComponent implements ActionListener {
 		}
 	}
 
-	public void removeRow(int index) throws AppException {
+	/**
+	 * 删除一行
+	 * 
+	 * @param index
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	public void removeRow(int index) throws JUIException, DataException {
 		this.gridModel.removeRow(index);
 		updateDatasWithUpdateTable();
 	}
 
+	/**
+	 * 获取选中行
+	 * 
+	 * @return
+	 */
 	public int getSelectRowIndex() {
 		return this.table.getSelectedRow();
 	}
 
-	public void clearData() throws AppException {
+	/**
+	 * 清除数据
+	 * 
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	public void clearData() throws JUIException, DataException {
 		this.gridModel.setRowCount(0);
 		updateDatasWithUpdateTable();
 	}
 
-	private void init() throws AppException {
+	/**
+	 * 初始化
+	 * 
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	private void init() throws JUIException, DataException {
 		if (isShowHeade()) {
 			this.heade_panel = new JPanel();
 			add(this.heade_panel, "North");
@@ -126,26 +180,34 @@ public class Grid extends JComponent implements ActionListener {
 		this.popupMenu = new JPopupMenu();
 		addPopup(this.table, this.popupMenu);
 		addPopup(this.scrollPane, this.popupMenu);
+
+		this.menuItem_add = new JMenuItem("增加");
+		this.menuItem_delete = new JMenuItem("删除");
+		this.menuItem_clear = new JMenuItem("清空");
+
 		if (this.showPop_add) {
-			JMenuItem add = new JMenuItem("增加");
-			add.addActionListener(this);
-			this.popupMenu.add(add);
+			this.menuItem_add.addActionListener(this);
+			this.popupMenu.add(this.menuItem_add);
 		}
 		if (this.showPop_remove) {
-			JMenuItem delete = new JMenuItem("删除");
-			delete.addActionListener(this);
-			this.popupMenu.add(delete);
+			this.menuItem_delete.addActionListener(this);
+			this.popupMenu.add(menuItem_delete);
 		}
 		if (this.showPop_clear) {
-			JMenuItem clear = new JMenuItem("清空");
-			clear.addActionListener(this);
-			this.popupMenu.add(clear);
+			this.menuItem_clear.addActionListener(this);
+			this.popupMenu.add(this.menuItem_clear);
 		}
 	}
 
-	public boolean doGrid() throws AppException {
+	/**
+	 * 设置完毕调用此方法
+	 * 
+	 * @return
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	public boolean doGrid() throws JUIException, DataException {
 		init();
-
 		this.scrollPane.setViewportView(this.table);
 		return true;
 	}
@@ -170,7 +232,14 @@ public class Grid extends JComponent implements ActionListener {
 		return this.gridColumns.toArray();
 	}
 
-	private Object[][] getDatas() throws AppException {
+	/**
+	 * 获取数据（内部调用）
+	 * 
+	 * @return
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	private Object[][] getDatas() throws JUIException, DataException {
 		Object[][] objs = new Object[this.dsData.rowCount()][this.gridColumns.size()];
 		for (int i = 0; i < this.dsData.rowCount(); i++) {
 			for (int j = 0; j < this.gridColumns.size(); j++) {
@@ -181,7 +250,7 @@ public class Grid extends JComponent implements ActionListener {
 				if (realName.equals("no")) {
 					objs[i][j] = Integer.valueOf(i + 1);
 				} else {
-					if (this.dsData.contains(realName)) {
+					if (this.dsData.containsItem(i, realName)) {
 						value = this.dsData.getObject(i, realName);
 					}
 					if (value == null) {
@@ -200,7 +269,14 @@ public class Grid extends JComponent implements ActionListener {
 		return objs;
 	}
 
-	private Object[] getRowDataFromeDataObject(DataObject para) throws AppException {
+	/**
+	 * 获取数据（内部调用）
+	 * 
+	 * @return
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	private Object[] getRowDataFromeDataObject(DataObject para) throws JUIException {
 		Object[] obj = new Object[this.gridColumns.size()];
 		for (int i = 0; i < this.gridColumns.size(); i++) {
 			GridColumn gridClumn = (GridColumn) this.gridColumns.get(i);
@@ -221,17 +297,27 @@ public class Grid extends JComponent implements ActionListener {
 				} else if (type.equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
 					obj[i] = gridClumn.getDPValue(value.toString());
 				} else if (type.equals(GridColumn.COLUMNTYPE_CHECKBOX)) {
-					obj[i] = Boolean.valueOf(Boolean.parseBoolean((String) value));
+					obj[i] = Boolean.parseBoolean(value.toString());
 				}
 			}
 		}
 		return obj;
 	}
 
+	/**
+	 * 获取是否显示行号
+	 * 
+	 * @return
+	 */
 	public boolean isShowLineNumber() {
 		return this.showLineNumber;
 	}
 
+	/**
+	 * 设置是否显示行号
+	 * 
+	 * @return
+	 */
 	public void setShowLineNumber(boolean showLineNumber) {
 		this.showLineNumber = showLineNumber;
 		if (this.showLineNumber) {
@@ -243,7 +329,7 @@ public class Grid extends JComponent implements ActionListener {
 						this.gridColumns.set(i, (GridColumn) this.gridColumns.get(i - 1));
 					}
 					this.gridColumns.set(0, gc);
-				} catch (AppException e) {
+				} catch (JUIException e) {
 					e.printStackTrace();
 				}
 			}
@@ -252,7 +338,13 @@ public class Grid extends JComponent implements ActionListener {
 		}
 	}
 
-	private void updateDatas() throws AppException {
+	/**
+	 * 仅更新数据
+	 * 
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	private void updateDatas() throws JUIException, DataException {
 		DataStore values = new DataStore();
 		int colCount = this.gridColumns.size();
 		int rowCount = this.gridModel.getRowCount();
@@ -278,7 +370,13 @@ public class Grid extends JComponent implements ActionListener {
 		this.dsData = values;
 	}
 
-	private void updateDatasWithUpdateTable() throws AppException {
+	/**
+	 * 更新数据并更新显示
+	 * 
+	 * @throws JUIException
+	 * @throws DataException
+	 */
+	private void updateDatasWithUpdateTable() throws JUIException, DataException {
 		updateDatas();
 
 		this.gridModel.setRowCount(0);
@@ -312,6 +410,24 @@ public class Grid extends JComponent implements ActionListener {
 		this.showPop_clear = showPop_clear;
 	}
 
+	/**
+	 * 增加item
+	 * 
+	 * @param item
+	 */
+	public void addMenuItem(JMenuItem item) {
+		this.popupMenu.add(item);
+	}
+
+	/**
+	 * 增加menu
+	 * 
+	 * @param menu
+	 */
+	public void addMenu(JMenu menu) {
+		this.popupMenu.add(menu);
+	}
+
 	private void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -329,6 +445,15 @@ public class Grid extends JComponent implements ActionListener {
 			}
 
 			private void showMenu(MouseEvent e) {
+				Point mousepoint = e.getPoint();
+
+				int index = table.rowAtPoint(mousepoint);
+				if (index < 0) {
+					menuItem_delete.setEnabled(false);
+				} else {
+					menuItem_delete.setEnabled(true);
+				}
+
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
@@ -341,7 +466,7 @@ public class Grid extends JComponent implements ActionListener {
 		}
 	}
 
-	public DataStore getDataStore() throws AppException {
+	public DataStore getDataStore() throws JUIException, DataException {
 		if (this.table.isEditing()) {
 			this.table.getCellEditor().stopCellEditing();
 		}
@@ -354,7 +479,7 @@ public class Grid extends JComponent implements ActionListener {
 		private static final long serialVersionUID = 1L;
 
 		public GridModel(Object[][] data, Object[] columnNames) {
-			super(columnNames);
+			super(data, columnNames);
 		}
 
 		public Class<?> getColumnClass(int columnIndex) {
@@ -377,25 +502,24 @@ public class Grid extends JComponent implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String commd = e.getActionCommand();
-		if ("增加".equals(commd)) {
+		if (e.getSource().equals(this.menuItem_add)) {
 			try {
 				addRow(new DataObject());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
-		if ("删除".equals(commd)) {
+		if (e.getSource().equals(this.menuItem_delete)) {
 			try {
 				removeRow(getSelectRowIndex());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
-		if ("清空".equals(commd)) {
+		if (e.getSource().equals(this.menuItem_clear)) {
 			try {
 				clearData();
-			} catch (AppException e1) {
+			} catch (JUIException | DataException e1) {
 				e1.printStackTrace();
 			}
 		}

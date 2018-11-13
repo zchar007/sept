@@ -16,16 +16,24 @@ public final class DateUtil {
 	 * 获取当前时间的各个参数
 	 */
 	public final static HashMap<String, Integer> getCurrentHMTime() {
+		return getHMTime(new Date());
+	}
+
+	/*
+	 * 获取时间的各个参数
+	 */
+	public final static HashMap<String, Integer> getHMTime(Date date) {
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
-		Calendar now = Calendar.getInstance();
-		hm.put("year", now.get(Calendar.YEAR));
-		hm.put("month", (now.get(Calendar.MONTH) + 1));
-		hm.put("day", now.get(Calendar.DAY_OF_MONTH));
-		hm.put("hour", now.get(Calendar.HOUR_OF_DAY));
-		hm.put("minute", now.get(Calendar.MINUTE));
-		hm.put("second", now.get(Calendar.SECOND));
-		hm.put("week", now.get(Calendar.DAY_OF_WEEK) - 1);
-		hm.put("am_pm", now.get(Calendar.AM_PM));
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		hm.put("year", calendar.get(Calendar.YEAR));
+		hm.put("month", (calendar.get(Calendar.MONTH) + 1));
+		hm.put("day", calendar.get(Calendar.DAY_OF_MONTH));
+		hm.put("hour", calendar.get(Calendar.HOUR_OF_DAY));
+		hm.put("minute", calendar.get(Calendar.MINUTE));
+		hm.put("second", calendar.get(Calendar.SECOND));
+		hm.put("week", calendar.get(Calendar.DAY_OF_WEEK) - 1);
+		hm.put("am_pm", calendar.get(Calendar.AM_PM));
 		return hm;
 	}
 
@@ -130,13 +138,11 @@ public final class DateUtil {
 		if (month == 2) {
 			if (isLeapYear(year)) {
 				if (day > 29) {
-					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【"
-							+ year + "】是闰年，二月不得大于29天");
+					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是闰年，二月不得大于29天");
 				}
 			} else {
 				if (day > 28) {
-					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【"
-							+ year + "】是平年，二月不得大于28天");
+					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是平年，二月不得大于28天");
 				}
 			}
 		}
@@ -145,8 +151,7 @@ public final class DateUtil {
 				throw new ApplicationException("当前月份为【" + month + "】，此月份不得大于30天");
 			}
 		}
-		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8
-				|| month == 10 || month == 12) {
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 			if (day > 31) {
 				throw new ApplicationException("当前月份为【" + month + "】，此月份不得大于31天");
 			}
@@ -175,8 +180,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-6-3
 	 * @since V1.0
 	 */
-	public final static Date formatStrToDate(String dateStr)
-			throws ApplicationException {
+	public final static Date formatStrToDate(String dateStr) throws ApplicationException {
 		String str = "";
 		for (int i = 0; i < dateStr.length(); i++) {
 			if (MathUtil.isNumber(dateStr.charAt(i) + "")) {
@@ -193,8 +197,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addYearsToStr(String date, int years)
-			throws Exception {
+	public final static String addYearsToStr(String date, int years) throws Exception {
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
 		Date d = formatStrToDate(date);
@@ -228,8 +231,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addMonthsToStr(String date, int months)
-			throws Exception {
+	public final static String addMonthsToStr(String date, int months) throws Exception {
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
 		Date d = formatStrToDate(date);
@@ -263,8 +265,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addDaysToStr(String date, int days)
-			throws Exception {
+	public final static String addDaysToStr(String date, int days) throws Exception {
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
 		Date d = formatStrToDate(date);
@@ -298,8 +299,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addHoursToStr(String date, int hours)
-			throws Exception {
+	public final static String addHoursToStr(String date, int hours) throws Exception {
 
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
@@ -334,8 +334,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addMinutesToStr(String date, int minutes)
-			throws Exception {
+	public final static String addMinutesToStr(String date, int minutes) throws Exception {
 
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
@@ -370,8 +369,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String addSecondToStr(String date, int second)
-			throws Exception {
+	public final static String addSecondToStr(String date, int second) throws Exception {
 
 		int length = date.length();
 		String format = calculateDateStrFormat(date);
@@ -406,8 +404,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-6-6
 	 * @since V1.0
 	 */
-	public final static String calculateDateStrFormat(String dateStr)
-			throws ApplicationException {
+	public final static String calculateDateStrFormat(String dateStr) throws ApplicationException {
 		// String str = "yyyyMMddhhmmss";
 		// int[] index = {4,6,8,10,12};
 		// int nowIndex = 0;
@@ -436,8 +433,7 @@ public final class DateUtil {
 		formatStr = head + formatStr;
 		// 如果含有小时
 		if (formatStr.indexOf("hh") >= 0) {
-			int hh = Integer.parseInt(dateStr.substring(
-					formatStr.indexOf("hh"), formatStr.indexOf("hh") + 2));
+			int hh = Integer.parseInt(dateStr.substring(formatStr.indexOf("hh"), formatStr.indexOf("hh") + 2));
 			if (hh > 12) {
 				formatStr = formatStr.replaceFirst("hh", "HH");
 			}
@@ -528,8 +524,7 @@ public final class DateUtil {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	public final static int getMonthDifferenceBetweenTwoDate(Date beginDate,
-			Date endDate) throws ApplicationException {
+	public final static int getMonthDifferenceBetweenTwoDate(Date beginDate, Date endDate) throws ApplicationException {
 		if (beginDate == null)
 			throw new ApplicationException("传入参数[开始时间]为空");
 		if (endDate == null)
@@ -544,8 +539,7 @@ public final class DateUtil {
 		double months = (year2 - year1) * 12 + month2 - month1;
 
 		if (day1 == day2) {
-		} else if (day1 == getLastDayOfMonth(beginDate)
-				&& day2 == getLastDayOfMonth(endDate)) {
+		} else if (day1 == getLastDayOfMonth(beginDate) && day2 == getLastDayOfMonth(endDate)) {
 		} else {
 			months += (day2 - day1) / 31.00;
 		}
@@ -567,11 +561,43 @@ public final class DateUtil {
 		if (month == 4 || month == 6 || month == 9 || month == 11) {
 			return 30;
 		}
-		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8
-				|| month == 10 || month == 12) {
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 			return 31;
 		}
 		return -1;
+	}
+
+	/**
+	 * 获得指定年指定月份的天数
+	 * 
+	 * @param year  年份
+	 * @param month 月份
+	 * @return 天数
+	 * @throws ApplicationException 
+	 */
+	public static final int getDaysInMonth(int year, int month) throws ApplicationException {
+		switch (month) {
+		case 1:
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			return 31;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			return 30;
+		case 2:
+			if (isLeapYear(year)) {
+				return 29;
+			}
+			return 28;
+		default:
+			return 0;
+		}
 	}
 
 }

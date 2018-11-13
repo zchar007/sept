@@ -213,7 +213,7 @@ public class SDatePicker extends JComponent {
 		panel_1.add(label_previousMonth);
 
 		comboBox_year = new JComboBox<String>(YEARS_ARRAY) {
-			
+
 			/**
 			 * 
 			 */
@@ -221,7 +221,7 @@ public class SDatePicker extends JComponent {
 
 			@Override
 			public void hidePopup() {
-		       // setPopupVisible(true);
+				// setPopupVisible(true);
 			}
 		};
 		panel_north.add(comboBox_year);
@@ -427,7 +427,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	private void initDate(Date d) {
-		HashMap<String, Integer> hmDate = DateUtil.getCurrentHMTime(d);
+		HashMap<String, Integer> hmDate = DateUtil.getHMTime(d);
 		this.setYear(hmDate.get("year"));
 		this.setMonth(hmDate.get("month"));
 		this.setDay(hmDate.get("day"));
