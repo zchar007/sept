@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d xmlns="http://www.w3school.com.cn"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn DataObject.xsd" t="do"
+	tl="name:s,age:n,">
+	<p k="name" v="张三0" />
+	<p k="age" v="0" />
+</d>

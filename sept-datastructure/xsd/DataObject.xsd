@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3school.com.cn"
+	xmlns="http://www.w3school.com.cn" elementFormDefault="qualified">
+	<xs:element name="d">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="p" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="k" type="xs:string"
+							use="required" />
+						<xs:attribute name="v" type="xs:string"
+							use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="t" type="xs:string" use="required" />
+			<xs:attribute name="tl" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

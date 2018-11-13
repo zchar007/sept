@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d xmlns="http://www.w3school.com.cn"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn DataStore.xsd" t="ds"
+	tl="name:s,age:n">
+
+	<r l="0">
+		<p k="name" v="张三0" />
+		<p k="age" v="0" />
+	</r>
+	<r l="1">
+		<p k="name" v="张三1" />
+		<p k="age" v="1" />
+	</r>
+	<r l="2">
+		<p k="name" v="张三2" />
+		<p k="age" v="2" />
+	</r>
+	<r l="3">
+		<p k="name" v="张三3" />
+		<p k="age" v="3" />
+	</r>
+	<r l="4">
+		<p k="name" v="张三4" />
+		<p k="age" v="4" />
+	</r>
+</d>
