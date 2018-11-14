@@ -1,4 +1,4 @@
-package com.sept.util;
+package com.sept.util.bools;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+
+import com.sept.util.UnitConversionUtil;
 
 /**
  * 接受boolean串并计算结果 太慢，建议使用BooleanUtil

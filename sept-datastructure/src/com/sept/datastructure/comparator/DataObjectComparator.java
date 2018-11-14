@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 
 import com.sept.datastructure.DataObject;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
 import com.sept.util.PyUtil;
 
@@ -16,6 +16,7 @@ public class DataObjectComparator implements Comparator<DataObject> {
 		this.key = getColNames(compareKeys);
 	}
 
+	@Override
 	public int compare(DataObject o1, DataObject o2) {
 		int result = 0;
 		for (int i = 0; i < this.key.length; i++) {
@@ -25,7 +26,7 @@ public class DataObjectComparator implements Comparator<DataObject> {
 			o2Value = o2.getObject(this.key[i], null);
 			try {
 				result = compareCell(o1Value, o2Value);
-			} catch (ApplicationException e) {
+			} catch (AppException e) {
 				e.printStackTrace();
 			}
 			if (result != 0) {
@@ -35,7 +36,15 @@ public class DataObjectComparator implements Comparator<DataObject> {
 		return result;
 	}
 
-	protected int compareCell(Object o1, Object o2) throws ApplicationException {
+	/**
+	 * 子比较
+	 * 
+	 * @param o1
+	 * @param o2
+	 * @return
+	 * @throws AppException
+	 */
+	protected int compareCell(Object o1, Object o2) throws AppException {
 		if ((o1 != null) && (o2 != null)) {
 			if ((o1.getClass().getName().equals("java.lang.Integer"))
 					|| (o1.getClass().getName().equals("java.lang.Double"))
@@ -62,7 +71,16 @@ public class DataObjectComparator implements Comparator<DataObject> {
 		return 0;
 	}
 
-	protected int compareChinese(String o1, String o2) throws ApplicationException {
+	/**
+	 * 
+	 * 中文比较
+	 * 
+	 * @param o1
+	 * @param o2
+	 * @return
+	 * @throws AppException
+	 */
+	protected int compareChinese(String o1, String o2) throws AppException {
 		for (int i = 0; (i < o1.length()) && (i < o2.length()); i++) {
 			int codePoint1 = o1.charAt(i);
 			int codePoint2 = o2.charAt(i);

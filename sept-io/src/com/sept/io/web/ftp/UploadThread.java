@@ -4,8 +4,8 @@ import java.io.File;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import com.sept.datastructure.pool.MessagePool;
-import com.sept.datastructure.set.DataStore;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.common.SharedInformationPool;
 import com.sept.exception.AppException;
 
 /**
@@ -16,7 +16,7 @@ import com.sept.exception.AppException;
  */
 public class UploadThread implements Runnable {
 	private DataStore vdsFiles;
-	private MessagePool mp;
+	private SharedInformationPool mp;
 	private String url;
 	private int port;
 	private String username;
@@ -36,7 +36,7 @@ public class UploadThread implements Runnable {
 	 * @param mp
 	 * @param client
 	 */
-	public UploadThread(DataStore vdsFiles, MessagePool mp, String url, int port, String username, String password) {
+	public UploadThread(DataStore vdsFiles, SharedInformationPool mp, String url, int port, String username, String password) {
 		super();
 		this.vdsFiles = vdsFiles;
 		this.mp = mp;

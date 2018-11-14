@@ -17,7 +17,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class XMLUtil {
 	private final static HashMap<String, String> specialCharMap = new HashMap<String, String>();
@@ -37,13 +37,13 @@ public class XMLUtil {
 		specialCharMapR.put("&quot;", "\"");
 	}
 
-	public static final Document getDocument(String url) throws ApplicationException {
+	public static final Document getDocument(String url) throws AppException {
 		SAXReader reader = new SAXReader();
 		try {
 			Document document = reader.read(new File(url).toURI().toURL());
 			return document;
 		} catch (MalformedURLException | DocumentException e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 
 	}
@@ -89,7 +89,7 @@ public class XMLUtil {
 	 * @param xmlPath
 	 * @throws AppException
 	 */
-	public static void validate(String xsdPath, Source source) throws ApplicationException {
+	public static void validate(String xsdPath, Source source) throws AppException {
 		try {
 			// 建立schema工厂
 			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -104,7 +104,7 @@ public class XMLUtil {
 			// 开始验证，成功输出success!!!，失败输出fail
 			validator.validate(source);
 		} catch (Exception e) {
-			throw new ApplicationException("验证失败", e);
+			throw new AppException("验证失败", e);
 		}
 	}
 

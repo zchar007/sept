@@ -2,8 +2,8 @@ package com.sept.io.web.ftp;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import com.sept.datastructure.pool.MessagePool;
-import com.sept.datastructure.set.DataStore;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.common.SharedInformationPool;
 import com.sept.exception.AppException;
 
 /**
@@ -14,7 +14,7 @@ import com.sept.exception.AppException;
  */
 class DownloadThread implements Runnable {
 	private DataStore vdsFiles;
-	private MessagePool mp;
+	private SharedInformationPool mp;
 	private String url;
 	private String username;
 	private String password;
@@ -29,12 +29,12 @@ class DownloadThread implements Runnable {
 	 * @author 张超
 	 * @date 创建时间 2017-6-7
 	 * @since V1.0
-	 * @param vdsFiles
-	 *            : file,tourl
+	 * @param vdsFiles : file,tourl
 	 * @param mp
 	 * @param client
 	 */
-	public DownloadThread(DataStore vdsFiles, MessagePool mp, String url, int port, String username, String password) {
+	public DownloadThread(DataStore vdsFiles, SharedInformationPool mp, String url, int port, String username,
+			String password) {
 		super();
 		this.vdsFiles = vdsFiles;
 		this.mp = mp;
@@ -46,16 +46,17 @@ class DownloadThread implements Runnable {
 
 	@Override
 	public void run() {
-		try {
-			for (int i = 0; i < vdsFiles.rowCount(); i++) {
-				String toUrl = vdsFiles.getString(i, "tourl");
+		for (int i = 0; i < vdsFiles.rowCount(); i++) {
+			try {
 				String fromUrl = vdsFiles.getString(i, "fromurl");
+				String toUrl = vdsFiles.getString(i, "tourl");
 				FTPClient client = FTPUtil.getFtpConnection(url, port, username, password);
 				// 执行上传
 				FTPUtil.FTPDownloadFile(fromUrl, toUrl, client, mp);
+			} catch (AppException e) {
+				e.printStackTrace();
 			}
-		} catch (AppException e) {
-			e.printStackTrace();
+
 		}
 
 	}

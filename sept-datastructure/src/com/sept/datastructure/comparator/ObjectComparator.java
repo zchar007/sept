@@ -2,18 +2,19 @@ package com.sept.datastructure.comparator;
 
 import java.math.BigDecimal;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
 import com.sept.util.PyUtil;
 
 /**
+ * 提供静态的比较方法
  * 
  * @author zchar
  * 
  */
 public class ObjectComparator {
 
-	public static boolean compare(Object o1, Object o2, String compareStr) throws ApplicationException {
+	public static boolean compare(Object o1, Object o2, String compareStr) throws AppException {
 		// (?<=\\s)(==|<|>|<=|>=|!=|like)(?=\\s)|(?<=\\s)(isnull|isnotnull)
 		String commd = compareStr.trim();
 		boolean isTrue = false;
@@ -43,28 +44,28 @@ public class ObjectComparator {
 		return isTrue;
 	}
 
-	public static boolean _eq(Object o1, Object o2) throws ApplicationException {
+	public static boolean _eq(Object o1, Object o2) throws AppException {
 		// System.out.println(o1+"--"+o2+"] is eq = "+(compare(o1, o2) == 0));
 		return compare(o1, o2) == 0;
 	}
 
-	public static boolean _neq(Object o1, Object o2) throws ApplicationException {
+	public static boolean _neq(Object o1, Object o2) throws AppException {
 		return compare(o1, o2) != 0;
 	}
 
-	public static boolean _lt(Object o1, Object o2) throws ApplicationException {
+	public static boolean _lt(Object o1, Object o2) throws AppException {
 		return compare(o1, o2) < 0;
 	}
 
-	public static boolean _lte(Object o1, Object o2) throws ApplicationException {
+	public static boolean _lte(Object o1, Object o2) throws AppException {
 		return compare(o1, o2) <= 0;
 	}
 
-	public static boolean _gt(Object o1, Object o2) throws ApplicationException {
+	public static boolean _gt(Object o1, Object o2) throws AppException {
 		return compare(o1, o2) > 0;
 	}
 
-	public static boolean _gte(Object o1, Object o2) throws ApplicationException {
+	public static boolean _gte(Object o1, Object o2) throws AppException {
 		return compare(o1, o2) >= 0;
 	}
 
@@ -86,7 +87,7 @@ public class ObjectComparator {
 		return o1.toString().indexOf(o2.toString()) != -1;
 	}
 
-	private static int compare(Object o1, Object o2) throws ApplicationException {
+	private static int compare(Object o1, Object o2) throws AppException {
 		if ((o1 != null) && (o2 != null)) {
 			if ((o1.getClass().getName().equals("java.lang.Integer"))
 					|| (o1.getClass().getName().equals("java.lang.Double"))
@@ -103,7 +104,7 @@ public class ObjectComparator {
 					}
 					return DateUtil.formatDate((java.util.Date) o1, "yyyyMMddhhmmss")
 							.compareTo(DateUtil.formatDate((java.util.Date) o2, "yyyyMMddhhmmss"));
-				} catch (ApplicationException e) {
+				} catch (AppException e) {
 					e.printStackTrace();
 					return 0;
 				}
@@ -115,7 +116,7 @@ public class ObjectComparator {
 					}
 					return DateUtil.formatDate((java.sql.Date) o1, "yyyyMMddhhmmss")
 							.compareTo(DateUtil.formatDate((java.sql.Date) o2, "yyyyMMddhhmmss"));
-				} catch (ApplicationException e) {
+				} catch (AppException e) {
 					e.printStackTrace();
 					return 0;
 				}
@@ -131,7 +132,7 @@ public class ObjectComparator {
 		return 0;
 	}
 
-	private static int compareChinese(String o1, String o2) throws ApplicationException {
+	private static int compareChinese(String o1, String o2) throws AppException {
 		for (int i = 0; (i < o1.length()) && (i < o2.length()); i++) {
 			int codePoint1 = o1.charAt(i);
 			int codePoint2 = o2.charAt(i);

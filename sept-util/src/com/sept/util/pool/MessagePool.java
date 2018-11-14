@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 /**
  * 需要实例化，一个MessagePool，相当于一个可并发的的数据存放地 <br>
@@ -95,15 +95,15 @@ public class MessagePool {
 	 * 防止因等待锁而导致主线程缓慢
 	 * 
 	 * @author 张超
-	 * @throws ApplicationException
+	 * @throws AppException
 	 * @date 创建时间 2017-6-7
 	 * @since V1.0
 	 */
-	public void asynchPutAndAddMessage(String key, Object value) throws ApplicationException {
+	public void asynchPutAndAddMessage(String key, Object value) throws AppException {
 		if (!downloadThreadPool.isShutdown()) {
 			downloadThreadPool.execute(new PutAndAddMessageThread(key, value, this));
 		} else {
-			throw new ApplicationException(this.getClass().getName() + ":已关闭的线程池！");
+			throw new AppException(this.getClass().getName() + ":已关闭的线程池！");
 		}
 	}
 
@@ -112,15 +112,15 @@ public class MessagePool {
 	 * 防止因等待锁而导致主线程缓慢
 	 * 
 	 * @author 张超
-	 * @throws ApplicationException
+	 * @throws AppException
 	 * @date 创建时间 2017-6-7
 	 * @since V1.0
 	 */
-	public void asynchPutMessage(String key, Object value) throws ApplicationException {
+	public void asynchPutMessage(String key, Object value) throws AppException {
 		if (!downloadThreadPool.isShutdown()) {
 			downloadThreadPool.execute(new PutMessageThread(key, value, this));
 		} else {
-			throw new ApplicationException(this.getClass().getName() + ":已关闭的线程池！");
+			throw new AppException(this.getClass().getName() + ":已关闭的线程池！");
 		}
 	}
 

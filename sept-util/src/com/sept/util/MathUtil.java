@@ -2,7 +2,7 @@ package com.sept.util;
 
 import java.math.BigDecimal;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public final class MathUtil{
 	public final static double abs(double num) {
@@ -31,9 +31,9 @@ public final class MathUtil{
 	 * @date 创建时间 2017-6-12
 	 * @since V1.0
 	 */
-	public final static double round(double v, int scale) throws ApplicationException {
+	public final static double round(double v, int scale) throws AppException {
 		if (scale < 0) {
-			throw new ApplicationException("The scale must be a positive integer or zero");
+			throw new AppException("The scale must be a positive integer or zero");
 		}
 		BigDecimal b = new BigDecimal(Double.toString(v));
 		BigDecimal one = new BigDecimal("1");
@@ -58,7 +58,7 @@ public final class MathUtil{
 		return false;
 	}
 
-	public final static void main(String[] args) throws ApplicationException {
+	public final static void main(String[] args) throws AppException {
 		System.out.println(round(12.6, 0));
 	}
 }

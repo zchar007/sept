@@ -15,7 +15,7 @@ import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.apache.tools.zip.ZipOutputStream;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class AntZip {
 	static final int BUFFER = 2048;
@@ -55,9 +55,9 @@ public class AntZip {
 	 * 
 	 * @param filePath
 	 * @param zipPath
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static void zip(String filePath, String zipPath) throws ApplicationException {
+	public static void zip(String filePath, String zipPath) throws AppException {
 		BufferedInputStream origin = null;
 		FileOutputStream dest = null;
 		ZipOutputStream out = null;
@@ -82,7 +82,7 @@ public class AntZip {
 			}
 			out.close();
 		} catch (IOException e) {
-			throw new ApplicationException("压缩文件出错");
+			throw new AppException("压缩文件出错");
 		} finally {
 			while (f.listFiles().length > 0) {
 				f.listFiles()[0].delete();
@@ -102,7 +102,7 @@ public class AntZip {
 					out.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("关闭文件流出错" + e.getMessage());
+				throw new AppException("关闭文件流出错" + e.getMessage());
 			}
 		}
 	}
@@ -112,9 +112,9 @@ public class AntZip {
 	 * 说明：压缩方法,压缩方法同源文件同级
 	 * 
 	 * @param filePath :filepath是源文件路径
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static void zip(String filePath) throws ApplicationException {
+	public static void zip(String filePath) throws AppException {
 		BufferedInputStream origin = null;
 		FileOutputStream dest = null;
 		ZipOutputStream out = null;
@@ -140,7 +140,7 @@ public class AntZip {
 			}
 			out.close();
 		} catch (Exception e) {
-			throw new ApplicationException("压缩文件出错");
+			throw new AppException("压缩文件出错");
 		} finally {
 			while (f.listFiles().length > 0) {
 				f.listFiles()[0].delete();
@@ -160,7 +160,7 @@ public class AntZip {
 					out.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("关闭文件流出错" + e.getMessage());
+				throw new AppException("关闭文件流出错" + e.getMessage());
 			}
 		}
 	}
@@ -172,10 +172,10 @@ public class AntZip {
 	 * @param filePath
 	 * @param zipPath
 	 * @throws IOException
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 
-	public static void unZip(String filePath, String zipPath) throws IOException, ApplicationException {
+	public static void unZip(String filePath, String zipPath) throws IOException, AppException {
 		BufferedInputStream bis = null;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
@@ -211,7 +211,7 @@ public class AntZip {
 				bis.close();
 			}
 		} catch (Exception e) {
-			throw new ApplicationException("解压缩文件时出现错误");
+			throw new AppException("解压缩文件时出现错误");
 		} finally {
 			try {
 				zipFile.close();
@@ -225,7 +225,7 @@ public class AntZip {
 					bos.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("关闭文件流出错");
+				throw new AppException("关闭文件流出错");
 			}
 		}
 	}
@@ -235,10 +235,10 @@ public class AntZip {
 	 * 说明：解压缩方法,压缩方法同源文件同级
 	 * 
 	 * @param filePath :filepath是源文件路径
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 
-	public static void unZip(String filePath) throws ApplicationException {
+	public static void unZip(String filePath) throws AppException {
 		BufferedInputStream bis = null;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
@@ -275,7 +275,7 @@ public class AntZip {
 				bis.close();
 			}
 		} catch (Exception e) {
-			throw new ApplicationException("解压缩文件时出现错误");
+			throw new AppException("解压缩文件时出现错误");
 		} finally {
 			try {
 				zipFile.close();
@@ -289,7 +289,7 @@ public class AntZip {
 					bos.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("关闭文件流出错");
+				throw new AppException("关闭文件流出错");
 			}
 		}
 	}

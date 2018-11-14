@@ -12,20 +12,19 @@ import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
-import com.sept.datastructure.pool.MessagePool;
-import com.sept.datastructure.set.DataObject;
-import com.sept.datastructure.set.DataStore;
+import com.sept.datastructure.DataObject;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.common.MessagePool;
+import com.sept.datastructure.common.SharedInformationPool;
 import com.sept.exception.AppException;
 import com.sept.io.local.FileUtil;
 import com.sept.io.web.ftp.tree.FTPFileNode;
 import com.sept.io.web.ftp.tree.FTPFileTree;
 import com.sept.util.RandomManager;
-
 
 /**
  * 仅支持单个文件的上传下载
@@ -66,8 +65,7 @@ public class FTPUtil {
 	 * @author 张超
 	 * @date 创建时间 2017-6-6
 	 * @param fromFile
-	 * @param toUrl
-	 *            -- 严格按照--如果ft主目录为 xxx 的,要上传到aaa文件夹下 ---/xxx/aa/
+	 * @param toUrl    -- 严格按照--如果ft主目录为 xxx 的,要上传到aaa文件夹下 ---/xxx/aa/
 	 * @param client
 	 * @since V1.0
 	 */
@@ -81,12 +79,11 @@ public class FTPUtil {
 	 * @author 张超
 	 * @date 创建时间 2017-6-6
 	 * @param fromFile
-	 * @param toUrl
-	 *            -- 严格按照--如果ft主目录为 xxx 的,要上传到aaa文件夹下 ---/xxx/aa/
+	 * @param toUrl    -- 严格按照--如果ft主目录为 xxx 的,要上传到aaa文件夹下 ---/xxx/aa/
 	 * @param client
 	 * @since V1.0
 	 */
-	public static boolean FTPUploadFile(File fromFile, String toUrl, FTPClient client, MessagePool mp)
+	public static boolean FTPUploadFile(File fromFile, String toUrl, FTPClient client, SharedInformationPool mp)
 			throws AppException {
 		if (!fromFile.isFile()) {
 			throw new AppException("单个上传仅支持单个文件的上传！");
@@ -95,8 +92,8 @@ public class FTPUtil {
 		OutputStream os = null;
 		try {
 			if (null != mp) {
-				MessagePool.asynchPutMessage(UPLOAD_FILE_SIZE, fromFile.length(), mp);
-				MessagePool.asynchPutMessage(UPLOAD_FILE_NAME, fromFile.getAbsolutePath(), mp);
+				mp.asynchPut(UPLOAD_FILE_SIZE, fromFile.length());
+				mp.asynchPut(UPLOAD_FILE_NAME, fromFile.getAbsolutePath());
 			}
 			String fileName = new String((toUrl + File.separator + fromFile.getName()).getBytes("GBK"), "iso-8859-1");
 			// System.out.println(client.isConnected());
@@ -109,7 +106,7 @@ public class FTPUtil {
 			int tempbyte;
 			while ((tempbyte = in.read(datas)) != -1) {
 				if (null != mp) {
-					MessagePool.asynchPutAndAddMessage(UPLOAD_NOW_SIZE, Long.parseLong(tempbyte + ""), mp);
+					mp.asynchPut4Add(UPLOAD_NOW_SIZE, Long.parseLong(tempbyte + ""));
 				}
 				os.write(datas, 0, tempbyte);
 				os.flush();
@@ -153,7 +150,7 @@ public class FTPUtil {
 	 * @date 创建时间 2017-6-6
 	 * @since V1.0
 	 */
-	public static boolean FTPDownloadFile(String fromUrl, String toUrl, FTPClient client, MessagePool mp)
+	public static boolean FTPDownloadFile(String fromUrl, String toUrl, FTPClient client, SharedInformationPool mp)
 			throws AppException {
 		InputStream in = null;
 		FileOutputStream os = null;
@@ -164,8 +161,8 @@ public class FTPUtil {
 			}
 			FTPFile[] filesTemp = client.listFiles(new String(fromUrl.getBytes("GBK"), "iso-8859-1"));
 			if (null != mp) {
-				MessagePool.asynchPutMessage(DOWNLOAD_FILE_SIZE, filesTemp[0].getSize(), mp);
-				MessagePool.asynchPutMessage(DOWNLOAD_FILE_NAME, filesTemp[0].getName(), mp);
+				mp.asynchPut(DOWNLOAD_FILE_SIZE, filesTemp[0].getSize());
+				mp.asynchPut(DOWNLOAD_FILE_NAME, filesTemp[0].getName());
 			}
 			File file = new File(toUrl + File.separator + fromUrl.substring(fromUrl.lastIndexOf(File.separator)));
 			client.enterLocalPassiveMode();
@@ -175,7 +172,7 @@ public class FTPUtil {
 			int tempbyte;
 			while ((tempbyte = in.read(datas)) != -1) {
 				if (null != mp) {
-					MessagePool.asynchPutAndAddMessage(DOWNLOAD_NOW_SIZE, Long.parseLong(tempbyte + ""), mp);
+					mp.asynchPut4Add(DOWNLOAD_NOW_SIZE, Long.parseLong(tempbyte + ""));
 				}
 				os.write(datas, 0, tempbyte);
 				os.flush();
@@ -223,8 +220,8 @@ public class FTPUtil {
 	 * @date 创建时间 2017-6-7
 	 * @since V1.0
 	 */
-	public static ExecutorService FTPUpload(File fromFile, String toUrl, MessagePool mp, String host, int port,
-			String username, String password) throws AppException {
+	public static ExecutorService FTPUpload(File fromFile, String toUrl, SharedInformationPool mp, String host,
+			int port, String username, String password) throws AppException {
 		try {
 
 			String needRemovePath = fromFile.getAbsolutePath().substring(0,
@@ -234,8 +231,8 @@ public class FTPUtil {
 			@SuppressWarnings("unchecked")
 			ArrayList<File> alFiles = (ArrayList<File>) pdo.get("files");
 			if (null != mp) {
-				MessagePool.asynchPutMessage(UPLOAD_ALL_SIZE, length, mp);
-				MessagePool.asynchPutMessage(UPLOAD_DIRECTORY_NAME, fromFile.getAbsolutePath(), mp);
+				mp.asynchPut(UPLOAD_ALL_SIZE, length);
+				mp.asynchPut(UPLOAD_DIRECTORY_NAME, fromFile.getAbsolutePath());
 			}
 			DataStore vdsFiles = new DataStore();
 			for (int i = 0; i < alFiles.size(); i++) {
@@ -299,8 +296,8 @@ public class FTPUtil {
 	 * @date 创建时间 2017-6-7
 	 * @since V1.0
 	 */
-	public static ExecutorService FTPDownload(String fromUrl, String toUrl, MessagePool mp, String host, int port,
-			String username, String password) throws AppException {
+	public static ExecutorService FTPDownload(String fromUrl, String toUrl, SharedInformationPool mp, String host,
+			int port, String username, String password) throws AppException {
 		FTPClient client = null;
 		try {
 			client = getFtpConnection(host, port, username, password);
@@ -315,8 +312,8 @@ public class FTPUtil {
 			@SuppressWarnings("unchecked")
 			ArrayList<String> alFiles = (ArrayList<String>) pdo.get("files");
 			if (null != mp) {
-				MessagePool.asynchPutMessage(DOWNLOAD_ALL_SIZE, length, mp);
-				MessagePool.asynchPutMessage(DOWNLOAD_DIRECTORY_NAME, fromUrl, mp);
+				mp.asynchPut(DOWNLOAD_ALL_SIZE, length);
+				mp.asynchPut(DOWNLOAD_DIRECTORY_NAME, fromUrl);
 			}
 
 			while (fromUrl.endsWith(File.separator)) {
@@ -382,7 +379,7 @@ public class FTPUtil {
 	 * 
 	 * @param client
 	 * @param file
-	 * @param path:要找的路径
+	 * @param        path:要找的路径
 	 * @return
 	 * @throws AppException
 	 */
@@ -405,12 +402,12 @@ public class FTPUtil {
 				node.setAttribute("path", path + File.separator + file.getName());
 				node.setAttribute("size", file.getSize() + "");
 			}
-			root = new FTPFileTree(node);
-
+			root = new FTPFileTree();
+			root.addRoot(node);
 			if (null == file || file.isDirectory()) {
 				String nowpath;
 
-				nowpath = new String((File.separator + node.getAttribute("path")).getBytes("GBK"), "iso-8859-1");
+				nowpath = new String((File.separator + node.attribute("path")).getBytes("GBK"), "iso-8859-1");
 				FTPFile[] files = client.listFiles(nowpath);
 				for (int i = 0; i < files.length; i++) {
 					if (files[i].isDirectory()) {
@@ -420,9 +417,9 @@ public class FTPUtil {
 					} else {
 						FTPFileNode nodeChild = new FTPFileNode(RandomManager.getRandomStrNoHan(8));
 						nodeChild.setAttribute("text", files[i].getName());
-						nodeChild.setAttribute("path", node.getAttribute("path") + File.separator + files[i].getName());
+						nodeChild.setAttribute("path", node.attribute("path") + File.separator + files[i].getName());
 						nodeChild.setAttribute("size", files[i].getSize() + "");
-						node.addChildNode(nodeChild);
+						node.addChild(nodeChild);
 					}
 				}
 			}
@@ -466,7 +463,7 @@ public class FTPUtil {
 				if (files[i].isFile()) {
 					alFiles.add(url + File.separator + files[i].getName());
 					size += files[i].getSize();
-				} else {
+				} else if(files[i].isDirectory() && files[i].getSize() > 0){
 					DataObject rdo = getFTPFilesFromPath(url + File.separator + files[i].getName(), client);
 					alFiles.addAll((ArrayList<String>) rdo.getObject("files"));
 					size += rdo.getLong("length");
@@ -527,8 +524,7 @@ public class FTPUtil {
 	/**
 	 * 在ftp上创建目录
 	 * 
-	 * @param path
-	 *            -- 严格按照--如果ftp文件夹下，名为为 xxx的文件夹下创建aa文件夹---/xxx/aa
+	 * @param path -- 严格按照--如果ftp文件夹下，名为为 xxx的文件夹下创建aa文件夹---/xxx/aa
 	 * @author 张超
 	 * @date 创建时间 2017-6-6
 	 * @since V1.0
@@ -556,47 +552,41 @@ public class FTPUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// FTPFileTree fileTree =
-		// FTPUtil.getFTPDirectoryTreeModel(
-		// FTPUtil.getFtpConnection("192.168.0.103", 21, "zchar@outlook.com",
-		// "193835!zczh"), null, null);
-		// FTPFileTree fileTree = FTPUtil
-		// .getFTPDirectoryTreeModel(FTPUtil.getFtpConnection("61.147.97.227",
-		// 2199, "m", "m"), null, null);
-
-		// System.out.println(fileTree.getTreeDs());
 		final MessagePool mess = new MessagePool();
-		// final ExecutorService es = FTPUpload(new File("D:" + File.separator +
-		// "桌面暂存"),
-		// File.separator + "sss" + File.separator, mess, DOWNLOAD_ALL_SIZE,
-		// DOWNLOAD_ALL_SIZE, DOWNLOAD_ALL_SIZE);
-		final ExecutorService es = FTPUtil.FTPDownload(File.separator+"百分之三第二季03.mp4", "D:"+File.separator, mess, "61.147.97.227", 2199, "m",
-				"m");
-		new Thread() {
-			public void run() {
-				while (true) {
-					Object objNow = mess.getMessage(DOWNLOAD_NOW_SIZE);
-					Object objAll = mess.getMessage(DOWNLOAD_ALL_SIZE);
-					if (null == objAll || null == objNow) {
-						continue;
-					}
-					long nowSzie = (long) objNow;
-					long allsize = (long) objAll;
-					System.out.println(nowSzie + "/" + allsize + "--" + mess.getMessage(DOWNLOAD_FILE_NAME));
-					if (nowSzie == allsize) {
-						mess.killMine();
-						es.shutdownNow();
-						break;
-					}
-					try {
-						Thread.sleep(200);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
 
-			};
-		}.start();
+		DataObject pdo = FTPUtil.getFTPFilesFromPath(File.separator+"新建文件夹"+File.separator,
+				FTPUtil.getFtpConnection("61.147.97.227", 2199, "m", "m"));
+		System.out.println(pdo);
+//		final ExecutorService es = FTPUtil.FTPDownload(File.separator + "百分之三第二季03.mp4", "D:" + File.separator, mess,
+//				"61.147.97.227", 2199, "m", "m");
+//		new Thread() {
+//			public void run() {
+//				while (true) {
+//					try {
+//						Object objNow;
+//
+//						objNow = mess.get(DOWNLOAD_NOW_SIZE);
+//						Object objAll = mess.get(DOWNLOAD_ALL_SIZE);
+//						if (null == objAll || null == objNow) {
+//							continue;
+//						}
+//						long nowSzie = (long) objNow;
+//						long allsize = (long) objAll;
+//						System.out.println(nowSzie + "/" + allsize + "--" + mess.get(DOWNLOAD_FILE_NAME));
+//						if (nowSzie == allsize) {
+//							mess.killMine();
+//							es.shutdownNow();
+//							break;
+//						}
+//						Thread.sleep(200);
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//
+//				}
+//
+//			};
+//		}.start();
 	}
 }

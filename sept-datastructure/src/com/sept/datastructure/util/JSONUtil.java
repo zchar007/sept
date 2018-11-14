@@ -14,13 +14,12 @@ import org.json.JSONObject;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public final class JSONUtil {
 
 	@SuppressWarnings("unchecked")
-	public static final String toJson(Object o) throws DataException, ApplicationException {
+	public static final String toJson(Object o) throws AppException {
 		String cname = o.getClass().getName();
 		if (o instanceof String || cname.equals("java.lang.String") || o instanceof StringBuffer
 				|| cname.equals("java.lang.StringBuffer") || o instanceof StringBuilder
@@ -121,7 +120,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
-	public static final String map2Json(Map<String, Object> map) throws DataException, ApplicationException {
+	public static final String map2Json(Map<String, Object> map) throws AppException {
 		if (map.isEmpty())
 			return "{}";
 		StringBuilder sb = new StringBuilder(map.size() << 4);
@@ -140,7 +139,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
-	public static final String list2Json(List<Object> list) throws DataException, ApplicationException {
+	public static final String list2Json(List<Object> list) throws AppException {
 		if (list.size() == 0) {
 			return "{}";
 		}
@@ -148,7 +147,7 @@ public final class JSONUtil {
 		return toJson(DataObjectArray);
 	}
 
-	public static final String array2Json(Object[] array) throws DataException, ApplicationException {
+	public static final String array2Json(Object[] array) throws AppException {
 		if (array.length == 0)
 			return "[]";
 		StringBuilder sb = new StringBuilder(array.length << 4);
@@ -260,7 +259,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
-	public static final DataObject JsonToDataObject(String json) throws DataException {
+	public static final DataObject JsonToDataObject(String json) throws AppException {
 		DataObject dto = new DataObject();
 		try {
 			JSONObject jObject = new JSONObject(json);
@@ -286,12 +285,12 @@ public final class JSONUtil {
 					dto.put(varName, varValue);
 			}
 		} catch (JSONException e) {
-			throw new DataException(e.toString());
+			throw new AppException(e.toString());
 		}
 		return dto;
 	}
 
-	public static final DataStore JsonToDataStore(String json) throws DataException {
+	public static final DataStore JsonToDataStore(String json) throws AppException {
 		DataStore dso = new DataStore();
 		try {
 			JSONArray array = new JSONArray(json);
@@ -300,7 +299,7 @@ public final class JSONUtil {
 				dso.addRow(dto);
 			}
 		} catch (JSONException e) {
-			throw new DataException(e.toString());
+			throw new AppException(e.toString());
 		}
 		return dso;
 	}

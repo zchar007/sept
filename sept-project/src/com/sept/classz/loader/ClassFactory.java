@@ -9,14 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class ClassFactory extends ClassLoader {
 	private static ClassFactory classFactory = null;
 	private static final HashMap<String, Class<?>> hmClassz = new HashMap<>();
 	private static final HashMap<String, Object> hmObject = new HashMap<>();
 
-	public static final Object getObject(String classPath, boolean single) throws ApplicationException {
+	public static final Object getObject(String classPath, boolean single) throws AppException {
 		try {
 			if (!single) {// 非单利模式直接new
 				return getClassz(classPath).newInstance();
@@ -26,12 +26,12 @@ public class ClassFactory extends ClassLoader {
 				hmObject.put(classPath, getClassz(classPath).newInstance());
 			}
 			return hmObject.get(classPath);
-		} catch (InstantiationException | IllegalAccessException | ApplicationException e) {
-			throw new ApplicationException(e);
+		} catch (InstantiationException | IllegalAccessException | AppException e) {
+			throw new AppException(e);
 		}
 	}
 
-	public static final Class<?> getClassz(String classPath) throws ApplicationException {
+	public static final Class<?> getClassz(String classPath) throws AppException {
 		if (null == classFactory) {
 			classFactory = new ClassFactory();
 		}
@@ -43,11 +43,11 @@ public class ClassFactory extends ClassLoader {
 
 	}
 
-	private Class<?> genClass(String classPath) throws ApplicationException {
+	private Class<?> genClass(String classPath) throws AppException {
 		try {
 			return this.findClass(classPath);
 		} catch (ClassNotFoundException e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 	}
 

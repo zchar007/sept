@@ -8,8 +8,7 @@ import java.util.HashMap;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
 
 public class TypeUtil {
@@ -107,11 +106,11 @@ public class TypeUtil {
 	 * @param type
 	 * @param value
 	 * @return
-	 * @throws DataException
-	 * @throws DataException
-	 * @throws ApplicationException
+	 * @throws AppException
+	 * @throws AppException
+	 * @throws AppException
 	 */
-	public static Object getValueByType(String type, Object o) throws DataException, ApplicationException {
+	public static Object getValueByType(String type, Object o) throws AppException {
 		try {
 			if (TypeUtil.BLOB.equals(type)) {
 				return objectToBlob(o);
@@ -152,15 +151,15 @@ public class TypeUtil {
 			if (TypeUtil.NUMBER.equals(type)) {
 				return objectToBigDecimal(o);
 			}
-		} catch (DataException e) {
-			throw new DataException(e.getMessage());
+		} catch (AppException e) {
+			throw new AppException(e.getMessage());
 
 		}
 
 		return types;
 	}
 
-	public static Blob objectToBlob(Object o) throws DataException {
+	public static Blob objectToBlob(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -168,10 +167,10 @@ public class TypeUtil {
 		if (o instanceof Blob || cname.equals("java.sql.Blob")) {
 			return (Blob) o;
 		}
-		throw new DataException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static Clob objectToClob(Object o) throws DataException {
+	public static Clob objectToClob(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -179,10 +178,10 @@ public class TypeUtil {
 		if (o instanceof Clob || cname.equals("java.sql.Clob")) {
 			return (Clob) o;
 		}
-		throw new DataException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static DataObject objectToDataObject(Object o) throws DataException {
+	public static DataObject objectToDataObject(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -199,10 +198,10 @@ public class TypeUtil {
 			}
 
 		}
-		throw new DataException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static DataStore objectToDataStore(Object o) throws DataException {
+	public static DataStore objectToDataStore(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -219,10 +218,10 @@ public class TypeUtil {
 			}
 
 		}
-		throw new DataException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static String objectToString(Object o) throws DataException, ApplicationException {
+	public static String objectToString(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -483,12 +482,12 @@ public class TypeUtil {
 		return 0;
 	}
 
-	public static boolean objectToBoolean(Object o) throws DataException, ApplicationException {
+	public static boolean objectToBoolean(Object o) throws AppException {
 		String object = objectToString(o);
 		return "true".equals(object);
 	}
 
-	public static Date objectToDate(Object o) throws DataException, ApplicationException {
+	public static Date objectToDate(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -511,12 +510,12 @@ public class TypeUtil {
 		return DateUtil.formatStrToDate(object);
 	}
 
-	public static BigDecimal objectToBigDecimal(Object o) throws DataException, ApplicationException {
+	public static BigDecimal objectToBigDecimal(Object o) throws AppException {
 
 		return new BigDecimal(objectToString(o));
 	}
 
-	public static void main(String[] args) throws DataException, ApplicationException {
+	public static void main(String[] args) throws AppException {
 		Date str = (Date) getValueByType(TypeUtil.DATE, new java.sql.Timestamp(new Date().getTime()));
 		System.out.println(str);
 	}

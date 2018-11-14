@@ -2,10 +2,10 @@ package com.sept.util;
 
 import java.security.MessageDigest;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class Md5Util {
-	public static String hex_md5(String plainText) throws ApplicationException {
+	public static String hex_md5(String plainText) throws AppException {
 		String str_MD5 = plainText;
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -25,7 +25,7 @@ public class Md5Util {
 			}
 			str_MD5 = buf.toString();
 		} catch (Exception e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 		return str_MD5;
 	}

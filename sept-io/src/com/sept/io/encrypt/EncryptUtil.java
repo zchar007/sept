@@ -6,14 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.sept.exception.ApplicationException;
-
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.common.SharedInformationPool;
+import com.sept.exception.AppException;
 import com.sept.io.local.FileUtil;
 
 public class EncryptUtil {
@@ -75,7 +75,7 @@ public class EncryptUtil {
 	 * @since V1.0
 	 */
 	public static void encryptFile(File fromFile, String toUrl, String key, HashMap<String, Object> pdoConfig)
-			throws ApplicationException {
+			throws AppException {
 		encryptFile(fromFile, toUrl, key, null, pdoConfig);
 	}
 
@@ -89,7 +89,7 @@ public class EncryptUtil {
 	 * @date 创建时间 2017-6-9
 	 * @since V1.0
 	 */
-	public static void encryptFile(File fromFile, String toUrl, String key) throws ApplicationException {
+	public static void encryptFile(File fromFile, String toUrl, String key) throws AppException {
 		encryptFile(fromFile, toUrl, key, null, null);
 	}
 
@@ -99,13 +99,13 @@ public class EncryptUtil {
 	 * @param fromFile file来源，必须是文件，不可是文件夹
 	 * @param toUrl    文件的最终路径，次方法只接收最终的路径
 	 * @param key      秘钥
-	 * @param mp       :加密/解密过程中生成的各种数据存放的MessageStore
+	 * @param mp       :加密/解密过程中生成的各种数据存放的SharedInformationPool
 	 * @author 张超
 	 * @date 创建时间 2017-6-9
 	 * @since V1.0
 	 */
-	public static void encryptFile(File fromFile, String toUrl, String key, MessageStore mp,
-			HashMap<String, Object> pdoConfig) throws ApplicationException {
+	public static void encryptFile(File fromFile, String toUrl, String key, SharedInformationPool mp,
+			HashMap<String, Object> pdoConfig) throws AppException {
 		InputStream in = null;
 		OutputStream os = null;
 		try {
@@ -113,13 +113,13 @@ public class EncryptUtil {
 				pdoConfig = new HashMap<String, Object>();
 			}
 			if (!fromFile.isFile()) {
-				throw new ApplicationException("只能加密/解密文件！！");
+				throw new AppException("只能加密/解密文件！！");
 			}
 			File fto = new File(toUrl);
 			// 还未创建，无法判断，是文件就直接创建成文件夹了
 			// if (!fto.isDirectory()) {
 			// throw new
-			// ApplicationException("目标位置只能是文件夹！！"+fto+"--"+fto.isDirectory());
+			// AppException("目标位置只能是文件夹！！"+fto+"--"+fto.isDirectory());
 			// }
 			fto.mkdirs();
 			fto = new File(toUrl + File.separator + fromFile.getName());
@@ -137,8 +137,8 @@ public class EncryptUtil {
 
 			fto.createNewFile();
 			if (null != mp) {
-				mp.asynchPutMessage(ENCRYPT_FILE_SIZE, fromFile.length());
-				mp.asynchPutMessage(ENCRYPT_FILE_NAME, fromFile.getAbsolutePath());
+				mp.asynchPut(ENCRYPT_FILE_SIZE, fromFile.length());
+				mp.asynchPut(ENCRYPT_FILE_NAME, fromFile.getAbsolutePath());
 			}
 			in = new FileInputStream(fromFile);
 			os = new FileOutputStream(fto);
@@ -147,7 +147,7 @@ public class EncryptUtil {
 			while ((size = in.read(datas)) != -1) {
 				datas = encryptByte(datas, KEY);
 				if (null != mp) {
-					mp.putAndAddMessage(ENCRYPT_NOW_SIZE, Long.parseLong(size + ""));
+					mp.asynchPut4Add(ENCRYPT_NOW_SIZE, Long.parseLong(size + ""));
 				}
 				os.write(datas, 0, size);
 				os.flush();
@@ -156,7 +156,7 @@ public class EncryptUtil {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		} finally {
 			try {
 				os.flush();
@@ -180,7 +180,7 @@ public class EncryptUtil {
 	 * @since V1.0
 	 */
 	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key,
-			HashMap<String, Object> doConfig) throws ApplicationException {
+			HashMap<String, Object> doConfig) throws AppException {
 		return encryptFiles(fromFile, toUrl, key, null, doConfig);
 	}
 
@@ -194,7 +194,7 @@ public class EncryptUtil {
 	 * @date 创建时间 2017-6-9
 	 * @since V1.0
 	 */
-	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key) throws ApplicationException {
+	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key) throws AppException {
 		return encryptFiles(fromFile, toUrl, key, null, null);
 	}
 
@@ -204,13 +204,13 @@ public class EncryptUtil {
 	 * @param fromFile file来源，文件/文件夹均可
 	 * @param toUrl    文件的最终路径，次方法只接收最终的路径
 	 * @param key      秘钥
-	 * @param mp       :加密/解密过程中生成的各种数据存放的MessageStore
+	 * @param mp       :加密/解密过程中生成的各种数据存放的SharedInformationPool
 	 * @author 张超
 	 * @date 创建时间 2017-6-9
 	 * @since V1.0
 	 */
-	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key, MessageStore mp,
-			HashMap<String, Object> pdoConfig) throws ApplicationException {
+	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key, SharedInformationPool mp,
+			HashMap<String, Object> pdoConfig) throws AppException {
 		try {
 
 			String needRemovePath = fromFile.getAbsolutePath().substring(0,
@@ -221,16 +221,16 @@ public class EncryptUtil {
 			@SuppressWarnings("unchecked")
 			ArrayList<File> alFiles = (ArrayList<File>) pdo.get("files");
 			if (null != mp) {
-				mp.asynchPutMessage(ENCRYPT_ALL_SIZE, length);
-				mp.asynchPutMessage(ENCRYPT_DIRECTORY_NAME, fromFile.getAbsoluteFile());
+				mp.asynchPut(ENCRYPT_ALL_SIZE, length);
+				mp.asynchPut(ENCRYPT_DIRECTORY_NAME, fromFile.getAbsoluteFile());
 			}
-			ArrayList<HashMap<String, Object>> vdsFiles = new ArrayList<HashMap<String, Object>>();
+			DataStore vdsFiles = new DataStore();
 			File tf = new File(toUrl);
 			if (!tf.exists()) {
 				tf.mkdirs();
 			}
 			if (!tf.isDirectory()) {
-				throw new ApplicationException("目标路径必须为文件夹");
+				throw new AppException("目标路径必须为文件夹");
 			}
 
 			String realToUrl = tf.getAbsolutePath();
@@ -240,10 +240,9 @@ public class EncryptUtil {
 				String toUrlCell = realToUrl + File.separator
 						+ file.getAbsolutePath().substring(needRemovePath.length());
 				toUrlCell = toUrlCell.substring(0, toUrlCell.lastIndexOf(File.separator));
-				HashMap<String, Object> hmTemp = new HashMap<>();
-				hmTemp.put("file", file);
-				hmTemp.put("tourl", toUrlCell);
-				vdsFiles.add(hmTemp);
+				vdsFiles.addRow();
+				vdsFiles.put(vdsFiles.rowCount() - 1, "file", file);
+				vdsFiles.put(vdsFiles.rowCount() - 1, "tourl", toUrlCell);
 			}
 			// 以下是拆成10个线程，不足10个则一个个均摊
 			int[] everys = new int[10];
@@ -262,7 +261,7 @@ public class EncryptUtil {
 			ExecutorService uploadThreadPool = Executors.newFixedThreadPool(1000);
 			for (int i = 0; i < everys.length; i++) {
 				if (everys[i] > 0) {
-					ArrayList<HashMap<String, Object>> ds = new ArrayList<>();
+					DataStore ds = new DataStore();
 					for (int j = index; j < index + everys[i]; j++) {
 						ds.add(vdsFiles.get(i));
 					}
@@ -274,7 +273,7 @@ public class EncryptUtil {
 			}
 			return uploadThreadPool;
 		} catch (Exception e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 	}
 }

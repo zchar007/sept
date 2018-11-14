@@ -1,21 +1,21 @@
 package com.sept.io.encrypt;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sept.util.pool.MessagePool;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.common.SharedInformationPool;
 
 public class EncryptTread implements Runnable {
 	// private File fromFile;
 	// String toUrl;
 	// String key;
-	private ArrayList<HashMap<String, Object>> vdsFiles;
+	private DataStore vdsFiles;
 	private HashMap<String, Object> pdoConfig;
 	private String key;
-	MessageStore mp;
+	SharedInformationPool mp;
 
-	public EncryptTread(ArrayList<HashMap<String, Object>> vdsFiles, String key, MessageStore mp,
+	public EncryptTread(DataStore vdsFiles, String key, SharedInformationPool mp,
 			HashMap<String, Object> pdoConfig) {
 		super();
 		this.vdsFiles = vdsFiles;

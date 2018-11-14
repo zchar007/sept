@@ -8,7 +8,7 @@ import org.json.JSONException;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
+import com.sept.exception.AppException;
 
 public class DataObjectXML {
 	private final static String ROOT_TYPE = "d";
@@ -25,7 +25,7 @@ public class DataObjectXML {
 		this.typeList = "";
 	}
 
-	public void addPara(String key, Object value) throws DataException {
+	public void addPara(String key, Object value) throws AppException {
 		Element valueElement = this.root.addElement("p");
 		String valueType = this.pdo.getType(key);
 		if (valueType.equals(TypeUtil.CLOB) || valueType.equals(TypeUtil.BLOB)) {
@@ -57,14 +57,14 @@ public class DataObjectXML {
 
 	}
 
-	public Element getElement() throws DataException {
+	public Element getElement() throws AppException {
 		for (String key : pdo.keySet()) {
 			this.addPara(key, pdo.get(key));
 		}
 		return this.root.addAttribute("tl", com.sept.util.XMLUtil.encodeXML(this.typeList));
 	}
 
-	public static void main(String[] args) throws DataException, JSONException {
+	public static void main(String[] args) throws AppException, JSONException {
 		DataObject pdo = new DataObject();
 		for (int i = 0; i < 10; i++) {
 			pdo.put("i" + i, i);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
-import com.sept.exception.ApplicationException;;
+import com.sept.exception.AppException;;
 
 
 public final class CmdUtil {
@@ -20,7 +20,7 @@ public final class CmdUtil {
 	 */
 	public final static ArrayList<String> run(String cmd) throws Exception {
 		if (null == cmd || "".equals(cmd)) {
-			throw new ApplicationException("ÃüÁî´íÎó£¡£¡");
+			throw new AppException("ÃüÁî´íÎó£¡£¡");
 		}
 		BufferedReader brMessage = null, brError = null;
 		ArrayList<String> al = new ArrayList<String>();
@@ -50,7 +50,7 @@ public final class CmdUtil {
 			al.add("Process exitValue: " + exitVal);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		} finally {
 			if (null != brMessage) {
 				try {
@@ -73,7 +73,7 @@ public final class CmdUtil {
 
 	public final static void run(String cmd, JTextArea jta) throws Exception {
 		if (null == cmd || "".equals(cmd)) {
-			throw new ApplicationException("ÃüÁî´íÎó£¡£¡");
+			throw new AppException("ÃüÁî´íÎó£¡£¡");
 		}
 		BufferedReader brMessage = null, brError = null;
 
@@ -112,7 +112,7 @@ public final class CmdUtil {
 			jta.append("<error>" + e.getMessage() + "</error>\n\r");
 			jta.revalidate();
 			jta.repaint();
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		} finally {
 			if (null != brMessage) {
 				try {

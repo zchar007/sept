@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 /**
  * @author ZC6
@@ -112,12 +112,12 @@ public final class DateUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	private static Date formatNormStrToDate(String timeStr) throws ApplicationException {
+	private static Date formatNormStrToDate(String timeStr) throws AppException {
 		Calendar cal = Calendar.getInstance();
 		String yx = "4,6,8,10,12,14";
 		String dq = timeStr.length() + "";
 		if (yx.indexOf(dq) < 0) {
-			throw new ApplicationException("【" + timeStr + "】日期格式错误！！");
+			throw new AppException("【" + timeStr + "】日期格式错误！！");
 		}
 		while (timeStr.length() != 14) {
 			timeStr += "01";
@@ -129,44 +129,44 @@ public final class DateUtil {
 		int minutes = Integer.parseInt(timeStr.substring(10, 12));
 		int seconds = Integer.parseInt(timeStr.substring(12, 14));
 		if (month > 12 || month < 1) {
-			throw new ApplicationException("格式化字符串时,月份出错！【" + month + "】");
+			throw new AppException("格式化字符串时,月份出错！【" + month + "】");
 		}
 		if (day < 1) {
-			throw new ApplicationException("格式化字符串时,日出错！【" + day + "】");
+			throw new AppException("格式化字符串时,日出错！【" + day + "】");
 		}
 		// 如果是闰年
 		if (month == 2) {
 			if (isLeapYear(year)) {
 				if (day > 29) {
-					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是闰年，二月不得大于29天");
+					throw new AppException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是闰年，二月不得大于29天");
 				}
 			} else {
 				if (day > 28) {
-					throw new ApplicationException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是平年，二月不得大于28天");
+					throw new AppException("格式化字符串时,日出错！【" + day + "】,年份【" + year + "】是平年，二月不得大于28天");
 				}
 			}
 		}
 		if (month == 4 || month == 6 || month == 9 || month == 11) {
 			if (day > 30) {
-				throw new ApplicationException("当前月份为【" + month + "】，此月份不得大于30天");
+				throw new AppException("当前月份为【" + month + "】，此月份不得大于30天");
 			}
 		}
 		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 			if (day > 31) {
-				throw new ApplicationException("当前月份为【" + month + "】，此月份不得大于31天");
+				throw new AppException("当前月份为【" + month + "】，此月份不得大于31天");
 			}
 		}
 		// 小时的范围为0时到24时 [0,24)
 		if (hour >= 24 || hour < 0) {
-			throw new ApplicationException("小时的范围为 [0,24)，当前录入为【" + hour + "】");
+			throw new AppException("小时的范围为 [0,24)，当前录入为【" + hour + "】");
 		}
 		// 小时的范围为0时到24时 [0,24)
 		if (minutes >= 60 || minutes < 0) {
-			throw new ApplicationException("分钟的范围为 [0,60)，当前录入为【" + minutes + "】");
+			throw new AppException("分钟的范围为 [0,60)，当前录入为【" + minutes + "】");
 		}
 		// 小时的范围为0时到24时 [0,24)
 		if (seconds >= 60 || seconds < 0) {
-			throw new ApplicationException("秒的范围为 [0,60)，当前录入为【" + seconds + "】");
+			throw new AppException("秒的范围为 [0,60)，当前录入为【" + seconds + "】");
 		}
 		cal.set(year, month - 1, day, hour, minutes, seconds);
 		return cal.getTime();
@@ -180,7 +180,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-6-3
 	 * @since V1.0
 	 */
-	public final static Date formatStrToDate(String dateStr) throws ApplicationException {
+	public final static Date formatStrToDate(String dateStr) throws AppException {
 		String str = "";
 		for (int i = 0; i < dateStr.length(); i++) {
 			if (MathUtil.isNumber(dateStr.charAt(i) + "")) {
@@ -404,7 +404,7 @@ public final class DateUtil {
 	 * @date 创建时间 2017-6-6
 	 * @since V1.0
 	 */
-	public final static String calculateDateStrFormat(String dateStr) throws ApplicationException {
+	public final static String calculateDateStrFormat(String dateStr) throws AppException {
 		// String str = "yyyyMMddhhmmss";
 		// int[] index = {4,6,8,10,12};
 		// int nowIndex = 0;
@@ -418,7 +418,7 @@ public final class DateUtil {
 			}
 		}
 		if (count > 14) {
-			throw new ApplicationException("字符串【" + dateStr + "】不是有效的日期字符串！");
+			throw new AppException("字符串【" + dateStr + "】不是有效的日期字符串！");
 		}
 		String head = "";
 		String formatStr = formatSB.toString();
@@ -452,7 +452,7 @@ public final class DateUtil {
 	public final static boolean isDate(String dateStr) {
 		try {
 			formatNormStrToDate(dateStr);
-		} catch (ApplicationException e) {
+		} catch (AppException e) {
 			return false;
 		}
 		return true;
@@ -463,15 +463,15 @@ public final class DateUtil {
 	 * 
 	 * @param year
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static boolean isLeapYear(String year) throws ApplicationException {
+	public final static boolean isLeapYear(String year) throws AppException {
 		if (null == year || year.trim().isEmpty()) {
-			throw new ApplicationException("判断是否为闰年时，year为null");
+			throw new AppException("判断是否为闰年时，year为null");
 		}
 		String nowYear = StringUtil.trimAll(year);
 		if (nowYear.length() != 4) {
-			throw new ApplicationException("判断是否为闰年时，year不是4位的年");
+			throw new AppException("判断是否为闰年时，year不是4位的年");
 		}
 
 		int intYear = StringUtil.stringToInt(year);
@@ -479,9 +479,9 @@ public final class DateUtil {
 
 	}
 
-	public final static boolean isLeapYear(int intYear) throws ApplicationException {
+	public final static boolean isLeapYear(int intYear) throws AppException {
 		if (intYear > 9999 || intYear < 0) {
-			throw new ApplicationException("此方法仅能判断公元后的年份，且年份不能多于四位数");
+			throw new AppException("此方法仅能判断公元后的年份，且年份不能多于四位数");
 		}
 
 		// 整百年：能被400整除的是闰年
@@ -522,13 +522,13 @@ public final class DateUtil {
 	 * @param beginDate
 	 * @param endDate
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static int getMonthDifferenceBetweenTwoDate(Date beginDate, Date endDate) throws ApplicationException {
+	public final static int getMonthDifferenceBetweenTwoDate(Date beginDate, Date endDate) throws AppException {
 		if (beginDate == null)
-			throw new ApplicationException("传入参数[开始时间]为空");
+			throw new AppException("传入参数[开始时间]为空");
 		if (endDate == null)
-			throw new ApplicationException("传入参数[结束时间]为空");
+			throw new AppException("传入参数[结束时间]为空");
 		int year1 = StringUtil.stringToInt(formatDate(beginDate, "yyyy"));
 		int year2 = StringUtil.stringToInt(formatDate(endDate, "yyyy"));
 		int month1 = StringUtil.stringToInt(formatDate(beginDate, "MM"));
@@ -547,7 +547,7 @@ public final class DateUtil {
 
 	}
 
-	private static int getLastDayOfMonth(Date date) throws ApplicationException {
+	private static int getLastDayOfMonth(Date date) throws AppException {
 		int year = StringUtil.stringToInt(formatDate(date, "yyyy"));
 		int month = StringUtil.stringToInt(formatDate(date, "MM"));
 		// 如果是闰年
@@ -573,9 +573,9 @@ public final class DateUtil {
 	 * @param year  年份
 	 * @param month 月份
 	 * @return 天数
-	 * @throws ApplicationException 
+	 * @throws AppException 
 	 */
-	public static final int getDaysInMonth(int year, int month) throws ApplicationException {
+	public static final int getDaysInMonth(int year, int month) throws AppException {
 		switch (month) {
 		case 1:
 		case 3:

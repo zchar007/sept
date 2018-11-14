@@ -20,7 +20,7 @@ import oracle.sql.BLOB;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class FileIOTool {
 
@@ -36,7 +36,7 @@ public class FileIOTool {
 	 */
 	@SuppressWarnings("resource")
 	public static void fileWrite(String filePath, String fileContent,
-			boolean appended) throws ApplicationException {
+			boolean appended) throws AppException {
 		String path = filePath.substring(0,
 				filePath.lastIndexOf(File.separator));
 		File dirFile = new File(path);
@@ -47,17 +47,17 @@ public class FileIOTool {
 		try {
 			writer = new FileWriter(filePath, appended);
 		} catch (Exception e) {
-			throw new ApplicationException("创建文件错误:" + e.getMessage());
+			throw new AppException("创建文件错误:" + e.getMessage());
 		}
 		try {
 			writer.write(fileContent);
 		} catch (Exception e) {
-			throw new ApplicationException("写文件内容错误:" + e.getMessage());
+			throw new AppException("写文件内容错误:" + e.getMessage());
 		}
 		try {
 			writer.close();
 		} catch (Exception e) {
-			throw new ApplicationException("关闭文件错误:" + e.getMessage());
+			throw new AppException("关闭文件错误:" + e.getMessage());
 		}
 	}
 
@@ -71,18 +71,18 @@ public class FileIOTool {
 	 */
 	@Deprecated
 	public static void fileWrite(String filePath, String fileContent)
-			throws ApplicationException {
+			throws AppException {
 		fileWrite(filePath, fileContent, false);
 	}
 
 	public static void writeBlobToResponse(Blob blob, String filename,
-			HttpServletResponse response, DataObject para) throws ApplicationException {
+			HttpServletResponse response, DataObject para) throws AppException {
 		writeBlobToResponse(blob, filename, response);
 	}
 
 	@Deprecated
 	public static void writeByteToResponse(byte[] filebyte, String filename,
-			HttpServletResponse response, DataObject para) throws ApplicationException {
+			HttpServletResponse response, DataObject para) throws AppException {
 		writeByteToResponse(filebyte, filename, response);
 	}
 
@@ -93,11 +93,11 @@ public class FileIOTool {
 	 * @param response
 	 * @param filebyte
 	 * @param filename
-	 * @throws ApplicationException
+	 * @throws AppException
 	 * @throws
 	 */
 	public static void writeByteToResponse(byte[] filebyte, String filename,
-			HttpServletResponse response) throws ApplicationException {
+			HttpServletResponse response) throws AppException {
 		OutputStream toClient = null;
 		if (filebyte != null) {
 			try {
@@ -123,12 +123,12 @@ public class FileIOTool {
 						toClient.close();
 					}
 				} catch (Exception e) {
-					throw new ApplicationException("文件读取异常，可能是文件损坏或不存在!错误信息为："
+					throw new AppException("文件读取异常，可能是文件损坏或不存在!错误信息为："
 							+ e.getMessage());
 				}
 			}
 		} else {
-			throw new ApplicationException("该附件不存在");
+			throw new AppException("该附件不存在");
 		}
 	}
 
@@ -139,11 +139,11 @@ public class FileIOTool {
 	 * @param filebyte
 	 * @param filename
 	 * @param response
-	 * @throws ApplicationException
+	 * @throws AppException
 	 * @throws
 	 */
 	public static void writeBlobToResponse(Blob blob, String filename,
-			HttpServletResponse response) throws ApplicationException {
+			HttpServletResponse response) throws AppException {
 		byte[] filebyte = null;
 		if (blob != null) {
 			try {
@@ -151,11 +151,11 @@ public class FileIOTool {
 				filebyte = blob.getBytes(1, zbnrLen);
 				writeByteToResponse(filebyte, filename, response);
 			} catch (SQLException e) {
-				throw new ApplicationException("文件读取异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件读取异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			}
 		} else {
-			throw new ApplicationException("该附件不存在");
+			throw new AppException("该附件不存在");
 		}
 	}
 
@@ -167,10 +167,10 @@ public class FileIOTool {
 	 * @param filepath
 	 *            ：服务器中的文件路径
 	 * @param filename
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public static void saveFileToResponse(String filepath, String filename,
-			HttpServletResponse response) throws ApplicationException {
+			HttpServletResponse response) throws AppException {
 		OutputStream outputstream = null; // 下载流
 		FileInputStream inputstream = null;
 
@@ -202,7 +202,7 @@ public class FileIOTool {
 					inputstream.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("文件读取异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件读取异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			}
 		}
@@ -215,10 +215,10 @@ public class FileIOTool {
 	 * @param filebyte
 	 * @param filepath
 	 *            :路径名+文件名
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public static void writeByteToServer(byte[] filebyte, String filepath,
-			String filename) throws ApplicationException {
+			String filename) throws AppException {
 		ByteArrayInputStream inputstream = null;
 		FileOutputStream outputstream = null;
 		try {
@@ -239,7 +239,7 @@ public class FileIOTool {
 				}
 			}
 		} catch (IOException e) {
-			throw new ApplicationException("文件读取异常，可能是文件损坏或不存在!错误信息为：" + e.getMessage());
+			throw new AppException("文件读取异常，可能是文件损坏或不存在!错误信息为：" + e.getMessage());
 		} finally {
 			try {
 				if (outputstream != null) {
@@ -249,7 +249,7 @@ public class FileIOTool {
 					inputstream.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("文件读取异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件读取异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			}
 		}
@@ -261,10 +261,10 @@ public class FileIOTool {
 	 * @author:郑其荣 Oct 20, 2008
 	 * @param file
 	 * @param attachFile
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public static void saveAttachFileToServer(CommonsMultipartFile attachFile,
-			String filepath, String filename) throws ApplicationException {
+			String filepath, String filename) throws AppException {
 
 		FileOutputStream outputstream = null;
 		ByteArrayInputStream inputstream = null;
@@ -282,7 +282,7 @@ public class FileIOTool {
 			}
 			outputstream.flush();
 		} catch (Exception e) {
-			throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为：" + e.getMessage());
+			throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为：" + e.getMessage());
 		} finally {
 			try {
 				if (outputstream != null) {
@@ -292,7 +292,7 @@ public class FileIOTool {
 					inputstream.close();
 				}
 			} catch (Exception e) {
-				throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			}
 		}
@@ -304,10 +304,10 @@ public class FileIOTool {
 	 * @author:郑其荣 Oct 20, 2008
 	 * @param blob
 	 * @param attachfile
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public static void saveAttachFileToBlob(CommonsMultipartFile attachfile,
-			BLOB blob) throws ApplicationException {
+			BLOB blob) throws AppException {
 		if (attachfile != null) {
 			OutputStream outputstream = null;
 			ByteArrayInputStream inputstream = null;
@@ -321,7 +321,7 @@ public class FileIOTool {
 				}
 				outputstream.flush();
 			} catch (Exception e) {
-				throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			} finally {
 				try {
@@ -332,7 +332,7 @@ public class FileIOTool {
 						inputstream.close();
 					}
 				} catch (Exception e) {
-					throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为："
+					throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为："
 							+ e.getMessage());
 				}
 			}
@@ -345,10 +345,10 @@ public class FileIOTool {
 	 * @author:郑其荣 Oct 20, 2008
 	 * @param blob
 	 * @param attachfile
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 
-	public static void saveFileToBlob(File file, BLOB blob) throws ApplicationException {
+	public static void saveFileToBlob(File file, BLOB blob) throws AppException {
 		if (file != null) {
 			OutputStream outputstream = null;
 			FileInputStream inputstream = null;
@@ -362,7 +362,7 @@ public class FileIOTool {
 				}
 				outputstream.flush();
 			} catch (Exception e) {
-				throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为："
+				throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为："
 						+ e.getMessage());
 			} finally {
 				try {
@@ -373,7 +373,7 @@ public class FileIOTool {
 						inputstream.close();
 					}
 				} catch (Exception e) {
-					throw new ApplicationException("文件写入异常，可能是文件损坏或不存在!错误信息为："
+					throw new AppException("文件写入异常，可能是文件损坏或不存在!错误信息为："
 							+ e.getMessage());
 				}
 			}
@@ -384,12 +384,12 @@ public class FileIOTool {
 	 * 从指定文件中获取字节流数据
 	 * 
 	 * @author wf
-	 * @throws ApplicationException
+	 * @throws AppException
 	 * @throws IOException
 	 * @date 创建时间 May 29, 2010
 	 * @since V1.0
 	 */
-	public static byte[] getBytesFromFile(File file) throws ApplicationException,
+	public static byte[] getBytesFromFile(File file) throws AppException,
 			IOException {
 		InputStream is = null;
 		try {
@@ -411,9 +411,9 @@ public class FileIOTool {
 			is.close();
 			return bytes;
 		} catch (FileNotFoundException e) {
-			throw new ApplicationException("没有找到指定文件.错误信息为：" + e.getMessage());
+			throw new AppException("没有找到指定文件.错误信息为：" + e.getMessage());
 		} catch (IOException e) {
-			throw new ApplicationException("读取文件内容异常.错误信息为：" + e.getMessage());
+			throw new AppException("读取文件内容异常.错误信息为：" + e.getMessage());
 		} finally {
 			if (is != null)
 				is.close();
@@ -428,20 +428,20 @@ public class FileIOTool {
 	 * @since V1.0
 	 */
 	public static void writeBytesToFile(byte[] bytes, File file)
-			throws ApplicationException {
+			throws AppException {
 		OutputStream out;
 		try {
 			out = new FileOutputStream(file);
 			out.write(bytes);
 			out.close();
 		} catch (FileNotFoundException e) {
-			throw new ApplicationException("没有找到指定文件.错误信息为：" + e.getMessage());
+			throw new AppException("没有找到指定文件.错误信息为：" + e.getMessage());
 		} catch (IOException e) {
-			throw new ApplicationException("读取文件内容异常.错误信息为：" + e.getMessage());
+			throw new AppException("读取文件内容异常.错误信息为：" + e.getMessage());
 		}
 	}
 
-	public static String getImageStrByImage(File image) throws ApplicationException {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+	public static String getImageStrByImage(File image) throws AppException {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
 		InputStream in = null;
 		byte[] data = null;
 		// 读取图片字节数组
@@ -451,27 +451,27 @@ public class FileIOTool {
 			in.read(data);
 			in.close();
 		} catch (IOException e) {
-			throw new ApplicationException("图片转成Base64编码时出错");
+			throw new AppException("图片转成Base64编码时出错");
 		}
 		// 对字节数组Base64编码
 		return SecUtil.base64Encode(data); // 返回Base64编码过的字节数组字符串
 	}
 
 	public static String getImageStrByMultipartImage(CommonsMultipartFile image)
-			throws ApplicationException {
+			throws AppException {
 		// 对字节数组Base64编码
 		return SecUtil.base64Encode(image.getBytes()); // 返回Base64编码过的字节数组字符串
 	}
 
 	public static String getImageStrByBlob(Blob image) throws SQLException,
-			ApplicationException {
+			AppException {
 		int zbnrLen = (new BigDecimal(image.length())).intValue();
 		byte[] filebyte = image.getBytes(1, zbnrLen);
 		// 对字节数组Base64编码
 		return SecUtil.base64Encode(filebyte); // 返回Base64编码过的字节数组字符串
 	}
 
-	public static byte[] getImageByImageStr(String imgStr) throws ApplicationException { // 对字节数组字符串进行Base64解码并生成图片
+	public static byte[] getImageByImageStr(String imgStr) throws AppException { // 对字节数组字符串进行Base64解码并生成图片
 		if (imgStr == null) // 图像数据为空
 			return null;
 		// Base64解码

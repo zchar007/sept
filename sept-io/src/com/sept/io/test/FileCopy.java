@@ -8,7 +8,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.sept.exception.AppException;
-import com.sept.io.exception.IOException;
 import com.sept.io.local.FileLineReader;
 import com.sept.io.local.FileUtil;
 
@@ -39,6 +38,7 @@ public class FileCopy {
 		File toFile = new File(toUrl);
 		HashMap<String, Object> filess = FileUtil.getFilesFormFile(fromFile, types);
 		long allSize = (long) filess.get("length");
+		@SuppressWarnings("unchecked")
 		ArrayList<File> alFile = (ArrayList<File>) filess.get("files");
 		progressBar.setAllSize(allSize);
 		progressBar.setAllNumber(alFile.size());
@@ -76,7 +76,7 @@ public class FileCopy {
 					i--;
 				}
 				for (int i = 0; i < alFiles.size(); i++) {
-					System.out.println(alFiles.get(i).size());
+					// System.out.println(alFiles.get(i).size());
 					executor.execute(new CopyThread(alFiles.get(i), progressBar));
 				}
 			}
@@ -138,7 +138,7 @@ public class FileCopy {
 
 	}
 
-	public void startCopyByFile() throws AppException, IOException {
+	public void startCopyByFile() throws AppException {
 		new Thread(new Runnable() {
 
 			@Override
@@ -154,13 +154,10 @@ public class FileCopy {
 				HashMap<String, Object> hmReturn = null;
 				try {
 					hmReturn = FileUtil.getFilesFormFile(fromFile, types, filePathFilePath);
-				} catch (AppException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (AppException e1) {
+					e1.printStackTrace();
 				}
+
 				long allSize = (long) hmReturn.get("length");
 				int number = (int) hmReturn.get("number");
 				progressBar.setAllSize(allSize);
@@ -175,7 +172,7 @@ public class FileCopy {
 					FileLineReader flr = null;
 					try {
 						flr = new FileLineReader(filePathFilePath);
-					} catch (IOException e) {
+					} catch (AppException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -198,7 +195,7 @@ public class FileCopy {
 					}
 					try {
 						flr.close();
-					} catch (IOException e) {
+					} catch (AppException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.sept.exception.ApplicationException;
-import com.sept.io.exception.IOException;
+import com.sept.exception.AppException;
 
 public final class FileUtil {
 	/**
@@ -24,12 +23,12 @@ public final class FileUtil {
 	 * @param path
 	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
-	 * @throws IOException
+	 * @throws AppException
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormPath(String path, String filter, String resultFile)
-			throws ApplicationException, IOException {
+			throws AppException {
 		File file = new File(path);
 		return getFilesFormFile(file, filter, resultFile);
 	}
@@ -40,12 +39,12 @@ public final class FileUtil {
 	 * @param path
 	 * @param fliter ：要获取的后缀名串
 	 * @author 张超
-	 * @throws IOException
+	 * @throws AppException
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormFile(File file, String filter, String resultFile)
-			throws ApplicationException, IOException {
+			throws AppException, AppException {
 		HashMap<String, Object> hm = new HashMap<>();
 		long size = 0;
 		int fileNumber = 0;
@@ -103,8 +102,7 @@ public final class FileUtil {
 	 * @date 创建时间 2017-5-27
 	 * @since V1.0
 	 */
-	public final static HashMap<String, Object> getFilesFormPath(String path, String filter)
-			throws ApplicationException {
+	public final static HashMap<String, Object> getFilesFormPath(String path, String filter) throws AppException {
 		File file = new File(path);
 		return getFilesFormFile(file, filter);
 	}
@@ -119,7 +117,7 @@ public final class FileUtil {
 	 * @since V1.0
 	 */
 	@SuppressWarnings("unchecked")
-	public final static HashMap<String, Object> getFilesFormFile(File file, String filter) throws ApplicationException {
+	public final static HashMap<String, Object> getFilesFormFile(File file, String filter) throws AppException {
 		HashMap<String, Object> pdo = new HashMap<String, Object>();
 		ArrayList<File> alFiles = new ArrayList<File>();
 		long size = 0;
@@ -193,7 +191,7 @@ public final class FileUtil {
 	// ///////////////////////////////////
 	// /////////以下还未验证正确性//////////////
 	// ///////////////////////////////////
-	public final static byte[] getContent(String filePath) throws IOException {
+	public final static byte[] getContent(String filePath) throws AppException {
 		try {
 			File file = new File(filePath);
 			long fileSize = file.length();
@@ -215,7 +213,7 @@ public final class FileUtil {
 			}
 			return buffer;
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		}
 	}
 
@@ -224,15 +222,15 @@ public final class FileUtil {
 	 * 
 	 * @param filename
 	 * @return
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public final static byte[] toByteArray(String filename) throws IOException {
+	public final static byte[] toByteArray(String filename) throws AppException {
 		ByteArrayOutputStream bos = null;
 		BufferedInputStream in = null;
 		try {
 			File f = new File(filename);
 			if (!f.exists()) {
-				throw new IOException("文件[" + filename + "]不存在！");
+				throw new AppException("文件[" + filename + "]不存在！");
 			}
 
 			bos = new ByteArrayOutputStream((int) f.length());
@@ -246,17 +244,17 @@ public final class FileUtil {
 			}
 			return bos.toByteArray();
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		} finally {
 			try {
 				in.close();
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
+				throw new AppException(-12, e.getMessage());
 			}
 			try {
 				bos.close();
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
+				throw new AppException(-12, e.getMessage());
 			}
 		}
 	}
@@ -266,9 +264,9 @@ public final class FileUtil {
 	 * 
 	 * @param filename
 	 * @return
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public final static byte[] toByteArray2(String filename) throws IOException {
+	public final static byte[] toByteArray2(String filename) throws AppException {
 		FileChannel channel = null;
 		FileInputStream fs = null;
 
@@ -286,17 +284,17 @@ public final class FileUtil {
 			}
 			return byteBuffer.array();
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		} finally {
 			try {
 				channel.close();
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
+				throw new AppException(-12, e.getMessage());
 			}
 			try {
 				fs.close();
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
+				throw new AppException(-12, e.getMessage());
 			}
 		}
 	}
@@ -306,9 +304,9 @@ public final class FileUtil {
 	 * 
 	 * @param filename
 	 * @return
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public final static byte[] toByteArray3(String filename) throws IOException {
+	public final static byte[] toByteArray3(String filename) throws AppException {
 
 		FileChannel fc = null;
 		RandomAccessFile raf = null;
@@ -325,18 +323,18 @@ public final class FileUtil {
 			fc.close();
 			return result;
 		} catch (Exception e) {
-			throw new IOException(-11, e.getMessage());
+			throw new AppException(-11, e.getMessage());
 		} finally {
 			try {
 				raf.close();
 				fc.close();
 			} catch (Exception e) {
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
 
-	public static void main(String[] args) throws ApplicationException, IOException {
+	public static void main(String[] args) throws AppException {
 		HashMap<String, Object> pdo = FileUtil.getFilesFormPath("F:\\仓库_待整理\\[白鹿原]第58集_bd.mp4", "");
 
 		System.out.println(pdo);

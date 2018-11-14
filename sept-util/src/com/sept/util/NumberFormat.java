@@ -3,7 +3,7 @@ package com.sept.util;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 /**
  * 还属于测试中的类 银行、单位和个人填写的各种票据和结算凭证是办理支付结算和现金收付的重要依据，直接关系到支付结算的准确、及时和安全。票据和结算凭证是银行、
@@ -42,7 +42,7 @@ public class NumberFormat {
 	private static final char[] CHINESE_CARRY = { '元', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟', '兆', '拾',
 			'佰', '仟', '万', '拾', '佰', '仟' };
 
-	public static void main(String[] args) throws ApplicationException {
+	public static void main(String[] args) throws AppException {
 		// String str = "11118200000.34";
 		// System.out.println(formatToChinese(str));
 		// System.out.println(DataFormat.numberToChinese(11118200000.34));
@@ -74,11 +74,11 @@ public class NumberFormat {
 
 	}
 
-	public static String formatToChinese(double vMoney) throws ApplicationException {
+	public static String formatToChinese(double vMoney) throws AppException {
 		return formatToChinese(Double.toString(vMoney));
 	}
 
-	public static String formatToChinese(String vMoney) throws ApplicationException {
+	public static String formatToChinese(String vMoney) throws AppException {
 		// 是不是数字格式,不是则直接报错
 		Double.parseDouble(vMoney);
 		String zheng = vMoney;
@@ -90,7 +90,7 @@ public class NumberFormat {
 			xiao = strTemp[1];
 		}
 		if (zheng.length() > CHINESE_CARRY.length || xiao.length() > 2) {
-			throw new ApplicationException("数额太大或小数太多:" + vMoney);
+			throw new AppException("数额太大或小数太多:" + vMoney);
 		}
 		String chineseStr = "";
 		int carry = zheng.length() - 1;

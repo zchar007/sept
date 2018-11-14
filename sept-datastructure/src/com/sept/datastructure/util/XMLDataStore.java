@@ -9,18 +9,17 @@ import org.dom4j.io.SAXReader;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class XMLDataStore {
 	private Element element;
 	private String typelist;
 
-	public XMLDataStore(String xmlStr) throws DataException {
+	public XMLDataStore(String xmlStr) throws AppException {
 		try {
 			this.element = new SAXReader().read(new ByteArrayInputStream(xmlStr.getBytes())).getRootElement();
 		} catch (DocumentException e) {
-			throw new DataException(e);
+			throw new AppException(e);
 		}
 		this.typelist = com.sept.util.XMLUtil.decodeXML(element.attributeValue("tl"));
 	}
@@ -30,17 +29,17 @@ public class XMLDataStore {
 		this.typelist = com.sept.util.XMLUtil.decodeXML(element.attributeValue("tl"));
 	}
 
-	private DataStore parseDataStore() throws DataException, ApplicationException {
+	private DataStore parseDataStore() throws AppException {
 		if (null == element) {
 			return (DataStore) null;
 		}
 		DataStore pds = new DataStore();
 		String type = com.sept.util.XMLUtil.decodeXML(element.attributeValue("t"));
 		if (!TypeUtil.DATASTORE.equals(type)) {
-			throw new DataException("所要解析的xml不是标准的 DataStore XML");
+			throw new AppException("所要解析的xml不是标准的 DataStore XML");
 		}
 		if (!element.getName().toUpperCase().equals("D")) {
-			throw new DataException("解析xml格式的DataStore时出错,开始必须以<d>标签为根节点!");
+			throw new AppException("解析xml格式的DataStore时出错,开始必须以<d>标签为根节点!");
 		}
 		// 类型
 
@@ -48,7 +47,7 @@ public class XMLDataStore {
 			Element element1 = (Element) it.next();
 
 			if (!element1.getName().toUpperCase().equals("R")) {
-				throw new DataException("解析xml格式的DataStore时出错,开始必须以<d>标签为根节点!");
+				throw new AppException("解析xml格式的DataStore时出错,开始必须以<d>标签为根节点!");
 			}
 			element1.addAttribute("tl", this.typelist);//tl:typelist
 			// DataObject下的元素都有key
@@ -60,7 +59,7 @@ public class XMLDataStore {
 		return pds;
 	}
 
-	public DataStore getDataStore() throws DataException, ApplicationException {
+	public DataStore getDataStore() throws AppException {
 		return this.parseDataStore();
 
 	}

@@ -8,7 +8,7 @@ import java.util.Date;
 import org.safehaus.uuid.UUID;
 import org.safehaus.uuid.UUIDGenerator;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public final class StringUtil {
 	/**
@@ -87,13 +87,13 @@ public final class StringUtil {
 	/**
 	 * 将字符串转化为int，不能转化抛异常。
 	 * 
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static int stringToInt(String intString) throws ApplicationException {
+	public final static int stringToInt(String intString) throws AppException {
 		int iRet = 0;
 
 		if (intString == null || intString.equalsIgnoreCase("")) {
-			throw new ApplicationException("传入参数为空!");
+			throw new AppException("传入参数为空!");
 		}
 
 		intString = intString.trim();
@@ -105,7 +105,7 @@ public final class StringUtil {
 			try {
 				iRet = (int) Double.valueOf(intString).doubleValue();
 			} catch (NumberFormatException e1) {
-				throw new ApplicationException("StringUtil.stringToDouble出错，传入的字符串["
+				throw new AppException("StringUtil.stringToDouble出错，传入的字符串["
 						+ intString + "]不能被转换为整型!");
 			}
 
@@ -117,19 +117,19 @@ public final class StringUtil {
 	/**
 	 * 将字符串转化为int，不能转化抛异常。
 	 * 
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static double stringToDouble(String s) throws ApplicationException {
+	public final static double stringToDouble(String s) throws AppException {
 		double i = 0;
 		if (s == null || s.equalsIgnoreCase("")) {
-			throw new ApplicationException("传入参数为空!");
+			throw new AppException("传入参数为空!");
 		}
 		s = s.trim();
 		try {
 			DecimalFormat df = new DecimalFormat("");
 			i = df.parse(s).doubleValue();
 		} catch (ParseException e) {
-			throw new ApplicationException("StringUtil.stringToDouble出错，传入的字符串[" + s
+			throw new AppException("StringUtil.stringToDouble出错，传入的字符串[" + s
 					+ "]不是一个包含数字的字符串!");
 		}
 		return i;
@@ -142,9 +142,9 @@ public final class StringUtil {
 	 * @param String
 	 *            str
 	 * @return String
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static String getPy(String str) throws ApplicationException {
+	public final static String getPy(String str) throws AppException {
 		return str;
 		// return GetPy.getGBKpy(str);
 	}
@@ -206,10 +206,10 @@ public final class StringUtil {
 	 * @param start
 	 * @param end
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public final static String chnSubstring(String chinaString, int start, int end)
-			throws ApplicationException {
+			throws AppException {
 		if (null == chinaString)
 			return null;
 		int startIdx = 0, endIdx = chinaString.length();
@@ -335,9 +335,9 @@ public final class StringUtil {
 	 * @author:郑其荣 May 13, 2009
 	 * @param card
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public final static int getAgeFromCard(String card) throws ApplicationException {
+	public final static int getAgeFromCard(String card) throws AppException {
 		int age = -1;
 		int length = card.length();
 		String birthday = "";
@@ -348,7 +348,7 @@ public final class StringUtil {
 		} else if (length == 18)
 			birthday = card.substring(6, 14);
 		else
-			throw new ApplicationException("错误的身份证号!");
+			throw new AppException("错误的身份证号!");
 		// 获取当前时间
 		Date currentTime = new Date();
 		// 计算出当前时间与出生年月的月数差
@@ -357,7 +357,7 @@ public final class StringUtil {
 
 		// 预防身份证信息有错
 		if (diffMonths < 0) {
-			throw new ApplicationException("错误的身份证号：出生日期大于当前日期!");
+			throw new AppException("错误的身份证号：出生日期大于当前日期!");
 		}
 
 		// 计算年龄，不满12个月忽略
@@ -369,13 +369,13 @@ public final class StringUtil {
 	/**
 	 * 判断身份证号码是否合法
 	 */
-	public final static String validateCard(String p_sfzhm) throws ApplicationException {
+	public final static String validateCard(String p_sfzhm) throws AppException {
 		int vsfz_sum, vsfz_vi, vsfz_si, vsfz_wi, vsfz_vj, vsfz_res;
 		String vsfz_temp, vsfz_str, vsfz_a, vsfz_jg;
 		String vsfz_err = "0";
 
 		if (p_sfzhm == null) {
-			throw new ApplicationException("传入的身份证号码为空!");
+			throw new AppException("传入的身份证号码为空!");
 		}
 		p_sfzhm = p_sfzhm.trim();
 		if (p_sfzhm.length() == 18) {
@@ -432,12 +432,12 @@ public final class StringUtil {
 	 * @param limitLength
 	 *            截取的长度
 	 * @return 截取后的字符串
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 	public final static String leftb(String strParameter, int limitLength)
-			throws ApplicationException {
+			throws AppException {
 		if (strParameter == null) {
-			throw new ApplicationException("输入的字符串参数为空!");
+			throw new AppException("输入的字符串参数为空!");
 		}
 		String return_str = strParameter; // 返回的字符串
 		int temp_int = 0; // 将汉字转换成两个字符后的字符串长度
@@ -507,7 +507,7 @@ public final class StringUtil {
 		}
 	}
 
-	public final static void main(String[] args) throws ApplicationException {
+	public final static void main(String[] args) throws AppException {
 		System.out.println(trim("ds	ni 　skasdsa"));
 	}
 }

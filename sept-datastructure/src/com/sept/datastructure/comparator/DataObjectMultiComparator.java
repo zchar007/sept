@@ -1,7 +1,7 @@
 package com.sept.datastructure.comparator;
 
 import com.sept.datastructure.DataObject;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class DataObjectMultiComparator extends DataObjectComparator {
 
@@ -33,7 +33,7 @@ public class DataObjectMultiComparator extends DataObjectComparator {
 			int tmpResult = 0;
 			try {
 				tmpResult = compareCell(o1Value, o2Value);
-			} catch (ApplicationException e) {
+			} catch (AppException e) {
 				e.printStackTrace();
 			}
 			if (tmpResult == 0)

@@ -4,20 +4,18 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Clob;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.sept.datastructure.comparator.ObjectComparator;
-import com.sept.datastructure.exception.DataException;
+import com.sept.datastructure.comparator.ComparaUtil;
 import com.sept.datastructure.util.JSONUtil;
 import com.sept.datastructure.util.TypeUtil;
 import com.sept.datastructure.util.XMLUtil;
-import com.sept.exception.ApplicationException;
-import com.sept.util.BooleanUtil;
+import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
+import com.sept.util.bools.comparator.Comparator;
 
 /**
  * 新的DataObject ,取值时不被限制类型
@@ -69,11 +67,11 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * 
 	 * @param key
 	 * @return
-	 * @throws DataException
+	 * @throws AppException
 	 */
-	public synchronized Object get(String key) throws DataException {
+	public synchronized Object get(String key) throws AppException {
 		if (!this.containsKey(key)) {
-			throw new DataException("不含有key为[" + key + "]的值！");
+			throw new AppException("不含有key为[" + key + "]的值！");
 		}
 		return super.get(key);
 	}
@@ -118,173 +116,144 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized int getInt(String key) throws DataException {
+	public synchronized int getInt(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER,
-					this.get(key));
+			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取int类型的【" + key + "】时出错：" + e.getMessage());
+			throw new AppException("获取int类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized double getDouble(String key) throws DataException {
+	public synchronized double getDouble(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE,
-					this.get(key));
+			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取double类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取double类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized long getLong(String key) throws DataException {
+	public synchronized long getLong(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (long) TypeUtil.getValueByType(TypeUtil.LONG, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取long类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取long类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized float getFloat(String key) throws DataException {
+	public synchronized float getFloat(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT,
-					this.get(key));
+			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取float类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取float类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized String getString(String key) throws DataException {
+	public synchronized String getString(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (String) TypeUtil.getValueByType(TypeUtil.STRING,
-					this.get(key));
+			return (String) TypeUtil.getValueByType(TypeUtil.STRING, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取String类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取String类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized String getDateToString(String key, String formatStr)
-			throws DataException {
+	public synchronized String getDateToString(String key, String formatStr) throws AppException {
 		key = getKey(key);
 		try {
-			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE,
-					this.get(key));
+			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
 			return DateUtil.formatDate(d, formatStr);
 		} catch (Exception e) {
-			throw new DataException("获取DataStore类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取DataStore类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized Date getDate(String key) throws DataException {
+	public synchronized Date getDate(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取Date类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取Date类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized BigDecimal getBigDecimal(String key)
-			throws DataException {
+	public synchronized BigDecimal getBigDecimal(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL,
-					this.get(key));
+			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取BigDecimal类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取BigDecimal类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized boolean getBoolean(String key) throws DataException {
+	public synchronized boolean getBoolean(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN,
-					this.get(key));
+			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取boolean类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取boolean类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized Blob getBlob(String key) throws DataException {
+	public synchronized Blob getBlob(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Blob) TypeUtil.getValueByType(TypeUtil.BLOB, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取Blob类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取Blob类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized Clob getClob(String key) throws DataException {
+	public synchronized Clob getClob(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Clob) TypeUtil.getValueByType(TypeUtil.CLOB, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取Clob类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取Clob类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized DataObject getDataObject(String key)
-			throws DataException {
+	public synchronized DataObject getDataObject(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT,
-					this.get(key));
+			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取DataObject类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取DataObject类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized DataStore getDataStore(String key) throws DataException {
+	public synchronized DataStore getDataStore(String key) throws AppException {
 		key = getKey(key);
 		try {
-			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE,
-					this.get(key));
+			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE, this.get(key));
 		} catch (Exception e) {
-			throw new DataException("获取DataStore类型的【" + key + "】时出错："
-					+ e.getMessage());
+			throw new AppException("获取DataStore类型的【" + key + "】时出错：" + e.getMessage());
 		}
 	}
 
-	public synchronized int getInt(String key, int defaultValue)
-			throws DataException {
+	public synchronized int getInt(String key, int defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER,
-					this.get(key));
+			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 		}
 	}
 
-	public synchronized double getDouble(String key, double defaultValue)
-			throws DataException {
+	public synchronized double getDouble(String key, double defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE,
-					this.get(key));
+			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized long getLong(String key, long defaultValue)
-			throws DataException {
+	public synchronized long getLong(String key, long defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (long) TypeUtil.getValueByType(TypeUtil.LONG, this.get(key));
@@ -294,36 +263,30 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized float getFloat(String key, float defaultValue)
-			throws DataException {
+	public synchronized float getFloat(String key, float defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT,
-					this.get(key));
+			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized String getString(String key, String defaultValue)
-			throws DataException {
+	public synchronized String getString(String key, String defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (String) TypeUtil.getValueByType(TypeUtil.STRING,
-					this.get(key));
+			return (String) TypeUtil.getValueByType(TypeUtil.STRING, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized String getDateToString(String key, String formatStr,
-			String defaultValue) throws DataException {
+	public synchronized String getDateToString(String key, String formatStr, String defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE,
-					this.get(key));
+			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
 			return DateUtil.formatDate(d, formatStr);
 		} catch (Exception e) {
 			return defaultValue;
@@ -331,8 +294,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Date getDate(String key, Date defaultValue)
-			throws DataException {
+	public synchronized Date getDate(String key, Date defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
@@ -342,32 +304,27 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized BigDecimal getBigDecimal(String key,
-			BigDecimal defaultValue) throws DataException {
+	public synchronized BigDecimal getBigDecimal(String key, BigDecimal defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL,
-					this.get(key));
+			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized boolean getBoolean(String key, boolean defaultValue)
-			throws DataException {
+	public synchronized boolean getBoolean(String key, boolean defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN,
-					this.get(key));
+			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized Blob getBlob(String key, Blob defaultValue)
-			throws DataException {
+	public synchronized Blob getBlob(String key, Blob defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Blob) TypeUtil.getValueByType(TypeUtil.BLOB, this.get(key));
@@ -377,8 +334,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Clob getClob(String key, Clob defaultValue)
-			throws DataException {
+	public synchronized Clob getClob(String key, Clob defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Clob) TypeUtil.getValueByType(TypeUtil.CLOB, this.get(key));
@@ -388,24 +344,20 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized DataObject getDataObject(String key,
-			DataObject defaultValue) throws DataException {
+	public synchronized DataObject getDataObject(String key, DataObject defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT,
-					this.get(key));
+			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
 		}
 	}
 
-	public synchronized DataStore getDataStore(String key,
-			DataStore defaultValue) throws DataException {
+	public synchronized DataStore getDataStore(String key, DataStore defaultValue) throws AppException {
 		key = getKey(key);
 		try {
-			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE,
-					this.get(key));
+			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE, this.get(key));
 		} catch (Exception e) {
 			return defaultValue;
 
@@ -417,9 +369,9 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * 
 	 * @param key
 	 * @return
-	 * @throws DataException
+	 * @throws AppException
 	 */
-	public synchronized String getType(String key) throws DataException {
+	public synchronized String getType(String key) throws AppException {
 		if (this.typeList.containsKey(key)) {
 			return this.typeList.get(key);
 		}
@@ -446,8 +398,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		this.typeList = typeList;
 	}
 
-	public synchronized void setTypeList(String typeListString)
-			throws DataException {
+	public synchronized void setTypeList(String typeListString) throws AppException {
 		if (null == typeListString) {
 			typeList = new LinkedHashMap<String, String>();
 		}
@@ -470,7 +421,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 				}
 			}
 		} catch (Exception e) {
-			throw new DataException(e);
+			throw new AppException(e);
 		}
 	}
 
@@ -483,9 +434,9 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * 获取类型
 	 * 
 	 * @return
-	 * @throws DataException
+	 * @throws AppException
 	 */
-	public synchronized String getTypeList() throws DataException {
+	public synchronized String getTypeList() throws AppException {
 		if (null == typeList) {
 			typeList = new LinkedHashMap<String, String>();
 		}
@@ -513,44 +464,24 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		return this.isLowerKey ? key.toLowerCase() : key;
 	}
 
-	public synchronized boolean filter(DataObject para) throws DataException, ApplicationException {
-		@SuppressWarnings("unchecked")
-		ArrayList<String> logicArray = (ArrayList<String>) para
-				.getObject("logicArray");
-		@SuppressWarnings("unchecked")
-		ArrayList<DataObject> booleanArray = (ArrayList<DataObject>) para
-				.getObject("booleanArray");
-		/**
-		 * 均不能是null logicArray可为空 (为空那么booleanArray长度不能大于1) booleanArray 可为空
-		 * 为空则返回true(默认相同)
-		 */
-		if (null == logicArray) {
-			throw new DataException(this.getClass().getName()
-					+ ":参数logicArray为null");
-		}
-		if (null == booleanArray) {
-			throw new DataException(this.getClass().getName()
-					+ ":参数logicArray为null");
-		}
-		if (logicArray.size() != booleanArray.size() - 1) {
-			throw new DataException(this.getClass().getName() + ":参数不匹配");
-		}
-		ArrayList<String> boolArr = new ArrayList<String>();
-		for (int i = 0; i < booleanArray.size(); i++) {
-			DataObject vdoTemp = booleanArray.get(i);
-			String columnName = vdoTemp.getString("cmpKey");
-			String operator = vdoTemp.getString("cmpOperator");
-			Object cmpLVal = getObject(columnName, null);
+	/**
+	 * 检索
+	 * @param comparator
+	 * @return
+	 * @throws AppException
+	 */
+	public boolean filter(Comparator comparator) throws AppException {
+		return ComparaUtil.match(this, comparator);
+	}
 
-			Object cmpRVal = vdoTemp.getObject("cmpRealValue");
-
-			boolean nowBool = ObjectComparator.compare(cmpLVal, cmpRVal,
-					operator);
-
-			boolArr.add(nowBool + "");
-		}
-		boolean isTrue = BooleanUtil.calBoolean(logicArray, boolArr);
-		return isTrue;
+	/**
+	 * 内部检索用，不会判断类型
+	 * @param comparator
+	 * @return
+	 * @throws AppException
+	 */
+	public boolean filterWithoutCheck(Comparator comparator) throws AppException {
+		return ComparaUtil.matchWithoutCheck(this, comparator);
 	}
 
 	/**
@@ -572,7 +503,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 					obj = ((DataStore) obj).clone();
 				}
 				doTemp.put(key, obj);
-			} catch (DataException e) {
+			} catch (AppException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -583,10 +514,9 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	/**
 	 * 当前深克隆只能覆盖DataStore和DataObject
 	 * 
-	 * @throws DataException
+	 * @throws AppException
 	 */
-	public synchronized DataObject clone(boolean isLowerKey)
-			throws DataException {
+	public synchronized DataObject clone(boolean isLowerKey) throws AppException {
 		// 需要重写
 		DataObject doTemp = new DataObject(isLowerKey);
 		doTemp.putAll(this);
@@ -611,7 +541,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		this.isLowerKey = isLowerKey;
 	}
 
-	public synchronized static void main(String[] args) throws DataException {
+	public synchronized static void main(String[] args) throws AppException {
 		DataObject pdo = new DataObject();
 
 		pdo.put("ny", DateUtil.getCurrentDate());
@@ -620,22 +550,20 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 
 	}
 
-	public String toJSON() throws DataException, ApplicationException {
+	public String toJSON() throws AppException {
 		return JSONUtil.toJson(this);
 	}
 
-	public String toXML() throws DataException {
+	public String toXML() throws AppException {
 		return XMLUtil.DataObjectToXmlString(this);
 	}
 
-	public final static DataObject parseFromJSON(String jsonStr)
-			throws DataException {
+	public final static DataObject parseFromJSON(String jsonStr) throws AppException {
 		return JSONUtil.JsonToDataObject(jsonStr);
 
 	}
 
-	public final static DataObject parseFromXML(String xmlStr)
-			throws DataException, ApplicationException {
+	public final static DataObject parseFromXML(String xmlStr) throws AppException {
 		return XMLUtil.XmlToDataObject(xmlStr);
 	}
 }

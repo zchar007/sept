@@ -2,7 +2,7 @@ package com.sept.util;
 
 import java.text.DecimalFormat;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 /**
  * 用于单位转换的类
@@ -192,7 +192,7 @@ public final class UnitConversionUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String formatMoneyToChinese(double vMoney) throws ApplicationException {
+	public final static String formatMoneyToChinese(double vMoney) throws AppException {
 		return formatMoneyToChinese(Double.toString(vMoney));
 	}
 
@@ -203,7 +203,7 @@ public final class UnitConversionUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String formatMoneyToChinese(String vMoney) throws ApplicationException {
+	public final static String formatMoneyToChinese(String vMoney) throws AppException {
 		// 是不是数字格式,不是则直接报错
 		Double.parseDouble(vMoney);
 		String zheng = vMoney;
@@ -215,7 +215,7 @@ public final class UnitConversionUtil {
 			xiao = strTemp[1];
 		}
 		if (zheng.length() > CHINESE_CARRY.length || xiao.length() > 2) {
-			throw new ApplicationException("数额太大或小数太多:" + vMoney);
+			throw new AppException("数额太大或小数太多:" + vMoney);
 		}
 		String chineseStr = "";
 		int carry = zheng.length() - 1;

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public final class JSONUtil {
 
 	@SuppressWarnings("unchecked")
-	 public static final String toJson(Object o) throws ApplicationException {
+	 public static final String toJson(Object o) throws AppException {
 		String cname = o.getClass().getName();
 		if (o instanceof String || cname.equals("java.lang.String") || o instanceof StringBuffer
 				|| cname.equals("java.lang.StringBuffer") || o instanceof StringBuilder
@@ -114,7 +114,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
-	public static final String map2Json(Map<String, Object> map) throws ApplicationException {
+	public static final String map2Json(Map<String, Object> map) throws AppException {
 		if (map.isEmpty())
 			return "{}";
 		StringBuilder sb = new StringBuilder(map.size() << 4);
@@ -133,7 +133,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
-	public static final String list2Json(List<Object> list) throws ApplicationException {
+	public static final String list2Json(List<Object> list) throws AppException {
 		if (list.size() == 0) {
 			return "{}";
 		}
@@ -141,7 +141,7 @@ public final class JSONUtil {
 		return toJson(DataObjectArray);
 	}
 
-	public static final String array2Json(Object[] array) throws ApplicationException {
+	public static final String array2Json(Object[] array) throws AppException {
 		if (array.length == 0)
 			return "[]";
 		StringBuilder sb = new StringBuilder(array.length << 4);

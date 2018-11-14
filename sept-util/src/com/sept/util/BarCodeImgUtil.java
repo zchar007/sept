@@ -16,7 +16,7 @@ import java.text.AttributedString;
 import javax.imageio.ImageIO;
 
 import com.lowagie.text.pdf.Barcode128;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class BarCodeImgUtil {
 	/**
@@ -129,7 +129,7 @@ public class BarCodeImgUtil {
 
 	// 获取39条形码的base64位编码
 	public static String get39BarCodeImageByte(int barCodeWidth, int barCodeHeight, String code)
-			throws IOException, ApplicationException {
+			throws IOException, AppException {
 
 		BufferedImage bi = get39BarCodeImage(barCodeWidth, barCodeHeight, code);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -152,7 +152,7 @@ public class BarCodeImgUtil {
 
 	// 获取39条形码的base64位编码
 	public static BufferedImage get39BarCodeImage(int barCodeWidth, int barCodeHeight, String code)
-			throws IOException, ApplicationException {
+			throws IOException, AppException {
 		if (null == code || 0 == code.length()) {
 			return null;
 		} else {

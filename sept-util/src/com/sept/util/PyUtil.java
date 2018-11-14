@@ -2,7 +2,7 @@ package com.sept.util;
 
 import java.io.UnsupportedEncodingException;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 import com.sept.exception.ExceptionNames;
 
 /**
@@ -594,9 +594,9 @@ public class PyUtil {
 	*     end;
 	 * </pre>
 	 * 
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static String getGB2312py(String hzString) throws ApplicationException {
+	public static String getGB2312py(String hzString) throws AppException {
 		if (hzString == null || hzString.length() == 0) {
 			return "";
 		}
@@ -605,7 +605,7 @@ public class PyUtil {
 		try {
 			eB = hzString.getBytes("GB2312");
 		} catch (UnsupportedEncodingException e) {
-			throw new ApplicationException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGB2312±àÂë");
+			throw new AppException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGB2312±àÂë");
 		}
 		String eRe = "";
 		int Hz_1 = 0, Hz_2 = 0;
@@ -642,10 +642,10 @@ public class PyUtil {
 	 * 
 	 * @param hzString
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
 
-	public static String getGBKpy(String hzString) throws ApplicationException {
+	public static String getGBKpy(String hzString) throws AppException {
 
 		int pyi, len, no;
 		int ch1code = 0, ch2code = 0;
@@ -659,7 +659,7 @@ public class PyUtil {
 		try {
 			eB = hzString.getBytes("GBK");
 		} catch (UnsupportedEncodingException e) {
-			throw new ApplicationException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGBK±àÂë");
+			throw new AppException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGBK±àÂë");
 		}
 		len = eB.length;
 
@@ -722,7 +722,7 @@ public class PyUtil {
 		return py.toLowerCase().trim();
 	}
 
-	public static void main(String[] args) throws ApplicationException, UnsupportedEncodingException {
+	public static void main(String[] args) throws AppException, UnsupportedEncodingException {
 		System.out.println(new String(getGBKpy("ÄãºÃ").getBytes("GBK")));
 	}
 }

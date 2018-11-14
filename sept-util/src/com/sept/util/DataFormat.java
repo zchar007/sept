@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import com.sept.exception.ApplicationException;;
+import com.sept.exception.AppException;;
 
 @Deprecated
 public class DataFormat {
@@ -16,7 +16,7 @@ public class DataFormat {
 			'°Û', 'Çª', 'Íò', 'Ê°', '°Û', 'Çª' };
 	private static int maxMoneyLength = 16;
 
-	public static void main(String[] args) throws ApplicationException {
+	public static void main(String[] args) throws AppException {
 		System.out.println(numberToChinese(10002333420.24));
 	}
 
@@ -40,7 +40,7 @@ public class DataFormat {
 		return DF.format(vInt);
 	}
 
-	public static String formatInt(Integer vInt) throws ApplicationException {
+	public static String formatInt(Integer vInt) throws AppException {
 		if (vInt == null) {
 			// Alert.isNull("????????????");
 		}
@@ -49,7 +49,7 @@ public class DataFormat {
 		return DF.format(vInt);
 	}
 
-	public static String formatInt(int vInt, String vFormat) throws ApplicationException {
+	public static String formatInt(int vInt, String vFormat) throws AppException {
 		if ((vFormat == null) || (vFormat.length() == 0)) {
 			return formatInt(vInt);
 		}
@@ -62,7 +62,7 @@ public class DataFormat {
 		return DF.format(vLong);
 	}
 
-	public static String formatLong(Long vLong) throws ApplicationException {
+	public static String formatLong(Long vLong) throws AppException {
 		if (vLong == null) {
 			// Alert.isNull("????????????");
 		}
@@ -71,26 +71,26 @@ public class DataFormat {
 		return DF.format(vLong);
 	}
 
-	public static String formatLong(long vLong, String vFormat) throws ApplicationException {
+	public static String formatLong(long vLong, String vFormat) throws AppException {
 		if ((vFormat == null) || (vFormat.length() == 0)) {
 			return formatLong(vLong);
 		}
 		return new DecimalFormat(vFormat).format(vLong);
 	}
 
-	public static String formatDouble(double vDouble) throws ApplicationException {
+	public static String formatDouble(double vDouble) throws AppException {
 		return formatDouble(vDouble, 2);
 	}
 
-	public static String formatDouble(double vDouble, int n) throws ApplicationException {
+	public static String formatDouble(double vDouble, int n) throws AppException {
 		return formatDouble(new Double(vDouble), n);
 	}
 
-	public static String formatDouble(String vDouble) throws ApplicationException {
+	public static String formatDouble(String vDouble) throws AppException {
 		return formatDouble(vDouble, 2);
 	}
 
-	public static String formatDouble(String vDouble, int n) throws ApplicationException {
+	public static String formatDouble(String vDouble, int n) throws AppException {
 		try {
 			return formatDouble(new Double(vDouble), n);
 		} catch (NumberFormatException e) {
@@ -99,7 +99,7 @@ public class DataFormat {
 		return null;
 	}
 
-	public static String formatDouble(double vDouble, String vFormat) throws ApplicationException {
+	public static String formatDouble(double vDouble, String vFormat) throws AppException {
 		if ((vFormat == null) || (vFormat.length() == 0)) {
 			return formatDouble(vDouble);
 		}
@@ -108,11 +108,11 @@ public class DataFormat {
 		return df.format(vDouble);
 	}
 
-	public static String formatDouble(Double vDouble, String vFormat) throws ApplicationException {
+	public static String formatDouble(Double vDouble, String vFormat) throws AppException {
 		return formatDouble(vDouble.doubleValue(), vFormat);
 	}
 
-	public static String formatDouble(String vDouble, String vFormat) throws ApplicationException {
+	public static String formatDouble(String vDouble, String vFormat) throws AppException {
 		try {
 			return formatDouble(new Double(vDouble), vFormat);
 		} catch (NumberFormatException e) {
@@ -121,11 +121,11 @@ public class DataFormat {
 		return null;
 	}
 
-	public static String formatDouble(Double vDouble) throws ApplicationException {
+	public static String formatDouble(Double vDouble) throws AppException {
 		return formatDouble(vDouble, 2);
 	}
 
-	public static String formatDouble(Double vDouble, int n) throws ApplicationException {
+	public static String formatDouble(Double vDouble, int n) throws AppException {
 		if (Double.isNaN(vDouble.doubleValue())) {
 			// Alert.FormatError("??[" + vDouble + "]??????????????");
 		}
@@ -171,23 +171,23 @@ public class DataFormat {
 		return "false";
 	}
 
-	public static String formatNumber(double vDouble, String vFormat) throws ApplicationException {
+	public static String formatNumber(double vDouble, String vFormat) throws AppException {
 		return formatDouble(vDouble, vFormat);
 	}
 
-	public static String formatNumber(double vDouble) throws ApplicationException {
+	public static String formatNumber(double vDouble) throws AppException {
 		return formatDouble(vDouble);
 	}
 
-	public static String formatNumber(int vInt) throws ApplicationException {
+	public static String formatNumber(int vInt) throws AppException {
 		return formatInt(vInt);
 	}
 
-	public static String formatNumber(int vInt, String vFormat) throws ApplicationException {
+	public static String formatNumber(int vInt, String vFormat) throws AppException {
 		return formatInt(vInt, vFormat);
 	}
 
-	public static String numberToChinese(long vMoney) throws ApplicationException {
+	public static String numberToChinese(long vMoney) throws AppException {
 		int leng = CHINESE_CARRY.length > maxMoneyLength ? maxMoneyLength : CHINESE_CARRY.length;
 		if (Math.abs(vMoney) < Math.pow(10.0D, leng)) {
 			DecimalFormat DF = new DecimalFormat("#.00");
@@ -199,7 +199,7 @@ public class DataFormat {
 		return null;
 	}
 
-	public static String numberToChinese(double vMoney) throws ApplicationException {
+	public static String numberToChinese(double vMoney) throws AppException {
 		int leng = CHINESE_CARRY.length > maxMoneyLength ? maxMoneyLength : CHINESE_CARRY.length;
 		if (Math.abs(vMoney) < Math.pow(10.0D, leng)) {
 			DecimalFormat DF = new DecimalFormat("#.00");
@@ -210,7 +210,7 @@ public class DataFormat {
 		return null;
 	}
 
-	private static String numberToChinese(String vMoneyString) throws ApplicationException {
+	private static String numberToChinese(String vMoneyString) throws AppException {
 		String intStr = vMoneyString.substring(0, vMoneyString.length() - 3);
 		String decStr = vMoneyString.substring(vMoneyString.length() - 2);
 		StringBuffer moneyStr = new StringBuffer();
@@ -275,7 +275,7 @@ public class DataFormat {
 		return moneyStr.toString();
 	}
 
-	public static String formatValue(Object value, String mask) throws ApplicationException {
+	public static String formatValue(Object value, String mask) throws AppException {
 		if (value == null) {
 			return "";
 		}
@@ -341,7 +341,7 @@ public class DataFormat {
 		return value.toString();
 	}
 
-	public static String formatValueWithoutMask(Object value) throws ApplicationException {
+	public static String formatValueWithoutMask(Object value) throws AppException {
 		if (((value instanceof BigDecimal)) || ((value instanceof Double))) {
 			return formatValue(value, "##0.00");
 		}

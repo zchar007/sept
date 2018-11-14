@@ -10,7 +10,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 /**
  * 类描述:PDF工具类
@@ -23,7 +23,7 @@ public class PDFUtil{
 	 * 
 	 * @author 邵玉先 2015-9-6
 	 */
-	public static Document createDocument(ByteArrayOutputStream outputstream) throws ApplicationException {
+	public static Document createDocument(ByteArrayOutputStream outputstream) throws AppException {
 		// 创建一个文档对象
 		Document doc = new Document();
 
@@ -31,7 +31,7 @@ public class PDFUtil{
 		try {
 			PdfWriter.getInstance(doc, outputstream);
 		} catch (Exception e) {
-			throw new ApplicationException("创建pdf文档对象出错!错误信息为：" + e.getMessage());
+			throw new AppException("创建pdf文档对象出错!错误信息为：" + e.getMessage());
 		}
 
 		doc.open();
@@ -43,7 +43,7 @@ public class PDFUtil{
 	 * 
 	 * @author 邵玉先 2015-9-6
 	 */
-	public static Document createDocument(String filepath, String filename) throws ApplicationException {
+	public static Document createDocument(String filepath, String filename) throws AppException {
 		// 创建一个文档对象
 		Document doc = new Document();
 
@@ -51,14 +51,14 @@ public class PDFUtil{
 		try {
 			outputstream = new FileOutputStream(filepath + File.separator + filename);
 		} catch (Exception e) {
-			throw new ApplicationException("读取文件出错!错误信息为：" + e.getMessage());
+			throw new AppException("读取文件出错!错误信息为：" + e.getMessage());
 		}
 
 		// 定义输出文件的位置
 		try {
 			PdfWriter.getInstance(doc, outputstream);
 		} catch (Exception e) {
-			throw new ApplicationException("创建pdf文档对象出错!错误信息为：" + e.getMessage());
+			throw new AppException("创建pdf文档对象出错!错误信息为：" + e.getMessage());
 		}
 
 		doc.open();
@@ -70,14 +70,14 @@ public class PDFUtil{
 	 * 
 	 * @author 邵玉先 2015-9-6
 	 */
-	public static void addImage(Document doc, byte[] fileByte) throws ApplicationException {
+	public static void addImage(Document doc, byte[] fileByte) throws AppException {
 
 		// 创建一个图片对象
 		Image img = null;
 		try {
 			img = Image.getInstance(fileByte);
 		} catch (Exception e) {
-			throw new ApplicationException("初始化图片对象时出错!错误信息为：" + e.getMessage());
+			throw new AppException("初始化图片对象时出错!错误信息为：" + e.getMessage());
 		}
         
 		// 设置图片居中显示
@@ -94,7 +94,7 @@ public class PDFUtil{
 			doc.add(img);
 			doc.add(new Paragraph(""));// 换行
 		} catch (Exception e) {
-			throw new ApplicationException("pdf文件中添加图片时出错!错误信息为：" + e.getMessage());
+			throw new AppException("pdf文件中添加图片时出错!错误信息为：" + e.getMessage());
 		}
 	}
 
@@ -103,14 +103,14 @@ public class PDFUtil{
 	 * 
 	 * @author 铉克峰 2015-10-22
 	 */
-	public static void addImageFitPageSize(Document doc, byte[] fileByte) throws ApplicationException {
+	public static void addImageFitPageSize(Document doc, byte[] fileByte) throws AppException {
 
 		// 创建一个图片对象
 		Image img = null;
 		try {
 			img = Image.getInstance(fileByte);
 		} catch (Exception e) {
-			throw new ApplicationException("初始化图片对象时出错!错误信息为：" + e.getMessage());
+			throw new AppException("初始化图片对象时出错!错误信息为：" + e.getMessage());
 		}
         
 
@@ -136,7 +136,7 @@ public class PDFUtil{
 			doc.add(img);
 			doc.newPage();
 		} catch (Exception e) {
-			throw new ApplicationException("pdf文件中添加图片时出错!错误信息为：" + e.getMessage());
+			throw new AppException("pdf文件中添加图片时出错!错误信息为：" + e.getMessage());
 		}
 	}
 	
@@ -145,11 +145,11 @@ public class PDFUtil{
 	 * 
 	 * @author 邵玉先 2015-9-6
 	 */
-	public static void closeDocument(Document doc) throws ApplicationException {
+	public static void closeDocument(Document doc) throws AppException {
 		try {
 			doc.close();
 		} catch (Exception e) {
-			throw new ApplicationException("文件读取异常，关闭pdf文件流时出错!错误信息为：" + e.getMessage());
+			throw new AppException("文件读取异常，关闭pdf文件流时出错!错误信息为：" + e.getMessage());
 		}
 	}
 

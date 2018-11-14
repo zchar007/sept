@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import com.sept.io.exception.IOException;
+import com.sept.exception.AppException;
 
 /**
  * @see 安全读取与写入文件内容，按规定大小读取
@@ -22,17 +22,17 @@ public class FileLineReader {
 	private int readNumber = 0;
 	private Object key = new Object();
 
-	public FileLineReader(String url) throws IOException {
+	public FileLineReader(String url) throws AppException {
 		try {
 			this.file = new File(url);
 			if (!this.file.exists()) {
-				throw new IOException("'" + url + "'此文件不存在，无法读取！！");
+				throw new AppException("'" + url + "'此文件不存在，无法读取！！");
 			}
 
 			this.brForList = new BufferedReader(new FileReader(file));
 		} catch (Exception e) {
 
-			throw new IOException(-11, e.getMessage());
+			throw new AppException(-11, e.getMessage());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class FileLineReader {
 		}
 	}
 
-	public String readJump(int line) throws IOException {
+	public String readJump(int line) throws AppException {
 		synchronized (key) {
 			if (line <= 0)
 				return null;
@@ -72,32 +72,32 @@ public class FileLineReader {
 				}
 			} catch (Exception e) {
 
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			} finally {
 				try {
 					this.brForJump.close();
 				} catch (Exception e) {
 
-					throw new IOException(-11, e.getMessage());
+					throw new AppException(-11, e.getMessage());
 				}
 			}
 			return this.str;
 		}
 	}
 
-	public void close() throws IOException {
+	public void close() throws AppException {
 		synchronized (key) {
 			try {
 				this.brForList.close();
 			} catch (Exception e) {
 
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 			try {
 				this.brForJump.close();
 			} catch (Exception e) {
 
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
@@ -137,7 +137,7 @@ public class FileLineReader {
 		}
 	}
 
-	public void write(String message, boolean isAppend) throws IOException {
+	public void write(String message, boolean isAppend) throws AppException {
 		synchronized (key) {
 			ArrayList<String> alSave = new ArrayList<>();
 			alSave.add(message);
@@ -150,9 +150,9 @@ public class FileLineReader {
 	 * 
 	 * @param alSave
 	 * @param isAppend
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public void write(ArrayList<String> alSave, boolean isAppend) throws IOException {
+	public void write(ArrayList<String> alSave, boolean isAppend) throws AppException {
 		synchronized (key) {
 			try {
 				PrintWriter pw = new PrintWriter(new FileOutputStream(this.file, isAppend));
@@ -173,28 +173,28 @@ public class FileLineReader {
 					this.readNumber = 0;
 				}
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
+				throw new AppException(-12, e.getMessage());
 			}
 		}
 	}
 
-	public void reset() throws IOException {
+	public void reset() throws AppException {
 		synchronized (key) {
 			try {
 				this.brForList = new BufferedReader(new FileReader(file));
 				this.readNumber = 0;
 			} catch (Exception e) {
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
 
-	public static void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws IOException {
+	public static void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
 				if (file.exists()) {
-					throw new IOException("文件[" + url + "]已存在且不为追加！");
+					throw new AppException("文件[" + url + "]已存在且不为追加！");
 				} else {
 					file.createNewFile();
 				}
@@ -215,16 +215,16 @@ public class FileLineReader {
 			pw.close();
 
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		}
 	}
 
-	public static void saveFile(String message, String url, boolean isAppend) throws IOException {
+	public static void saveFile(String message, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
 				if (file.exists()) {
-					throw new IOException("文件[" + url + "]已存在且不为追加！");
+					throw new AppException("文件[" + url + "]已存在且不为追加！");
 				} else {
 					file.createNewFile();
 				}
@@ -243,11 +243,11 @@ public class FileLineReader {
 			pw.close();
 
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws AppException {
 		FileLineReader fs = new FileLineReader("D://test.txt");
 		// System.out.println(fs.readJump(2));
 		// System.out.println(fs.readLine());

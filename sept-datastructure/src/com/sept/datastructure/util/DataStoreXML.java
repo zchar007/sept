@@ -6,7 +6,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
+import com.sept.exception.AppException;
 
 public class DataStoreXML {
 	private final static String ROOT_TYPE = "d";
@@ -22,7 +22,7 @@ public class DataStoreXML {
 		this.root.addAttribute("t", OBJECT_TYPE);
 	}
 
-	public void addParas() throws DataException {
+	public void addParas() throws AppException {
 		for (int i = 0; i < this.pds.rowCount(); i++) {
 			Element valueElement = this.root.addElement("r");
 			valueElement.addAttribute("l", i + "");
@@ -35,7 +35,7 @@ public class DataStoreXML {
 		}
 	}
 
-	public Element getElement() throws DataException {
+	public Element getElement() throws AppException {
 		this.addParas();
 		this.typeList = this.pds.getTypeList();
 		return this.root.addAttribute("tl", com.sept.util.XMLUtil.encodeXML(this.typeList));

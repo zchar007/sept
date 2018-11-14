@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class SecUtil {
 
@@ -122,21 +122,21 @@ public class SecUtil {
 	 * 
 	 * @param src
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static String base64Encode(byte[] src) throws ApplicationException {
+	public static String base64Encode(byte[] src) throws AppException {
 		Base64 base64 = new Base64();
 		byte[] bin = base64.encode(src);
 		return new String(bin);
 	}
 
-	public static String base64Encode(byte[] src, String charset) throws ApplicationException {
+	public static String base64Encode(byte[] src, String charset) throws AppException {
 		try {
 			Base64 base64 = new Base64();
 			byte[] bin = base64.encode(src);
 			return new String(bin, charset);
 		} catch (UnsupportedEncodingException e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 	}
 
@@ -145,23 +145,23 @@ public class SecUtil {
 	 * 
 	 * @param src
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static byte[] base64Decode(String src) throws ApplicationException {
+	public static byte[] base64Decode(String src) throws AppException {
 		Base64 base64 = new Base64();
 		byte[] binBytes;
 		binBytes = base64.decode(src.getBytes());
 		return binBytes;
 	}
 
-	public static byte[] base64Decode(String src, String charset) throws ApplicationException {
+	public static byte[] base64Decode(String src, String charset) throws AppException {
 		try {
 			Base64 base64 = new Base64();
 			byte[] binBytes;
 			binBytes = base64.decode(src.getBytes(charset));
 			return binBytes;
 		} catch (UnsupportedEncodingException e) {
-			throw new ApplicationException(e);
+			throw new AppException(e);
 		}
 	}
 

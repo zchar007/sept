@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 
-import com.sept.io.exception.IOException;
+import com.sept.exception.AppException;
 
 public class FileByteReader {
 	private File file;
@@ -19,10 +19,10 @@ public class FileByteReader {
 
 	private Object key = new Object();
 
-	public FileByteReader(String url, int byteSize) throws IOException {
+	public FileByteReader(String url, int byteSize) throws AppException {
 		try {
-			if (byteSize <= 0 || byteSize > 1024*1024*1024) {
-				throw new IOException("每次读取大小最小是1byte,最大是1GB(1073741824byte)！！");
+			if (byteSize <= 0 || byteSize > 1024 * 1024 * 1024) {
+				throw new AppException("每次读取大小最小是1byte,最大是1GB(1073741824byte)！！");
 			}
 			this.byteSize = byteSize;
 			this.readByte = new byte[byteSize];
@@ -32,7 +32,7 @@ public class FileByteReader {
 			}
 			this.fileForByte = new FileInputStream(file);
 		} catch (Exception e) {
-			throw new IOException(-11, e.getMessage());
+			throw new AppException(-11, e.getMessage());
 		}
 	}
 
@@ -40,13 +40,13 @@ public class FileByteReader {
 	 * 
 	 * 
 	 * @param url
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public FileByteReader(String url) throws IOException {
+	public FileByteReader(String url) throws AppException {
 		this(url, defaulSize);
 	}
 
-	public byte[] read() throws IOException {
+	public byte[] read() throws AppException {
 		synchronized (key) {
 			try {
 				byte[] returnByte;
@@ -62,22 +62,22 @@ public class FileByteReader {
 				this.readNumber++;
 				return returnByte;
 			} catch (Exception e) {
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
 
-	public byte[] readJump(long start, long end) throws IOException {
+	public byte[] readJump(long start, long end) throws AppException {
 		synchronized (key) {
 
 			try {
 				long size = this.file.length();
 				byte[] byteTemp = null;
 				if (start > size || end > size || start < 0 || end < 0) {
-					throw new com.sept.io.exception.IOException("文件大小为：" + size + "，请检查！！");
+					throw new AppException("文件大小为：" + size + "，请检查！！");
 				}
 				if (end < start) {
-					throw new com.sept.io.exception.IOException("开始大于结束！！");
+					throw new AppException("开始大于结束！！");
 				}
 				fileForJump = new FileInputStream(file);
 				long getSize = end - start;
@@ -96,12 +96,12 @@ public class FileByteReader {
 				return null;
 			} catch (Exception e) {
 
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
 
-	public void close() throws IOException {
+	public void close() throws AppException {
 		synchronized (key) {
 			try {
 				fileForByte.close();
@@ -121,7 +121,7 @@ public class FileByteReader {
 		}
 	}
 
-	public void write(byte[] bytes, boolean isAppend) throws IOException {
+	public void write(byte[] bytes, boolean isAppend) throws AppException {
 		synchronized (key) {
 			FileOutputStream fos = null;
 
@@ -130,7 +130,7 @@ public class FileByteReader {
 				fos.write(bytes);
 				fos.flush();
 				fos.close();
-				//读取到指定位置
+				// 读取到指定位置
 				this.fileForByte = new FileInputStream(this.file);
 				if (isAppend) {
 					for (int i = 0; i < readNumber; i++) {
@@ -140,13 +140,12 @@ public class FileByteReader {
 					this.readNumber = 0;
 				}
 			} catch (Exception e) {
-				throw new IOException(-12, e.getMessage());
-			}finally {
+				throw new AppException(-12, e.getMessage());
+			} finally {
 				try {
 					fos.flush();
 					fos.close();
-					
-				} catch (java.io.IOException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -154,13 +153,13 @@ public class FileByteReader {
 		}
 	}
 
-	public void reset() throws IOException {
+	public void reset() throws AppException {
 		synchronized (key) {
 			try {
 				this.fileForByte = new FileInputStream(file);
 				this.readNumber = 0;
 			} catch (Exception e) {
-				throw new IOException(-11, e.getMessage());
+				throw new AppException(-11, e.getMessage());
 			}
 		}
 	}
@@ -170,14 +169,14 @@ public class FileByteReader {
 	 * 
 	 * @param alSave
 	 * @param isAppend
-	 * @throws IOException
+	 * @throws AppException
 	 */
-	public static void saveFile(byte[] bytes, String url, boolean isAppend) throws IOException {
+	public static void saveFile(byte[] bytes, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
 				if (file.exists()) {
-					throw new IOException("文件[" + url + "]已存在且不为追加！");
+					throw new AppException("文件[" + url + "]已存在且不为追加！");
 				} else {
 					file.createNewFile();
 				}
@@ -192,11 +191,11 @@ public class FileByteReader {
 			fos.flush();
 			fos.close();
 		} catch (Exception e) {
-			throw new IOException(-12, e.getMessage());
+			throw new AppException(-12, e.getMessage());
 		}
 	}
 
-	public static void main(String[] args) throws IOException, UnsupportedEncodingException {
+	public static void main(String[] args) throws AppException, UnsupportedEncodingException {
 		FileByteReader fsb = new FileByteReader("D://test.txt", 10);
 		byte[] bb = fsb.read();
 		for (int i = 0; i < bb.length; i++) {

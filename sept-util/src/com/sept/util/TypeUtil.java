@@ -6,7 +6,7 @@ import java.sql.Clob;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 
 public class TypeUtil {
 	public static final String STRING = "s";// 字符串
@@ -93,9 +93,9 @@ public class TypeUtil {
 	 * @param type
 	 * @param value
 	 * @return
-	 * @throws ApplicationException
+	 * @throws AppException
 	 */
-	public static Object getValueByType(String type, Object o) throws ApplicationException {
+	public static Object getValueByType(String type, Object o) throws AppException {
 		try {
 			if (TypeUtil.BLOB.equals(type)) {
 				return objectToBlob(o);
@@ -130,15 +130,15 @@ public class TypeUtil {
 			if (TypeUtil.NUMBER.equals(type)) {
 				return objectToBigDecimal(o);
 			}
-		} catch (ApplicationException e) {
-			throw new ApplicationException(e.getMessage());
+		} catch (AppException e) {
+			throw new AppException(e.getMessage());
 
 		}
 
 		return types;
 	}
 
-	public static Blob objectToBlob(Object o) throws ApplicationException {
+	public static Blob objectToBlob(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -146,10 +146,10 @@ public class TypeUtil {
 		if (o instanceof Blob || cname.equals("java.sql.Blob")) {
 			return (Blob) o;
 		}
-		throw new ApplicationException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static Clob objectToClob(Object o) throws ApplicationException {
+	public static Clob objectToClob(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -157,10 +157,10 @@ public class TypeUtil {
 		if (o instanceof Clob || cname.equals("java.sql.Clob")) {
 			return (Clob) o;
 		}
-		throw new ApplicationException("不支持的跨类型转换");
+		throw new AppException("不支持的跨类型转换");
 	}
 
-	public static String objectToString(Object o) throws ApplicationException {
+	public static String objectToString(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -391,12 +391,12 @@ public class TypeUtil {
 		return 0;
 	}
 
-	public static boolean objectToBoolean(Object o) throws ApplicationException {
+	public static boolean objectToBoolean(Object o) throws AppException {
 		String object = objectToString(o);
 		return "true".equals(object);
 	}
 
-	public static Date objectToDate(Object o) throws ApplicationException {
+	public static Date objectToDate(Object o) throws AppException {
 		if (null == o) {
 			return null;
 		}
@@ -419,12 +419,12 @@ public class TypeUtil {
 		return DateUtil.formatStrToDate(object);
 	}
 
-	public static BigDecimal objectToBigDecimal(Object o) throws ApplicationException {
+	public static BigDecimal objectToBigDecimal(Object o) throws AppException {
 
 		return new BigDecimal(objectToString(o));
 	}
 
-	public static void main(String[] args) throws ApplicationException {
+	public static void main(String[] args) throws AppException {
 		Date str = (Date) getValueByType(TypeUtil.DATE, new java.sql.Timestamp(new Date().getTime()));
 		System.out.println(str);
 	}

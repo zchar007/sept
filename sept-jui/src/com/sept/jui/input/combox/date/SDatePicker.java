@@ -18,7 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.sept.exception.ApplicationException;
+import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -578,7 +578,7 @@ public class SDatePicker extends JComponent {
 					}
 				}
 
-			} catch (ApplicationException e) {
+			} catch (AppException e) {
 				e.printStackTrace();
 			}
 

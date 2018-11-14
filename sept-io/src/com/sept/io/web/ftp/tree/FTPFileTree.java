@@ -1,22 +1,11 @@
 package com.sept.io.web.ftp.tree;
 
-import com.sept.datastructure.tree.AbstractNode;
-import com.sept.datastructure.tree.AbstractTree;
+import com.sept.datastructure.tree.STree;
 import com.sept.exception.AppException;
 
-public class FTPFileTree extends AbstractTree {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class FTPFileTree extends STree {
 
-	public FTPFileTree(AbstractNode rootNode) throws AppException {
-		super(rootNode);
+	public FTPFileTree() throws AppException {
+		super();
 	}
-
-	@Override
-	public String getTreeData() throws AppException {
-		return null;
-	}
-
 }

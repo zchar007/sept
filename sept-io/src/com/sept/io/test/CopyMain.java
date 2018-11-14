@@ -2,19 +2,8 @@ package com.sept.io.test;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
-
-import com.sept.exception.AppException;
-import com.sept.io.exception.IOException;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,13 +11,20 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
-import javax.swing.JProgressBar;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.sept.exception.AppException;
 
 public class CopyMain extends JFrame implements ItemListener, ActionListener {
 
@@ -111,7 +107,7 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 		textField.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == e.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
 					textField.setText(Alert.alertSelectFile("D://WorkSpace//Book//DIYBQ",
 							Alert.SelectFileType_FILE_AND_DIRECTORIES));
 				}
@@ -137,7 +133,7 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 		textField_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == e.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
 					textField_1.setText(Alert.alertSelectFile("D://新建文件夹", Alert.SelectFileType_DIRECTORIES_ONLY));
 				}
 			}
@@ -231,7 +227,7 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 		progressBar = new MyProgressBar();
 		panel_4.add(progressBar, BorderLayout.SOUTH);
 
-		String file_types[] = { "java", "jar", "html", "jsp", "xml", "exe", "docx", "doc", "txt", "pdf","js","css" };
+		String file_types[] = { "java", "jar", "html", "jsp", "xml", "exe", "docx", "doc", "txt", "pdf", "js", "css" };
 
 		int x = 1, y = 0;
 		for (int i = 0; i < file_types.length; i++) {
@@ -275,9 +271,9 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("重置".equals(e.getActionCommand())) {
-				progressBar.reset();
-				textField.setText("");
-				textField_1.setText("");
+			progressBar.reset();
+			textField.setText("");
+			textField_1.setText("");
 		} else if ("拷贝".equals(e.getActionCommand())) {
 			String types = "";
 			for (String string : hsSelect) {
@@ -296,12 +292,9 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 			}
 			FileCopy fc = new FileCopy(textField.getText(), textField_1.getText(), types, isCopyPath, progressBar);
 			try {
-				//fc.startCopy();
+				// fc.startCopy();
 				fc.startCopyByFile();
 			} catch (AppException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			new Thread(new Runnable() {
@@ -313,7 +306,7 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						//System.out.println(progressBar.isFinsh());
+						// System.out.println(progressBar.isFinsh());
 
 						if (progressBar.isFinsh()) {
 							button.setEnabled(true);
