@@ -7,15 +7,14 @@ import java.sql.Clob;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
-import com.sept.datastructure.comparator.ComparaUtil;
 import com.sept.datastructure.util.JSONUtil;
 import com.sept.datastructure.util.TypeUtil;
 import com.sept.datastructure.util.XMLUtil;
 import com.sept.exception.AppException;
 import com.sept.util.DateUtil;
 import com.sept.util.bools.comparator.Comparator;
+import com.sept.util.compara.ComparaUtil;
 
 /**
  * 新的DataObject ,取值时不被限制类型
@@ -39,7 +38,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	@Override
-	public synchronized Object put(String key, Object value) {
+	public Object put(String key, Object value) {
 		// key不能为空
 		if (null == key || key.trim().isEmpty()) {
 			return null;
@@ -49,18 +48,21 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		if (key.toUpperCase().equals("TYPELIST")) {
 			return null;
 		}
-		String type = TypeUtil.getValueType(value);
-		this.typeList.put(key, type);
+		// 太耗时了，这部分啥时候获取啥时候用
+//		String type = TypeUtil.getValueType(value);
+//		this.typeList.put(key, type);
 		return super.put(key, value);
 	}
 
-	@Override
-	public void putAll(Map<? extends String, ? extends Object> map) {
-		for (String key : map.keySet()) {
-			this.put(key, map.get(key));
-
-		}
-	}
+//	@Override
+//	public void putAll(Map<? extends String, ? extends Object> map) {
+//		super.putAll(map);
+//		for (Entry<String, Object> entry : this.entrySet()) {
+//			String key = entry.getKey();
+//			Object obj = entry.getValue();
+//			this.put(key, obj);
+//		}
+//	}
 
 	/**
 	 * 获取Object
@@ -69,7 +71,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @return
 	 * @throws AppException
 	 */
-	public synchronized Object get(String key) throws AppException {
+	public Object get(String key) throws AppException {
 		if (!this.containsKey(key)) {
 			throw new AppException("不含有key为[" + key + "]的值！");
 		}
@@ -83,7 +85,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @param defaultValue
 	 * @return
 	 */
-	public synchronized Object get(String key, Object defaultValue) {
+	public Object get(String key, Object defaultValue) {
 		try {
 			return super.get(key);
 		} catch (Exception e) {
@@ -97,7 +99,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @param key
 	 * @return
 	 */
-	public synchronized Object getObject(String key) {
+	public Object getObject(String key) {
 		return super.get(key);
 	}
 
@@ -108,7 +110,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @param defaultValue
 	 * @return
 	 */
-	public synchronized Object getObject(String key, Object defaultValue) {
+	public Object getObject(String key, Object defaultValue) {
 		try {
 			return super.get(key);
 		} catch (Exception e) {
@@ -116,7 +118,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized int getInt(String key) throws AppException {
+	public int getInt(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER, this.get(key));
@@ -125,7 +127,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized double getDouble(String key) throws AppException {
+	public double getDouble(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE, this.get(key));
@@ -134,7 +136,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized long getLong(String key) throws AppException {
+	public long getLong(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (long) TypeUtil.getValueByType(TypeUtil.LONG, this.get(key));
@@ -143,7 +145,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized float getFloat(String key) throws AppException {
+	public float getFloat(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT, this.get(key));
@@ -152,7 +154,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized String getString(String key) throws AppException {
+	public String getString(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (String) TypeUtil.getValueByType(TypeUtil.STRING, this.get(key));
@@ -161,7 +163,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized String getDateToString(String key, String formatStr) throws AppException {
+	public String getDateToString(String key, String formatStr) throws AppException {
 		key = getKey(key);
 		try {
 			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
@@ -171,7 +173,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Date getDate(String key) throws AppException {
+	public Date getDate(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
@@ -180,7 +182,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized BigDecimal getBigDecimal(String key) throws AppException {
+	public BigDecimal getBigDecimal(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL, this.get(key));
@@ -189,7 +191,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized boolean getBoolean(String key) throws AppException {
+	public boolean getBoolean(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN, this.get(key));
@@ -198,7 +200,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Blob getBlob(String key) throws AppException {
+	public Blob getBlob(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Blob) TypeUtil.getValueByType(TypeUtil.BLOB, this.get(key));
@@ -207,7 +209,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Clob getClob(String key) throws AppException {
+	public Clob getClob(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (Clob) TypeUtil.getValueByType(TypeUtil.CLOB, this.get(key));
@@ -216,7 +218,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized DataObject getDataObject(String key) throws AppException {
+	public DataObject getDataObject(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT, this.get(key));
@@ -225,7 +227,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized DataStore getDataStore(String key) throws AppException {
+	public DataStore getDataStore(String key) throws AppException {
 		key = getKey(key);
 		try {
 			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE, this.get(key));
@@ -234,7 +236,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized int getInt(String key, int defaultValue) throws AppException {
+	public int getInt(String key, int defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER, this.get(key));
@@ -243,7 +245,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized double getDouble(String key, double defaultValue) throws AppException {
+	public double getDouble(String key, double defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE, this.get(key));
@@ -253,7 +255,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized long getLong(String key, long defaultValue) throws AppException {
+	public long getLong(String key, long defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (long) TypeUtil.getValueByType(TypeUtil.LONG, this.get(key));
@@ -263,7 +265,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized float getFloat(String key, float defaultValue) throws AppException {
+	public float getFloat(String key, float defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT, this.get(key));
@@ -273,7 +275,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized String getString(String key, String defaultValue) throws AppException {
+	public String getString(String key, String defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (String) TypeUtil.getValueByType(TypeUtil.STRING, this.get(key));
@@ -283,7 +285,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized String getDateToString(String key, String formatStr, String defaultValue) throws AppException {
+	public String getDateToString(String key, String formatStr, String defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
@@ -294,7 +296,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Date getDate(String key, Date defaultValue) throws AppException {
+	public Date getDate(String key, Date defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
@@ -304,7 +306,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized BigDecimal getBigDecimal(String key, BigDecimal defaultValue) throws AppException {
+	public BigDecimal getBigDecimal(String key, BigDecimal defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL, this.get(key));
@@ -314,7 +316,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized boolean getBoolean(String key, boolean defaultValue) throws AppException {
+	public boolean getBoolean(String key, boolean defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN, this.get(key));
@@ -324,7 +326,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Blob getBlob(String key, Blob defaultValue) throws AppException {
+	public Blob getBlob(String key, Blob defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Blob) TypeUtil.getValueByType(TypeUtil.BLOB, this.get(key));
@@ -334,7 +336,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized Clob getClob(String key, Clob defaultValue) throws AppException {
+	public Clob getClob(String key, Clob defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (Clob) TypeUtil.getValueByType(TypeUtil.CLOB, this.get(key));
@@ -344,7 +346,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized DataObject getDataObject(String key, DataObject defaultValue) throws AppException {
+	public DataObject getDataObject(String key, DataObject defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT, this.get(key));
@@ -354,7 +356,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized DataStore getDataStore(String key, DataStore defaultValue) throws AppException {
+	public DataStore getDataStore(String key, DataStore defaultValue) throws AppException {
 		key = getKey(key);
 		try {
 			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE, this.get(key));
@@ -371,12 +373,12 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @return
 	 * @throws AppException
 	 */
-	public synchronized String getType(String key) throws AppException {
+	public String getType(String key) throws AppException {
 		if (this.typeList.containsKey(key)) {
 			return this.typeList.get(key);
 		}
 		if (this.containsKey(key)) {
-			TypeUtil.getValueType(this.get(key));
+			return TypeUtil.getValueType(this.get(key));
 		}
 		return null;
 	}
@@ -387,18 +389,18 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @param key
 	 * @param type
 	 */
-	public synchronized void setType(String key, String type) {
+	public void setType(String key, String type) {
 		if (this.typeList.containsKey(key)) {
 			this.typeList.remove(key);
 		}
 		this.typeList.put(key, type);
 	}
 
-	public synchronized void setTypeList(LinkedHashMap<String, String> typeList) {
+	public void setTypeList(LinkedHashMap<String, String> typeList) {
 		this.typeList = typeList;
 	}
 
-	public synchronized void setTypeList(String typeListString) throws AppException {
+	public void setTypeList(String typeListString) throws AppException {
 		if (null == typeListString) {
 			typeList = new LinkedHashMap<String, String>();
 		}
@@ -425,7 +427,14 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		}
 	}
 
-	public synchronized LinkedHashMap<String, String> getTypelistByList() {
+	public LinkedHashMap<String, String> getTypelistByList() throws AppException {
+		for (Entry<String, Object> entry : this.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
+			if (!this.typeList.containsKey(key)) {
+				this.typeList.put(key, TypeUtil.getValueType(value));
+			}
+		}
 		return typeList;
 
 	}
@@ -436,25 +445,32 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * @return
 	 * @throws AppException
 	 */
-	public synchronized String getTypeList() throws AppException {
+	public String getTypeList() throws AppException {
 		if (null == typeList) {
 			typeList = new LinkedHashMap<String, String>();
 		}
-		String typeStr = "";
+		StringBuilder sb = new StringBuilder();
 
-		for (String key : this.keySet()) {
+		for (Entry<String, Object> entry : this.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
 			if (this.typeList.containsKey(key)) {
-				typeStr += key + ":" + typeList.get(key) + ",";
-
+				sb.append(key);
+				sb.append(":");
+				sb.append(typeList.get(key));
+				sb.append(",");
 			} else {
-				typeStr += key + ":" + this.getType(key) + ",";
+				sb.append(key);
+				sb.append(":");
+				sb.append(TypeUtil.getValueType(value));
+				sb.append(",");
 			}
 		}
 
-		if (typeStr.length() > 2) {
-			typeStr = typeStr.substring(0, typeStr.length() - 1);
+		if (sb.length() > 2) {
+			sb.setLength(sb.length() - 1);
 		}
-		return typeStr;
+		return sb.toString();
 	}
 
 	private String getKey(String key) {
@@ -466,6 +482,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 
 	/**
 	 * 检索
+	 * 
 	 * @param comparator
 	 * @return
 	 * @throws AppException
@@ -476,6 +493,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 
 	/**
 	 * 内部检索用，不会判断类型
+	 * 
 	 * @param comparator
 	 * @return
 	 * @throws AppException
@@ -487,26 +505,20 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	/**
 	 * 当前深克隆只能覆盖DataStore和DataObject
 	 */
-	public synchronized DataObject clone() {
+	public DataObject clone() {
 		// 需要重写
 		DataObject doTemp = new DataObject(this.isLowerKey);
 		doTemp.putAll(this);
-		for (String key : this.keySet()) {
-			Object obj;
-			try {
-				obj = this.get(key);
-
-				if (obj instanceof DataObject) {
-					obj = ((DataObject) obj).clone();
-				}
-				if (obj instanceof DataStore) {
-					obj = ((DataStore) obj).clone();
-				}
-				doTemp.put(key, obj);
-			} catch (AppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		for (Entry<String, Object> entry : this.entrySet()) {
+			String key = entry.getKey();
+			Object obj = entry.getValue();
+			if (obj instanceof DataObject) {
+				obj = ((DataObject) obj).clone();
 			}
+			if (obj instanceof DataStore) {
+				obj = ((DataStore) obj).clone();
+			}
+			doTemp.put(key, obj);
 		}
 		return doTemp;
 	}
@@ -516,12 +528,13 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 * 
 	 * @throws AppException
 	 */
-	public synchronized DataObject clone(boolean isLowerKey) throws AppException {
+	public DataObject clone(boolean isLowerKey) throws AppException {
 		// 需要重写
 		DataObject doTemp = new DataObject(isLowerKey);
 		doTemp.putAll(this);
-		for (String key : this.keySet()) {
-			Object obj = this.get(key);
+		for (Entry<String, Object> entry : this.entrySet()) {
+			String key = entry.getKey();
+			Object obj = entry.getValue();
 			if (obj instanceof DataObject) {
 				obj = ((DataObject) obj).clone(isLowerKey);
 			}
@@ -533,7 +546,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		return doTemp;
 	}
 
-	public synchronized boolean isLowerKey() {
+	public boolean isLowerKey() {
 		return isLowerKey;
 	}
 
@@ -541,12 +554,12 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		this.isLowerKey = isLowerKey;
 	}
 
-	public synchronized static void main(String[] args) throws AppException {
+	public static void main(String[] args) throws AppException {
 		DataObject pdo = new DataObject();
 
 		pdo.put("ny", DateUtil.getCurrentDate());
 
-		System.out.println(pdo.getDateToString("ny", "yyyy-MM-dd HH:mm:ss"));
+		System.out.println(pdo.getString("ny"));
 
 	}
 

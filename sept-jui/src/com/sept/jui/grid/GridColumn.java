@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import javax.swing.JComboBox;
 
-import com.sept.jui.exception.JUIException;
+import com.sept.exception.AppException;
 
 public class GridColumn {
 	private String showName;
@@ -26,7 +26,7 @@ public class GridColumn {
 	}
 
 	public GridColumn(String showName, String realName, String columnType, String defautValue, String additional,
-			boolean readonly) throws JUIException {
+			boolean readonly) throws AppException {
 		this();
 		setShowName(showName);
 		setRealName(realName);
@@ -36,7 +36,7 @@ public class GridColumn {
 		setReadonly(readonly);
 	}
 
-	protected GridColumn(String showName, String realName) throws JUIException {
+	protected GridColumn(String showName, String realName) throws AppException {
 		this();
 		setShowName(showName);
 		setRealNameInClass(realName);
@@ -57,19 +57,19 @@ public class GridColumn {
 		return this.realName;
 	}
 
-	public void setRealName(String realName) throws JUIException {
+	public void setRealName(String realName) throws AppException {
 		if ((realName == null) || (realName.trim().isEmpty())) {
-			throw new JUIException("名字不能为空");
+			throw new AppException("名字不能为空");
 		}
 		if ("no".equals(realName)) {
-			throw new JUIException("名字不能为no");
+			throw new AppException("名字不能为no");
 		}
 		this.realName = realName;
 	}
 
-	protected void setRealNameInClass(String realName) throws JUIException {
+	protected void setRealNameInClass(String realName) throws AppException {
 		if ((realName == null) || (realName.trim().isEmpty())) {
-			throw new JUIException("名字不能为空");
+			throw new AppException("名字不能为空");
 		}
 		this.realName = realName;
 	}

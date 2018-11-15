@@ -1,15 +1,14 @@
 package com.sept.jui.floating;
 
-import com.sept.jui.exception.JUIException;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import com.sept.exception.AppException;
 
 public class FloatingPanel extends JComponent implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
@@ -51,8 +50,8 @@ public class FloatingPanel extends JComponent implements MouseListener, MouseMot
 					(int) (e.getYOnScreen() - getParent().getLocationOnScreen().getY() - this.pressY));
 		} else {
 			try {
-				throw new JUIException("FloatingComponent ¸¸ÈÝÆ÷±ØÐëÊÇJPanel!");
-			} catch (JUIException e1) {
+				throw new AppException("FloatingComponent ¸¸ÈÝÆ÷±ØÐëÊÇJPanel!");
+			} catch (AppException e1) {
 				e1.printStackTrace();
 			}
 		}

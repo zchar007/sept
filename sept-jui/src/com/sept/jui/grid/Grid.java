@@ -23,8 +23,7 @@ import javax.swing.table.TableColumn;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
-import com.sept.jui.exception.JUIException;
+import com.sept.exception.AppException;
 
 public class Grid extends JComponent implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -73,7 +72,7 @@ public class Grid extends JComponent implements ActionListener {
 	 * @param gridClumn
 	 */
 	public void addColumn(String showName, String realName, String columnType, String defautValue, String dsCode,
-			boolean readonly) throws JUIException {
+			boolean readonly) throws AppException {
 		GridColumn gridClumn = new GridColumn(showName, realName, columnType, defautValue, dsCode, readonly);
 		this.gridColumns.add(gridClumn);
 	}
@@ -82,10 +81,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 增加一行
 	 * 
 	 * @param para
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	public void addRow(DataObject para) throws JUIException, DataException {
+	public void addRow(DataObject para) throws AppException {
 		if (para == null) {
 			return;
 		}
@@ -101,10 +100,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 增加多行
 	 * 
 	 * @param para
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	public void addRows(DataStore para) throws JUIException, DataException {
+	public void addRows(DataStore para) throws AppException {
 		if (para == null) {
 			return;
 		}
@@ -125,10 +124,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 删除一行
 	 * 
 	 * @param index
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	public void removeRow(int index) throws JUIException, DataException {
+	public void removeRow(int index) throws AppException {
 		this.gridModel.removeRow(index);
 		updateDatasWithUpdateTable();
 	}
@@ -145,10 +144,10 @@ public class Grid extends JComponent implements ActionListener {
 	/**
 	 * 清除数据
 	 * 
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	public void clearData() throws JUIException, DataException {
+	public void clearData() throws AppException {
 		this.gridModel.setRowCount(0);
 		updateDatasWithUpdateTable();
 	}
@@ -156,10 +155,10 @@ public class Grid extends JComponent implements ActionListener {
 	/**
 	 * 初始化
 	 * 
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	private void init() throws JUIException, DataException {
+	private void init() throws AppException {
 		if (isShowHeade()) {
 			this.heade_panel = new JPanel();
 			add(this.heade_panel, "North");
@@ -203,10 +202,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 设置完毕调用此方法
 	 * 
 	 * @return
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	public boolean doGrid() throws JUIException, DataException {
+	public boolean doGrid() throws AppException {
 		init();
 		this.scrollPane.setViewportView(this.table);
 		return true;
@@ -236,10 +235,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 获取数据（内部调用）
 	 * 
 	 * @return
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	private Object[][] getDatas() throws JUIException, DataException {
+	private Object[][] getDatas() throws AppException {
 		Object[][] objs = new Object[this.dsData.rowCount()][this.gridColumns.size()];
 		for (int i = 0; i < this.dsData.rowCount(); i++) {
 			for (int j = 0; j < this.gridColumns.size(); j++) {
@@ -273,10 +272,10 @@ public class Grid extends JComponent implements ActionListener {
 	 * 获取数据（内部调用）
 	 * 
 	 * @return
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	private Object[] getRowDataFromeDataObject(DataObject para) throws JUIException {
+	private Object[] getRowDataFromeDataObject(DataObject para) throws AppException {
 		Object[] obj = new Object[this.gridColumns.size()];
 		for (int i = 0; i < this.gridColumns.size(); i++) {
 			GridColumn gridClumn = (GridColumn) this.gridColumns.get(i);
@@ -329,7 +328,7 @@ public class Grid extends JComponent implements ActionListener {
 						this.gridColumns.set(i, (GridColumn) this.gridColumns.get(i - 1));
 					}
 					this.gridColumns.set(0, gc);
-				} catch (JUIException e) {
+				} catch (AppException e) {
 					e.printStackTrace();
 				}
 			}
@@ -341,10 +340,10 @@ public class Grid extends JComponent implements ActionListener {
 	/**
 	 * 仅更新数据
 	 * 
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	private void updateDatas() throws JUIException, DataException {
+	private void updateDatas() throws AppException {
 		DataStore values = new DataStore();
 		int colCount = this.gridColumns.size();
 		int rowCount = this.gridModel.getRowCount();
@@ -373,10 +372,10 @@ public class Grid extends JComponent implements ActionListener {
 	/**
 	 * 更新数据并更新显示
 	 * 
-	 * @throws JUIException
+	 * @throws AppException
 	 * @throws DataException
 	 */
-	private void updateDatasWithUpdateTable() throws JUIException, DataException {
+	private void updateDatasWithUpdateTable() throws AppException {
 		updateDatas();
 
 		this.gridModel.setRowCount(0);
@@ -466,7 +465,7 @@ public class Grid extends JComponent implements ActionListener {
 		}
 	}
 
-	public DataStore getDataStore() throws JUIException, DataException {
+	public DataStore getDataStore() throws AppException {
 		if (this.table.isEditing()) {
 			this.table.getCellEditor().stopCellEditing();
 		}
@@ -519,7 +518,7 @@ public class Grid extends JComponent implements ActionListener {
 		if (e.getSource().equals(this.menuItem_clear)) {
 			try {
 				clearData();
-			} catch (JUIException | DataException e1) {
+			} catch (AppException e1) {
 				e1.printStackTrace();
 			}
 		}

@@ -1,11 +1,11 @@
-package com.sept.datastructure.tree.Demo;
+package com.sept.datastructure.a_test;
 
 
 import com.sept.datastructure.tree.SNode;
 import com.sept.datastructure.tree.STree;
 import com.sept.exception.AppException;
 
-public class demo {
+public class TestTree {
 	public static void main(String[] args) throws AppException {
 		STree tree = new STree();
 		for (int i = 0; i < 3; i++) {

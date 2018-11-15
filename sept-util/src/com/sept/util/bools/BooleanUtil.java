@@ -1,11 +1,60 @@
 package com.sept.util.bools;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.sept.exception.AppException;
 
 public final class BooleanUtil {
+	/**
+	 * 计算boolean字符串(不挑)
+	 * 
+	 * @author 张超
+	 * @throws Exception
+	 * @date 创建时间 2017-5-31
+	 * @since V1.0
+	 */
+	public final static boolean calBoolean(ArrayList<String> logicStrArr, String boolStrArr) throws AppException {
+		/**
+		 * String currentExp = "true and ( true and ( false or true ) and ( false ) ) ";
+		 * true true false true false and (, and (, or, ) and
+		 */
+		String[] boolStrArrs = boolStrArr.split(",");
+		if (logicStrArr.size() != boolStrArrs.length - 1) {
+			throw new AppException("布尔串错误!!");
+		}
+		String calStr = "";
+		for (int i = 0; i < boolStrArrs.length; i++) {
+
+			calStr += boolStrArrs[i] + " ";
+			if (i < logicStrArr.size()) {
+				String string = logicStrArr.get(i).replace("and", "&&");
+				string = string.replace("or", "||");
+
+				calStr += string + " ";
+			}
+		}
+		int leftCount = getStrCount(calStr, "(");
+		int rightCount = getStrCount(calStr, ")");
+		int index = 0;
+		if (leftCount > rightCount) {
+			index = leftCount - rightCount;
+			while (index != 0) {
+				calStr = calStr + " ) ";
+				index--;
+			}
+
+		}
+		if (leftCount < rightCount) {
+			index = rightCount - leftCount;
+			while (index != 0) {
+				calStr = " ( " + calStr;
+				index--;
+				;
+			}
+		}
+		return calBoolean(calStr);
+	}
+
 	/**
 	 * 计算boolean字符串(不挑)
 	 * 
@@ -60,7 +109,7 @@ public final class BooleanUtil {
 	 * 计算boolean字符串(不挑)
 	 * 
 	 * @author 张超
-	 * @throws AppException 
+	 * @throws AppException
 	 * @date 创建时间 2017-5-31
 	 * @since V1.0
 	 */
@@ -107,7 +156,7 @@ public final class BooleanUtil {
 	 * 直接计算无括号，仅有and(&&) or(||) true false组成的
 	 * 
 	 * @author 张超
-	 * @throws AppException 
+	 * @throws AppException
 	 * @date 创建时间 2017-5-31
 	 * @since V1.0
 	 */
@@ -120,8 +169,8 @@ public final class BooleanUtil {
 		temp = temp.replaceAll("true", "");
 		temp = temp.replaceAll("false", "");
 		temp = temp.replaceAll(" ", "");
-		if(!temp.isEmpty()) {
-			throw new AppException(BooleanUtil.class.getName()+".calNoParenthesesBoolean:计算逻辑错误！");
+		if (!temp.isEmpty()) {
+			throw new AppException(BooleanUtil.class.getName() + ".calNoParenthesesBoolean:计算逻辑错误！");
 		}
 
 		String[] bools = booleanStr.split(" ");

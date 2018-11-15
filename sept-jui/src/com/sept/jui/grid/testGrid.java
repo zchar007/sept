@@ -12,8 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
-import com.sept.datastructure.exception.DataException;
-import com.sept.jui.exception.JUIException;
+import com.sept.exception.AppException;
 
 public class testGrid extends JFrame {
 	private JPanel contentPane;
@@ -33,7 +32,7 @@ public class testGrid extends JFrame {
 		});
 	}
 
-	public testGrid() throws JUIException, DataException {
+	public testGrid() throws AppException {
 		setDefaultCloseOperation(3);
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();
@@ -78,7 +77,7 @@ public class testGrid extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					testGrid.this.grid.addRow(new DataObject());
-				} catch (JUIException | DataException e1) {
+				} catch (AppException e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -90,7 +89,7 @@ public class testGrid extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					System.out.println(testGrid.this.grid.getDataStore());
-				} catch (JUIException | DataException e1) {
+				} catch (AppException e1) {
 					e1.printStackTrace();
 				}
 			}
