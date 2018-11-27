@@ -1,4 +1,4 @@
-package com.sept.classz.dynamic;
+package com.sept.project.classz.dynamic;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,6 +22,7 @@ public class JavaStringCompiler {
 
 	public JavaStringCompiler() {
 		this.compiler = ToolProvider.getSystemJavaCompiler();
+		System.out.println(compiler);
 		this.stdManager = compiler.getStandardFileManager(null, null, null);
 	}
 

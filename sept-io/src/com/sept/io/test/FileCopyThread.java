@@ -20,7 +20,7 @@ public class FileCopyThread implements Runnable {
 	public void run() {
 		try {
 			long size = fromFile.length() / 3;
-			if (size > 10485760) {// 10M,100个线程顶多用1G
+			if (size > 10485760) {// 10M,100涓嚎绋嬮《澶氱敤1G
 				size = 10485760;
 			}
 			if (size < 1024) {

@@ -1,9 +1,7 @@
-package com.sept.classz.loader;
+package com.sept.project.classz.loader;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +16,7 @@ public class ClassFactory extends ClassLoader {
 
 	public static final Object getObject(String classPath, boolean single) throws AppException {
 		try {
-			if (!single) {// 非单利模式直接new
+			if (!single) {// 闈炲崟鍒╂ā寮忕洿鎺ew
 				return getClassz(classPath).newInstance();
 			}
 

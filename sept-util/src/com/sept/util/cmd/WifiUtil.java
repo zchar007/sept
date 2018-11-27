@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public class WifiUtil {
 	public static void main(String[] args) throws Exception {
-//{DW8G=dareway2019, Xiaomi_DAREW 2=null, CMCC=Zsfj1022, Xiaomi_DAREW=26974267, ÕÅ³¬µÄ iPhone=null, dareway_1=DWDW@1402}
+//{DW8G=dareway2019, Xiaomi_DAREW 2=null, CMCC=Zsfj1022, Xiaomi_DAREW=26974267, å¼ è¶…çš„ iPhone=null, dareway_1=DWDW@1402}
 		// {5097=50972017, DW8G=dareway2019, CMCC=Zsfj1022, Xiaomi_WIN-3=57527663}
 		HashMap<String, String> hmWifis = getAllWifiAndKey();
 		System.out.println(hmWifis);
@@ -27,7 +27,7 @@ public class WifiUtil {
 	private static String getWifiPassWord(String wifiName) throws Exception {
 		ArrayList<String> alMessage = CmdUtil.run("netsh wlan  show profiles " + wifiName + " key=clear");
 		for (int i = 0; i < alMessage.size(); i++) {
-			if (alMessage.get(i).indexOf("¹Ø¼üÄÚÈÝ") >= 0) {
+			if (alMessage.get(i).indexOf("å…³é”®å†…å®¹") >= 0) {
 				return alMessage.get(i).split(":")[1].trim();
 			}
 		}
@@ -38,7 +38,7 @@ public class WifiUtil {
 		HashSet<String> hsWifi = new HashSet<>();
 		ArrayList<String> alMessage = CmdUtil.run("netsh wlan  show profiles ");
 		for (int i = 0; i < alMessage.size(); i++) {
-			if (alMessage.get(i).indexOf("ËùÓÐÓÃ»§ÅäÖÃÎÄ¼þ") >= 0) {
+			if (alMessage.get(i).indexOf("æ‰€æœ‰ç”¨æˆ·é…ç½®æ–‡ä»¶") >= 0) {
 				hsWifi.add(alMessage.get(i).split(":")[1].trim());
 			}
 		}

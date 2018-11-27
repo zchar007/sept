@@ -29,7 +29,7 @@ public class SNode implements TreeInterface<SNode> {
 	public void addChild(SNode node) throws AppException {
 		if (this.childrenNode.contains(node)) {
 			throw new AppException(
-					"[" + this.id + "][" + this.name + "]" + "已存在子代[" + node.id + "][" + node.name + "]");
+					"[" + this.id + "][" + this.name + "]" + "宸插瓨鍦ㄥ瓙浠" + node.id + "][" + node.name + "]");
 		}
 		node.setFatherNode(this);
 		this.childrenNode.add(node);

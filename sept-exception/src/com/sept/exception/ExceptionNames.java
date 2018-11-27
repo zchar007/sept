@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ExceptionNames {
 	public static int defaultCode = -1;
-	public static String defaultValue = "异常";
+	public static String defaultValue = "寮傚父";
 	private static HashMap<Integer, String> hmExceptionNames = new HashMap<Integer, String>();
 
 	public ExceptionNames() {
@@ -14,7 +14,7 @@ public class ExceptionNames {
 	public static String addExceptionName(Integer key, String value) throws Exception {
 		synchronized (hmExceptionNames) {
 			if (defaultCode == key.intValue()) {
-				throw new Exception("无法修改defaultCode");
+				throw new Exception("鏃犳硶淇敼defaultCode");
 			}
 			return (String) hmExceptionNames.put(key, value);
 		}
@@ -23,7 +23,7 @@ public class ExceptionNames {
 	public static void removeExceptionName(Integer key) throws Exception {
 		synchronized (hmExceptionNames) {
 			if (defaultCode == key.intValue()) {
-				throw new Exception("无法删除defaultCode");
+				throw new Exception("鏃犳硶鍒犻櫎defaultCode");
 			}
 			if (hmExceptionNames.containsKey(key))
 				hmExceptionNames.remove(key);

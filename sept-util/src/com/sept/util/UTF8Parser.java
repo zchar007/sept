@@ -12,25 +12,25 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 /**
- * @function ½«ÅúÁ¿µÄgbkµÄÂÒÂëÎÄ¼ş×ª»»µ½utf8
- *           ½«gbkµÄ´úÂë·Åµ½srcDirÖ®ÏÂ£¬×ªÂëÖÃdestDirÖ®ÏÂ£¬²»Ö§³ÖsrcDirÖ®ÏÂÓĞÄ¿Â¼£¬srcDirÄ¿Â¼ÓëdestDirÄ¿Â¼²»ÄÜÒ»Ñù
+ * @function å°†æ‰¹é‡çš„gbkçš„ä¹±ç æ–‡ä»¶è½¬æ¢åˆ°utf8
+ *           å°†gbkçš„ä»£ç æ”¾åˆ°srcDirä¹‹ä¸‹ï¼Œè½¬ç ç½®destDirä¹‹ä¸‹ï¼Œä¸æ”¯æŒsrcDirä¹‹ä¸‹æœ‰ç›®å½•ï¼ŒsrcDirç›®å½•ä¸destDirç›®å½•ä¸èƒ½ä¸€æ ·
  * @author Jacksile E-mail:tufujietec@foxmail.com
- * @date 2016Äê1ÔÂ16ÈÕ ÏÂÎç3:02:07
+ * @date 2016å¹´1æœˆ16æ—¥ ä¸‹åˆ3:02:07
  */
 public class UTF8Parser {
 
-	static File srcDir = new File("E://encode/from"); // ´ı×ªÂëµÄGBK¸ñÊ½ÎÄ¼ş¼Ğ
-	static File destDir = new File("E://encode/to"); // ×ªÂë³ÉUTF8µÄÄ¿±êÎÄ¼ş¼Ğ
+	static File srcDir = new File("E://encode/from"); // å¾…è½¬ç çš„GBKæ ¼å¼æ–‡ä»¶å¤¹
+	static File destDir = new File("E://encode/to"); // è½¬ç æˆUTF8çš„ç›®æ ‡æ–‡ä»¶å¤¹
 
 	public static void main(String[] args) throws Exception {
-		// 1.ÅĞ¶ÏÊÇÄ¿Â¼
+		// 1.åˆ¤æ–­æ˜¯ç›®å½•
 		if (!srcDir.isDirectory()) {
 			return;
 		}
-		// 2.±éÀúËùÓĞÄ¿Â¼
+		// 2.éå†æ‰€æœ‰ç›®å½•
 		File[] fs = srcDir.listFiles();
 
-		// ´´½¨Ä¿±êÄ¿Â¼
+		// åˆ›å»ºç›®æ ‡ç›®å½•
 		if (!destDir.exists()) {
 			destDir.mkdirs();
 		}
@@ -54,11 +54,11 @@ public class UTF8Parser {
 	}
 
 	/**
-	 * ÅĞ¶ÏÎÄ¼şµÄ±àÂë¸ñÊ½
+	 * åˆ¤æ–­æ–‡ä»¶çš„ç¼–ç æ ¼å¼
 	 * 
 	 * @param fileName
 	 *            :file
-	 * @return ÎÄ¼ş±àÂë¸ñÊ½
+	 * @return æ–‡ä»¶ç¼–ç æ ¼å¼
 	 * @throws Exception
 	 */
 	public static String codeString(String fileName) throws Exception {
@@ -66,7 +66,7 @@ public class UTF8Parser {
 				fileName));
 		int p = (bin.read() << 8) + bin.read();
 		String code = null;
-		// ÆäÖĞµÄ 0xefbb¡¢0xfffe¡¢0xfeff¡¢0x5c75ÕâĞ©¶¼ÊÇÕâ¸öÎÄ¼şµÄÇ°ÃæÁ½¸ö×Ö½ÚµÄ16½øÖÆÊı
+		// å…¶ä¸­çš„ 0xefbbã€0xfffeã€0xfeffã€0x5c75è¿™äº›éƒ½æ˜¯è¿™ä¸ªæ–‡ä»¶çš„å‰é¢ä¸¤ä¸ªå­—èŠ‚çš„16è¿›åˆ¶æ•°
 		switch (p) {
 		case 0xefbb:
 			code = "UTF-8";
@@ -105,7 +105,7 @@ public class UTF8Parser {
 	}
 
 	/**
-	 * Ä¿Â¼¾Íµü´ú±éÀú£»ÎÄ¼ş¾ÍÖØ±àÂë
+	 * ç›®å½•å°±è¿­ä»£éå†ï¼›æ–‡ä»¶å°±é‡ç¼–ç 
 	 * 
 	 * @throws Exception
 	 */
@@ -133,7 +133,7 @@ public class UTF8Parser {
 					// + codeStrin2(file.getAbsolutePath()));
 				}
 			} else {
-				// ´´½¨ÎÄ¼ş¼Ğ
+				// åˆ›å»ºæ–‡ä»¶å¤¹
 				File file2 = new File(
 						getToPath(file, destDir.getAbsolutePath()));
 				// System.out.println(file2.getAbsolutePath());
@@ -157,13 +157,13 @@ public class UTF8Parser {
      */
 	private void parse2UTF_8(File file, File destFile) throws IOException {
 		StringBuffer msg = new StringBuffer();
-		// ¶ÁĞ´¶ÔÏó
+		// è¯»å†™å¯¹è±¡
 		PrintWriter ps = new PrintWriter(new OutputStreamWriter(
 				new FileOutputStream(destFile, false), "utf8"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				new FileInputStream(file), "gbk"));
 
-		// ¶ÁĞ´¶¯×÷
+		// è¯»å†™åŠ¨ä½œ
 		String line = br.readLine();
 		while (line != null) {
 			msg.append(line).append("\r\n");

@@ -20,7 +20,7 @@ import com.sept.exception.AppException;
 public class AntZip {
 	static final int BUFFER = 2048;
 
-	// zip·½·¨¶Ôbyte½øĞĞÑ¹Ëõ
+	// zipæ–¹æ³•å¯¹byteè¿›è¡Œå‹ç¼©
 	public static byte[] zip(byte[] data) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ZipEntry ze = new ZipEntry("servletservice");
@@ -32,7 +32,7 @@ public class AntZip {
 		return zipBytes;
 	}
 
-	// zip·½·¨¶Ôbyte½øĞĞ½âÑ¹Ëõ
+	// zipæ–¹æ³•å¯¹byteè¿›è¡Œè§£å‹ç¼©
 	public static byte[] unzip(byte[] zipBytes) throws IOException {
 		ByteArrayInputStream bais = new ByteArrayInputStream(zipBytes);
 		ZipInputStream zis = new ZipInputStream(bais);
@@ -51,7 +51,7 @@ public class AntZip {
 
 	/**
 	 * 
-	 * ËµÃ÷£ºÑ¹Ëõ·½·¨£ºfilepathÊÇÔ´ÎÄ¼şÂ·¾¶£¬zipPathÊÇÑ¹ËõÎÄ¼şÂ·¾¶
+	 * è¯´æ˜ï¼šå‹ç¼©æ–¹æ³•ï¼šfilepathæ˜¯æºæ–‡ä»¶è·¯å¾„ï¼ŒzipPathæ˜¯å‹ç¼©æ–‡ä»¶è·¯å¾„
 	 * 
 	 * @param filePath
 	 * @param zipPath
@@ -82,7 +82,7 @@ public class AntZip {
 			}
 			out.close();
 		} catch (IOException e) {
-			throw new AppException("Ñ¹ËõÎÄ¼ş³ö´í");
+			throw new AppException("å‹ç¼©æ–‡ä»¶å‡ºé”™");
 		} finally {
 			while (f.listFiles().length > 0) {
 				f.listFiles()[0].delete();
@@ -102,16 +102,16 @@ public class AntZip {
 					out.close();
 				}
 			} catch (Exception e) {
-				throw new AppException("¹Ø±ÕÎÄ¼şÁ÷³ö´í" + e.getMessage());
+				throw new AppException("å…³é—­æ–‡ä»¶æµå‡ºé”™" + e.getMessage());
 			}
 		}
 	}
 
 	/**
 	 * 
-	 * ËµÃ÷£ºÑ¹Ëõ·½·¨,Ñ¹Ëõ·½·¨Í¬Ô´ÎÄ¼şÍ¬¼¶
+	 * è¯´æ˜ï¼šå‹ç¼©æ–¹æ³•,å‹ç¼©æ–¹æ³•åŒæºæ–‡ä»¶åŒçº§
 	 * 
-	 * @param filePath :filepathÊÇÔ´ÎÄ¼şÂ·¾¶
+	 * @param filePath :filepathæ˜¯æºæ–‡ä»¶è·¯å¾„
 	 * @throws AppException
 	 */
 	public static void zip(String filePath) throws AppException {
@@ -140,7 +140,7 @@ public class AntZip {
 			}
 			out.close();
 		} catch (Exception e) {
-			throw new AppException("Ñ¹ËõÎÄ¼ş³ö´í");
+			throw new AppException("å‹ç¼©æ–‡ä»¶å‡ºé”™");
 		} finally {
 			while (f.listFiles().length > 0) {
 				f.listFiles()[0].delete();
@@ -160,14 +160,14 @@ public class AntZip {
 					out.close();
 				}
 			} catch (Exception e) {
-				throw new AppException("¹Ø±ÕÎÄ¼şÁ÷³ö´í" + e.getMessage());
+				throw new AppException("å…³é—­æ–‡ä»¶æµå‡ºé”™" + e.getMessage());
 			}
 		}
 	}
 
 	/**
 	 * 
-	 * ËµÃ÷£º½âÑ¹ËõµÄ·½·¨£¬filepathÊÇÔ´ÎÄ¼şÂ·¾¶£¬zipPathÊÇÑ¹ËõÎÄ¼şÂ·¾¶
+	 * è¯´æ˜ï¼šè§£å‹ç¼©çš„æ–¹æ³•ï¼Œfilepathæ˜¯æºæ–‡ä»¶è·¯å¾„ï¼ŒzipPathæ˜¯å‹ç¼©æ–‡ä»¶è·¯å¾„
 	 * 
 	 * @param filePath
 	 * @param zipPath
@@ -186,15 +186,15 @@ public class AntZip {
 			Enumeration<?> emu = zipFile.getEntries();
 			while (emu.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) emu.nextElement();
-				// »á°ÑÄ¿Â¼×÷ÎªÒ»¸öfile¶Á³öÒ»´Î£¬ËùÒÔÖ»½¨Á¢Ä¿Â¼¾Í¿ÉÒÔ£¬Ö®ÏÂµÄÎÄ¼ş»¹»á±»µü´úµ½¡£
+				// ä¼šæŠŠç›®å½•ä½œä¸ºä¸€ä¸ªfileè¯»å‡ºä¸€æ¬¡ï¼Œæ‰€ä»¥åªå»ºç«‹ç›®å½•å°±å¯ä»¥ï¼Œä¹‹ä¸‹çš„æ–‡ä»¶è¿˜ä¼šè¢«è¿­ä»£åˆ°ã€‚
 				if (entry.isDirectory()) {
 					new File(filePath + entry.getName()).mkdirs();
 					continue;
 				}
 				bis = new BufferedInputStream(zipFile.getInputStream(entry));
 				File file = new File(filePath + entry.getName());
-				// ¼ÓÈëÕâ¸öµÄÔ­ÒòÊÇzipfile¶ÁÈ¡ÎÄ¼şÊÇËæ»ú¶ÁÈ¡µÄ£¬Õâ¾ÍÔì³É¿ÉÄÜÏÈ¶ÁÈ¡Ò»¸öÎÄ¼ş
-				// ¶øÕâ¸öÎÄ¼şËùÔÚµÄÄ¿Â¼»¹Ã»ÓĞ³öÏÖ¹ı£¬ËùÒÔÒª½¨³öÄ¿Â¼À´¡£
+				// åŠ å…¥è¿™ä¸ªçš„åŸå› æ˜¯zipfileè¯»å–æ–‡ä»¶æ˜¯éšæœºè¯»å–çš„ï¼Œè¿™å°±é€ æˆå¯èƒ½å…ˆè¯»å–ä¸€ä¸ªæ–‡ä»¶
+				// è€Œè¿™ä¸ªæ–‡ä»¶æ‰€åœ¨çš„ç›®å½•è¿˜æ²¡æœ‰å‡ºç°è¿‡ï¼Œæ‰€ä»¥è¦å»ºå‡ºç›®å½•æ¥ã€‚
 				File parent = file.getParentFile();
 				if (parent != null && (!parent.exists())) {
 					parent.mkdirs();
@@ -211,7 +211,7 @@ public class AntZip {
 				bis.close();
 			}
 		} catch (Exception e) {
-			throw new AppException("½âÑ¹ËõÎÄ¼şÊ±³öÏÖ´íÎó");
+			throw new AppException("è§£å‹ç¼©æ–‡ä»¶æ—¶å‡ºç°é”™è¯¯");
 		} finally {
 			try {
 				zipFile.close();
@@ -225,16 +225,16 @@ public class AntZip {
 					bos.close();
 				}
 			} catch (Exception e) {
-				throw new AppException("¹Ø±ÕÎÄ¼şÁ÷³ö´í");
+				throw new AppException("å…³é—­æ–‡ä»¶æµå‡ºé”™");
 			}
 		}
 	}
 
 	/**
 	 * 
-	 * ËµÃ÷£º½âÑ¹Ëõ·½·¨,Ñ¹Ëõ·½·¨Í¬Ô´ÎÄ¼şÍ¬¼¶
+	 * è¯´æ˜ï¼šè§£å‹ç¼©æ–¹æ³•,å‹ç¼©æ–¹æ³•åŒæºæ–‡ä»¶åŒçº§
 	 * 
-	 * @param filePath :filepathÊÇÔ´ÎÄ¼şÂ·¾¶
+	 * @param filePath :filepathæ˜¯æºæ–‡ä»¶è·¯å¾„
 	 * @throws AppException
 	 */
 
@@ -250,15 +250,15 @@ public class AntZip {
 			Enumeration<?> emu = zipFile.getEntries();
 			while (emu.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) emu.nextElement();
-				// »á°ÑÄ¿Â¼×÷ÎªÒ»¸öfile¶Á³öÒ»´Î£¬ËùÒÔÖ»½¨Á¢Ä¿Â¼¾Í¿ÉÒÔ£¬Ö®ÏÂµÄÎÄ¼ş»¹»á±»µü´úµ½¡£
+				// ä¼šæŠŠç›®å½•ä½œä¸ºä¸€ä¸ªfileè¯»å‡ºä¸€æ¬¡ï¼Œæ‰€ä»¥åªå»ºç«‹ç›®å½•å°±å¯ä»¥ï¼Œä¹‹ä¸‹çš„æ–‡ä»¶è¿˜ä¼šè¢«è¿­ä»£åˆ°ã€‚
 				if (entry.isDirectory()) {
 					new File(filePath + entry.getName()).mkdirs();
 					continue;
 				}
 				bis = new BufferedInputStream(zipFile.getInputStream(entry));
 				File file = new File(filePath + entry.getName());
-				// ¼ÓÈëÕâ¸öµÄÔ­ÒòÊÇzipfile¶ÁÈ¡ÎÄ¼şÊÇËæ»ú¶ÁÈ¡µÄ£¬Õâ¾ÍÔì³É¿ÉÄÜÏÈ¶ÁÈ¡Ò»¸öÎÄ¼ş
-				// ¶øÕâ¸öÎÄ¼şËùÔÚµÄÄ¿Â¼»¹Ã»ÓĞ³öÏÖ¹ı£¬ËùÒÔÒª½¨³öÄ¿Â¼À´¡£
+				// åŠ å…¥è¿™ä¸ªçš„åŸå› æ˜¯zipfileè¯»å–æ–‡ä»¶æ˜¯éšæœºè¯»å–çš„ï¼Œè¿™å°±é€ æˆå¯èƒ½å…ˆè¯»å–ä¸€ä¸ªæ–‡ä»¶
+				// è€Œè¿™ä¸ªæ–‡ä»¶æ‰€åœ¨çš„ç›®å½•è¿˜æ²¡æœ‰å‡ºç°è¿‡ï¼Œæ‰€ä»¥è¦å»ºå‡ºç›®å½•æ¥ã€‚
 				File parent = file.getParentFile();
 				if (parent != null && (!parent.exists())) {
 					parent.mkdirs();
@@ -275,7 +275,7 @@ public class AntZip {
 				bis.close();
 			}
 		} catch (Exception e) {
-			throw new AppException("½âÑ¹ËõÎÄ¼şÊ±³öÏÖ´íÎó");
+			throw new AppException("è§£å‹ç¼©æ–‡ä»¶æ—¶å‡ºç°é”™è¯¯");
 		} finally {
 			try {
 				zipFile.close();
@@ -289,7 +289,7 @@ public class AntZip {
 					bos.close();
 				}
 			} catch (Exception e) {
-				throw new AppException("¹Ø±ÕÎÄ¼şÁ÷³ö´í");
+				throw new AppException("å…³é—­æ–‡ä»¶æµå‡ºé”™");
 			}
 		}
 	}

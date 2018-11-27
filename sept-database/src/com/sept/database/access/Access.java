@@ -19,17 +19,18 @@ import com.healthmarketscience.jackcess.DatabaseBuilder;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
 import com.healthmarketscience.jackcess.TableBuilder;
-import com.sept.database.file.FileIOTool;
-import com.sept.framework.exception.AppException;
-import com.sept.framework.util.data.DataStore;
+import com.sept.datastructure.DataStore;
+import com.sept.datastructure.comparator.Datas;
+import com.sept.exception.AppException;
+import com.sept.io.local.FileIOUtil;
 
 /**
- * ´´½¨AccessÎÄ¼ş <br>
- * µ±Ç°ĞèÇóÖ»ĞèÒªÉú³ÉAccessÎÄ¼ş¼´¿É£¬Ã»¼Ó¶ÁÈ¡²éÑ¯
+ * åˆ›å»ºAccessæ–‡ä»¶ <br>
+ * å½“å‰éœ€æ±‚åªéœ€è¦ç”ŸæˆAccessæ–‡ä»¶å³å¯ï¼Œæ²¡åŠ è¯»å–æŸ¥è¯¢
  * 
- * @author ÕÅ³¬
+ * @author å¼ è¶…
  * @version 1.0
- * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+ * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
  */
 public class Access {
 	private String url;
@@ -53,7 +54,7 @@ public class Access {
 				accdb = DatabaseBuilder.create(fileFormat, new File(url));
 			} else {
 				if (!file.isFile()) {
-					throw new AppException("url²»ÊÇÓĞĞ§µÄÎÄ¼ş£¡");
+					throw new AppException("urlä¸æ˜¯æœ‰æ•ˆçš„æ–‡ä»¶ï¼");
 				}
 				openAccess(url);
 
@@ -70,10 +71,10 @@ public class Access {
 			this.url = url;
 			File file = new File(this.url);
 			if (!file.isFile()) {
-				throw new AppException("url²»ÊÇÓĞĞ§µÄÎÄ¼ş£¡");
+				throw new AppException("urlä¸æ˜¯æœ‰æ•ˆçš„æ–‡ä»¶ï¼");
 			}
 			if (!file.exists()) {
-				throw new AppException("DBÎÄ¼ş²»´æÔÚ£¡");
+				throw new AppException("DBæ–‡ä»¶ä¸å­˜åœ¨ï¼");
 			}
 			accdb = DatabaseBuilder.open(new File(url));
 			this.hmTables = new HashMap<>();
@@ -92,16 +93,16 @@ public class Access {
 	}
 
 	/**
-	 * ´´½¨±í
+	 * åˆ›å»ºè¡¨
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
 	 * @since V1.0
 	 */
 	public void newTable(String tableName, ArrayList<ColumnBuilder> columnBuilders) throws AppException {
 		if (hmTables.containsKey(tableName)) {
-			throw new AppException("AccessÎÄ¼ş¡¾" + url + "¡¿ÒÑ´æÔÚÃûÎª¡¾" + tableName + "¡¿µÄ±í£¡");
+			throw new AppException("Accessæ–‡ä»¶ã€" + url + "ã€‘å·²å­˜åœ¨åä¸ºã€" + tableName + "ã€‘çš„è¡¨ï¼");
 		}
 
 		Table newTable;
@@ -119,18 +120,18 @@ public class Access {
 	}
 
 	/**
-	 * ´´½¨±í
+	 * åˆ›å»ºè¡¨
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
 	 * @since V1.0
 	 */
 	public void newTable(String tableName, String columnBuilders) throws AppException {
 		ArrayList<ColumnBuilder> alColumnBuilders = new ArrayList<ColumnBuilder>();
 
-		if (!hmTables.containsKey(tableName)) {
-			throw new AppException("AccessÎÄ¼ş¡¾" + url + "¡¿ÒÑ´æÔÚÃûÎª¡¾" + tableName + "¡¿µÄ±í£¡");
+		if (hmTables.containsKey(tableName)) {
+			throw new AppException("Accessæ–‡ä»¶ã€" + url + "ã€‘å·²å­˜åœ¨åä¸ºã€" + tableName + "ã€‘çš„è¡¨ï¼");
 		}
 
 		String[] columnBuilderss = columnBuilders.split(",");
@@ -142,7 +143,7 @@ public class Access {
 			try {
 				type = Integer.parseInt(columnType);
 			} catch (Exception e) {
-				throw new AppException("²ÎÊıÀàĞÍÓ¦¸ÃÊÇÊı×Ö£¡");
+				throw new AppException("å‚æ•°ç±»å‹åº”è¯¥æ˜¯æ•°å­—ï¼");
 			}
 			ColumnBuilder columnBuilder = null;
 			try {
@@ -157,39 +158,39 @@ public class Access {
 	}
 
 	/**
-	 * Ôö¼ÓÒ»ĞĞÊı¾İ
+	 * å¢åŠ ä¸€è¡Œæ•°æ®
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws IOException
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
 	 * @since V1.0
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addRow(String tableName, Map map) throws IOException, AppException {
 		if (!this.hmTables.containsKey(tableName)) {
-			throw new AppException("²»´æÔÚ±í¡¾" + tableName + "¡¿!");
+			throw new AppException("ä¸å­˜åœ¨è¡¨ã€" + tableName + "ã€‘!");
 		}
 		this.hmTables.get(tableName).addRowFromMap(map);
 	}
 
 	/**
-	 * Ôö¼Ó¶àĞĞÊı¾İ
+	 * å¢åŠ å¤šè¡Œæ•°æ®
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
 	 * @since V1.0
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addRows(String tableName, List list) throws IOException, AppException {
 		if (!this.hmTables.containsKey(tableName)) {
-			throw new AppException("²»´æÔÚ±í¡¾" + tableName + "¡¿!");
+			throw new AppException("ä¸å­˜åœ¨è¡¨ã€" + tableName + "ã€‘!");
 		}
 		this.hmTables.get(tableName).addRowsFromMaps(list);
 	}
 
 	/**
-	 * ¼òµ¥µÄµ¥±íÉ¸Ñ¡
+	 * ç®€å•çš„å•è¡¨ç­›é€‰
 	 * 
 	 * @param tableName
 	 * @param filterStr
@@ -213,11 +214,11 @@ public class Access {
 			e.printStackTrace();
 			throw new AppException(e);
 		}
-		return vds.filter(filterStr);
+		return Datas.filter(vds, filterStr, true);
 	}
 
 	/**
-	 * »ñÈ¡Ò»¸ö±íÖĞµÄËùÓĞÊı¾İ
+	 * è·å–ä¸€ä¸ªè¡¨ä¸­çš„æ‰€æœ‰æ•°æ®
 	 * 
 	 * @param tableName
 	 * @param filterStr
@@ -273,22 +274,22 @@ public class Access {
 	public void save() throws AppException, IOException {
 		File file = new File(this.url);
 		if (file.isFile()) {
-			FileIOTool.writeBytesToFile(this.getBytes(), file);
+			FileIOUtil.writeBytesToFile(this.getBytes(), file);
 		} else {
-			throw new AppException("url²»ÊÇÓĞĞ§µÄÎÄ¼ş£¡");
+			throw new AppException("urlä¸æ˜¯æœ‰æ•ˆçš„æ–‡ä»¶ï¼");
 		}
 	}
 
 	/**
-	 * »ñÈ¡bytes
+	 * è·å–bytes
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ19ÈÕ
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ19æ—¥
 	 * @since V1.0
 	 */
 	public byte[] getBytes() throws AppException, IOException {
 		File file = accdb.getFile();
-		byte[] accbytes = FileIOTool.getBytesFromFile(file);
+		byte[] accbytes = FileIOUtil.getBytesFromFile(file);
 		return accbytes;
 	}
 
@@ -307,7 +308,7 @@ public class Access {
 		// sql.setSql(sqlBF.toString());
 		// DataStore dsTemp = sql.executeQuery();
 		// for (int i = 0; i < 1000; i++) {
-		// DebugManager.println("ÕıÔÚĞ´ÈëµÚ"+i+"ĞĞ");
+		// DebugManager.println("æ­£åœ¨å†™å…¥ç¬¬"+i+"è¡Œ");
 		// access.addRows("person", dsTemp);
 		// }
 		// File file = new File("D://ADB9_copy.mdb");

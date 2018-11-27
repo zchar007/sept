@@ -9,10 +9,10 @@ import com.sept.datastructure.common.SharedInformationPool;
 import com.sept.exception.AppException;
 
 /**
- * ÀàÃèÊö-ÉÏ´«Ïß³Ì
+ * ç±»æè¿°-ä¸Šä¼ çº¿ç¨‹
  * 
- * @author ÕÅ³¬
- * @version 1.0 ´´½¨Ê±¼ä 2017-6-7
+ * @author å¼ è¶…
+ * @version 1.0 åˆ›å»ºæ—¶é—´ 2017-6-7
  */
 public class UploadThread implements Runnable {
 	private DataStore vdsFiles;
@@ -23,13 +23,13 @@ public class UploadThread implements Runnable {
 	private String password;
 
 	/**
-	 * ¹¹Ôì·½·¨¼ò½é.
+	 * æ„é€ æ–¹æ³•ç®€ä»‹.
 	 * <p>
-	 * ¹¹Ôì·½·¨ÏêÊö
+	 * æ„é€ æ–¹æ³•è¯¦è¿°
 	 * </p>
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 * @param vdsFiles
 	 *            : file,tourl
@@ -54,10 +54,10 @@ public class UploadThread implements Runnable {
 				File file = (File) vdsFiles.getObject(i, "file");
 				String toUrl = vdsFiles.getString(i, "tourl");
 				FTPClient client = FTPUtil.getFtpConnection(url, port, username, password);
-				// ´´½¨ÎÄ¼ş¼Ğ
+				// åˆ›å»ºæ–‡ä»¶å¤¹
 				FTPUtil.mkdirs(client, toUrl);
 				client = FTPUtil.getFtpConnection(url, port, username, password);
-				// Ö´ĞĞÉÏ´«
+				// æ‰§è¡Œä¸Šä¼ 
 				FTPUtil.FTPUploadFile(file, toUrl, client, mp);
 			}
 		} catch (AppException e) {

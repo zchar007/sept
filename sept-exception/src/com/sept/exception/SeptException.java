@@ -7,11 +7,11 @@ public class SeptException extends Exception {
 	public static final String exceptionType = "";
 
 	public SeptException() {
-		this(ExceptionNames.defaultCode, "程序出现异常!");
+		this(ExceptionNames.defaultCode, "绋嬪簭鍑虹幇寮傚父!");
 	}
 
 	public SeptException(Throwable cause) {
-		this(ExceptionNames.defaultCode, cause == null ? "程序出现异常!" : cause.toString(), cause);
+		this(ExceptionNames.defaultCode, cause == null ? "绋嬪簭鍑虹幇寮傚父!" : cause.toString(), cause);
 	}
 
 	public SeptException(String errtext) {

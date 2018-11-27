@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.healthmarketscience.jackcess.Database;
-import com.sept.framework.exception.AppException;
-import com.sept.framework.util.data.DataStore;
+import com.sept.datastructure.DataStore;
+import com.sept.exception.AppException;
 
 public class AccessFactory {
 
@@ -13,7 +13,7 @@ public class AccessFactory {
 		File file = new File(url);
 
 		if (file.exists()) {
-			throw new AppException("AccessÎÄ¼ş¡¾" + url + "¡¿ÒÑ´æÔÚ£¡");
+			throw new AppException("Accessæ–‡ä»¶ã€" + url + "ã€‘å·²å­˜åœ¨ï¼");
 
 		}
 		return new Access(url, fileFormat);
@@ -23,7 +23,7 @@ public class AccessFactory {
 		File file = new File(url);
 
 		if (file.exists()) {
-			throw new AppException("AccessÎÄ¼ş¡¾" + url + "¡¿ÒÑ´æÔÚ£¡");
+			throw new AppException("Accessæ–‡ä»¶ã€" + url + "ã€‘å·²å­˜åœ¨ï¼");
 
 		}
 		return new Access(url);
@@ -33,7 +33,7 @@ public class AccessFactory {
 		File file = new File(url);
 
 		if (!file.exists()) {
-			throw new AppException("AccessÎÄ¼ş¡¾" + url + "¡¿²»´æÔÚ£¡");
+			throw new AppException("Accessæ–‡ä»¶ã€" + url + "ã€‘ä¸å­˜åœ¨ï¼");
 
 		}
 		return new Access().openAccess(url);
@@ -47,7 +47,7 @@ public class AccessFactory {
 //			HashMap<String, String> hm = new HashMap<>();
 //			hm.put("ryid", i + "" + i + "" + i);
 //			hm.put("shbzhm", i + "" + i + "" + i + "" + i + "" + i + "" + i);
-//			hm.put("xm", "ÕÅ" + i);
+//			hm.put("xm", "å¼ " + i);
 //			access.addRow("test", hm);
 //		}
 //		access.save();

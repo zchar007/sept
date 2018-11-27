@@ -12,10 +12,10 @@ public class Demo {
 
 	public static void main(String[] args) throws UnsupportedEncodingException, AppException {
 		final MessagePool mess = new MessagePool();
-//		final ExecutorService es = EncryptUtil.encryptFiles(new File("F:\\²Ö¿â_´ıÕûÀí\\[°×Â¹Ô­]µÚ58¼¯_bd.mp4"),
-//				"F:\\²Ö¿â_´ıÕûÀí\\[°×Â¹Ô­]µÚ58¼¯_bd", "123", mess, null);
+//		final ExecutorService es = EncryptUtil.encryptFiles(new File("F:\\ä»“åº“_å¾…æ•´ç†\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd.mp4"),
+//				"F:\\ä»“åº“_å¾…æ•´ç†\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd", "123", mess, null);
 		final ExecutorService es = EncryptUtil.encryptFiles(
-				new File("F:\\\\²Ö¿â_´ıÕûÀí\\\\[°×Â¹Ô­]µÚ58¼¯_bd\\\\[°×Â¹Ô­]µÚ58¼¯_bd.mp4"), "F:\\²Ö¿â_´ıÕûÀí\\[°×Â¹Ô­]µÚ58¼¯_bd\\[°×Â¹Ô­]µÚ58¼¯_bd",
+				new File("F:\\\\ä»“åº“_å¾…æ•´ç†\\\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd\\\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd.mp4"), "F:\\ä»“åº“_å¾…æ•´ç†\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd",
 				"123", mess, null);
 
 		new Thread() {

@@ -36,21 +36,21 @@ public class XMLDataStore {
 		DataStore pds = new DataStore();
 		String type = com.sept.util.XMLUtil.decodeXML(element.attributeValue("t"));
 		if (!TypeUtil.DATASTORE.equals(type)) {
-			throw new AppException("ËùÒª½âÎöµÄxml²»ÊÇ±ê×¼µÄ DataStore XML");
+			throw new AppException("æ‰€è¦è§£æçš„xmlä¸æ˜¯æ ‡å‡†çš„ DataStore XML");
 		}
 		if (!element.getName().toUpperCase().equals("D")) {
-			throw new AppException("½âÎöxml¸ñÊ½µÄDataStoreÊ±³ö´í,¿ªÊ¼±ØĞëÒÔ<d>±êÇ©Îª¸ù½Úµã!");
+			throw new AppException("è§£æxmlæ ¼å¼çš„DataStoreæ—¶å‡ºé”™,å¼€å§‹å¿…é¡»ä»¥<d>æ ‡ç­¾ä¸ºæ ¹èŠ‚ç‚¹!");
 		}
-		// ÀàĞÍ
+		// ç±»å‹
 
 		for (Iterator<?> it = element.elementIterator(); it.hasNext();) {
 			Element element1 = (Element) it.next();
 
 			if (!element1.getName().toUpperCase().equals("R")) {
-				throw new AppException("½âÎöxml¸ñÊ½µÄDataStoreÊ±³ö´í,¿ªÊ¼±ØĞëÒÔ<d>±êÇ©Îª¸ù½Úµã!");
+				throw new AppException("è§£æxmlæ ¼å¼çš„DataStoreæ—¶å‡ºé”™,å¼€å§‹å¿…é¡»ä»¥<d>æ ‡ç­¾ä¸ºæ ¹èŠ‚ç‚¹!");
 			}
 			element1.addAttribute("tl", this.typelist);//tl:typelist
-			// DataObjectÏÂµÄÔªËØ¶¼ÓĞkey
+			// DataObjectä¸‹çš„å…ƒç´ éƒ½æœ‰key
 			DataObject pds2 = new XMLDataObject(element1).getDataObject();
 			pds.addRow(pds2);
 			continue;

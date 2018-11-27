@@ -50,9 +50,9 @@ public class STextPane extends JPanel implements MouseListener {
 	private void initPop() {
 		pop_main = new JPopupMenu();
 
-		pop_main.add(menuItem_copy = new JMenuItem("¸´ÖÆ"));
-		pop_main.add(menuItem_paste = new JMenuItem("Õ³Ìù"));
-		pop_main.add(menuItem_cut = new JMenuItem("¼ôÇĞ"));
+		pop_main.add(menuItem_copy = new JMenuItem("å¤åˆ¶"));
+		pop_main.add(menuItem_paste = new JMenuItem("ç²˜è´´"));
+		pop_main.add(menuItem_cut = new JMenuItem("å‰ªåˆ‡"));
 		menuItem_copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_MASK));
 		menuItem_paste.setAccelerator(KeyStroke.getKeyStroke('V', InputEvent.CTRL_MASK));
 		menuItem_cut.setAccelerator(KeyStroke.getKeyStroke('X', InputEvent.CTRL_MASK));
@@ -77,7 +77,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * ÉèÖÃ¿½±´°´Å¥ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®æ‹·è´æŒ‰é’®æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param isEnabled
 	 */
@@ -86,7 +86,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * ÉèÖÃÕ³Ìù°´Å¥ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®ç²˜è´´æŒ‰é’®æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param isEnabled
 	 */
@@ -95,7 +95,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * ÉèÖÃ¼ôÇĞ°´Å¥ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®å‰ªåˆ‡æŒ‰é’®æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param isEnabled
 	 */
@@ -104,7 +104,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ôö¼Óitem
+	 * å¢åŠ item
 	 * 
 	 * @param item
 	 */
@@ -113,7 +113,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Ôö¼Ómenu
+	 * å¢åŠ menu
 	 * 
 	 * @param menu
 	 */
@@ -122,7 +122,7 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * »ñÈ¡µ×²ãJTextPane,Ò»°ãÓÃ»§µ½
+	 * è·å–åº•å±‚JTextPane,ä¸€èˆ¬ç”¨æˆ·åˆ°
 	 * 
 	 * @return
 	 */
@@ -135,9 +135,9 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * ¼ôÇĞ°åÖĞÊÇ·ñÓĞÎÄ±¾Êı¾İ¿É¹©Õ³Ìù
+	 * å‰ªåˆ‡æ¿ä¸­æ˜¯å¦æœ‰æ–‡æœ¬æ•°æ®å¯ä¾›ç²˜è´´
 	 * 
-	 * @return trueÎªÓĞÎÄ±¾Êı¾İ
+	 * @return trueä¸ºæœ‰æ–‡æœ¬æ•°æ®
 	 */
 	protected boolean isCanPaste() {
 		boolean b = false;
@@ -153,9 +153,9 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * ÎÄ±¾×é¼şÖĞÊÇ·ñ¾ß±¸¸´ÖÆµÄÌõ¼ş
+	 * æ–‡æœ¬ç»„ä»¶ä¸­æ˜¯å¦å…·å¤‡å¤åˆ¶çš„æ¡ä»¶
 	 * 
-	 * @return trueÎª¾ß±¸
+	 * @return trueä¸ºå…·å¤‡
 	 */
 	protected boolean isCanCopy() {
 		boolean b = false;

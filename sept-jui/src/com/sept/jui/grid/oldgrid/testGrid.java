@@ -1,4 +1,4 @@
-package com.sept.jui.grid;
+package com.sept.jui.grid.oldgrid;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -42,27 +42,27 @@ public class testGrid extends JFrame {
 
 		this.grid = new Grid();
 
-		grid.addColumn(new GridColumn("ĞÕÃû", "xm", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("ÄêÁä", "nl", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("¼ÒÍ¥×¡Ö·", "jtzz", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("µç»°", "dh", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("ÊÇ²»ÊÇÑ§Éú", "sbsxs", GridColumn.COLUMNTYPE_CHECKBOX, "true", null, true));
-		grid.addColumn(new GridColumn("Äê¼¶", "nj", GridColumn.COLUMNTYPE_DROPDOWN, "1", "1:Ò»Äê¼¶,2:¶şÄê¼¶,3:ÈıÄê¼¶", false));
-		grid.addColumn(new GridColumn("ĞÕÃû", "xm2", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("ÄêÁä", "nl2", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("¼ÒÍ¥×¡Ö·", "jtzz2", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("µç»°", "dh2", GridColumn.COLUMNTYPE_STRING, "ÕÅÈı", null, false));
-		grid.addColumn(new GridColumn("ÊÇ²»ÊÇÑ§Éú", "sbsxs2", GridColumn.COLUMNTYPE_CHECKBOX, "true", null, true));
-		grid.addColumn(new GridColumn("Äê¼¶", "nj2", GridColumn.COLUMNTYPE_DROPDOWN, "1", "1:Ò»Äê¼¶,2:¶şÄê¼¶,3:ÈıÄê¼¶", false));
+		grid.addColumn(new GridColumn("å§“å", "xm", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("å¹´é¾„", "nl", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("å®¶åº­ä½å€", "jtzz", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("ç”µè¯", "dh", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("æ˜¯ä¸æ˜¯å­¦ç”Ÿ", "sbsxs", GridColumn.COLUMNTYPE_CHECKBOX, "true", null, true));
+		grid.addColumn(new GridColumn("å¹´çº§", "nj", GridColumn.COLUMNTYPE_DROPDOWN, "1", "1:ä¸€å¹´çº§,2:äºŒå¹´çº§,3:ä¸‰å¹´çº§", true));
+		grid.addColumn(new GridColumn("å§“å", "xm2", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("å¹´é¾„", "nl2", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("å®¶åº­ä½å€", "jtzz2", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("ç”µè¯", "dh2", GridColumn.COLUMNTYPE_STRING, "å¼ ä¸‰", null, true));
+		grid.addColumn(new GridColumn("æ˜¯ä¸æ˜¯å­¦ç”Ÿ", "sbsxs2", GridColumn.COLUMNTYPE_CHECKBOX, "true", null, true));
+		grid.addColumn(new GridColumn("å¹´çº§", "nj2", GridColumn.COLUMNTYPE_DROPDOWN, "1", "1:ä¸€å¹´çº§,2:äºŒå¹´çº§,3:ä¸‰å¹´çº§", true));
 		this.grid.setShowLineNumber(true);
 
 		DataStore vds = new DataStore();
 		for (int i = 0; i < 3; i++) {
 			vds.addRow();
-			vds.put(vds.rowCount() - 1, "xm", "ÕÅÈı" + i);
+			vds.put(vds.rowCount() - 1, "xm", "å¼ ä¸‰" + i);
 			vds.put(vds.rowCount() - 1, "nl", 10 + i);
 			vds.put(vds.rowCount() - 1, "dh", "137937" + 10 + i);
-			vds.put(vds.rowCount() - 1, "jtzz", "Ã»ÓĞ×¡Ö·");
+			vds.put(vds.rowCount() - 1, "jtzz", "æ²¡æœ‰ä½å€");
 		}
 		this.grid.addRows(vds);
 		this.grid.setShowPop_add(true);
@@ -84,7 +84,7 @@ public class testGrid extends JFrame {
 		});
 		this.grid.add(button, "North");
 
-		btnSss = new JButton("»ñÈ¡Êı¾İ");
+		btnSss = new JButton("è·å–æ•°æ®");
 		this.btnSss.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

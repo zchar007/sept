@@ -1,4 +1,4 @@
-package com.sept.classz.dynamic;
+package com.sept.project.classz.dynamic;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;

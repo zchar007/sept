@@ -15,6 +15,15 @@
 	<classpathentry kind="lib" path="lib/ojdbc5.jar"/>
 	<classpathentry kind="lib" path="lib/org.json.jar"/>
 	<classpathentry kind="lib" path="lib/pinyin4j-2.5.0.jar"/>
-	<classpathentry kind="lib" path="lib/sept-util.jar"/>
+	<classpathentry kind="lib" path="lib/sept.exception.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core-4.3.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-jdbc-4.3.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/sept.util.jar"/>
+	<classpathentry kind="lib" path="lib/sept.datastructure.jar"/>
+	<classpathentry kind="lib" path="lib/spring-tx-4.3.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-context-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-beans-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-expression-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/sept.io.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

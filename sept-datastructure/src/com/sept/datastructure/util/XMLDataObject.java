@@ -39,14 +39,14 @@ public class XMLDataObject {
 		for (Iterator<?> it = element.elementIterator(); it.hasNext();) {
 			Element element1 = (Element) it.next();
 			if (!element1.getName().toUpperCase().equals("P")) {
-				throw new AppException("½âÎöxml¸ñÊ½µÄDataObjectÊ±³ö´í,<d>±êÇ©ÖĞÖ»ÔÊĞíÖ±½Ó³öÏÖ<p>±êÇ©£¡");
+				throw new AppException("è§£æxmlæ ¼å¼çš„DataObjectæ—¶å‡ºé”™,<d>æ ‡ç­¾ä¸­åªå…è®¸ç›´æ¥å‡ºç°<p>æ ‡ç­¾ï¼");
 			}
-			// DataObjectÏÂµÄÔªËØ¶¼ÓĞkey
+			// DataObjectä¸‹çš„å…ƒç´ éƒ½æœ‰key
 			String key = com.sept.util.XMLUtil.decodeXML(element1.attributeValue("k"));
 
 			if (TypeUtil.DATAOBJECT.equals(pdo.getType(key))) {
 				Element elementDO = null;
-				// È¥³ıµÚÒ»¸ödoÔªËØ
+				// å»é™¤ç¬¬ä¸€ä¸ªdoå…ƒç´ 
 				for (Iterator<?> it2 = element1.elementIterator(); it2.hasNext();) {
 					elementDO = (Element) it2.next();
 					break;
@@ -70,7 +70,7 @@ public class XMLDataObject {
 			try {
 				value = element1.attributeValue("v");
 			} catch (Exception e) {
-				throw new AppException("½âÎöxml¸ñÊ½µÄDataObjectÊ±³ö´í,¡¾" + key + "¡¿µÄÀàĞÍÊÇ¡¾" + pdo.getTypeList() + "¡¿±ØĞëº¬ÓĞvÊôĞÔ£¡");
+				throw new AppException("è§£æxmlæ ¼å¼çš„DataObjectæ—¶å‡ºé”™,ã€" + key + "ã€‘çš„ç±»å‹æ˜¯ã€" + pdo.getTypeList() + "ã€‘å¿…é¡»å«æœ‰vå±æ€§ï¼");
 			}
 			pdo.put(com.sept.util.XMLUtil.decodeXML(key),
 					TypeUtil.getValueByType(pdo.getType(key), com.sept.util.XMLUtil.decodeXML(value)));

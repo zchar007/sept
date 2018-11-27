@@ -27,31 +27,31 @@ import com.sept.io.web.ftp.tree.FTPFileTree;
 import com.sept.util.RandomManager;
 
 /**
- * ½öÖ§³Öµ¥¸öÎÄ¼şµÄÉÏ´«ÏÂÔØ
+ * ä»…æ”¯æŒå•ä¸ªæ–‡ä»¶çš„ä¸Šä¼ ä¸‹è½½
  * 
- * @author ÕÅ³¬
- * @version 1.0 ´´½¨Ê±¼ä 2017-6-6
+ * @author å¼ è¶…
+ * @version 1.0 åˆ›å»ºæ—¶é—´ 2017-6-6
  */
 public class FTPUtil {
 	private static Object clientKey = new Object();
-	private static String UPLOAD_FILE_SIZE = "U_F_S";// µ±Ç°ÉÏ´«ÎÄ¼ş´óĞ¡µÄkey
-	private static String UPLOAD_NOW_SIZE = "U_N_S";// µ±Ç°ÒÑÉÏ´«´óĞ¡µÄkey
-	private static String UPLOAD_ALL_SIZE = "U_A_S";// ËùÓĞÉÏ´«´óĞ¡µÄkey
-	private static String UPLOAD_FILE_NAME = "U_F_N";// µ±Ç°ÕıÔÚÉÏ´«µÄÎÄ¼şÃûµÄkey
-	private static String UPLOAD_DIRECTORY_NAME = "U_D_N";// µ±Ç°ÉÏ´«µÄ×ÜÎÄ¼ş/Ä¿Â¼µÄÃû×Ö
+	private static String UPLOAD_FILE_SIZE = "U_F_S";// å½“å‰ä¸Šä¼ æ–‡ä»¶å¤§å°çš„key
+	private static String UPLOAD_NOW_SIZE = "U_N_S";// å½“å‰å·²ä¸Šä¼ å¤§å°çš„key
+	private static String UPLOAD_ALL_SIZE = "U_A_S";// æ‰€æœ‰ä¸Šä¼ å¤§å°çš„key
+	private static String UPLOAD_FILE_NAME = "U_F_N";// å½“å‰æ­£åœ¨ä¸Šä¼ çš„æ–‡ä»¶åçš„key
+	private static String UPLOAD_DIRECTORY_NAME = "U_D_N";// å½“å‰ä¸Šä¼ çš„æ€»æ–‡ä»¶/ç›®å½•çš„åå­—
 
-	private static String DOWNLOAD_FILE_SIZE = "D_F_S";// µ±Ç°ÏÂÔØÎÄ¼ş´óĞ¡µÄkey
-	private static String DOWNLOAD_NOW_SIZE = "D_N_S";// µ±Ç°ÒÑÏÂÔØ´óĞ¡µÄkey
-	private static String DOWNLOAD_ALL_SIZE = "D_A_S";// ËùÓĞÏÂÔØ´óĞ¡µÄkey
-	private static String DOWNLOAD_FILE_NAME = "D_F_N";// µ±Ç°ÕıÔÚÏÂÔØµÄÎÄ¼şÃûµÄkey
-	private static String DOWNLOAD_DIRECTORY_NAME = "D_D_N";// µ±Ç°ÏÂÔØµÄ×ÜÎÄ¼ş/Ä¿Â¼µÄÃû×Ö
+	private static String DOWNLOAD_FILE_SIZE = "D_F_S";// å½“å‰ä¸‹è½½æ–‡ä»¶å¤§å°çš„key
+	private static String DOWNLOAD_NOW_SIZE = "D_N_S";// å½“å‰å·²ä¸‹è½½å¤§å°çš„key
+	private static String DOWNLOAD_ALL_SIZE = "D_A_S";// æ‰€æœ‰ä¸‹è½½å¤§å°çš„key
+	private static String DOWNLOAD_FILE_NAME = "D_F_N";// å½“å‰æ­£åœ¨ä¸‹è½½çš„æ–‡ä»¶åçš„key
+	private static String DOWNLOAD_DIRECTORY_NAME = "D_D_N";// å½“å‰ä¸‹è½½çš„æ€»æ–‡ä»¶/ç›®å½•çš„åå­—
 
 	/**
-	 * ftp ÉÏ´«ÎÄ¼ş/ÎÄ¼ş¼Ğ
+	 * ftp ä¸Šä¼ æ–‡ä»¶/æ–‡ä»¶å¤¹
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @since V1.0
 	 */
 	public static boolean FTPUploadFile(String fromUrl, String toUrl, FTPClient client) throws AppException {
@@ -60,12 +60,12 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ftp ÉÏ´«ÎÄ¼ş
+	 * ftp ä¸Šä¼ æ–‡ä»¶
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @param fromFile
-	 * @param toUrl    -- ÑÏ¸ñ°´ÕÕ--Èç¹ûftÖ÷Ä¿Â¼Îª xxx µÄ,ÒªÉÏ´«µ½aaaÎÄ¼ş¼ĞÏÂ ---/xxx/aa/
+	 * @param toUrl    -- ä¸¥æ ¼æŒ‰ç…§--å¦‚æœftä¸»ç›®å½•ä¸º xxx çš„,è¦ä¸Šä¼ åˆ°aaaæ–‡ä»¶å¤¹ä¸‹ ---/xxx/aa/
 	 * @param client
 	 * @since V1.0
 	 */
@@ -74,19 +74,19 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ftp ÉÏ´«ÎÄ¼ş
+	 * ftp ä¸Šä¼ æ–‡ä»¶
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @param fromFile
-	 * @param toUrl    -- ÑÏ¸ñ°´ÕÕ--Èç¹ûftÖ÷Ä¿Â¼Îª xxx µÄ,ÒªÉÏ´«µ½aaaÎÄ¼ş¼ĞÏÂ ---/xxx/aa/
+	 * @param toUrl    -- ä¸¥æ ¼æŒ‰ç…§--å¦‚æœftä¸»ç›®å½•ä¸º xxx çš„,è¦ä¸Šä¼ åˆ°aaaæ–‡ä»¶å¤¹ä¸‹ ---/xxx/aa/
 	 * @param client
 	 * @since V1.0
 	 */
 	public static boolean FTPUploadFile(File fromFile, String toUrl, FTPClient client, SharedInformationPool mp)
 			throws AppException {
 		if (!fromFile.isFile()) {
-			throw new AppException("µ¥¸öÉÏ´«½öÖ§³Öµ¥¸öÎÄ¼şµÄÉÏ´«£¡");
+			throw new AppException("å•ä¸ªä¸Šä¼ ä»…æ”¯æŒå•ä¸ªæ–‡ä»¶çš„ä¸Šä¼ ï¼");
 		}
 		InputStream in = null;
 		OutputStream os = null;
@@ -131,11 +131,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ftp ÏÂÔØÎÄ¼ş
+	 * ftp ä¸‹è½½æ–‡ä»¶
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @since V1.0
 	 */
 	public static boolean FTPDownloadFile(String fromUrl, String toUrl, FTPClient client) throws AppException {
@@ -143,11 +143,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ftp ÏÂÔØÎÄ¼ş
+	 * ftp ä¸‹è½½æ–‡ä»¶
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @since V1.0
 	 */
 	public static boolean FTPDownloadFile(String fromUrl, String toUrl, FTPClient client, SharedInformationPool mp)
@@ -157,7 +157,7 @@ public class FTPUtil {
 		try {
 
 			if (client.changeWorkingDirectory(fromUrl)) {
-				throw new AppException("Ö»ÄÜÏÂÔØÎÄ¼ş£¡");
+				throw new AppException("åªèƒ½ä¸‹è½½æ–‡ä»¶ï¼");
 			}
 			FTPFile[] filesTemp = client.listFiles(new String(fromUrl.getBytes("GBK"), "iso-8859-1"));
 			if (null != mp) {
@@ -198,12 +198,12 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ²»ÌôfileÀàĞÍ£¬¶àÏß³ÌÉÏ´«
+	 * ä¸æŒ‘fileç±»å‹ï¼Œå¤šçº¿ç¨‹ä¸Šä¼ 
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @return
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public static ExecutorService FTPUpload(File fromFile, String toUrl, String host, int port, String username,
@@ -212,12 +212,12 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ²»ÌôfileÀàĞÍ£¬¶àÏß³ÌÉÏ´«
+	 * ä¸æŒ‘fileç±»å‹ï¼Œå¤šçº¿ç¨‹ä¸Šä¼ 
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @return
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public static ExecutorService FTPUpload(File fromFile, String toUrl, SharedInformationPool mp, String host,
@@ -237,7 +237,7 @@ public class FTPUtil {
 			DataStore vdsFiles = new DataStore();
 			for (int i = 0; i < alFiles.size(); i++) {
 				File file = alFiles.get(i);
-				// ÕûÀí³öftpÉÏ¶ÔÓ¦Î»ÖÃ
+				// æ•´ç†å‡ºftpä¸Šå¯¹åº”ä½ç½®
 				String toUrlCell = toUrl + File.separator + file.getAbsolutePath().substring(needRemovePath.length());
 				toUrlCell = toUrlCell.substring(0, toUrlCell.lastIndexOf(File.separator));
 				// System.out.println(toUrlCell);
@@ -246,9 +246,9 @@ public class FTPUtil {
 				vdsFiles.put(vdsFiles.rowCount() - 1, "tourl", toUrlCell);
 			}
 
-			// ÎªÊ²Ã´
+			// ä¸ºä»€ä¹ˆ
 			int[] everys = new int[10];
-			// Ğ¡ÓÚµÈÓÚ10£¬¿ª10¸öÏß³Ì£¬Ã¿¸öÏß³Ì´¦ÀíÒ»¸ö
+			// å°äºç­‰äº10ï¼Œå¼€10ä¸ªçº¿ç¨‹ï¼Œæ¯ä¸ªçº¿ç¨‹å¤„ç†ä¸€ä¸ª
 			int every = vdsFiles.rowCount() / 10;
 			int yushu = vdsFiles.rowCount() % 10;
 
@@ -276,11 +276,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ²»ÌôfileÀàĞÍ£¬¶àÏß³ÌÏÂÔØ
+	 * ä¸æŒ‘fileç±»å‹ï¼Œå¤šçº¿ç¨‹ä¸‹è½½
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public static ExecutorService FTPDownload(String fromUrl, String toUrl, String host, int port, String username,
@@ -289,11 +289,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ²»ÌôfileÀàĞÍ£¬¶àÏß³ÌÏÂÔØ
+	 * ä¸æŒ‘fileç±»å‹ï¼Œå¤šçº¿ç¨‹ä¸‹è½½
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public static ExecutorService FTPDownload(String fromUrl, String toUrl, SharedInformationPool mp, String host,
@@ -343,9 +343,9 @@ public class FTPUtil {
 				vdsFiles.put(vdsFiles.rowCount() - 1, "tourl", toUrlCell);
 			}
 
-			// ÎªÊ²Ã´
+			// ä¸ºä»€ä¹ˆ
 			int[] everys = new int[10];
-			// Ğ¡ÓÚµÈÓÚ10£¬¿ª10¸öÏß³Ì£¬Ã¿¸öÏß³Ì´¦ÀíÒ»¸ö
+			// å°äºç­‰äº10ï¼Œå¼€10ä¸ªçº¿ç¨‹ï¼Œæ¯ä¸ªçº¿ç¨‹å¤„ç†ä¸€ä¸ª
 			int every = vdsFiles.rowCount() / 10;
 			int yushu = vdsFiles.rowCount() % 10;
 
@@ -375,11 +375,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * »ñÈ¡ftpÎÄ¼şÄ¿Â¼
+	 * è·å–ftpæ–‡ä»¶ç›®å½•
 	 * 
 	 * @param client
 	 * @param file
-	 * @param        path:ÒªÕÒµÄÂ·¾¶
+	 * @param        path:è¦æ‰¾çš„è·¯å¾„
 	 * @return
 	 * @throws AppException
 	 */
@@ -393,7 +393,7 @@ public class FTPUtil {
 			}
 			node = new FTPFileNode(RandomManager.getRandomStrNoHan(8));
 			if (null == file || null == path) {
-				node.setAttribute("text", "FTPÎÄ¼ş¼Ğ");
+				node.setAttribute("text", "FTPæ–‡ä»¶å¤¹");
 				node.setAttribute("target", "target");
 				node.setAttribute("state", "open");
 				node.setAttribute("path", "");
@@ -424,7 +424,7 @@ public class FTPUtil {
 				}
 			}
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 			throw new AppException(e);
 		}
@@ -434,10 +434,10 @@ public class FTPUtil {
 	}
 
 	/**
-	 * »ñÈ¡ftpÉÏµÄÎÄ¼şÃû³Æ¼°´óĞ¡ĞÅÏ¢
+	 * è·å–ftpä¸Šçš„æ–‡ä»¶åç§°åŠå¤§å°ä¿¡æ¯
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-8
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-8
 	 * @since V1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -448,7 +448,7 @@ public class FTPUtil {
 		try {
 			pdo = new DataObject();
 			FTPFile[] files = client.listFiles(new String(url.getBytes("GBK"), "iso-8859-1"));
-			// Èç¹û²»ÊÇÂ·¾¶
+			// å¦‚æœä¸æ˜¯è·¯å¾„
 			if (!client.changeWorkingDirectory(url)) {
 				if (files.length == 1 && files[0].isFile() && files[0].getSize() > 0) {
 					alFiles.add(url);
@@ -481,25 +481,25 @@ public class FTPUtil {
 	}
 
 	/**
-	 * »ñÈ¡FTPÁ¬½Ó
+	 * è·å–FTPè¿æ¥
 	 * 
 	 * @return
 	 * @throws AppException
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017Äê6ÔÂ6ÈÕ
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´6æœˆ6æ—¥
 	 * @since V1.0
 	 */
 	public static FTPClient getFtpConnection(String host, int port, String username, String password)
 			throws AppException {
 		synchronized (clientKey) {
 			if (null == host || host.trim().isEmpty()) {
-				throw new AppException("url²»ÄÜÎª¿Õ");
+				throw new AppException("urlä¸èƒ½ä¸ºç©º");
 			}
 			if (null == username || username.trim().isEmpty()) {
-				throw new AppException("username²»ÄÜÎª¿Õ");
+				throw new AppException("usernameä¸èƒ½ä¸ºç©º");
 			}
 			if (null == password || password.trim().isEmpty()) {
-				throw new AppException("password²»ÄÜÎª¿Õ");
+				throw new AppException("passwordä¸èƒ½ä¸ºç©º");
 			}
 
 			FTPClient client = new FTPClient();
@@ -511,7 +511,7 @@ public class FTPUtil {
 				int reply = client.getReplyCode();
 				if ((!FTPReply.isPositiveCompletion(reply))) {
 					client.disconnect();
-					throw new AppException("µÇÂ¼ftp·şÎñÆ÷Ê§°Ü,Çë¼ì²éftpÅäÖÃÊÇ·ñÕıÈ·!");
+					throw new AppException("ç™»å½•ftpæœåŠ¡å™¨å¤±è´¥,è¯·æ£€æŸ¥ftpé…ç½®æ˜¯å¦æ­£ç¡®!");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -522,11 +522,11 @@ public class FTPUtil {
 	}
 
 	/**
-	 * ÔÚftpÉÏ´´½¨Ä¿Â¼
+	 * åœ¨ftpä¸Šåˆ›å»ºç›®å½•
 	 * 
-	 * @param path -- ÑÏ¸ñ°´ÕÕ--Èç¹ûftpÎÄ¼ş¼ĞÏÂ£¬ÃûÎªÎª xxxµÄÎÄ¼ş¼ĞÏÂ´´½¨aaÎÄ¼ş¼Ğ---/xxx/aa
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @param path -- ä¸¥æ ¼æŒ‰ç…§--å¦‚æœftpæ–‡ä»¶å¤¹ä¸‹ï¼Œåä¸ºä¸º xxxçš„æ–‡ä»¶å¤¹ä¸‹åˆ›å»ºaaæ–‡ä»¶å¤¹---/xxx/aa
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @since V1.0
 	 */
 	public static boolean mkdirs(FTPClient client, String path) throws AppException {
@@ -540,7 +540,7 @@ public class FTPUtil {
 				try {
 					client.mkd(pathName);
 				} catch (Exception e) {
-					throw new AppException("ftpÎÄ¼ş¼Ğ´´½¨Ê§°Ü");
+					throw new AppException("ftpæ–‡ä»¶å¤¹åˆ›å»ºå¤±è´¥");
 				}
 			}
 			client.logout();
@@ -554,10 +554,10 @@ public class FTPUtil {
 	public static void main(String[] args) throws Exception {
 		final MessagePool mess = new MessagePool();
 
-		DataObject pdo = FTPUtil.getFTPFilesFromPath(File.separator+"ĞÂ½¨ÎÄ¼ş¼Ğ"+File.separator,
+		DataObject pdo = FTPUtil.getFTPFilesFromPath(File.separator+"æ–°å»ºæ–‡ä»¶å¤¹"+File.separator,
 				FTPUtil.getFtpConnection("61.147.97.227", 2199, "m", "m"));
 		System.out.println(pdo);
-//		final ExecutorService es = FTPUtil.FTPDownload(File.separator + "°Ù·ÖÖ®ÈıµÚ¶ş¼¾03.mp4", "D:" + File.separator, mess,
+//		final ExecutorService es = FTPUtil.FTPDownload(File.separator + "ç™¾åˆ†ä¹‹ä¸‰ç¬¬äºŒå­£03.mp4", "D:" + File.separator, mess,
 //				"61.147.97.227", 2199, "m", "m");
 //		new Thread() {
 //			public void run() {

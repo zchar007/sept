@@ -134,7 +134,7 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					textField_1.setText(Alert.alertSelectFile("D://–¬Ω®Œƒº˛º–", Alert.SelectFileType_DIRECTORIES_ONLY));
+					textField_1.setText(Alert.alertSelectFile("D://Êñ∞Âª∫Êñá‰ª∂Â§π", Alert.SelectFileType_DIRECTORIES_ONLY));
 				}
 			}
 		});
@@ -270,11 +270,11 @@ public class CopyMain extends JFrame implements ItemListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ("÷ÿ÷√".equals(e.getActionCommand())) {
+		if ("ÈáçÁΩÆ".equals(e.getActionCommand())) {
 			progressBar.reset();
 			textField.setText("");
 			textField_1.setText("");
-		} else if ("øΩ±¥".equals(e.getActionCommand())) {
+		} else if ("Êã∑Ë¥ù".equals(e.getActionCommand())) {
 			String types = "";
 			for (String string : hsSelect) {
 				types += string + ",";

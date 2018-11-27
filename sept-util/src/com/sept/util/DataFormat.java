@@ -10,10 +10,10 @@ import com.sept.exception.AppException;;
 @Deprecated
 public class DataFormat {
 
-	private static final char[] CHINESE_NUMBER = { 'Áã', 'Ò¼', '·¡', 'Èş', 'ËÁ', 'Îé', 'Â½', 'Æâ', '°Æ', '¾Á' };
-	private static final char[] CHINESE_CODE = { '·Ö', '½Ç', 'Õû' };
-	private static final char[] CHINESE_CARRY = { 'Ôª', 'Ê°', '°Û', 'Çª', 'Íò', 'Ê°', '°Û', 'Çª', 'ÒÚ', 'Ê°', '°Û', 'Çª', 'Õ×', 'Ê°',
-			'°Û', 'Çª', 'Íò', 'Ê°', '°Û', 'Çª' };
+	private static final char[] CHINESE_NUMBER = { 'é›¶', 'å£¹', 'è´°', 'å', 'è‚†', 'ä¼', 'é™†', 'æŸ’', 'æŒ', 'ç–' };
+	private static final char[] CHINESE_CODE = { 'åˆ†', 'è§’', 'æ•´' };
+	private static final char[] CHINESE_CARRY = { 'å…ƒ', 'æ‹¾', 'ä½°', 'ä»Ÿ', 'ä¸‡', 'æ‹¾', 'ä½°', 'ä»Ÿ', 'äº¿', 'æ‹¾', 'ä½°', 'ä»Ÿ', 'å…†', 'æ‹¾',
+			'ä½°', 'ä»Ÿ', 'ä¸‡', 'æ‹¾', 'ä½°', 'ä»Ÿ' };
 	private static int maxMoneyLength = 16;
 
 	public static void main(String[] args) throws AppException {

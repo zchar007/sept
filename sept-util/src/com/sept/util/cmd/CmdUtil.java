@@ -12,15 +12,15 @@ import com.sept.exception.AppException;;
 
 public final class CmdUtil {
 	/**
-	 * Ö´ĞĞÒ»¸öcmdÃüÁî£¬²¢·µ»ØËùÓĞÊä³ö
+	 * æ‰§è¡Œä¸€ä¸ªcmdå‘½ä»¤ï¼Œå¹¶è¿”å›æ‰€æœ‰è¾“å‡º
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static ArrayList<String> run(String cmd) throws Exception {
 		if (null == cmd || "".equals(cmd)) {
-			throw new AppException("ÃüÁî´íÎó£¡£¡");
+			throw new AppException("å‘½ä»¤é”™è¯¯ï¼ï¼");
 		}
 		BufferedReader brMessage = null, brError = null;
 		ArrayList<String> al = new ArrayList<String>();
@@ -28,9 +28,9 @@ public final class CmdUtil {
 			Runtime runtime = Runtime.getRuntime();
 			Process proc = runtime.exec(cmd);
 
-			// Êä³öĞÅÏ¢
+			// è¾“å‡ºä¿¡æ¯
 			InputStream stdMessage = proc.getInputStream();
-			// ´íÎóĞÅÏ¢
+			// é”™è¯¯ä¿¡æ¯
 			InputStream stdError = proc.getErrorStream();
 
 			brMessage = new BufferedReader(new InputStreamReader(stdMessage, "GBK"));
@@ -73,7 +73,7 @@ public final class CmdUtil {
 
 	public final static void run(String cmd, JTextArea jta) throws Exception {
 		if (null == cmd || "".equals(cmd)) {
-			throw new AppException("ÃüÁî´íÎó£¡£¡");
+			throw new AppException("å‘½ä»¤é”™è¯¯ï¼ï¼");
 		}
 		BufferedReader brMessage = null, brError = null;
 
@@ -82,9 +82,9 @@ public final class CmdUtil {
 			Runtime runtime = Runtime.getRuntime();
 			Process proc = runtime.exec(cmd);
 
-			// Êä³öĞÅÏ¢
+			// è¾“å‡ºä¿¡æ¯
 			InputStream stdMessage = proc.getInputStream();
-			// ´íÎóĞÅÏ¢
+			// é”™è¯¯ä¿¡æ¯
 			InputStream stdError = proc.getErrorStream();
 
 			brMessage = new BufferedReader(new InputStreamReader(stdMessage));
@@ -133,7 +133,7 @@ public final class CmdUtil {
 
 	public final static void run(String[] cmd) throws Exception {
 		if (null == cmd || cmd.length == 0) {
-			throw new Exception("ÃüÁî´íÎó£¡£¡");
+			throw new Exception("å‘½ä»¤é”™è¯¯ï¼ï¼");
 		}
 		Runtime runtime = Runtime.getRuntime();
 		runtime.exec(cmd);

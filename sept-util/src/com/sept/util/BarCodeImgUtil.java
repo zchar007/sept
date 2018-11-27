@@ -20,7 +20,7 @@ import com.sept.exception.AppException;
 
 public class BarCodeImgUtil {
 	/**
-	 * »ñµÃÌõĞÎÂëÍ¼Æ¬£¨´øÌõĞÎÂë£©µÄbase64±àÂë×Ö·û´®
+	 * è·å¾—æ¡å½¢ç å›¾ç‰‡ï¼ˆå¸¦æ¡å½¢ç ï¼‰çš„base64ç¼–ç å­—ç¬¦ä¸²
 	 * 
 	 * @param barCodeWidth
 	 * @param barCodeHeight
@@ -49,13 +49,13 @@ public class BarCodeImgUtil {
 		Image codeImg = barcode128.createAwtImage(Color.black, Color.white);
 		graph.drawImage(codeImg, 0, 0, barCodeWidth, barCodeHeight, Color.white, null);
 
-		// ÎªÍ¼Æ¬Ìí¼ÓÌõĞÎÂë£¨ÎÄ×Ö£©£¬Î»ÖÃÎªÌõĞÎÂëÍ¼Æ¬µÄÏÂ²¿¾ÓÖĞ
+		// ä¸ºå›¾ç‰‡æ·»åŠ æ¡å½¢ç ï¼ˆæ–‡å­—ï¼‰ï¼Œä½ç½®ä¸ºæ¡å½¢ç å›¾ç‰‡çš„ä¸‹éƒ¨å±…ä¸­
 		AttributedString ats = new AttributedString(code);
 		ats.addAttribute(TextAttribute.FONT, font, 0, code.length());
 		AttributedCharacterIterator iter = ats.getIterator();
-		// ÉèÖÃÌõĞÎÂë£¨ÎÄ×Ö£©µÄÑÕÉ«ÎªºÚÉ«
+		// è®¾ç½®æ¡å½¢ç ï¼ˆæ–‡å­—ï¼‰çš„é¢œè‰²ä¸ºé»‘è‰²
 		graph.setColor(Color.black);
-		// »æÖÆÌõĞÎÂë£¨ÎÄ×Ö£©
+		// ç»˜åˆ¶æ¡å½¢ç ï¼ˆæ–‡å­—ï¼‰
 		graph.drawString(iter, (barCodeWidth - codeWidth) / 2, barCodeHeight + codeHeight);
 		graph.dispose();
 
@@ -86,7 +86,7 @@ public class BarCodeImgUtil {
 	}
 
 	/**
-	 * »ñµÃÌõĞÎÂëÍ¼Æ¬£¨²»´øÌõĞÎÂë£©µÄbase64±àÂë×Ö·û´®
+	 * è·å¾—æ¡å½¢ç å›¾ç‰‡ï¼ˆä¸å¸¦æ¡å½¢ç ï¼‰çš„base64ç¼–ç å­—ç¬¦ä¸²
 	 * 
 	 * @param barCodeWidth
 	 * @param barCodeHeight
@@ -102,16 +102,16 @@ public class BarCodeImgUtil {
 		Image codeImg = barcode128.createAwtImage(Color.black, Color.white);
 
 		// ***********End**************//
-		// ÉèÖÃÍ¼Ïñ´óĞ¡
+		// è®¾ç½®å›¾åƒå¤§å°
 		codeImg = codeImg.getScaledInstance(barCodeWidth, barCodeHeight, Image.SCALE_DEFAULT);
-		// ÄÚ´æÖĞ´´½¨Í¼Ïñ
+		// å†…å­˜ä¸­åˆ›å»ºå›¾åƒ
 		BufferedImage bufferImage = new BufferedImage(barCodeWidth, barCodeHeight, BufferedImage.TYPE_INT_RGB);
-		// »ñÈ¡Í¼ĞÎÉÏÏÂÎÄ
+		// è·å–å›¾å½¢ä¸Šä¸‹æ–‡
 		Graphics2D graph = (Graphics2D) bufferImage.getGraphics();
-		// »æÖÆÍ¼Ïñµ½Ä¿±êÎ»ÖÃ
+		// ç»˜åˆ¶å›¾åƒåˆ°ç›®æ ‡ä½ç½®
 		graph.drawImage(codeImg, 0, 0, codeImg.getWidth(null), codeImg.getHeight(null), 0, 0, barCodeWidth,
 				barCodeHeight, null);
-		// Ïú»ÙGraphics
+		// é”€æ¯Graphics
 		graph.dispose();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -127,13 +127,13 @@ public class BarCodeImgUtil {
 		return barcodpic;
 	}
 
-	// »ñÈ¡39ÌõĞÎÂëµÄbase64Î»±àÂë
+	// è·å–39æ¡å½¢ç çš„base64ä½ç¼–ç 
 	public static String get39BarCodeImageByte(int barCodeWidth, int barCodeHeight, String code)
 			throws IOException, AppException {
 
 		BufferedImage bi = get39BarCodeImage(barCodeWidth, barCodeHeight, code);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		// 20130120 modi by www ĞŞ¸ÄÌõĞÎÂëÓĞÔÓÖÊµÄBug
+		// 20130120 modi by www ä¿®æ”¹æ¡å½¢ç æœ‰æ‚è´¨çš„Bug
 		ImageIO.write(bi, "BMP", out);
 		byte[] data = out.toByteArray();
 
@@ -150,7 +150,7 @@ public class BarCodeImgUtil {
 		return barcodpic;
 	}
 
-	// »ñÈ¡39ÌõĞÎÂëµÄbase64Î»±àÂë
+	// è·å–39æ¡å½¢ç çš„base64ä½ç¼–ç 
 	public static BufferedImage get39BarCodeImage(int barCodeWidth, int barCodeHeight, String code)
 			throws IOException, AppException {
 		if (null == code || 0 == code.length()) {

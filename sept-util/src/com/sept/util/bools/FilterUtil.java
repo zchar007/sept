@@ -11,8 +11,8 @@ import com.sept.util.bools.comparator.CompareCell;
 
 public class FilterUtil {
 	/**
-	 * ¡£¡£¡£¡£¡££© Âß¼­±í´ïÊ½Ğ´·¨ 1±È½ÏÔËËã·û£º ==¡¢<¡¢>¡¢<=¡¢>=¡¢!=¡¢<>¡¢like¡¢isnull¡¢isnotnull ºÍ2Ğ¡À¨ºÅ (¡¢) ×¢Òâ
-	 * Ã¿¸ö±È½ÏÔËËã·ûÇ°ºó±ØĞëÓĞ¿Õ¸ñ£¬¿ÉÒÔÓĞ¶à¸ö¿Õ¸ñ£¬À¨ºÅÇ°ºóÒ²ĞèÒªÓĞ¿Õ¸ñ
+	 * ã€‚ã€‚ã€‚ã€‚ã€‚ï¼‰ é€»è¾‘è¡¨è¾¾å¼å†™æ³• 1æ¯”è¾ƒè¿ç®—ç¬¦ï¼š ==ã€<ã€>ã€<=ã€>=ã€!=ã€<>ã€likeã€isnullã€isnotnull å’Œ2å°æ‹¬å· (ã€) æ³¨æ„
+	 * æ¯ä¸ªæ¯”è¾ƒè¿ç®—ç¬¦å‰åå¿…é¡»æœ‰ç©ºæ ¼ï¼Œå¯ä»¥æœ‰å¤šä¸ªç©ºæ ¼ï¼Œæ‹¬å·å‰åä¹Ÿéœ€è¦æœ‰ç©ºæ ¼
 	 * 
 	 * @param conditions
 	 * @return
@@ -20,7 +20,7 @@ public class FilterUtil {
 	 */
 	public static final Comparator getComparator(String filterStr) throws AppException {
 		
-		//´¦Àí
+		//å¤„ç†
 		filterStr = filterStr.replaceAll("\\|\\|", "or");
 		filterStr = filterStr.replaceAll("&&", "and");
 		// String regx4LogicalOperator =
@@ -29,32 +29,32 @@ public class FilterUtil {
 		Pattern pattern4LogicalOperator = Pattern.compile(regx4LogicalOperator);
 		Matcher matcher4LogicalOperator = pattern4LogicalOperator.matcher(filterStr);
 
-		// Ò»ĞĞÒ»ĞĞµÄaaa == ss bbb > ccc
+		// ä¸€è¡Œä¸€è¡Œçš„aaa == ss bbb > ccc
 		String[] expStrArr = filterStr.split(regx4LogicalOperator);
 
-		// ½á¹¹Îª{cmpoperator=like, cmpkey=xm, cmpvalue=ÕÅÈı2}
+		// ç»“æ„ä¸º{cmpoperator=like, cmpkey=xm, cmpvalue=å¼ ä¸‰2}
 		ArrayList<CompareCell> expInfoObjArr = new ArrayList<CompareCell>();
 
-		// ½á¹¹Îª logicarray=[and (, or, ) and, and],
+		// ç»“æ„ä¸º logicarray=[and (, or, ) and, and],
 		ArrayList<String> logicOps = new ArrayList<String>();
 
 		while (matcher4LogicalOperator.find()) {
-			// ¹ØÁª´Ê and or
+			// å…³è”è¯ and or
 			logicOps.add(matcher4LogicalOperator.group());
 		}
 
-		// È¥³ıÎŞÓÃÀ¨ºÅ
-		// ¼ì²éÊÇ·ñÓĞÀ¨ºÅÖĞÖ»¼ÓÁËbooleanÖµµÃ,ÓĞÔòÈ¥³ı´ËÀ¨ºÅ(ÎŞÓÃÀ¨ºÅ)
+		// å»é™¤æ— ç”¨æ‹¬å·
+		// æ£€æŸ¥æ˜¯å¦æœ‰æ‹¬å·ä¸­åªåŠ äº†booleanå€¼å¾—,æœ‰åˆ™å»é™¤æ­¤æ‹¬å·(æ— ç”¨æ‹¬å·)
 		for (int i = 0; i < logicOps.size() - 1; i++) {
 			String str1 = logicOps.get(i).trim();
 			String str2 = logicOps.get(i + 1).trim();
 
-			// Èç¹ûiÊÇµÚÒ»¸ö(0)ÇÒ·½ÏòÎª)»òÕß×îºóÒ»¸öÇÒ·½ÏòÎª(.,ÔòÈ¥³ıbooleanÖµÉÏµÄÇ°ºóÀ¨ºÅ( ) and)
+			// å¦‚æœiæ˜¯ç¬¬ä¸€ä¸ª(0)ä¸”æ–¹å‘ä¸º)æˆ–è€…æœ€åä¸€ä¸ªä¸”æ–¹å‘ä¸º(.,åˆ™å»é™¤booleanå€¼ä¸Šçš„å‰åæ‹¬å·( ) and)
 
 			if (i == 0 && str1.startsWith(")")) {
 				while (str1.startsWith(")") && expStrArr[0].trim().startsWith("(")) {
 					logicOps.set(i, str1.substring(1, str1.length()));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[0] = expStrArr[0].trim().substring(1, expStrArr[0].trim().length());
 					str1 = logicOps.get(i).trim();
 					str2 = logicOps.get(i + 1).trim();
@@ -63,7 +63,7 @@ public class FilterUtil {
 			if (i == logicOps.size() - 2 && str2.endsWith("(")) {
 				while (str2.endsWith("(") && expStrArr[expStrArr.length - 1].trim().endsWith(")")) {
 					logicOps.set(logicOps.size() - 1, str2.substring(0, str2.length() - 1));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[expStrArr.length - 1] = expStrArr[expStrArr.length - 1].trim().substring(0,
 							expStrArr[expStrArr.length - 1].trim().length() - 1);
 					str1 = logicOps.get(i).trim();
@@ -81,8 +81,8 @@ public class FilterUtil {
 			}
 
 		}
-		// ÒÔÉÏ¼ÆËãÏÂÀ´¿ÉÄÜ»áÓàÏÂbooleanÊı×éÖĞÊ×Î²»¹ÓĞÀ¨ºÅ,ËùÒÔÖ»ĞèÉ¾³ı¼´¿É,ÔÙ´Î×éºÏ²¼¶û×Ö·û´®ÊÇ,È±)ÔòÔÚºó±ßÌîÉÏ,È±(ÔòÔÚÇ°±ßÌîÉÏ
-		// É¾³ıÀ¨ºÅ
+		// ä»¥ä¸Šè®¡ç®—ä¸‹æ¥å¯èƒ½ä¼šä½™ä¸‹booleanæ•°ç»„ä¸­é¦–å°¾è¿˜æœ‰æ‹¬å·,æ‰€ä»¥åªéœ€åˆ é™¤å³å¯,å†æ¬¡ç»„åˆå¸ƒå°”å­—ç¬¦ä¸²æ˜¯,ç¼º)åˆ™åœ¨åè¾¹å¡«ä¸Š,ç¼º(åˆ™åœ¨å‰è¾¹å¡«ä¸Š
+		// åˆ é™¤æ‹¬å·
 		while (expStrArr[0].trim().startsWith("(")) {
 			expStrArr[0] = expStrArr[0].trim().substring(1, expStrArr[0].trim().length());
 		}
@@ -93,14 +93,14 @@ public class FilterUtil {
 		String[] logicStrArr = new String[logicOps.size()];
 		logicStrArr = logicOps.toArray(logicStrArr);
 
-		// ÑéÖ¤Ã¿Ò»¸ö
+		// éªŒè¯æ¯ä¸€ä¸ª
 		for (int i = 0; i < expStrArr.length; i++) {
 			String currentExp = expStrArr[i].trim();
 			String regx4ComparisonOperator = "(?<=\\s)(==|<|>|<=|>=|!=|like|<>)(?=\\s)|(?<=\\s)(isnull|isnotnull)";
 			Pattern pattern4ComparisonOperator = Pattern.compile(regx4ComparisonOperator);
 			Matcher matcher4ComparisonOperator = pattern4ComparisonOperator.matcher(currentExp);
 			if (!matcher4ComparisonOperator.find()) {
-				throw new AppException("ÔÚ±í´ïÊ½¡¾" + currentExp + "¡¿ÖĞÎ´ÕÒµ½±È½ÏÔËËã·û¡¾==¡¢<¡¢>¡¢<=¡¢>=¡¢!=¡¢<>¡¢like¡¢isnull¡¢isnotnull¡¿!");
+				throw new AppException("åœ¨è¡¨è¾¾å¼ã€" + currentExp + "ã€‘ä¸­æœªæ‰¾åˆ°æ¯”è¾ƒè¿ç®—ç¬¦ã€==ã€<ã€>ã€<=ã€>=ã€!=ã€<>ã€likeã€isnullã€isnotnullã€‘!");
 			}
 
 			String operator = matcher4ComparisonOperator.group().trim();
@@ -114,7 +114,7 @@ public class FilterUtil {
 				key = expArr[0].trim();
 				value = null;
 			} else {
-				throw new AppException("±í´ïÊ½¡¾" + currentExp + "¡¿½á¹¹´íÎó£¬²»·ûºÏµ¥Ä¿¡¢Ë«Ä¿ÔËËã±í´ïÊ½½á¹¹!");
+				throw new AppException("è¡¨è¾¾å¼ã€" + currentExp + "ã€‘ç»“æ„é”™è¯¯ï¼Œä¸ç¬¦åˆå•ç›®ã€åŒç›®è¿ç®—è¡¨è¾¾å¼ç»“æ„!");
 			}
 			expInfoObjArr.add(new CompareCell(operator, key, value));
 		}
@@ -123,10 +123,10 @@ public class FilterUtil {
 	}
 
 	/**
-	 * ½«Âß¼­±í´ïÊ½²ğ·Ö³ÉÁ¬½Ó¹Ø¼ü´Ê£¨logicarray=[and (, or, ) and,
-	 * and],£©+µ¥¸ö±È½ÏÂß¼­£¨booleanarray=[{cmpoperator=like, cmpkey=xm, cmpvalue=ÕÅÈı2},
-	 * ¡£¡£¡£¡£¡££© Âß¼­±í´ïÊ½Ğ´·¨ 1±È½ÏÔËËã·û£º ==¡¢<¡¢>¡¢<=¡¢>=¡¢!=¡¢<>¡¢like¡¢isnull¡¢isnotnull ºÍ2Ğ¡À¨ºÅ (¡¢) ×¢Òâ
-	 * Ã¿¸ö±È½ÏÔËËã·ûÇ°ºó±ØĞëÓĞ¿Õ¸ñ£¬¿ÉÒÔÓĞ¶à¸ö¿Õ¸ñ£¬À¨ºÅÇ°ºóÒ²ĞèÒªÓĞ¿Õ¸ñ
+	 * å°†é€»è¾‘è¡¨è¾¾å¼æ‹†åˆ†æˆè¿æ¥å…³é”®è¯ï¼ˆlogicarray=[and (, or, ) and,
+	 * and],ï¼‰+å•ä¸ªæ¯”è¾ƒé€»è¾‘ï¼ˆbooleanarray=[{cmpoperator=like, cmpkey=xm, cmpvalue=å¼ ä¸‰2},
+	 * ã€‚ã€‚ã€‚ã€‚ã€‚ï¼‰ é€»è¾‘è¡¨è¾¾å¼å†™æ³• 1æ¯”è¾ƒè¿ç®—ç¬¦ï¼š ==ã€<ã€>ã€<=ã€>=ã€!=ã€<>ã€likeã€isnullã€isnotnull å’Œ2å°æ‹¬å· (ã€) æ³¨æ„
+	 * æ¯ä¸ªæ¯”è¾ƒè¿ç®—ç¬¦å‰åå¿…é¡»æœ‰ç©ºæ ¼ï¼Œå¯ä»¥æœ‰å¤šä¸ªç©ºæ ¼ï¼Œæ‹¬å·å‰åä¹Ÿéœ€è¦æœ‰ç©ºæ ¼
 	 * 
 	 * @param conditions
 	 * @return
@@ -139,28 +139,28 @@ public class FilterUtil {
 		String regx4LogicalOperator = "(?<=(\\w|[\\u4e00-\\u9fa5])\\s{0,10})(((\\)\\s){0,})\\band\\b((\\s\\(){0,})|((\\)\\s){0,})\\bor\\b((\\s\\(){0,}))(?=\\s+(\\w|[\\u4e00-\\u9fa5]))";
 		Pattern pattern4LogicalOperator = Pattern.compile(regx4LogicalOperator);
 		Matcher matcher4LogicalOperator = pattern4LogicalOperator.matcher(conditions);
-		// Ò»ĞĞÒ»ĞĞµÄaaa == ss bbb > ccc
+		// ä¸€è¡Œä¸€è¡Œçš„aaa == ss bbb > ccc
 		String[] expStrArr = conditions.split(regx4LogicalOperator);
-		// ½á¹¹Îª{cmpoperator=like, cmpkey=xm, cmpvalue=ÕÅÈı2}
+		// ç»“æ„ä¸º{cmpoperator=like, cmpkey=xm, cmpvalue=å¼ ä¸‰2}
 		ArrayList<HashMap<String, Object>> expInfoObjArr = new ArrayList<HashMap<String, Object>>();
-		// ½á¹¹Îª logicarray=[and (, or, ) and, and],
+		// ç»“æ„ä¸º logicarray=[and (, or, ) and, and],
 		ArrayList<String> logicOps = new ArrayList<String>();
 		while (matcher4LogicalOperator.find()) {
-			// ¹ØÁª´Ê and or
+			// å…³è”è¯ and or
 			logicOps.add(matcher4LogicalOperator.group());
 		}
-		// È¥³ıÎŞÓÃÀ¨ºÅ
-		// ¼ì²éÊÇ·ñÓĞÀ¨ºÅÖĞÖ»¼ÓÁËbooleanÖµµÃ,ÓĞÔòÈ¥³ı´ËÀ¨ºÅ(ÎŞÓÃÀ¨ºÅ)
+		// å»é™¤æ— ç”¨æ‹¬å·
+		// æ£€æŸ¥æ˜¯å¦æœ‰æ‹¬å·ä¸­åªåŠ äº†booleanå€¼å¾—,æœ‰åˆ™å»é™¤æ­¤æ‹¬å·(æ— ç”¨æ‹¬å·)
 		for (int i = 0; i < logicOps.size() - 1; i++) {
 			String str1 = logicOps.get(i).trim();
 			String str2 = logicOps.get(i + 1).trim();
 
-			// Èç¹ûiÊÇµÚÒ»¸ö(0)ÇÒ·½ÏòÎª)»òÕß×îºóÒ»¸öÇÒ·½ÏòÎª(.,ÔòÈ¥³ıbooleanÖµÉÏµÄÇ°ºóÀ¨ºÅ( ) and)
+			// å¦‚æœiæ˜¯ç¬¬ä¸€ä¸ª(0)ä¸”æ–¹å‘ä¸º)æˆ–è€…æœ€åä¸€ä¸ªä¸”æ–¹å‘ä¸º(.,åˆ™å»é™¤booleanå€¼ä¸Šçš„å‰åæ‹¬å·( ) and)
 
 			if (i == 0 && str1.startsWith(")")) {
 				while (str1.startsWith(")") && expStrArr[0].trim().startsWith("(")) {
 					logicOps.set(i, str1.substring(1, str1.length()));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[0] = expStrArr[0].trim().substring(1, expStrArr[0].trim().length());
 					str1 = logicOps.get(i).trim();
 					str2 = logicOps.get(i + 1).trim();
@@ -169,7 +169,7 @@ public class FilterUtil {
 			if (i == logicOps.size() - 2 && str2.endsWith("(")) {
 				while (str2.endsWith("(") && expStrArr[expStrArr.length - 1].trim().endsWith(")")) {
 					logicOps.set(logicOps.size() - 1, str2.substring(0, str2.length() - 1));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[expStrArr.length - 1] = expStrArr[expStrArr.length - 1].trim().substring(0,
 							expStrArr[expStrArr.length - 1].trim().length() - 1);
 					str1 = logicOps.get(i).trim();
@@ -187,8 +187,8 @@ public class FilterUtil {
 			}
 
 		}
-		// ÒÔÉÏ¼ÆËãÏÂÀ´¿ÉÄÜ»áÓàÏÂbooleanÊı×éÖĞÊ×Î²»¹ÓĞÀ¨ºÅ,ËùÒÔÖ»ĞèÉ¾³ı¼´¿É,ÔÙ´Î×éºÏ²¼¶û×Ö·û´®ÊÇ,È±)ÔòÔÚºó±ßÌîÉÏ,È±(ÔòÔÚÇ°±ßÌîÉÏ
-		// É¾³ıÀ¨ºÅ
+		// ä»¥ä¸Šè®¡ç®—ä¸‹æ¥å¯èƒ½ä¼šä½™ä¸‹booleanæ•°ç»„ä¸­é¦–å°¾è¿˜æœ‰æ‹¬å·,æ‰€ä»¥åªéœ€åˆ é™¤å³å¯,å†æ¬¡ç»„åˆå¸ƒå°”å­—ç¬¦ä¸²æ˜¯,ç¼º)åˆ™åœ¨åè¾¹å¡«ä¸Š,ç¼º(åˆ™åœ¨å‰è¾¹å¡«ä¸Š
+		// åˆ é™¤æ‹¬å·
 		while (expStrArr[0].trim().startsWith("(")) {
 			expStrArr[0] = expStrArr[0].trim().substring(1, expStrArr[0].trim().length());
 		}
@@ -199,14 +199,14 @@ public class FilterUtil {
 //		String[] logicStrArr = new String[logicOps.size()];
 //		logicStrArr = logicOps.toArray(logicStrArr);
 
-		// ÑéÖ¤Ã¿Ò»¸ö
+		// éªŒè¯æ¯ä¸€ä¸ª
 		for (int i = 0; i < expStrArr.length; i++) {
 			String currentExp = expStrArr[i].trim();
 			String regx4ComparisonOperator = "(?<=\\s)(==|<|>|<=|>=|!=|like|<>)(?=\\s)|(?<=\\s)(isnull|isnotnull)";
 			Pattern pattern4ComparisonOperator = Pattern.compile(regx4ComparisonOperator);
 			Matcher matcher4ComparisonOperator = pattern4ComparisonOperator.matcher(currentExp);
 			if (!matcher4ComparisonOperator.find()) {
-				throw new AppException("ÔÚ±í´ïÊ½¡¾" + currentExp + "¡¿ÖĞÎ´ÕÒµ½±È½ÏÔËËã·û¡¾==¡¢<¡¢>¡¢<=¡¢>=¡¢!=¡¢<>¡¢like¡¢isnull¡¢isnotnull¡¿!");
+				throw new AppException("åœ¨è¡¨è¾¾å¼ã€" + currentExp + "ã€‘ä¸­æœªæ‰¾åˆ°æ¯”è¾ƒè¿ç®—ç¬¦ã€==ã€<ã€>ã€<=ã€>=ã€!=ã€<>ã€likeã€isnullã€isnotnullã€‘!");
 			}
 
 			String operator = matcher4ComparisonOperator.group().trim();
@@ -220,7 +220,7 @@ public class FilterUtil {
 				key = expArr[0].trim();
 				value = null;
 			} else {
-				throw new AppException("±í´ïÊ½¡¾" + currentExp + "¡¿½á¹¹´íÎó£¬²»·ûºÏµ¥Ä¿¡¢Ë«Ä¿ÔËËã±í´ïÊ½½á¹¹!");
+				throw new AppException("è¡¨è¾¾å¼ã€" + currentExp + "ã€‘ç»“æ„é”™è¯¯ï¼Œä¸ç¬¦åˆå•ç›®ã€åŒç›®è¿ç®—è¡¨è¾¾å¼ç»“æ„!");
 			}
 			HashMap<String, Object> o = new HashMap<String, Object>();
 			o.put("cmpKey", key);

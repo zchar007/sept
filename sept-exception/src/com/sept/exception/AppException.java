@@ -2,14 +2,14 @@ package com.sept.exception;
 
 public class AppException extends SeptException {
 	private static final long serialVersionUID = 8605483565352355562L;
-	public static final String exceptionType = "系统";
+	public static final String exceptionType = "绯荤粺";
 
 	public AppException() {
-		this(ExceptionNames.defaultCode, "程序出现系统异常!");
+		this(ExceptionNames.defaultCode, "绋嬪簭鍑虹幇绯荤粺寮傚父!");
 	}
 
 	public AppException(Throwable cause) {
-		this(ExceptionNames.defaultCode, cause == null ? "程序出现系统异常!" : cause.toString(), cause);
+		this(ExceptionNames.defaultCode, cause == null ? "绋嬪簭鍑虹幇绯荤粺寮傚父!" : cause.toString(), cause);
 	}
 
 	public AppException(String errtext) {

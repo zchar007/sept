@@ -6,11 +6,11 @@ import com.sept.exception.AppException;
 
 public final class BooleanUtil {
 	/**
-	 * ¼ÆËãboolean×Ö·û´®(²»Ìô)
+	 * è®¡ç®—booleanå­—ç¬¦ä¸²(ä¸æŒ‘)
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws Exception
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	public final static boolean calBoolean(ArrayList<String> logicStrArr, String boolStrArr) throws AppException {
@@ -20,7 +20,7 @@ public final class BooleanUtil {
 		 */
 		String[] boolStrArrs = boolStrArr.split(",");
 		if (logicStrArr.size() != boolStrArrs.length - 1) {
-			throw new AppException("²¼¶û´®´íÎó!!");
+			throw new AppException("å¸ƒå°”ä¸²é”™è¯¯!!");
 		}
 		String calStr = "";
 		for (int i = 0; i < boolStrArrs.length; i++) {
@@ -56,11 +56,11 @@ public final class BooleanUtil {
 	}
 
 	/**
-	 * ¼ÆËãboolean×Ö·û´®(²»Ìô)
+	 * è®¡ç®—booleanå­—ç¬¦ä¸²(ä¸æŒ‘)
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws Exception
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	public final static boolean calBoolean(ArrayList<String> logicStrArr, ArrayList<String> boolStrArr)
@@ -70,7 +70,7 @@ public final class BooleanUtil {
 		 * true true false true false and (, and (, or, ) and
 		 */
 		if (logicStrArr.size() != boolStrArr.size() - 1) {
-			throw new AppException("²¼¶û´®´íÎó!!");
+			throw new AppException("å¸ƒå°”ä¸²é”™è¯¯!!");
 		}
 		String calStr = "";
 		for (int i = 0; i < boolStrArr.size(); i++) {
@@ -106,11 +106,11 @@ public final class BooleanUtil {
 	}
 
 	/**
-	 * ¼ÆËãboolean×Ö·û´®(²»Ìô)
+	 * è®¡ç®—booleanå­—ç¬¦ä¸²(ä¸æŒ‘)
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	public final static boolean calBoolean(String booleanStr) throws AppException {
@@ -122,7 +122,7 @@ public final class BooleanUtil {
 			nowStr = booleanStr.substring(index[0] + 1, index[1]);
 			end = booleanStr.substring(index[1] + 1, booleanStr.length());
 
-			// ¼ÆËãËùÓĞÀ¨ºÅÖĞµÄÖµ
+			// è®¡ç®—æ‰€æœ‰æ‹¬å·ä¸­çš„å€¼
 			booleanStr = start + calNoParenthesesBoolean(nowStr) + end;
 		}
 		return calNoParenthesesBoolean(booleanStr);
@@ -130,10 +130,10 @@ public final class BooleanUtil {
 	}
 
 	/**
-	 * »ñÈ¡×îÄÚ²¿µÄÄ³¸öÀ¨ºÅÄÚµÄÄÚÈİ
+	 * è·å–æœ€å†…éƒ¨çš„æŸä¸ªæ‹¬å·å†…çš„å†…å®¹
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	private static int[] getInStr(String booleanStr) {
@@ -153,11 +153,11 @@ public final class BooleanUtil {
 	}
 
 	/**
-	 * Ö±½Ó¼ÆËãÎŞÀ¨ºÅ£¬½öÓĞand(&&) or(||) true false×é³ÉµÄ
+	 * ç›´æ¥è®¡ç®—æ— æ‹¬å·ï¼Œä»…æœ‰and(&&) or(||) true falseç»„æˆçš„
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	private static boolean calNoParenthesesBoolean(String booleanStr) throws AppException {
@@ -170,7 +170,7 @@ public final class BooleanUtil {
 		temp = temp.replaceAll("false", "");
 		temp = temp.replaceAll(" ", "");
 		if (!temp.isEmpty()) {
-			throw new AppException(BooleanUtil.class.getName() + ".calNoParenthesesBoolean:¼ÆËãÂß¼­´íÎó£¡");
+			throw new AppException(BooleanUtil.class.getName() + ".calNoParenthesesBoolean:è®¡ç®—é€»è¾‘é”™è¯¯ï¼");
 		}
 
 		String[] bools = booleanStr.split(" ");
@@ -194,10 +194,10 @@ public final class BooleanUtil {
 	}
 
 	/**
-	 * isRepeat:ÊÇ·ñÒªÖØ¸´¼ÆËã ÀıÈç aaaaaÖĞÆ¥Åäaa ÊÇÈçºÎ½øĞĞÆ¥ÅäµÄÎÊÌâ,Ä¿Ç°Ã»ÓĞºÃµÄ½â¾ö°ì·¨,Ö»ÄÜÏÈÄ¬ÈÏ»áÖØ¸´²éÕÒ
+	 * isRepeat:æ˜¯å¦è¦é‡å¤è®¡ç®— ä¾‹å¦‚ aaaaaä¸­åŒ¹é…aa æ˜¯å¦‚ä½•è¿›è¡ŒåŒ¹é…çš„é—®é¢˜,ç›®å‰æ²¡æœ‰å¥½çš„è§£å†³åŠæ³•,åªèƒ½å…ˆé»˜è®¤ä¼šé‡å¤æŸ¥æ‰¾
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	private static int getStrCount(String str, String strmate) {

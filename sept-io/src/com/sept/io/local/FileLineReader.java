@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import com.sept.exception.AppException;
 
 /**
- * @see °²È«¶ÁÈ¡ÓëĞ´ÈëÎÄ¼şÄÚÈİ£¬°´¹æ¶¨´óĞ¡¶ÁÈ¡
- * @author ÕÅ³¬ZC6
+ * @see å®‰å…¨è¯»å–ä¸å†™å…¥æ–‡ä»¶å†…å®¹ï¼ŒæŒ‰è§„å®šå¤§å°è¯»å–
+ * @author å¼ è¶…ZC6
  */
 public class FileLineReader {
 	private String str;
@@ -26,7 +26,7 @@ public class FileLineReader {
 		try {
 			this.file = new File(url);
 			if (!this.file.exists()) {
-				throw new AppException("'" + url + "'´ËÎÄ¼ş²»´æÔÚ£¬ÎŞ·¨¶ÁÈ¡£¡£¡");
+				throw new AppException("'" + url + "'æ­¤æ–‡ä»¶ä¸å­˜åœ¨ï¼Œæ— æ³•è¯»å–ï¼ï¼");
 			}
 
 			this.brForList = new BufferedReader(new FileReader(file));
@@ -146,7 +146,7 @@ public class FileLineReader {
 	}
 
 	/**
-	 * ĞÂµÄ×·¼ÓĞ´Èë²»»á¸ü¸ÄÔ­¶ÁÈ¡Ë³Ğò£¬µ«·Ç×·¼ÓĞÔĞ´Èë»áÖØÖÃÔ­¶ÁĞ´Ë³Ğò
+	 * æ–°çš„è¿½åŠ å†™å…¥ä¸ä¼šæ›´æ”¹åŸè¯»å–é¡ºåºï¼Œä½†éè¿½åŠ æ€§å†™å…¥ä¼šé‡ç½®åŸè¯»å†™é¡ºåº
 	 * 
 	 * @param alSave
 	 * @param isAppend
@@ -192,9 +192,9 @@ public class FileLineReader {
 	public static void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
-			if (!isAppend) {// ²»ÊÇ×·¼Ó
+			if (!isAppend) {// ä¸æ˜¯è¿½åŠ 
 				if (file.exists()) {
-					throw new AppException("ÎÄ¼ş[" + url + "]ÒÑ´æÔÚÇÒ²»Îª×·¼Ó£¡");
+					throw new AppException("æ–‡ä»¶[" + url + "]å·²å­˜åœ¨ä¸”ä¸ä¸ºè¿½åŠ ï¼");
 				} else {
 					file.createNewFile();
 				}
@@ -222,9 +222,9 @@ public class FileLineReader {
 	public static void saveFile(String message, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
-			if (!isAppend) {// ²»ÊÇ×·¼Ó
+			if (!isAppend) {// ä¸æ˜¯è¿½åŠ 
 				if (file.exists()) {
-					throw new AppException("ÎÄ¼ş[" + url + "]ÒÑ´æÔÚÇÒ²»Îª×·¼Ó£¡");
+					throw new AppException("æ–‡ä»¶[" + url + "]å·²å­˜åœ¨ä¸”ä¸ä¸ºè¿½åŠ ï¼");
 				} else {
 					file.createNewFile();
 				}

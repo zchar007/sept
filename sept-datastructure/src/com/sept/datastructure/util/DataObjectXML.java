@@ -47,7 +47,7 @@ public class DataObjectXML {
 		} else {
 			valueElement.addAttribute("k", com.sept.util.XMLUtil.encodeXML(key));
 			valueElement.addAttribute("v", com.sept.util.XMLUtil.encodeXML(null == pdo
-					.get(key) ? "" : pdo.getString(key)));// 获取string
+					.get(key) ? "" : pdo.getString(key)));// 鑾峰彇string
 
 		}
 		this.typeList += key + ":" + valueType + ",";
@@ -78,7 +78,7 @@ public class DataObjectXML {
 		DataStore ds = new DataStore();
 		for (int i = 0; i < 100; i++) {
 			ds.addRow();
-			ds.put(ds.rowCount() - 1, "xm", "张三<=/:>" + i);
+			ds.put(ds.rowCount() - 1, "xm", "寮犱笁<=/:>" + i);
 			ds.put(ds.rowCount() - 1, "nl", 10 + i);
 		}
 		pdo.put("ds", ds);

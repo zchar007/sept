@@ -18,13 +18,13 @@ import com.sept.exception.AppException;
 
 public final class FileUtil {
 	/**
-	 * ±éÀúÒ»¸öÄ¿Â¼ÖĞµÄËùÓĞÎÄ¼ş£¬°üÀ¨×ÓÄ¿Â¼,Ğ´ÈëÎÄ¼şÖĞ£¨·ÀÖ¹ÎÄ¼ş¹ı¶à£©
+	 * éå†ä¸€ä¸ªç›®å½•ä¸­çš„æ‰€æœ‰æ–‡ä»¶ï¼ŒåŒ…æ‹¬å­ç›®å½•,å†™å…¥æ–‡ä»¶ä¸­ï¼ˆé˜²æ­¢æ–‡ä»¶è¿‡å¤šï¼‰
 	 * 
 	 * @param path
-	 * @param fliter £ºÒª»ñÈ¡µÄºó×ºÃû´®
-	 * @author ÕÅ³¬
+	 * @param fliter ï¼šè¦è·å–çš„åç¼€åä¸²
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormPath(String path, String filter, String resultFile)
@@ -34,13 +34,13 @@ public final class FileUtil {
 	}
 
 	/**
-	 * ±éÀúÒ»¸öÄ¿Â¼ÖĞµÄËùÓĞÎÄ¼ş£¬°üÀ¨×ÓÄ¿Â¼,Ğ´ÈëÎÄ¼şÖĞ£¨·ÀÖ¹ÎÄ¼ş¹ı¶à£©
+	 * éå†ä¸€ä¸ªç›®å½•ä¸­çš„æ‰€æœ‰æ–‡ä»¶ï¼ŒåŒ…æ‹¬å­ç›®å½•,å†™å…¥æ–‡ä»¶ä¸­ï¼ˆé˜²æ­¢æ–‡ä»¶è¿‡å¤šï¼‰
 	 * 
 	 * @param path
-	 * @param fliter £ºÒª»ñÈ¡µÄºó×ºÃû´®
-	 * @author ÕÅ³¬
+	 * @param fliter ï¼šè¦è·å–çš„åç¼€åä¸²
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormFile(File file, String filter, String resultFile)
@@ -55,7 +55,7 @@ public final class FileUtil {
 				hsFilter.add(filters[i]);
 			}
 		}
-		// Èç¹ûÊÇÎÄ¼şÖ±½Ó·µ»Ø
+		// å¦‚æœæ˜¯æ–‡ä»¶ç›´æ¥è¿”å›
 		if (file.isFile()) {
 			if (hsFilter.size() > 0 && hsFilter.contains(getFileType(file))) {
 				hm.put("length", 0L);
@@ -94,12 +94,12 @@ public final class FileUtil {
 	}
 
 	/**
-	 * ±éÀúÒ»¸öÄ¿Â¼ÖĞµÄËùÓĞÎÄ¼ş£¬°üÀ¨×ÓÄ¿Â¼
+	 * éå†ä¸€ä¸ªç›®å½•ä¸­çš„æ‰€æœ‰æ–‡ä»¶ï¼ŒåŒ…æ‹¬å­ç›®å½•
 	 * 
 	 * @param path
-	 * @param fliter £ºÒª»ñÈ¡µÄºó×ºÃû´®
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @param fliter ï¼šè¦è·å–çš„åç¼€åä¸²
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static HashMap<String, Object> getFilesFormPath(String path, String filter) throws AppException {
@@ -108,12 +108,12 @@ public final class FileUtil {
 	}
 
 	/**
-	 * ±éÀúÒ»¸öÄ¿Â¼ÖĞµÄËùÓĞÎÄ¼ş£¬°üÀ¨×ÓÄ¿Â¼
+	 * éå†ä¸€ä¸ªç›®å½•ä¸­çš„æ‰€æœ‰æ–‡ä»¶ï¼ŒåŒ…æ‹¬å­ç›®å½•
 	 * 
 	 * @param path
-	 * @param fliter £ºÒª»ñÈ¡µÄºó×ºÃû´®
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @param fliter ï¼šè¦è·å–çš„åç¼€åä¸²
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -128,9 +128,9 @@ public final class FileUtil {
 				hsFilter.add(filters[i]);
 			}
 		}
-		// Èç¹ûÊÇÎÄ¼şÖ±½Ó·µ»Ø
+		// å¦‚æœæ˜¯æ–‡ä»¶ç›´æ¥è¿”å›
 		if (file.isFile()) {
-			// Èç¹û´ËÎÄ¼ş²»ÄÜÍ¨¹ı¹ıÂË
+			// å¦‚æœæ­¤æ–‡ä»¶ä¸èƒ½é€šè¿‡è¿‡æ»¤
 			if (hsFilter.size() > 0 && !hsFilter.contains(getFileType(file))) {
 				pdo.put("files", alFiles);
 				pdo.put("length", 0L);
@@ -165,7 +165,7 @@ public final class FileUtil {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şºó×ºÃû
+	 * è·å–æ–‡ä»¶åç¼€å
 	 * 
 	 * @param file
 	 * @return
@@ -178,7 +178,7 @@ public final class FileUtil {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şºó×ºÃû
+	 * è·å–æ–‡ä»¶åç¼€å
 	 * 
 	 * @param file
 	 * @return
@@ -189,7 +189,7 @@ public final class FileUtil {
 	}
 
 	// ///////////////////////////////////
-	// /////////ÒÔÏÂ»¹Î´ÑéÖ¤ÕıÈ·ĞÔ//////////////
+	// /////////ä»¥ä¸‹è¿˜æœªéªŒè¯æ­£ç¡®æ€§//////////////
 	// ///////////////////////////////////
 	public final static byte[] getContent(String filePath) throws AppException {
 		try {
@@ -230,7 +230,7 @@ public final class FileUtil {
 		try {
 			File f = new File(filename);
 			if (!f.exists()) {
-				throw new AppException("ÎÄ¼ş[" + filename + "]²»´æÔÚ£¡");
+				throw new AppException("æ–‡ä»¶[" + filename + "]ä¸å­˜åœ¨ï¼");
 			}
 
 			bos = new ByteArrayOutputStream((int) f.length());
@@ -335,7 +335,7 @@ public final class FileUtil {
 	}
 
 	public static void main(String[] args) throws AppException {
-		HashMap<String, Object> pdo = FileUtil.getFilesFormPath("F:\\²Ö¿â_´ıÕûÀí\\[°×Â¹Ô­]µÚ58¼¯_bd.mp4", "");
+		HashMap<String, Object> pdo = FileUtil.getFilesFormPath("F:\\ä»“åº“_å¾…æ•´ç†\\[ç™½é¹¿åŸ]ç¬¬58é›†_bd.mp4", "");
 
 		System.out.println(pdo);
 

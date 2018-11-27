@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
- * ÈÕÆÚÑ¡ÔñÆ÷¿Ø¼ş
+ * æ—¥æœŸé€‰æ‹©å™¨æ§ä»¶
  * 
  * @author jianggujin
  * 
@@ -30,106 +30,106 @@ import javax.swing.UIManager;
 public final class JDateChooser extends JDialog
 {
  
-   // ¶¨ÒåÏà¹Ø²ÎÊı
+   // å®šä¹‰ç›¸å…³å‚æ•°
    /**
-    * Äê·İ
+    * å¹´ä»½
     */
    private int year = 0;
    /**
-    * ÔÂ·İ
+    * æœˆä»½
     */
    private int month = 0;
    /**
-    * Ìì
+    * å¤©
     */
    private int date = 0;
  
    /**
-    * ÈÕÆÚÑ¡Ôñ±³¾°É«
+    * æ—¥æœŸé€‰æ‹©èƒŒæ™¯è‰²
     */
    private Color selectColor = Color.green;
    /**
-    * ÈÕÆÚ±³¾°É«
+    * æ—¥æœŸèƒŒæ™¯è‰²
     */
    private Color dateColor = Color.white;
    /**
-    * ÈÕÆÚÊó±ê½øÈë±³¾°É«
+    * æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯è‰²
     */
    private Color dateHoverColor = Color.lightGray;
    /**
-    * ÈÕÆÚ±êÌâ±³¾°É«
+    * æ—¥æœŸæ ‡é¢˜èƒŒæ™¯è‰²
     */
    private Color dateTitleColor = Color.gray;
    /**
-    * ÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+    * æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
     */
    private Color dateTitleFontColor = Color.black;
    /**
-    * ÈÕÆÚ×ÖÌåÑÕÉ«
+    * æ—¥æœŸå­—ä½“é¢œè‰²
     */
    private Color dateFontColor = Color.black;
  
    /**
-    * ÈÕÆÚÊÇ·ñÓĞĞ§±êÖ¾
+    * æ—¥æœŸæ˜¯å¦æœ‰æ•ˆæ ‡å¿—
     */
    private boolean flag = false;
  
    /**
-    * ×îĞ¡Äê·İ
+    * æœ€å°å¹´ä»½
     */
    private int minYear = 1900;
    /**
-    * ×î´óÄê·İ
+    * æœ€å¤§å¹´ä»½
     */
    private int maxYear = 2050;
  
-   // ¶¨ÒåËùĞè×é¼ş
+   // å®šä¹‰æ‰€éœ€ç»„ä»¶
    /**
-    * ÉÏÒ»Äê
+    * ä¸Šä¸€å¹´
     */
    private JButton jbYearPre;
    /**
-    * ÏÂÒ»Äê
+    * ä¸‹ä¸€å¹´
     */
    private JButton jbYearNext;
    /**
-    * ÉÏÒ»ÔÂ
+    * ä¸Šä¸€æœˆ
     */
    private JButton jbMonthPre;
    /**
-    * ÏÂÒ»ÔÂ
+    * ä¸‹ä¸€æœˆ
     */
    private JButton jbMonthNext;
    /**
-    * Äê·İÏÂÀ­Ñ¡Ôñ¿ò
+    * å¹´ä»½ä¸‹æ‹‰é€‰æ‹©æ¡†
     */
    private JComboBox<String> jcbYear;
    /**
-    * ÔÂ·İÏÂÀ­Ñ¡Ôñ¿ò
+    * æœˆä»½ä¸‹æ‹‰é€‰æ‹©æ¡†
     */
    private JComboBox<String> jcbMonth;
    /**
-    * Ìì±êÇ©
+    * å¤©æ ‡ç­¾
     */
    private JLabel[][] jlDays;
    /**
-    * Ñ¡Ôñ
+    * é€‰æ‹©
     */
    private JButton jbChoose;
    /**
-    * ½ñÈÕ
+    * ä»Šæ—¥
     */
    private JButton jbToday;
    /**
-    * È¡Ïû
+    * å–æ¶ˆ
     */
    private JButton jbCancel;
  
    /**
-    * ³ÌĞòÖ÷·½·¨
+    * ç¨‹åºä¸»æ–¹æ³•
     * 
     * @param args
-    *           ÃüÁî²ÎÊı
+    *           å‘½ä»¤å‚æ•°
     */
    public static void main(String[] args)
    {
@@ -146,7 +146,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÏÔÊ¾¶Ô»°¿ò
+    * æ˜¾ç¤ºå¯¹è¯æ¡†
     */
    public void showDateChooser()
    {
@@ -154,7 +154,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ¹Ø±Õ¶Ô»°¿ò
+    * å…³é—­å¯¹è¯æ¡†
     */
    public void closeDateChooser()
    {
@@ -162,14 +162,14 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÊ±¼ä
+    * è®¾ç½®æ—¶é—´
     * 
     * @param year
-    *           Äê·İ 1900-2050
+    *           å¹´ä»½ 1900-2050
     * @param month
-    *           ÔÂ·İ 1-12
+    *           æœˆä»½ 1-12
     * @param date
-    *           Ìì
+    *           å¤©
     */
    public void setDate(int year, int month, int date)
    {
@@ -200,9 +200,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÓÃ»§²Ù×÷ÊÇ·ñÓĞĞ§±êÖ¾
+    * è·å¾—ç”¨æˆ·æ“ä½œæ˜¯å¦æœ‰æ•ˆæ ‡å¿—
     * 
-    * @return ÊÂ¼şÊÇ·ñÓĞĞ§
+    * @return äº‹ä»¶æ˜¯å¦æœ‰æ•ˆ
     */
    public boolean getFlag()
    {
@@ -210,7 +210,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ¹¹Ôì·½·¨
+    * æ„é€ æ–¹æ³•
     */
    public JDateChooser()
    {
@@ -222,7 +222,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÊµÀı»¯×é¼ş
+    * å®ä¾‹åŒ–ç»„ä»¶
     */
    private void initComponent()
    {
@@ -241,14 +241,14 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ³õÊ¼»¯×é¼şÊı¾İ
+    * åˆå§‹åŒ–ç»„ä»¶æ•°æ®
     */
    private void initComponentData()
    {
-      jbYearPre.setText("¡û");
-      jbYearNext.setText("¡ú");
-      jbMonthPre.setText("¡ü");
-      jbMonthNext.setText("¡ı");
+      jbYearPre.setText("â†");
+      jbYearNext.setText("â†’");
+      jbMonthPre.setText("â†‘");
+      jbMonthNext.setText("â†“");
       Calendar calendar = Calendar.getInstance();
       if (year != 0 && month != 0 && date != 0)
       {
@@ -261,12 +261,12 @@ public final class JDateChooser extends JDialog
          date = calendar.get(Calendar.DAY_OF_MONTH);
       }
       initYear();
-      jcbYear.setSelectedItem(year + "Äê");
+      jcbYear.setSelectedItem(year + "å¹´");
       for (int i = 1; i <= 12; i++)
       {
-         jcbMonth.addItem(i + "ÔÂ");
+         jcbMonth.addItem(i + "æœˆ");
       }
-      jcbMonth.setSelectedItem(month + "ÔÂ");
+      jcbMonth.setSelectedItem(month + "æœˆ");
       for (int i = 0; i < 7; i++)
       {
          JLabel temp = new JLabel();
@@ -290,37 +290,37 @@ public final class JDateChooser extends JDialog
          }
       }
  
-      String[] days = { "ÈÕ", "Ò»", "¶ş", "Èı", "ËÄ", "Îå", "Áù" };
+      String[] days = { "æ—¥", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­" };
       for (int i = 0; i < 7; i++)
       {
          jlDays[0][i].setText(days[i]);
       }
  
-      jbChoose.setText("Ñ¡Ôñ");
-      jbToday.setText("½ñÈÕ");
-      jbCancel.setText("È¡Ïû");
+      jbChoose.setText("é€‰æ‹©");
+      jbToday.setText("ä»Šæ—¥");
+      jbCancel.setText("å–æ¶ˆ");
  
       changeDate();
    }
  
    /**
-    * ³õÊ¼»¯ÏÔÊ¾Äê·İ·¶Î§
+    * åˆå§‹åŒ–æ˜¾ç¤ºå¹´ä»½èŒƒå›´
     */
    private void initYear()
    {
       jcbYear.removeAllItems();
       for (int i = minYear; i <= maxYear; i++)
       {
-         jcbYear.addItem(i + "Äê");
+         jcbYear.addItem(i + "å¹´");
       }
    }
  
    /**
-    * Ìí¼Ó×é¼ş
+    * æ·»åŠ ç»„ä»¶
     */
    private void addComponent()
    {
-      // Ìí¼Ó±³²¿×é¼ş
+      // æ·»åŠ èƒŒéƒ¨ç»„ä»¶
       JPanel north = new JPanel();
       north.add(jbYearPre);
       north.add(jbMonthPre);
@@ -330,7 +330,7 @@ public final class JDateChooser extends JDialog
       north.add(jbYearNext);
       this.add(north, "North");
  
-      // Ìí¼ÓÖĞ¼ä×é¼ş
+      // æ·»åŠ ä¸­é—´ç»„ä»¶
       JPanel center = new JPanel(new GridLayout(7, 7));
       for (int i = 0; i < 7; i++)
       {
@@ -341,7 +341,7 @@ public final class JDateChooser extends JDialog
       }
       this.add(center);
  
-      // Ìí¼ÓÄÏ²¿×é¼ş
+      // æ·»åŠ å—éƒ¨ç»„ä»¶
       JPanel jpSouth = new JPanel();
       jpSouth.add(jbChoose);
       jpSouth.add(jbToday);
@@ -350,13 +350,13 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÖ¸¶¨ÄêÖ¸¶¨ÔÂ·İµÄÌìÊı
+    * è·å¾—æŒ‡å®šå¹´æŒ‡å®šæœˆä»½çš„å¤©æ•°
     * 
     * @param year
-    *           Äê·İ
+    *           å¹´ä»½
     * @param month
-    *           ÔÂ·İ
-    * @return ÌìÊı
+    *           æœˆä»½
+    * @return å¤©æ•°
     */
    private int getDaysInMonth(int year, int month)
    {
@@ -387,7 +387,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * Çå¿ÕÈÕÆÚ
+    * æ¸…ç©ºæ—¥æœŸ
     */
    private void clearDate()
    {
@@ -401,7 +401,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ¸ü¸ÄÈÕÆÚ
+    * æ›´æ”¹æ—¥æœŸ
     * 
     */
    private void changeDate()
@@ -445,7 +445,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * Ìí¼Ó¼àÌı
+    * æ·»åŠ ç›‘å¬
     */
    private void addListener()
    {
@@ -472,11 +472,11 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ½âÎöÄê·İ»òÔÂ·İ
+    * è§£æå¹´ä»½æˆ–æœˆä»½
     * 
     * @param yearOrMonth
-    *           Äê·İ»òÔÂ·İ×Ö·û´®
-    * @return Äê·İ»òÔÂ·İ
+    *           å¹´ä»½æˆ–æœˆä»½å­—ç¬¦ä¸²
+    * @return å¹´ä»½æˆ–æœˆä»½
     */
    private int parseYearOrMonth(String yearOrMonth)
    {
@@ -484,12 +484,12 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÅĞ¶ÏÊÇ·ñÎªÈòÄê
+    * åˆ¤æ–­æ˜¯å¦ä¸ºé—°å¹´
     * 
     * @param year
-    *           Äê·İ
-    * @return true ÈòÄê<br/>
-    *         false Æ½Äê
+    *           å¹´ä»½
+    * @return true é—°å¹´<br/>
+    *         false å¹³å¹´
     */
    private boolean isLeapYear(int year)
    {
@@ -497,21 +497,21 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃ¶Ô»°¿òÊôĞÔ
+    * è®¾ç½®å¯¹è¯æ¡†å±æ€§
     */
    private void setDialogAttribute()
    {
       this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
       this.setSize(400, 300);
       this.setLocationRelativeTo(null);
-      // ÏÔÊ¾ÎªÄ£Ì¬¶Ô»°¿ò
+      // æ˜¾ç¤ºä¸ºæ¨¡æ€å¯¹è¯æ¡†
       this.setModal(true);
-      this.setTitle("ÈÕÆÚÑ¡ÔñÆ÷");
+      this.setTitle("æ—¥æœŸé€‰æ‹©å™¨");
      // this.setIconImage((new ImageIcon(this.getClass().getResource("/calendar.png"))).getImage());
    }
  
    /**
-    * Ë¢ĞÂÈÕÆÚ±êÇ©±³¾°ÑÕÉ«
+    * åˆ·æ–°æ—¥æœŸæ ‡ç­¾èƒŒæ™¯é¢œè‰²
     */
    private void refreshLabelColor()
    {
@@ -525,9 +525,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÏÔÊ¾×îĞ¡Äê·İ
+    * è·å¾—æ˜¾ç¤ºæœ€å°å¹´ä»½
     * 
-    * @return ÏÔÊ¾×îĞ¡Äê·İ
+    * @return æ˜¾ç¤ºæœ€å°å¹´ä»½
     */
    public int getMinYear()
    {
@@ -535,9 +535,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÏÔÊ¾×î´óÄê·İ
+    * è·å¾—æ˜¾ç¤ºæœ€å¤§å¹´ä»½
     * 
-    * @return ÏÔÊ¾×î´óÄê·İ
+    * @return æ˜¾ç¤ºæœ€å¤§å¹´ä»½
     */
    public int getMaxYear()
    {
@@ -545,12 +545,12 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÏÔÊ¾×îĞ¡Äê·İºÍ×î´óÄê·İ(1900-9999)
+    * è®¾ç½®æ˜¾ç¤ºæœ€å°å¹´ä»½å’Œæœ€å¤§å¹´ä»½(1900-9999)
     * 
     * @param minYear
-    *           ×îĞ¡Äê·İ
+    *           æœ€å°å¹´ä»½
     * @param maxYear
-    *           ×î´óÄê·İ
+    *           æœ€å¤§å¹´ä»½
     */
    public void setMinAndMaxYear(int minYear, int maxYear)
    {
@@ -564,9 +564,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÖĞ±³¾°ÑÕÉ«
+    * è·å¾—é€‰ä¸­èƒŒæ™¯é¢œè‰²
     * 
-    * @return Ñ¡ÖĞ±³¾°ÑÕÉ«
+    * @return é€‰ä¸­èƒŒæ™¯é¢œè‰²
     */
    public Color getSelectColor()
    {
@@ -574,10 +574,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÑ¡ÖĞ±³¾°ÑÕÉ«
+    * è®¾ç½®é€‰ä¸­èƒŒæ™¯é¢œè‰²
     * 
     * @param selectColor
-    *           Ñ¡ÖĞ±³¾°ÑÕÉ«
+    *           é€‰ä¸­èƒŒæ™¯é¢œè‰²
     */
    public void setSelectColor(Color selectColor)
    {
@@ -585,9 +585,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚ±³¾°ÑÕÉ«
+    * è·å¾—æ—¥æœŸèƒŒæ™¯é¢œè‰²
     * 
-    * @return ÈÕÆÚ±³¾°ÑÕÉ«
+    * @return æ—¥æœŸèƒŒæ™¯é¢œè‰²
     */
    public Color getDateColor()
    {
@@ -595,10 +595,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÈÕÆÚ±³¾°ÑÕÉ«
+    * è®¾ç½®æ—¥æœŸèƒŒæ™¯é¢œè‰²
     * 
     * @param dateColor
-    *           ÈÕÆÚ±³¾°ÑÕÉ«
+    *           æ—¥æœŸèƒŒæ™¯é¢œè‰²
     */
    public void setDateColor(Color dateColor)
    {
@@ -606,9 +606,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚÊó±ê½øÈë±³¾°ÑÕÉ«
+    * è·å¾—æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯é¢œè‰²
     * 
-    * @return ÈÕÆÚÊó±ê½øÈë±³¾°ÑÕÉ«
+    * @return æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯é¢œè‰²
     */
    public Color getDetaHoverColor()
    {
@@ -616,10 +616,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÈÕÆÚÊó±ê½øÈë±³¾°ÑÕÉ«
+    * è®¾ç½®æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯é¢œè‰²
     * 
     * @param dateHoverColor
-    *           ÈÕÆÚÊó±ê½øÈë±³¾°ÑÕÉ«
+    *           æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯é¢œè‰²
     */
    public void setDateHoverColor(Color dateHoverColor)
    {
@@ -627,9 +627,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚ±êÌâ±³¾°ÑÕÉ«
+    * è·å¾—æ—¥æœŸæ ‡é¢˜èƒŒæ™¯é¢œè‰²
     * 
-    * @return ÈÕÆÚ±êÌâ±³¾°ÑÕÉ«
+    * @return æ—¥æœŸæ ‡é¢˜èƒŒæ™¯é¢œè‰²
     */
    public Color getDateTitleColor()
    {
@@ -637,10 +637,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÈÕÆÚ±êÌâ±³¾°ÑÕÉ«
+    * è®¾ç½®æ—¥æœŸæ ‡é¢˜èƒŒæ™¯é¢œè‰²
     * 
     * @param dateTitleColor
-    *           ÈÕÆÚ±êÌâ±³¾°ÑÕÉ«
+    *           æ—¥æœŸæ ‡é¢˜èƒŒæ™¯é¢œè‰²
     */
    public void setDateTitleColor(Color dateTitleColor)
    {
@@ -648,9 +648,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+    * è·å¾—æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
     * 
-    * @return ÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+    * @return æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
     */
    public Color getDateTitleFontColor()
    {
@@ -658,10 +658,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+    * è®¾ç½®æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
     * 
     * @param dateTitleFontColor
-    *           ÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+    *           æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
     */
    public void setDateTitleFontColor(Color dateTitleFontColor)
    {
@@ -669,9 +669,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚ×ÖÌåÑÕÉ«
+    * è·å¾—æ—¥æœŸå­—ä½“é¢œè‰²
     * 
-    * @return ÈÕÆÚ×ÖÌåÑÕÉ«
+    * @return æ—¥æœŸå­—ä½“é¢œè‰²
     */
    public Color getDateFontColor()
    {
@@ -679,10 +679,10 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÉèÖÃÈÕÆÚ×ÖÌåÑÕÉ«
+    * è®¾ç½®æ—¥æœŸå­—ä½“é¢œè‰²
     * 
     * @param dateFontColor
-    *           ÈÕÆÚ×ÖÌåÑÕÉ«
+    *           æ—¥æœŸå­—ä½“é¢œè‰²
     */
    public void setDateFontColor(Color dateFontColor)
    {
@@ -690,9 +690,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÔñÄê·İ
+    * è·å¾—é€‰æ‹©å¹´ä»½
     * 
-    * @return Ñ¡ÔñÄê·İ
+    * @return é€‰æ‹©å¹´ä»½
     */
    public int getYear()
    {
@@ -700,9 +700,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÖĞÔÂ·İ
+    * è·å¾—é€‰ä¸­æœˆä»½
     * 
-    * @return Ñ¡ÖĞÔÂ·İ
+    * @return é€‰ä¸­æœˆä»½
     */
    public int getMonth()
    {
@@ -710,9 +710,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÖĞÌìÎªµ±ÔÂµÚ¼¸Ìì
+    * è·å¾—é€‰ä¸­å¤©ä¸ºå½“æœˆç¬¬å‡ å¤©
     * 
-    * @return Ñ¡ÖĞÌìÎªµ±ÔÂµÚ¼¸Ìì
+    * @return é€‰ä¸­å¤©ä¸ºå½“æœˆç¬¬å‡ å¤©
     */
    public int getDate()
    {
@@ -720,9 +720,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÖĞÌìÎªÒ»ÖÜÖĞµÚ¼¸Ìì
+    * è·å¾—é€‰ä¸­å¤©ä¸ºä¸€å‘¨ä¸­ç¬¬å‡ å¤©
     * 
-    * @return Ñ¡ÖĞÌìÎªÒ»ÖÜÖĞµÚ¼¸Ìì
+    * @return é€‰ä¸­å¤©ä¸ºä¸€å‘¨ä¸­ç¬¬å‡ å¤©
     */
    public int getDayOfWeek()
    {
@@ -730,9 +730,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÑ¡ÖĞÌìÎªÒ»ÄêÖĞµÚ¼¸Ìì
+    * è·å¾—é€‰ä¸­å¤©ä¸ºä¸€å¹´ä¸­ç¬¬å‡ å¤©
     * 
-    * @return Ñ¡ÖĞÌìÎªÒ»ÄêÖĞµÚ¼¸Ìì
+    * @return é€‰ä¸­å¤©ä¸ºä¸€å¹´ä¸­ç¬¬å‡ å¤©
     */
    public int getDayOfYear()
    {
@@ -740,9 +740,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÈÕÆÚ¶ÔÏó
+    * è·å¾—æ—¥æœŸå¯¹è±¡
     * 
-    * @return ÈÕÆÚ¶ÔÏó
+    * @return æ—¥æœŸå¯¹è±¡
     */
    public Date getDateObject()
    {
@@ -750,11 +750,11 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃÒÔÖ¸¶¨¹æÔò¸ñÊ½»¯µÄÈÕÆÚ×Ö·û´®
+    * è·å¾—ä»¥æŒ‡å®šè§„åˆ™æ ¼å¼åŒ–çš„æ—¥æœŸå­—ç¬¦ä¸²
     * 
     * @param format
-    *           ¸ñÊ½»¯¹æÔò
-    * @return ÈÕÆÚ×Ö·û´®
+    *           æ ¼å¼åŒ–è§„åˆ™
+    * @return æ—¥æœŸå­—ç¬¦ä¸²
     */
    public String getDateFormat(String format)
    {
@@ -762,9 +762,9 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * »ñµÃCalendar¶ÔÏó
+    * è·å¾—Calendarå¯¹è±¡
     * 
-    * @return Calendar¶ÔÏó
+    * @return Calendarå¯¹è±¡
     */
    private Calendar getCalendar()
    {
@@ -774,7 +774,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ±êÇ©Êó±ê¼àÌı
+    * æ ‡ç­¾é¼ æ ‡ç›‘å¬
     * 
     * @author jianggujin
     * 
@@ -830,7 +830,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * °´Å¥¶¯×÷¼àÌı
+    * æŒ‰é’®åŠ¨ä½œç›‘å¬
     * 
     * @author jianggujin
     * 
@@ -895,7 +895,7 @@ public final class JDateChooser extends JDialog
    }
  
    /**
-    * ÏÂÀ­Ñ¡Ôñ¿òÏî¸Ä±ä¼àÌı
+    * ä¸‹æ‹‰é€‰æ‹©æ¡†é¡¹æ”¹å˜ç›‘å¬
     * 
     * @author jianggujin
     * 

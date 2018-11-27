@@ -13,10 +13,10 @@ public final class MathUtil{
 	}
 
 	/**
-	 * 直接截取对应小数位double
+	 * 鐩存帴鎴彇瀵瑰簲灏忔暟浣峝ouble
 	 * 
-	 * @author 张超
-	 * @date 创建时间 2017-6-12
+	 * @author 寮犺秴
+	 * @date 鍒涘缓鏃堕棿 2017-6-12
 	 * @since V1.0
 	 */
 	public final static double truncate(double d, int i) {
@@ -25,10 +25,10 @@ public final class MathUtil{
 	}
 
 	/**
-	 * 根据给定小数位，实行四舍五入
+	 * 鏍规嵁缁欏畾灏忔暟浣嶏紝瀹炶鍥涜垗浜斿叆
 	 * 
-	 * @author 张超
-	 * @date 创建时间 2017-6-12
+	 * @author 寮犺秴
+	 * @date 鍒涘缓鏃堕棿 2017-6-12
 	 * @since V1.0
 	 */
 	public final static double round(double v, int scale) throws AppException {
@@ -43,10 +43,10 @@ public final class MathUtil{
 	}
 
 	/**
-	 * 判断字符串是不是数字类型
+	 * 鍒ゆ柇瀛楃涓叉槸涓嶆槸鏁板瓧绫诲瀷
 	 * 
-	 * @author 张超
-	 * @date 创建时间 2017-6-12
+	 * @author 寮犺秴
+	 * @date 鍒涘缓鏃堕棿 2017-6-12
 	 * @since V1.0
 	 */
 	public final static boolean isNumber(String numberString) {

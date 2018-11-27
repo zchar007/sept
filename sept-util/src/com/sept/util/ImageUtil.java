@@ -27,7 +27,7 @@ import net.coobird.thumbnailator.Thumbnails.Builder;
  */
 public class ImageUtil {
 	/**
-	 * dµÈ±ÈÀı·Å´óËõĞ¡Í¼Æ¬£¬°´ÕÕ¸ø¶¨µÄxy±ÈÀıÒÔ¼°´óĞ¡
+	 * dç­‰æ¯”ä¾‹æ”¾å¤§ç¼©å°å›¾ç‰‡ï¼ŒæŒ‰ç…§ç»™å®šçš„xyæ¯”ä¾‹ä»¥åŠå¤§å°
 	 * 
 	 * @param img
 	 * @param sizeX
@@ -48,7 +48,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * image×ªBufferedImage
+	 * imageè½¬BufferedImage
 	 * 
 	 * @param image
 	 * @return
@@ -111,7 +111,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * ½ØÈ¡Í¼Æ¬
+	 * æˆªå–å›¾ç‰‡
 	 * 
 	 * @param img
 	 * @param x
@@ -126,7 +126,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * ½ØÈ¡Í¼Æ¬
+	 * æˆªå–å›¾ç‰‡
 	 * 
 	 * @param img
 	 * @param x
@@ -141,7 +141,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * »ñÈ¡index¼¶±ğµÄÄ£ºıÍ¼Æ¬£¨Ã«²£Á§Ğ§¹û£©
+	 * è·å–indexçº§åˆ«çš„æ¨¡ç³Šå›¾ç‰‡ï¼ˆæ¯›ç»ç’ƒæ•ˆæœï¼‰
 	 * 
 	 * @param url
 	 * @param index
@@ -161,7 +161,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * Ä¬ÈÏ»ñÈ¡Ò»¼¶µÄpic
+	 * é»˜è®¤è·å–ä¸€çº§çš„pic
 	 * 
 	 * @param img
 	 * @return
@@ -182,7 +182,7 @@ public class ImageUtil {
 		// System.out.println("minx=" + minx + ",miniy=" + miny + ".");
 		for (int i = minx; i < width; i++) {
 			for (int j = miny; j < height; j++) {
-				int pixel = img.getRGB(i, j); // ÏÂÃæÈıĞĞ´úÂë½«Ò»¸öÊı×Ö×ª»»ÎªRGBÊı×Ö
+				int pixel = img.getRGB(i, j); // ä¸‹é¢ä¸‰è¡Œä»£ç å°†ä¸€ä¸ªæ•°å­—è½¬æ¢ä¸ºRGBæ•°å­—
 				int[] rgb = new int[3];
 				rgb[0] = (pixel & 0xff0000) >> 16;
 				rgb[1] = (pixel & 0xff00) >> 8;
@@ -200,27 +200,27 @@ public class ImageUtil {
 			String[] str = key.split("_");
 			int i = Integer.parseInt(str[0]);
 			int j = Integer.parseInt(str[1]);
-			// ÉÏ
+			// ä¸Š
 			al.add(hMap.get(i + "_" + (j - 1 < 0 ? 0 : j - 1)));
-			// ÏÂ
+			// ä¸‹
 			al.add(hMap.get(i + "_" + (j + 1 >= height ? j : j + 1)));
-			// ×ó
+			// å·¦
 			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_" + j));
-			// ÓÒ
+			// å³
 			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_" + j));
-			// ×óÉÏ
+			// å·¦ä¸Š
 			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_"
 					+ (j - 1 < 0 ? 0 : j - 1)));
-			// ÓÒÉÏ
+			// å³ä¸Š
 			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_"
 					+ (j - 1 < 0 ? 0 : j - 1)));
-			// ×óÏÂ
+			// å·¦ä¸‹
 			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_"
 					+ (j + 1 >= height ? j : j + 1)));
-			// ÓÒÏÂ
+			// å³ä¸‹
 			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_"
 					+ (j + 1 >= height ? j : j + 1)));
-			// ¼ÓÉÏ×Ô¼º
+			// åŠ ä¸Šè‡ªå·±
 			al.add(hMap.get(i + "_" + j));
 			int[] rgb = getAvageRGB(al);
 			// int[] rgb = hMap.get(i+"_"+j);
@@ -232,7 +232,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * »ñÈ¡ÑÕÉ«µÄÆ½¾ùÖµ
+	 * è·å–é¢œè‰²çš„å¹³å‡å€¼
 	 */
 	public static int[] getAvageRGB(ArrayList<int[]> al) {
 		int R = 0, G = 0, B = 0;
@@ -252,7 +252,7 @@ public class ImageUtil {
 	}
 
 	/**
-	 * »ñÈ¡¾ùÖµ
+	 * è·å–å‡å€¼
 	 * 
 	 * @param al
 	 * @return

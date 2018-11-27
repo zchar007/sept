@@ -7,21 +7,21 @@ import java.util.concurrent.Executors;
 import com.sept.exception.AppException;
 
 /**
- * ĞèÒªÊµÀı»¯£¬Ò»¸öMessagePool£¬Ïàµ±ÓÚÒ»¸ö¿É²¢·¢µÄµÄÊı¾İ´æ·ÅµØ <br>
- * ¿ÉÓÃÓÚ¶àÏß³ÌÖĞÁ½¸öÏß³ÌµÄÊı¾İ½»»¥
+ * éœ€è¦å®ä¾‹åŒ–ï¼Œä¸€ä¸ªMessagePoolï¼Œç›¸å½“äºä¸€ä¸ªå¯å¹¶å‘çš„çš„æ•°æ®å­˜æ”¾åœ° <br>
+ * å¯ç”¨äºå¤šçº¿ç¨‹ä¸­ä¸¤ä¸ªçº¿ç¨‹çš„æ•°æ®äº¤äº’
  * 
- * @author ÕÅ³¬
- * @version 1.0 ´´½¨Ê±¼ä 2017-6-7
+ * @author å¼ è¶…
+ * @version 1.0 åˆ›å»ºæ—¶é—´ 2017-6-7
  */
 public class MessagePool {
 	private HashMap<String, Object> messPool = new HashMap<String, Object>();
 	private ExecutorService downloadThreadPool = Executors.newFixedThreadPool(1000);
 
 	/**
-	 * Ìí¼ÓÒ»¸öÏûÏ¢ĞÅÏ¢
+	 * æ·»åŠ ä¸€ä¸ªæ¶ˆæ¯ä¿¡æ¯
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void putMessage(String key, Object value) {
@@ -31,11 +31,11 @@ public class MessagePool {
 	}
 
 	/**
-	 * ·ÀÖ¹ÏÈÈ¡³öºóÌí¼Ó»ØÔì³ÉµÄ²¢·¢ÎÊÌâ<br>
-	 * £¨È¡¹ıÖ®ºóÊÍ·ÅÁËËøÓĞ¿ÉÄÜ±»ÆäËûÏß³Ì»ñÈ¡µ½Ëø¶ø¶ÔÊı¾İ½øĞĞÁË²Ù×÷£©
+	 * é˜²æ­¢å…ˆå–å‡ºåæ·»åŠ å›é€ æˆçš„å¹¶å‘é—®é¢˜<br>
+	 * ï¼ˆå–è¿‡ä¹‹åé‡Šæ”¾äº†é”æœ‰å¯èƒ½è¢«å…¶ä»–çº¿ç¨‹è·å–åˆ°é”è€Œå¯¹æ•°æ®è¿›è¡Œäº†æ“ä½œï¼‰
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void putAndAddMessage(String key, Object value) {
@@ -75,10 +75,10 @@ public class MessagePool {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İ
+	 * è·å–æ•°æ®
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public Object getMessage(String key) {
@@ -91,36 +91,36 @@ public class MessagePool {
 	}
 
 	/**
-	 * Ìá¹©¾²Ì¬µÄÒì²½·½·¨£¬ÓÃÓÚ¶ÔÔ­ÓĞÊı¾İ½øĞĞ¼Ó²Ù×÷<br>
-	 * ·ÀÖ¹ÒòµÈ´ıËø¶øµ¼ÖÂÖ÷Ïß³Ì»ºÂı
+	 * æä¾›é™æ€çš„å¼‚æ­¥æ–¹æ³•ï¼Œç”¨äºå¯¹åŸæœ‰æ•°æ®è¿›è¡ŒåŠ æ“ä½œ<br>
+	 * é˜²æ­¢å› ç­‰å¾…é”è€Œå¯¼è‡´ä¸»çº¿ç¨‹ç¼“æ…¢
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void asynchPutAndAddMessage(String key, Object value) throws AppException {
 		if (!downloadThreadPool.isShutdown()) {
 			downloadThreadPool.execute(new PutAndAddMessageThread(key, value, this));
 		} else {
-			throw new AppException(this.getClass().getName() + ":ÒÑ¹Ø±ÕµÄÏß³Ì³Ø£¡");
+			throw new AppException(this.getClass().getName() + ":å·²å…³é—­çš„çº¿ç¨‹æ± ï¼");
 		}
 	}
 
 	/**
-	 * Ìá¹©¾²Ì¬µÄÒì²½·½·¨£¬ÓÃÓÚ¶ÔÊı¾İ½øĞĞÌí¼Ó²Ù×÷<br>
-	 * ·ÀÖ¹ÒòµÈ´ıËø¶øµ¼ÖÂÖ÷Ïß³Ì»ºÂı
+	 * æä¾›é™æ€çš„å¼‚æ­¥æ–¹æ³•ï¼Œç”¨äºå¯¹æ•°æ®è¿›è¡Œæ·»åŠ æ“ä½œ<br>
+	 * é˜²æ­¢å› ç­‰å¾…é”è€Œå¯¼è‡´ä¸»çº¿ç¨‹ç¼“æ…¢
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void asynchPutMessage(String key, Object value) throws AppException {
 		if (!downloadThreadPool.isShutdown()) {
 			downloadThreadPool.execute(new PutMessageThread(key, value, this));
 		} else {
-			throw new AppException(this.getClass().getName() + ":ÒÑ¹Ø±ÕµÄÏß³Ì³Ø£¡");
+			throw new AppException(this.getClass().getName() + ":å·²å…³é—­çš„çº¿ç¨‹æ± ï¼");
 		}
 	}
 

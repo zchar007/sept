@@ -20,7 +20,7 @@ public class STree implements TreeInterface<SNode> {
 	@Override
 	public void addChild(SNode node) throws AppException {
 		if (this.rootNodes.contains(node)) {
-			throw new AppException("已存在根节点[" + node.getId() + "][" + node.getName() + "]");
+			throw new AppException("宸插瓨鍦ㄦ牴鑺傜偣[" + node.getId() + "][" + node.getName() + "]");
 		}
 		node.setFatherNode(null);
 		this.rootNodes.add(node);

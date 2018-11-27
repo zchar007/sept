@@ -18,17 +18,17 @@ import com.sept.io.local.FileUtil;
 
 public class EncryptUtil {
 
-	public static final String ENCRYPT_ALL_SIZE = "E_A_S";// encryptFiles·½·¨ÖĞ£¬ËùÓĞÎÄ¼ş´óĞ¡µÄkey
-	public static final String ENCRYPT_DIRECTORY_NAME = "E_D_N";// encryptFiles·½·¨ÖĞ£¬ÕıÔÚ¼ÓÃÜµÄ×ÜÄ¿Â¼Ãû×Ö
-	public static final String ENCRYPT_FILE_SIZE = "E_F_S";// µ±Ç°ÕıÔÚ¼ÓÃÜ/½âÃÜµÄÎÄ¼ş´óĞ¡µÄkey
-	public static final String ENCRYPT_NOW_SIZE = "E_N_S";// µ±Ç°ÒÑ¾­¼ÓÃÜ/½âÃÜµÄËùÓĞ´óĞ¡´óĞ¡key
-	public static final String ENCRYPT_FILE_NAME = "E_F_N";// µ±Ç°ÕıÔÚ¼ÓÃÜ/½âÃÜµÄÎÄ¼şÃû
+	public static final String ENCRYPT_ALL_SIZE = "E_A_S";// encryptFilesæ–¹æ³•ä¸­ï¼Œæ‰€æœ‰æ–‡ä»¶å¤§å°çš„key
+	public static final String ENCRYPT_DIRECTORY_NAME = "E_D_N";// encryptFilesæ–¹æ³•ä¸­ï¼Œæ­£åœ¨åŠ å¯†çš„æ€»ç›®å½•åå­—
+	public static final String ENCRYPT_FILE_SIZE = "E_F_S";// å½“å‰æ­£åœ¨åŠ å¯†/è§£å¯†çš„æ–‡ä»¶å¤§å°çš„key
+	public static final String ENCRYPT_NOW_SIZE = "E_N_S";// å½“å‰å·²ç»åŠ å¯†/è§£å¯†çš„æ‰€æœ‰å¤§å°å¤§å°key
+	public static final String ENCRYPT_FILE_NAME = "E_F_N";// å½“å‰æ­£åœ¨åŠ å¯†/è§£å¯†çš„æ–‡ä»¶å
 
 	/**
-	 * °Ñbyte°´ÕÕ¸ø¶¨×Ö·û´®À´¼ÓÃÜ£¬Ñ­»·¸ø¶¨×Ö·û´® ×îÖÕ½á¹ûÎªÍ¬1£¬Òì0£¬½âÃÜÃØÔ¿ºÍ¼ÓÃÜÃØÔ¿ÏàÍ¬<br>
-	 * ¶ÔÓÚ×Ö·û´®µÄ¼ÓÃÜ£¬»ñÈ¡µ½byteºóÒªÒÔiso-8859-1¸ñÊ½´´½¨×Ö·û´®ºóÔÙÒÔiso-8859-1¸ñÊ½ĞÎÊ½»ñÈ¡byte½øĞĞ½âÃÜ <br>
-	 * ÀıÈç<br>
-	 * String str = "helloÄãºÃ";<br>
+	 * æŠŠbyteæŒ‰ç…§ç»™å®šå­—ç¬¦ä¸²æ¥åŠ å¯†ï¼Œå¾ªç¯ç»™å®šå­—ç¬¦ä¸² æœ€ç»ˆç»“æœä¸ºåŒ1ï¼Œå¼‚0ï¼Œè§£å¯†ç§˜é’¥å’ŒåŠ å¯†ç§˜é’¥ç›¸åŒ<br>
+	 * å¯¹äºå­—ç¬¦ä¸²çš„åŠ å¯†ï¼Œè·å–åˆ°byteåè¦ä»¥iso-8859-1æ ¼å¼åˆ›å»ºå­—ç¬¦ä¸²åå†ä»¥iso-8859-1æ ¼å¼å½¢å¼è·å–byteè¿›è¡Œè§£å¯† <br>
+	 * ä¾‹å¦‚<br>
+	 * String str = "helloä½ å¥½";<br>
 	 * str = new String(encryptByte(str.getBytes(),"12345678"), "iso-8859-1");<br>
 	 * System.out.println(str); <br>
 	 * str = new String(encryptByte(str.getBytes("iso-8859-1"), "12345678"));<br>
@@ -50,10 +50,10 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * ÄÚ²¿µ÷ÓÃµÄÒÔIndexÈİÆ÷×÷ÎªÈ¡ÏÂÒ»¸ö¼ÓÃÜ×Ö·ûµÄ¼ÓÃÜ/½âÃÜ·½·¨
+	 * å†…éƒ¨è°ƒç”¨çš„ä»¥Indexå®¹å™¨ä½œä¸ºå–ä¸‹ä¸€ä¸ªåŠ å¯†å­—ç¬¦çš„åŠ å¯†/è§£å¯†æ–¹æ³•
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static byte[] encryptByte(byte[] byteData, Index key) {
@@ -65,13 +65,13 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * µ¥¸öÎÄ¼şµÄ¼ÓÃÜ½âÃÜ
+	 * å•ä¸ªæ–‡ä»¶çš„åŠ å¯†è§£å¯†
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬±ØĞëÊÇÎÄ¼ş£¬²»¿ÉÊÇÎÄ¼ş¼Ğ
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œå¿…é¡»æ˜¯æ–‡ä»¶ï¼Œä¸å¯æ˜¯æ–‡ä»¶å¤¹
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static void encryptFile(File fromFile, String toUrl, String key, HashMap<String, Object> pdoConfig)
@@ -80,13 +80,13 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * µ¥¸öÎÄ¼şµÄ¼ÓÃÜ½âÃÜ
+	 * å•ä¸ªæ–‡ä»¶çš„åŠ å¯†è§£å¯†
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬±ØĞëÊÇÎÄ¼ş£¬²»¿ÉÊÇÎÄ¼ş¼Ğ
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œå¿…é¡»æ˜¯æ–‡ä»¶ï¼Œä¸å¯æ˜¯æ–‡ä»¶å¤¹
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static void encryptFile(File fromFile, String toUrl, String key) throws AppException {
@@ -94,14 +94,14 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * µ¥¸öÎÄ¼şµÄ¼ÓÃÜ½âÃÜ
+	 * å•ä¸ªæ–‡ä»¶çš„åŠ å¯†è§£å¯†
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬±ØĞëÊÇÎÄ¼ş£¬²»¿ÉÊÇÎÄ¼ş¼Ğ
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @param mp       :¼ÓÃÜ/½âÃÜ¹ı³ÌÖĞÉú³ÉµÄ¸÷ÖÖÊı¾İ´æ·ÅµÄSharedInformationPool
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œå¿…é¡»æ˜¯æ–‡ä»¶ï¼Œä¸å¯æ˜¯æ–‡ä»¶å¤¹
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @param mp       :åŠ å¯†/è§£å¯†è¿‡ç¨‹ä¸­ç”Ÿæˆçš„å„ç§æ•°æ®å­˜æ”¾çš„SharedInformationPool
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static void encryptFile(File fromFile, String toUrl, String key, SharedInformationPool mp,
@@ -113,26 +113,26 @@ public class EncryptUtil {
 				pdoConfig = new HashMap<String, Object>();
 			}
 			if (!fromFile.isFile()) {
-				throw new AppException("Ö»ÄÜ¼ÓÃÜ/½âÃÜÎÄ¼ş£¡£¡");
+				throw new AppException("åªèƒ½åŠ å¯†/è§£å¯†æ–‡ä»¶ï¼ï¼");
 			}
 			File fto = new File(toUrl);
-			// »¹Î´´´½¨£¬ÎŞ·¨ÅĞ¶Ï£¬ÊÇÎÄ¼ş¾ÍÖ±½Ó´´½¨³ÉÎÄ¼ş¼ĞÁË
+			// è¿˜æœªåˆ›å»ºï¼Œæ— æ³•åˆ¤æ–­ï¼Œæ˜¯æ–‡ä»¶å°±ç›´æ¥åˆ›å»ºæˆæ–‡ä»¶å¤¹äº†
 			// if (!fto.isDirectory()) {
 			// throw new
-			// AppException("Ä¿±êÎ»ÖÃÖ»ÄÜÊÇÎÄ¼ş¼Ğ£¡£¡"+fto+"--"+fto.isDirectory());
+			// AppException("ç›®æ ‡ä½ç½®åªèƒ½æ˜¯æ–‡ä»¶å¤¹ï¼ï¼"+fto+"--"+fto.isDirectory());
 			// }
 			fto.mkdirs();
 			fto = new File(toUrl + File.separator + fromFile.getName());
 			String type = FileUtil.getFileType(fromFile);
 			String urlTemp = fto.getAbsolutePath().substring(0,
-					(int) (fto.getAbsolutePath().length() - type.length() - 1));// È¥µôµã
+					(int) (fto.getAbsolutePath().length() - type.length() - 1));// å»æ‰ç‚¹
 			type = pdoConfig.containsKey(type.toUpperCase()) ? pdoConfig.get(type.toUpperCase()).toString() : type;
 			fto = new File(urlTemp + "." + type);
 			int index = 0;
 			while (fto.exists()) {
 				fto = new File(urlTemp + "(" + (++index) + ")." + type);
 			}
-			// ´´½¨Ñ­»·×Ö·û´®Ö¸Õë
+			// åˆ›å»ºå¾ªç¯å­—ç¬¦ä¸²æŒ‡é’ˆ
 			Index KEY = new Index(key);
 
 			fto.createNewFile();
@@ -170,13 +170,13 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * ÅúÁ¿¼ÓÃÜ/½âÃÜÎÄ¼ş
+	 * æ‰¹é‡åŠ å¯†/è§£å¯†æ–‡ä»¶
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬ÎÄ¼ş/ÎÄ¼ş¼Ğ¾ù¿É
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œæ–‡ä»¶/æ–‡ä»¶å¤¹å‡å¯
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key,
@@ -185,13 +185,13 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * ÅúÁ¿¼ÓÃÜ/½âÃÜÎÄ¼ş
+	 * æ‰¹é‡åŠ å¯†/è§£å¯†æ–‡ä»¶
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬ÎÄ¼ş/ÎÄ¼ş¼Ğ¾ù¿É
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œæ–‡ä»¶/æ–‡ä»¶å¤¹å‡å¯
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key) throws AppException {
@@ -199,14 +199,14 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * ÅúÁ¿¼ÓÃÜ/½âÃÜÎÄ¼ş
+	 * æ‰¹é‡åŠ å¯†/è§£å¯†æ–‡ä»¶
 	 * 
-	 * @param fromFile fileÀ´Ô´£¬ÎÄ¼ş/ÎÄ¼ş¼Ğ¾ù¿É
-	 * @param toUrl    ÎÄ¼şµÄ×îÖÕÂ·¾¶£¬´Î·½·¨Ö»½ÓÊÕ×îÖÕµÄÂ·¾¶
-	 * @param key      ÃØÔ¿
-	 * @param mp       :¼ÓÃÜ/½âÃÜ¹ı³ÌÖĞÉú³ÉµÄ¸÷ÖÖÊı¾İ´æ·ÅµÄSharedInformationPool
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-9
+	 * @param fromFile fileæ¥æºï¼Œæ–‡ä»¶/æ–‡ä»¶å¤¹å‡å¯
+	 * @param toUrl    æ–‡ä»¶çš„æœ€ç»ˆè·¯å¾„ï¼Œæ¬¡æ–¹æ³•åªæ¥æ”¶æœ€ç»ˆçš„è·¯å¾„
+	 * @param key      ç§˜é’¥
+	 * @param mp       :åŠ å¯†/è§£å¯†è¿‡ç¨‹ä¸­ç”Ÿæˆçš„å„ç§æ•°æ®å­˜æ”¾çš„SharedInformationPool
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-9
 	 * @since V1.0
 	 */
 	public static ExecutorService encryptFiles(File fromFile, String toUrl, String key, SharedInformationPool mp,
@@ -230,13 +230,13 @@ public class EncryptUtil {
 				tf.mkdirs();
 			}
 			if (!tf.isDirectory()) {
-				throw new AppException("Ä¿±êÂ·¾¶±ØĞëÎªÎÄ¼ş¼Ğ");
+				throw new AppException("ç›®æ ‡è·¯å¾„å¿…é¡»ä¸ºæ–‡ä»¶å¤¹");
 			}
 
 			String realToUrl = tf.getAbsolutePath();
 			for (int i = 0; i < alFiles.size(); i++) {
 				File file = alFiles.get(i);
-				// ÕûÀí³ö¼ÓÃÜ/½âÃÜµÄÎ»ÖÃ£¬²»´øÎÄ¼şÃû
+				// æ•´ç†å‡ºåŠ å¯†/è§£å¯†çš„ä½ç½®ï¼Œä¸å¸¦æ–‡ä»¶å
 				String toUrlCell = realToUrl + File.separator
 						+ file.getAbsolutePath().substring(needRemovePath.length());
 				toUrlCell = toUrlCell.substring(0, toUrlCell.lastIndexOf(File.separator));
@@ -244,9 +244,9 @@ public class EncryptUtil {
 				vdsFiles.put(vdsFiles.rowCount() - 1, "file", file);
 				vdsFiles.put(vdsFiles.rowCount() - 1, "tourl", toUrlCell);
 			}
-			// ÒÔÏÂÊÇ²ğ³É10¸öÏß³Ì£¬²»×ã10¸öÔòÒ»¸ö¸ö¾ùÌ¯
+			// ä»¥ä¸‹æ˜¯æ‹†æˆ10ä¸ªçº¿ç¨‹ï¼Œä¸è¶³10ä¸ªåˆ™ä¸€ä¸ªä¸ªå‡æ‘Š
 			int[] everys = new int[10];
-			// Ğ¡ÓÚµÈÓÚ10£¬¿ª10¸öÏß³Ì£¬Ã¿¸öÏß³Ì´¦ÀíÒ»¸ö
+			// å°äºç­‰äº10ï¼Œå¼€10ä¸ªçº¿ç¨‹ï¼Œæ¯ä¸ªçº¿ç¨‹å¤„ç†ä¸€ä¸ª
 			int every = vdsFiles.size() / 10;
 			int yushu = vdsFiles.size() % 10;
 
@@ -257,7 +257,7 @@ public class EncryptUtil {
 				}
 			}
 			int index = 0;
-			// ¼ÓÈëÏß³Ì³Ø£¬×îºó·µ»Ø´ËÏß³Ì³Ø£¬·½±ãÍâ²¿¿ØÖÆ
+			// åŠ å…¥çº¿ç¨‹æ± ï¼Œæœ€åè¿”å›æ­¤çº¿ç¨‹æ± ï¼Œæ–¹ä¾¿å¤–éƒ¨æ§åˆ¶
 			ExecutorService uploadThreadPool = Executors.newFixedThreadPool(1000);
 			for (int i = 0; i < everys.length; i++) {
 				if (everys[i] > 0) {
@@ -266,7 +266,7 @@ public class EncryptUtil {
 						ds.add(vdsFiles.get(i));
 					}
 					index += everys[i];
-					// ¼ÓÃÜ/½âÃÜÏß³ÌÆô¶¯
+					// åŠ å¯†/è§£å¯†çº¿ç¨‹å¯åŠ¨
 					EncryptTread encrypt = new EncryptTread(ds, key, mp, pdoConfig);
 					uploadThreadPool.execute(encrypt);
 				}

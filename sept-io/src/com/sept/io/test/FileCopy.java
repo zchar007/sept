@@ -53,13 +53,13 @@ public class FileCopy {
 					File fromFile_now = alFile.get(i);
 					String toUrl_now = toUrl + fromFile_now.getAbsolutePath().substring(fromUrl.length());
 					File toFile_now = new File(toUrl_now);
-					// ¼ì²éÊÇ·ñ´æÔÚ
+					// æ£€æŸ¥æ˜¯å¦å­˜åœ¨
 					if (!toFile_now.getParentFile().exists()) {
 						toFile_now.getParentFile().mkdirs();
 					}
 					executor.execute(new FileCopyThread(fromFile_now, toFile_now, progressBar));
 				}
-			} else {// ¿¼ÂÇ·Ö²¼Ê½£¬ËäÈ»ÔÚÒ»Ì¨»úÆ÷ÉÏÃ»ÓÃ£¬µ«»¹ÊÇĞ´Ò»ÏÂ°É
+			} else {// è€ƒè™‘åˆ†å¸ƒå¼ï¼Œè™½ç„¶åœ¨ä¸€å°æœºå™¨ä¸Šæ²¡ç”¨ï¼Œä½†è¿˜æ˜¯å†™ä¸€ä¸‹å§
 				ArrayList<ArrayList<File>> alFiles = new ArrayList<>();
 				alFile = sortFileSizeForThis(alFile);
 
@@ -101,7 +101,7 @@ public class FileCopy {
 				File fromFile_now = alFileIn.get(i);
 				String toUrl_now = toUrl + fromFile_now.getAbsolutePath().substring(fromUrl.length());
 				File toFile_now = new File(toUrl_now);
-				// ¼ì²éÊÇ·ñ´æÔÚ
+				// æ£€æŸ¥æ˜¯å¦å­˜åœ¨
 				if (!toFile_now.getParentFile().exists()) {
 					toFile_now.getParentFile().mkdirs();
 				}
@@ -115,7 +115,7 @@ public class FileCopy {
 
 		ArrayList<File> alFile_temp = new ArrayList<>();
 
-		// ÅÅĞò
+		// æ’åº
 		for (int i = 0; i < alFile.size() - 1; i++) {
 			for (int j = i + 1; j < alFile.size(); j++) {
 				if (alFile.get(i).length() > alFile.get(j).length()) {
@@ -126,7 +126,7 @@ public class FileCopy {
 			}
 		}
 
-		// ´©²å¶Ôµ÷
+		// ç©¿æ’å¯¹è°ƒ
 		for (int i = 0; i < alFile.size() / 2; i++) {
 			alFile_temp.add(alFile.get(i));
 			alFile_temp.add(alFile.get(alFile.size() - i - 1));
@@ -148,7 +148,7 @@ public class FileCopy {
 					f.delete();
 				}
 				progressBar.reset();
-				progressBar.setTitle("ÕıÔÚ²éÕÒÎÄ¼ş£¬ÇëÉÔºó... ...");
+				progressBar.setTitle("æ­£åœ¨æŸ¥æ‰¾æ–‡ä»¶ï¼Œè¯·ç¨å... ...");
 				File fromFile = new File(fromUrl);
 				File toFile = new File(toUrl);
 				HashMap<String, Object> hmReturn = null;
@@ -186,7 +186,7 @@ public class FileCopy {
 						File fromFile_now = new File(itPath);
 						String toUrl_now = toUrl + fromFile_now.getAbsolutePath().substring(fromUrl.length());
 						File toFile_now = new File(toUrl_now);
-						// ¼ì²éÊÇ·ñ´æÔÚ
+						// æ£€æŸ¥æ˜¯å¦å­˜åœ¨
 						if (!toFile_now.getParentFile().exists()) {
 							toFile_now.getParentFile().mkdirs();
 						}

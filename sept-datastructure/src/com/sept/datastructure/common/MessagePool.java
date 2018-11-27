@@ -68,7 +68,7 @@ public class MessagePool implements SharedInformationPool {
 				}
 			});
 		} else {
-			throw new AppException(this.getClass().getName() + ":已关闭的线程池！");
+			throw new AppException(this.getClass().getName() + ":宸插叧闂殑绾跨▼姹狅紒");
 		}
 	}
 
@@ -86,7 +86,7 @@ public class MessagePool implements SharedInformationPool {
 				}
 			});
 		} else {
-			throw new AppException(this.getClass().getName() + ":已关闭的线程池！");
+			throw new AppException(this.getClass().getName() + ":宸插叧闂殑绾跨▼姹狅紒");
 		}
 	}
 

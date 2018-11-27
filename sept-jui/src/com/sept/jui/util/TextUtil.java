@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TextUtil {
 
 	/**
-	 * ½«ÎÄ±¾Ìí¼Óµ½Õ³Ìù°å
+	 * å°†æ–‡æœ¬æ·»åŠ åˆ°ç²˜è´´æ¿
 	 * 
 	 * @param message
 	 */
@@ -22,7 +22,7 @@ public class TextUtil {
 	}
 
 	/**
-	 * »ñÈ¡Õ³Ìù°åÖĞµÄÎÄ±¾
+	 * è·å–ç²˜è´´æ¿ä¸­çš„æ–‡æœ¬
 	 * 
 	 * @return
 	 */
@@ -37,7 +37,7 @@ public class TextUtil {
 		return message;
 	}
 	/**
-	 * »ñÈ¡Õ³Ìù°åÖĞµÄObject
+	 * è·å–ç²˜è´´æ¿ä¸­çš„Object
 	 * 
 	 * @return
 	 */
@@ -55,7 +55,7 @@ public class TextUtil {
 	}
 
 	public static void main(String[] args) {
-		sendStringToClipboard("ÄãºÃ2");
+		sendStringToClipboard("ä½ å¥½2");
 		System.out.println(getStringFromClipboard());
 	}
 }

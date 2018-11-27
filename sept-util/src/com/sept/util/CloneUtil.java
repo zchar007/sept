@@ -8,15 +8,15 @@ import java.io.Serializable;
 
 public class CloneUtil {
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017Äê10ÔÂ11ÈÕ
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017å¹´10æœˆ11æ—¥
 	 * @since V1.0
 	 */
 	public static <T> T deepClone(T object) throws Exception {
 		if (!(object instanceof Serializable)) {
-			throw new Exception("Òª¿ËÂ¡µÄ¶ÔÏó±ØĞëÊµÏÖĞòÁĞ»¯¡¾Serializable¡¿£¡");
+			throw new Exception("è¦å…‹éš†çš„å¯¹è±¡å¿…é¡»å®ç°åºåˆ—åŒ–ã€Serializableã€‘ï¼");
 		}
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bout);

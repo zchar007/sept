@@ -49,7 +49,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * ÒÆ³ı²åÈëµÄÌØÊå×Ö·û
+	 * ç§»é™¤æ’å…¥çš„ç‰¹å”å­—ç¬¦
 	 * 
 	 * @param value
 	 * @return
@@ -66,7 +66,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * ÒÆ³ı²åÈëµÄÌØÊå×Ö·û
+	 * ç§»é™¤æ’å…¥çš„ç‰¹å”å­—ç¬¦
 	 * 
 	 * @param value
 	 * @return
@@ -83,7 +83,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * ÑéÖ¤xml
+	 * éªŒè¯xml
 	 * 
 	 * @param xsdPath
 	 * @param xmlPath
@@ -91,20 +91,20 @@ public class XMLUtil {
 	 */
 	public static void validate(String xsdPath, Source source) throws AppException {
 		try {
-			// ½¨Á¢schema¹¤³§
+			// å»ºç«‹schemaå·¥å‚
 			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			// ½¨Á¢ÑéÖ¤ÎÄµµÎÄ¼ş¶ÔÏó£¬ÀûÓÃ´ËÎÄ¼ş¶ÔÏóËù·â×°µÄÎÄ¼ş½øĞĞschemaÑéÖ¤
+			// å»ºç«‹éªŒè¯æ–‡æ¡£æ–‡ä»¶å¯¹è±¡ï¼Œåˆ©ç”¨æ­¤æ–‡ä»¶å¯¹è±¡æ‰€å°è£…çš„æ–‡ä»¶è¿›è¡ŒschemaéªŒè¯
 			File schemaFile = new File(xsdPath);
-			// ÀûÓÃschema¹¤³§£¬½ÓÊÕÑéÖ¤ÎÄµµÎÄ¼ş¶ÔÏóÉú³ÉSchema¶ÔÏó
+			// åˆ©ç”¨schemaå·¥å‚ï¼Œæ¥æ”¶éªŒè¯æ–‡æ¡£æ–‡ä»¶å¯¹è±¡ç”ŸæˆSchemaå¯¹è±¡
 			Schema schema = schemaFactory.newSchema(schemaFile);
-			// Í¨¹ıSchema²úÉúÕë¶ÔÓÚ´ËSchemaµÄÑéÖ¤Æ÷£¬ÀûÓÃschenaFile½øĞĞÑéÖ¤
+			// é€šè¿‡Schemaäº§ç”Ÿé’ˆå¯¹äºæ­¤Schemaçš„éªŒè¯å™¨ï¼Œåˆ©ç”¨schenaFileè¿›è¡ŒéªŒè¯
 			Validator validator = schema.newValidator();
-			// µÃµ½ÑéÖ¤µÄÊı¾İÔ´
+			// å¾—åˆ°éªŒè¯çš„æ•°æ®æº
 			// Source source = new StreamSource(xmlPath);
-			// ¿ªÊ¼ÑéÖ¤£¬³É¹¦Êä³ösuccess!!!£¬Ê§°ÜÊä³öfail
+			// å¼€å§‹éªŒè¯ï¼ŒæˆåŠŸè¾“å‡ºsuccess!!!ï¼Œå¤±è´¥è¾“å‡ºfail
 			validator.validate(source);
 		} catch (Exception e) {
-			throw new AppException("ÑéÖ¤Ê§°Ü", e);
+			throw new AppException("éªŒè¯å¤±è´¥", e);
 		}
 	}
 
@@ -121,20 +121,20 @@ public class XMLUtil {
 		sqlBF.append("<!DOCTYPE d SYSTEM \"xml/Data.dtd\">");
 		sqlBF.append("<d t=\"do\" tl=\"id:n,xm:s,nl:n,gz:ds\">");
 		sqlBF.append("  <p k=\"id\" v=\"3333333333333333333333333\" />");
-		sqlBF.append("  <p k=\"xm\" v=\"ÕÅÈı\" />");
+		sqlBF.append("  <p k=\"xm\" v=\"å¼ ä¸‰\" />");
 		sqlBF.append("  <p k=\"nl\" v=\"20\" />");
 		sqlBF.append("  <p k=\"gz\">");
 		sqlBF.append("    <d t=\"ds\" tl=\"gzmc:s,jfgz:n\">");
 		sqlBF.append("      <r l=\"1\">");
-		sqlBF.append("        <p k=\"gzmc\" v=\"Êµ¼Ê¹¤×Ê1\" />");
+		sqlBF.append("        <p k=\"gzmc\" v=\"å®é™…å·¥èµ„1\" />");
 		sqlBF.append("        <p k=\"jfgz\" v=\"8001.0\" />");
 		sqlBF.append("      </r>");
 		sqlBF.append("      <r l=\"1\">");
-		sqlBF.append("        <p k=\"gzmc\" v=\"Êµ¼Ê¹¤×Ê2\" />");
+		sqlBF.append("        <p k=\"gzmc\" v=\"å®é™…å·¥èµ„2\" />");
 		sqlBF.append("        <p k=\"jfgz\" v=\"8002.0\" />");
 		sqlBF.append("      </r>");
 		sqlBF.append("      <r l=\"1\">");
-		sqlBF.append("        <p k=\"gzmc\" v=\"Êµ¼Ê¹¤×Ê3\" />");
+		sqlBF.append("        <p k=\"gzmc\" v=\"å®é™…å·¥èµ„3\" />");
 		sqlBF.append("        <p k=\"jfgz\" v=\"8003.0\" />");
 		sqlBF.append("      </r>");
 		sqlBF.append("    </d>");

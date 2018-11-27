@@ -37,7 +37,7 @@ public class DataObjectComparator implements Comparator<DataObject> {
 	}
 
 	/**
-	 * ×Ó±È½Ï
+	 * å­æ¯”è¾ƒ
 	 * 
 	 * @param o1
 	 * @param o2
@@ -73,7 +73,7 @@ public class DataObjectComparator implements Comparator<DataObject> {
 
 	/**
 	 * 
-	 * ÖĞÎÄ±È½Ï
+	 * ä¸­æ–‡æ¯”è¾ƒ
 	 * 
 	 * @param o1
 	 * @param o2

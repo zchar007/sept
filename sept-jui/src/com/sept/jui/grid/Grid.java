@@ -1,452 +1,128 @@
 package com.sept.jui.grid;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
+import com.sept.jui.grid.columns.GridLineNumberColumn;
+import com.sept.jui.grid.columns.GridSelectionModelColumn;
+import com.sept.jui.util.TextUtil;
 
-public class Grid extends JComponent implements ActionListener {
+public class Grid extends JTable implements ActionListener, MouseListener {
 	private static final long serialVersionUID = 1L;
-	private JTable table;
-	private boolean showHeade = false;
-	private boolean showFoot = false;
-	private boolean showPop_add = true;
-	private boolean showPop_remove = true;
-	private boolean showPop_clear = true;
-	private boolean autoResize = false;
-	private JPanel heade_panel;
-	private JPanel foot_panel;
-	private JScrollPane scrollPane;
+	/**
+	 * ÈÄâÊã©Ê®°Âºè
+	 */
+	public static final int SINGLE_SELECTION = ListSelectionModel.SINGLE_SELECTION;
+	public static final int SINGLE_INTERVAL_SELECTION = ListSelectionModel.SINGLE_INTERVAL_SELECTION;
+	public static final int MULTIPLE_INTERVAL_SELECTION = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+	private int selection = SINGLE_SELECTION;
 	private ArrayList<GridColumn> gridColumns;
-	private DataStore dsData;
-	private GridModel gridModel;
-	private boolean showLineNumber;
+	private GridModel model;
+	private boolean showLineNumber = false;
 	private JPopupMenu popupMenu;
 	private JMenuItem menuItem_add;
 	private JMenuItem menuItem_delete;
 	private JMenuItem menuItem_clear;
+	private JMenuItem menuItem_copy;
+	private JMenuItem menuItem_paste;
+	private JMenuItem menuItem_paste4Insert;
+
+	private int selectCubColumnIndex = -1;
 
 	public Grid() {
+		super();
 		this.gridColumns = new ArrayList<GridColumn>();
-		this.dsData = new DataStore();
-		setLayout(new BorderLayout(0, 0));
-		this.scrollPane = new JScrollPane();
-		add(this.scrollPane, BorderLayout.CENTER);
+		this.addPopMenu();
+		this.addMouseListener(this);
 	}
 
-	/**
-	 * ‘ˆº”“ª¡–
-	 * 
-	 * @param gridClumn
-	 */
-	public void addColumn(GridColumn gridClumn) {
-		if (gridClumn == null) {
-			return;
-		}
-		this.gridColumns.add(gridClumn);
-	}
-
-	/**
-	 * ‘ˆº”“ª¡–
-	 * 
-	 * @param gridClumn
-	 */
-	public void addColumn(String showName, String realName, String columnType, String defautValue, String dsCode,
-			boolean readonly) throws AppException {
-		GridColumn gridClumn = new GridColumn(showName, realName, columnType, defautValue, dsCode, readonly);
-		this.gridColumns.add(gridClumn);
-	}
-
-	/**
-	 * ‘ˆº”“ª––
-	 * 
-	 * @param para
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	public void addRow(DataObject para) throws AppException {
-		if (para == null) {
-			return;
-		}
-		this.dsData.addRow(para);
-		if (this.gridModel == null) {
-			return;
-		}
-		this.gridModel.addRow(getRowDataFromeDataObject(para));
-		updateDatas();
-	}
-
-	/**
-	 * ‘ˆº”∂‡––
-	 * 
-	 * @param para
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	public void addRows(DataStore para) throws AppException {
-		if (para == null) {
-			return;
-		}
-		for (DataObject dataObject : para) {
-			if (dataObject != null) {
-				this.dsData.addRow(dataObject);
-				if (this.gridModel != null) {
-					this.gridModel.addRow(getRowDataFromeDataObject(dataObject));
-				}
-			}
-		}
-		if (this.gridModel != null) {
-			updateDatas();
-		}
-	}
-
-	/**
-	 * …æ≥˝“ª––
-	 * 
-	 * @param index
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	public void removeRow(int index) throws AppException {
-		this.gridModel.removeRow(index);
-		updateDatasWithUpdateTable();
-	}
-
-	/**
-	 * ªÒ»°—°÷–––
-	 * 
-	 * @return
-	 */
-	public int getSelectRowIndex() {
-		return this.table.getSelectedRow();
-	}
-
-	/**
-	 * «Â≥˝ ˝æ›
-	 * 
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	public void clearData() throws AppException {
-		this.gridModel.setRowCount(0);
-		updateDatasWithUpdateTable();
-	}
-
-	/**
-	 * ≥ı ºªØ
-	 * 
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	private void init() throws AppException {
-		if (isShowHeade()) {
-			this.heade_panel = new JPanel();
-			add(this.heade_panel, "North");
-		}
-		if (isShowFoot()) {
-			this.foot_panel = new JPanel();
-			add(this.foot_panel, "South");
-		}
-		this.gridModel = new GridModel(getDatas(), getColumnsName());
-		this.table = new JTable(this.gridModel);
-		this.table.setAutoResizeMode(this.autoResize ? 4 : 0);
-		for (int i = 0; i < this.gridColumns.size(); i++) {
-			if (((GridColumn) this.gridColumns.get(i)).getColumnType().equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
-				TableColumn tc = this.table.getColumnModel().getColumn(i);
-				tc.setCellEditor(new DefaultCellEditor(((GridColumn) this.gridColumns.get(i)).getJComboBox()));
-			}
-		}
+	private void addPopMenu() {
 		this.popupMenu = new JPopupMenu();
-		addPopup(this.table, this.popupMenu);
-		addPopup(this.scrollPane, this.popupMenu);
+		addPopup(this, this.popupMenu);
 
-		this.menuItem_add = new JMenuItem("‘ˆº”");
-		this.menuItem_delete = new JMenuItem("…æ≥˝");
-		this.menuItem_clear = new JMenuItem("«Âø’");
+		this.menuItem_copy = new JMenuItem("Copy");
+		this.menuItem_paste = new JMenuItem("Paste");
+		this.menuItem_paste4Insert = new JMenuItem("Insert");
 
-		if (this.showPop_add) {
-			this.menuItem_add.addActionListener(this);
-			this.popupMenu.add(this.menuItem_add);
-		}
-		if (this.showPop_remove) {
-			this.menuItem_delete.addActionListener(this);
-			this.popupMenu.add(menuItem_delete);
-		}
-		if (this.showPop_clear) {
-			this.menuItem_clear.addActionListener(this);
-			this.popupMenu.add(this.menuItem_clear);
-		}
+		this.menuItem_add = new JMenuItem("Add");
+		this.menuItem_delete = new JMenuItem("Delete");
+		this.menuItem_clear = new JMenuItem("Clear");
+
+		this.menuItem_copy.addActionListener(this);
+		this.popupMenu.add(this.menuItem_copy);
+
+		this.menuItem_paste.addActionListener(this);
+		this.popupMenu.add(this.menuItem_paste);
+
+		this.menuItem_paste4Insert.addActionListener(this);
+		this.popupMenu.add(this.menuItem_paste4Insert);
+
+		this.menuItem_add.addActionListener(this);
+		this.popupMenu.add(this.menuItem_add);
+
+		this.menuItem_delete.addActionListener(this);
+		this.popupMenu.add(menuItem_delete);
+
+		this.menuItem_clear.addActionListener(this);
+		this.popupMenu.add(this.menuItem_clear);
+
 	}
 
-	/**
-	 * …Ë÷√ÕÍ±œµ˜”√¥À∑Ω∑®
-	 * 
-	 * @return
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	public boolean doGrid() throws AppException {
-		init();
-		this.scrollPane.setViewportView(this.table);
-		return true;
+	public void addDefaultPopMenuToComponent(Component component) {
+		this.addPopup(component, this.popupMenu);
 	}
 
-	public boolean isShowHeade() {
-		return this.showHeade;
-	}
-
-	public void setShowHeade(boolean showHeade) {
-		this.showHeade = showHeade;
-	}
-
-	public boolean isShowFoot() {
-		return this.showFoot;
-	}
-
-	public void setShowFoot(boolean showFoot) {
-		this.showFoot = showFoot;
-	}
-
-	private Object[] getColumnsName() {
-		return this.gridColumns.toArray();
-	}
-
-	/**
-	 * ªÒ»° ˝æ›£®ƒ⁄≤øµ˜”√£©
-	 * 
-	 * @return
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	private Object[][] getDatas() throws AppException {
-		Object[][] objs = new Object[this.dsData.rowCount()][this.gridColumns.size()];
-		for (int i = 0; i < this.dsData.rowCount(); i++) {
-			for (int j = 0; j < this.gridColumns.size(); j++) {
-				GridColumn gridClumn = (GridColumn) this.gridColumns.get(j);
-				String realName = gridClumn.getRealName();
-				String type = gridClumn.getColumnType();
-				Object value = null;
-				if (realName.equals("no")) {
-					objs[i][j] = Integer.valueOf(i + 1);
-				} else {
-					if (this.dsData.containsItem(i, realName)) {
-						value = this.dsData.getObject(i, realName);
-					}
-					if (value == null) {
-						value = gridClumn.getDefautValue();
-					}
-					if (type.equals(GridColumn.COLUMNTYPE_STRING)) {
-						objs[i][j] = value;
-					} else if (type.equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
-						objs[i][j] = gridClumn.getDPValue(value.toString());
-					} else if (type.equals(GridColumn.COLUMNTYPE_CHECKBOX)) {
-						objs[i][j] = Boolean.valueOf(Boolean.parseBoolean((String) value));
-					}
-				}
-			}
-		}
-		return objs;
-	}
-
-	/**
-	 * ªÒ»° ˝æ›£®ƒ⁄≤øµ˜”√£©
-	 * 
-	 * @return
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	private Object[] getRowDataFromeDataObject(DataObject para) throws AppException {
-		Object[] obj = new Object[this.gridColumns.size()];
-		for (int i = 0; i < this.gridColumns.size(); i++) {
-			GridColumn gridClumn = (GridColumn) this.gridColumns.get(i);
-			String realName = gridClumn.getRealName();
-			String type = gridClumn.getColumnType();
-			Object value = null;
-			if (realName.equals("no")) {
-				obj[i] = Integer.valueOf(this.gridModel.getRowCount() + 1);
-			} else {
-				if (para.containsKey(realName)) {
-					value = para.getObject(realName);
-				}
-				if (value == null) {
-					value = gridClumn.getDefautValue();
-				}
-				if (type.equals(GridColumn.COLUMNTYPE_STRING)) {
-					obj[i] = value;
-				} else if (type.equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
-					obj[i] = gridClumn.getDPValue(value.toString());
-				} else if (type.equals(GridColumn.COLUMNTYPE_CHECKBOX)) {
-					obj[i] = Boolean.parseBoolean(value.toString());
-				}
-			}
-		}
-		return obj;
-	}
-
-	/**
-	 * ªÒ»° «∑Òœ‘ æ––∫≈
-	 * 
-	 * @return
-	 */
-	public boolean isShowLineNumber() {
-		return this.showLineNumber;
-	}
-
-	/**
-	 * …Ë÷√ «∑Òœ‘ æ––∫≈
-	 * 
-	 * @return
-	 */
-	public void setShowLineNumber(boolean showLineNumber) {
-		this.showLineNumber = showLineNumber;
-		if (this.showLineNumber) {
-			if (!((GridColumn) this.gridColumns.get(0)).getRealName().equals("no")) {
-				try {
-					GridColumn gc = new GridColumn("NO.", "no");
-					this.gridColumns.add(new GridColumn());
-					for (int i = this.gridColumns.size() - 1; i > 0; i--) {
-						this.gridColumns.set(i, (GridColumn) this.gridColumns.get(i - 1));
-					}
-					this.gridColumns.set(0, gc);
-				} catch (AppException e) {
-					e.printStackTrace();
-				}
-			}
-		} else if (((GridColumn) this.gridColumns.get(0)).getRealName().equals("no")) {
-			this.gridColumns.remove(0);
-		}
-	}
-
-	/**
-	 * Ωˆ∏¸–¬ ˝æ›
-	 * 
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	private void updateDatas() throws AppException {
-		DataStore values = new DataStore();
-		int colCount = this.gridColumns.size();
-		int rowCount = this.gridModel.getRowCount();
-		for (int i = 0; i < rowCount; i++) {
-			values.addRow();
-			for (int j = 0; j < colCount; j++) {
-				if (!((GridColumn) this.gridColumns.get(j)).getRealName().equals("no")) {
-					String type = ((GridColumn) this.gridColumns.get(j)).getColumnType();
-					if (type.equals(GridColumn.COLUMNTYPE_STRING)) {
-						values.put(values.rowCount() - 1, ((GridColumn) this.gridColumns.get(j)).getRealName(),
-								this.gridModel.getValueAt(i, j).toString());
-					} else if (type.equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
-						values.put(values.rowCount() - 1, ((GridColumn) this.gridColumns.get(j)).getRealName(),
-								((GridColumn) this.gridColumns.get(j))
-										.getDPCode(this.gridModel.getValueAt(i, j).toString()));
-					} else if (type.equals(GridColumn.COLUMNTYPE_CHECKBOX)) {
-						values.put(values.rowCount() - 1, ((GridColumn) this.gridColumns.get(j)).getRealName(),
-								Boolean.valueOf(Boolean.parseBoolean(this.gridModel.getValueAt(i, j).toString())));
-					}
-				}
-			}
-		}
-		this.dsData = values;
-	}
-
-	/**
-	 * ∏¸–¬ ˝æ›≤¢∏¸–¬œ‘ æ
-	 * 
-	 * @throws AppException
-	 * @throws DataException
-	 */
-	private void updateDatasWithUpdateTable() throws AppException {
-		updateDatas();
-
-		this.gridModel.setRowCount(0);
-
-		DataStore vds = this.dsData.clone();
-
-		addRows(vds);
-	}
-
-	public boolean isShowPop_add() {
-		return this.showPop_add;
-	}
-
-	public void setShowPop_add(boolean showPop_add) {
-		this.showPop_add = showPop_add;
-	}
-
-	public boolean isShowPop_remove() {
-		return this.showPop_remove;
-	}
-
-	public void setShowPop_remove(boolean showPop_remove) {
-		this.showPop_remove = showPop_remove;
-	}
-
-	public boolean isShowPop_clear() {
-		return this.showPop_clear;
-	}
-
-	public void setShowPop_clear(boolean showPop_clear) {
-		this.showPop_clear = showPop_clear;
-	}
-
-	/**
-	 * ‘ˆº”item
-	 * 
-	 * @param item
-	 */
-	public void addMenuItem(JMenuItem item) {
-		this.popupMenu.add(item);
-	}
-
-	/**
-	 * ‘ˆº”menu
-	 * 
-	 * @param menu
-	 */
-	public void addMenu(JMenu menu) {
-		this.popupMenu.add(menu);
-	}
-
-	private void addPopup(Component component, final JPopupMenu popup) {
+	public void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				Grid.this.selectTable(e);
 				if (e.isPopupTrigger()) {
+					if (Grid.this.selection == SINGLE_SELECTION) {
+						Grid.this.setSelectTable(e);
+					} else {
+						Grid.this.addSelectTable(e);
+					}
 					showMenu(e);
 				}
 			}
 
 			public void mouseReleased(MouseEvent e) {
-				Grid.this.selectTable(e);
 				if (e.isPopupTrigger()) {
+					if (Grid.this.selection == SINGLE_SELECTION) {
+						Grid.this.setSelectTable(e);
+					} else {
+						Grid.this.addSelectTable(e);
+					}
 					showMenu(e);
 				}
 			}
 
 			private void showMenu(MouseEvent e) {
+				if (!isEditAble()) {
+					return;
+				}
 				Point mousepoint = e.getPoint();
 
-				int index = table.rowAtPoint(mousepoint);
+				int index = Grid.this.rowAtPoint(mousepoint);
 				if (index < 0) {
 					menuItem_delete.setEnabled(false);
 				} else {
@@ -458,48 +134,7 @@ public class Grid extends JComponent implements ActionListener {
 		});
 	}
 
-	private void selectTable(MouseEvent e) {
-		int row = this.table.rowAtPoint(e.getPoint());
-		if (row >= 0) {
-			this.table.setRowSelectionInterval(row, row);
-		}
-	}
-
-	public DataStore getDataStore() throws AppException {
-		if (this.table.isEditing()) {
-			this.table.getCellEditor().stopCellEditing();
-		}
-		this.table.clearSelection();
-		updateDatas();
-		return this.dsData;
-	}
-
-	class GridModel extends DefaultTableModel {
-		private static final long serialVersionUID = 1L;
-
-		public GridModel(Object[][] data, Object[] columnNames) {
-			super(data, columnNames);
-		}
-
-		public Class<?> getColumnClass(int columnIndex) {
-			String columnType = ((GridColumn) Grid.this.gridColumns.get(columnIndex)).getColumnType();
-			if (columnType.equals(GridColumn.COLUMNTYPE_CHECKBOX)) {
-				return Boolean.class;
-			}
-			if (columnType.equals(GridColumn.COLUMNTYPE_DROPDOWN)) {
-				return JComboBox.class;
-			}
-			if (columnType.equals(GridColumn.COLUMNTYPE_STRING)) {
-				return String.class;
-			}
-			return super.getColumnClass(columnIndex);
-		}
-
-		public boolean isCellEditable(int row, int column) {
-			return !((GridColumn) Grid.this.gridColumns.get(column)).isReadonly();
-		}
-	}
-
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.menuItem_add)) {
 			try {
@@ -510,25 +145,531 @@ public class Grid extends JComponent implements ActionListener {
 		}
 		if (e.getSource().equals(this.menuItem_delete)) {
 			try {
-				removeRow(getSelectRowIndex());
+				int[] indexs = this.getSelectedRows();
+				for (int i = 0; i < indexs.length; i++) {
+					this.removeRow(indexs[i]);
+				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 		if (e.getSource().equals(this.menuItem_clear)) {
 			try {
-				clearData();
+				this.clear();
+			} catch (AppException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource().equals(this.menuItem_copy)) {
+			try {
+				DataStore ds = this.getSelectData();
+				TextUtil.sendStringToClipboard(ds.toJSON());
+			} catch (AppException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource().equals(this.menuItem_paste4Insert)) {
+			String text = TextUtil.getStringFromClipboard();
+			try {
+				DataStore ds = DataStore.parseFromJSON(text);
+				this.insertRows(this.getSelectedRow(), ds);
+			} catch (AppException e1) {
+				DataStore ds = new DataStore();
+				ds.addRow();
+				try {
+					this.insertRows(this.getSelectedRow(), ds);
+				} catch (AppException e2) {
+					e2.printStackTrace();
+				}
+			}
+
+		}
+		if (e.getSource().equals(this.menuItem_paste)) {
+			String text = TextUtil.getStringFromClipboard();
+			try {
+				DataStore ds = DataStore.parseFromJSON(text);
+				this.addRows(ds);
 			} catch (AppException e1) {
 				e1.printStackTrace();
 			}
 		}
 	}
 
-	public boolean isAutoResize() {
-		return this.autoResize;
+	private void setSelectTable(MouseEvent e) {
+		int row = this.rowAtPoint(e.getPoint());
+		if (row >= 0) {
+			this.setRowSelectionInterval(row, row);
+		}
 	}
 
-	public void setAutoResize(boolean autoResize) {
-		this.autoResize = autoResize;
+	private void addSelectTable(MouseEvent e) {
+		int row = this.rowAtPoint(e.getPoint());
+		if (row >= 0) {
+			this.addRowSelectionInterval(row, row);
+		}
 	}
+
+	/**
+	 * Â¢ûÂä†Â§öÂàó
+	 * 
+	 * @param gridClumns
+	 * @throws AppException
+	 */
+	public void addColumns(ArrayList<GridColumn> gridClumns) throws AppException {
+		for (int i = 0; i < gridClumns.size(); i++) {
+			if (gridClumns.get(i) == null) {
+				continue;
+			}
+			this.gridColumns.add(gridClumns.get(i));
+		}
+		model = new GridModel(this.gridColumns);
+		this.setModel(model);
+
+		DefaultTableCellRenderer cellRenderer = this.getHeadCellRenderer();
+		for (int i = 0; i < this.gridColumns.size(); i++) {
+			if (this.gridColumns.get(i).getComponentType().equals(JComboBox.class)) {
+				TableColumn tc = this.getColumnModel().getColumn(i);
+				tc.setCellEditor(new DefaultCellEditor((JComboBox<?>) this.gridColumns.get(i).getComponent()));
+			}
+			// iÊòØË°®Â§¥ÁöÑÂàó
+			TableColumn column = this.getTableHeader().getColumnModel().getColumn(i);
+			column.setHeaderRenderer(cellRenderer);
+		}
+	}
+
+	/**
+	 * Â¢ûÂä†‰∏ÄÂàó
+	 *
+	 * @param gridClumn
+	 * @throws AppException
+	 */
+	public void addColumn(GridColumn gridClumn) throws AppException {
+		if (gridClumn == null) {
+			return;
+		}
+		this.gridColumns.add(gridClumn);
+		model = new GridModel(this.gridColumns);
+		this.setModel(model);
+
+		DefaultTableCellRenderer cellRenderer = this.getHeadCellRenderer();
+		for (int i = 0; i < this.gridColumns.size(); i++) {
+			if (this.gridColumns.get(i).getComponentType().equals(JComboBox.class)) {
+				TableColumn tc = this.getColumnModel().getColumn(i);
+				tc.setCellEditor(new DefaultCellEditor((JComboBox<?>) this.gridColumns.get(i).getComponent()));
+			}
+			// iÊòØË°®Â§¥ÁöÑÂàó
+			TableColumn column = this.getTableHeader().getColumnModel().getColumn(i);
+			column.setHeaderRenderer(cellRenderer);
+		}
+	}
+
+	/**
+	 * Â¢ûÂä†‰∏ÄË°å
+	 * 
+	 * @param para
+	 * @throws AppException
+	 * @throws DataException
+	 */
+	public void addRow(DataObject para) throws AppException {
+		if (para == null) {
+			return;
+		}
+		if (this.model == null) {
+			return;
+		}
+		this.model.addRow(para);
+	}
+
+	/**
+	 * ÊèíÂÖ•
+	 * 
+	 * @param para
+	 * @throws AppException
+	 * @throws DataException
+	 */
+	public void insertRow(int row, DataObject para) throws AppException {
+		if (para == null) {
+			return;
+		}
+		if (this.model == null) {
+			return;
+		}
+		this.model.insertRow(row, para);
+	}
+
+	/**
+	 * Â¢ûÂä†Â§öË°å
+	 * 
+	 * @param para
+	 * @throws AppException
+	 * @throws DataException
+	 */
+	public void addRows(DataStore para) throws AppException {
+		if (para == null) {
+			return;
+		}
+		if (this.model == null) {
+			return;
+		}
+		this.model.addRows(para);
+	}
+
+	/**
+	 * ÊèíÂÖ•
+	 * 
+	 * @param para
+	 * @throws AppException
+	 * @throws DataException
+	 */
+	public void insertRows(int row, DataStore para) throws AppException {
+		if (para == null) {
+			return;
+		}
+		if (this.model == null) {
+			return;
+		}
+		this.model.insertRows(row, para);
+	}
+
+	/**
+	 * Âà†Èô§‰∏ÄË°å
+	 * 
+	 * @param index
+	 * @throws AppException
+	 * @throws DataException
+	 */
+	public void removeRow(int index) throws AppException {
+		this.model.removeRow(index);
+	}
+
+	/**
+	 * Êõ¥Êñ∞Êï∞ÊçÆÔºåË¶ÜÁõñÂéüÊï∞ÊçÆ
+	 * 
+	 * @param dataStore
+	 * @throws AppException
+	 */
+	public void updateData(DataStore dataStore) throws AppException {
+		this.model.setData(dataStore);
+	}
+
+	/**
+	 * ËÆæÁΩÆÊòØÂê¶ÂèØÁºñËæëÔºàÂÖ®Â±ÄÔºâ
+	 * 
+	 * @param editAble
+	 */
+	public void setEditAble(boolean editAble) {
+		this.model.setEditAble(editAble);
+	}
+
+	/**
+	 * ÊòØÂê¶ÂèØÁºñËæëÔºàÂÖ®Â±ÄÔºâ
+	 * 
+	 * @return
+	 */
+	public boolean isEditAble() {
+		return this.model.isEditAble();
+	}
+
+	/**
+	 * Ëé∑ÂèñÊï∞ÊçÆ
+	 * 
+	 * @return
+	 * @throws AppException
+	 */
+	public DataStore getDataStore() throws AppException {
+		if (null == this.model) {
+			return new DataStore();
+		}
+		return this.model.getDataStore();
+	}
+
+	public DataObject getRowData(int rowIndex) throws AppException {
+		return this.model.getRowData(rowIndex);
+	}
+
+	public DataStore getSelectData() throws AppException {
+		DataStore ds = new DataStore();
+		int[] indexs = this.getSelectedRows();
+		for (int i = 0; i < indexs.length; i++) {
+			ds.addRow(this.getRowData(indexs[i]));
+		}
+		return ds;
+	}
+
+	/**
+	 * ÊòØÂê¶ÊòæÁ§∫Ë°åÂè∑
+	 * 
+	 * @param showLineNumber
+	 * @throws AppException
+	 */
+	public void showLineNumber(boolean showLineNumber) throws AppException {
+		this.showLineNumber = showLineNumber;
+		if (this.showLineNumber) {
+			if (this.gridColumns.size() <= 0) {
+				GridLineNumberColumn gc = new GridLineNumberColumn();
+				this.gridColumns.add(gc);
+				DataStore dataStore = this.getDataStore();
+				this.model = new GridModel(this.gridColumns);
+				this.setModel(this.model);
+				this.updateData(dataStore);
+
+			} else {
+				if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)) {
+					GridLineNumberColumn gc = new GridLineNumberColumn();
+					this.gridColumns.add(null);
+					for (int i = this.gridColumns.size() - 1; i > 0; i--) {
+						this.gridColumns.set(i, this.gridColumns.get(i - 1));
+					}
+					this.gridColumns.set(0, gc);
+					DataStore dataStore = this.getDataStore();
+					this.model = new GridModel(this.gridColumns);
+					this.setModel(this.model);
+					this.updateData(dataStore);
+				}
+			}
+		} else {
+			if (null != this.gridColumns && this.gridColumns.size() > 0
+					&& this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)) {
+				this.gridColumns.remove(0);
+				DataStore dataStore = this.getDataStore();
+				this.model = new GridModel(this.gridColumns);
+				this.setModel(this.model);
+				this.updateData(dataStore);
+			}
+		}
+	}
+
+	/**
+	 * Ê∏ÖÁ©∫
+	 * 
+	 * @throws AppException
+	 */
+	public void clear() throws AppException {
+		this.updateData(new DataStore());
+	}
+
+	protected DefaultTableCellRenderer getHeadCellRenderer() {
+
+		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+		cellRenderer.setBackground(new Color(51, 102, 255));
+		return cellRenderer;
+	}
+
+	@Override
+	public void setSelectionMode(int selectionMode) {
+		super.setSelectionMode(selectionMode);
+		this.selection = selectionMode;
+		try {
+			if (Grid.SINGLE_SELECTION == selectionMode) {
+				// ÁßªÈô§ÈÄâÊã©Âàó
+				/**
+				 * ÊúâË°åÂè∑Êó†ÈÄâÊã©
+				 */
+				if (this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
+					this.gridColumns.remove(0);
+					DataStore dataStore = this.getDataStore();
+					this.model = new GridModel(this.gridColumns);
+					this.setModel(this.model);
+					this.updateData(dataStore);
+				} else if (this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// Êó†Ë°åÂè∑Êó†ÈÄâÊã©
+					this.gridColumns.remove(1);
+					DataStore dataStore = this.getDataStore();
+					this.model = new GridModel(this.gridColumns);
+					this.setModel(this.model);
+					this.updateData(dataStore);
+				}
+
+			} else if (Grid.SINGLE_INTERVAL_SELECTION == selectionMode) {
+				// Â¢ûÂä†ÈÄâÊã©Âàó
+				if (this.gridColumns.size() <= 0) {
+					GridSelectionModelColumn gc = new GridSelectionModelColumn();
+					this.gridColumns.add(gc);
+					DataStore dataStore = this.getDataStore();
+					this.model = new GridModel(this.gridColumns);
+					this.setModel(this.model);
+					this.updateData(dataStore);
+					selectCubColumnIndex = 0;
+				} else {
+					/**
+					 * ÊúâË°åÂè∑Êó†ÈÄâÊã©
+					 */
+					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
+						GridSelectionModelColumn gc = new GridSelectionModelColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(1, gc);
+						DataStore dataStore = this.getDataStore();
+						this.model = new GridModel(this.gridColumns);
+						this.setModel(this.model);
+						this.updateData(dataStore);
+						selectCubColumnIndex = 1;
+					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// Êó†Ë°åÂè∑Êó†ÈÄâÊã©
+
+						GridSelectionModelColumn gc = new GridSelectionModelColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(0, gc);
+						DataStore dataStore = this.getDataStore();
+						this.model = new GridModel(this.gridColumns);
+						this.setModel(this.model);
+						this.updateData(dataStore);
+						selectCubColumnIndex = 0;
+					}
+				}
+
+			} else if (Grid.MULTIPLE_INTERVAL_SELECTION == selectionMode) {
+				// Â¢ûÂä†ÈÄâÊã©Âàó
+
+				// Â¢ûÂä†ÈÄâÊã©Âàó
+				if (this.gridColumns.size() <= 0) {
+					GridSelectionModelColumn gc = new GridSelectionModelColumn();
+					this.gridColumns.add(gc);
+					DataStore dataStore = this.getDataStore();
+					this.model = new GridModel(this.gridColumns);
+					this.setModel(this.model);
+					this.updateData(dataStore);
+					selectCubColumnIndex = 0;
+				} else {
+					/**
+					 * ÊúâË°åÂè∑Êó†ÈÄâÊã©
+					 */
+					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
+						GridSelectionModelColumn gc = new GridSelectionModelColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(1, gc);
+						DataStore dataStore = this.getDataStore();
+						this.model = new GridModel(this.gridColumns);
+						this.setModel(this.model);
+						this.updateData(dataStore);
+						selectCubColumnIndex = 1;
+					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// Êó†Ë°åÂè∑Êó†ÈÄâÊã©
+
+						GridSelectionModelColumn gc = new GridSelectionModelColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(0, gc);
+						DataStore dataStore = this.getDataStore();
+						this.model = new GridModel(this.gridColumns);
+						this.setModel(this.model);
+						this.updateData(dataStore);
+						selectCubColumnIndex = 0;
+					}
+				}
+
+			}
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setSelectionModel(ListSelectionModel newModel) {
+		super.setSelectionModel(newModel);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (selection != SINGLE_SELECTION) {
+			int count = this.getRowCount();
+			int[] indexs = this.getSelectedRows();
+			HashSet<String> hs = new HashSet<>();
+			for (int i = 0; i < indexs.length; i++) {
+				hs.add(indexs[i] + "");
+			}
+			for (int i = 0; i < count; i++) {
+				if (hs.contains(i + "")) {
+					this.setValueAt(true, i, this.selectCubColumnIndex);
+				} else {
+					this.setValueAt(false, i, this.selectCubColumnIndex);
+				}
+			}
+			for (int i = 0; i < indexs.length; i++) {
+				//setOneRowBackgroundColor(this, indexs[i], Color.RED);
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (selection != SINGLE_SELECTION) {
+			int count = this.getRowCount();
+			int[] indexs = this.getSelectedRows();
+			HashSet<String> hs = new HashSet<>();
+			for (int i = 0; i < indexs.length; i++) {
+				hs.add(indexs[i] + "");
+			}
+			for (int i = 0; i < count; i++) {
+				if (hs.contains(i + "")) {
+					this.setValueAt(true, i, this.selectCubColumnIndex);
+				} else {
+					this.setValueAt(false, i, this.selectCubColumnIndex);
+				}
+			}
+			for (int i = 0; i < indexs.length; i++) {
+				//setOneRowBackgroundColor(this, indexs[i], Color.RED);
+			}
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	/**
+	 * ËÆæÁΩÆË°®Ê†ºÁöÑÊüê‰∏ÄË°åÁöÑËÉåÊôØËâ≤
+	 * 
+	 * @param table
+	 */
+	public static void setOneRowBackgroundColor(JTable table, int rowIndex, Color color) {
+		try {
+			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+						boolean hasFocus, int row, int column) {
+					if (isSelected) {
+						setBackground(color);
+						setForeground(Color.WHITE);
+					}else {
+						setBackground(Color.WHITE);
+						setForeground(Color.WHITE);
+					}
+
+					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				}
+			};
+			int columnCount = table.getColumnCount();
+			for (int i = 0; i < columnCount; i++) {
+				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

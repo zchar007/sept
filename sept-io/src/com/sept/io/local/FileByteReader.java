@@ -22,7 +22,7 @@ public class FileByteReader {
 	public FileByteReader(String url, int byteSize) throws AppException {
 		try {
 			if (byteSize <= 0 || byteSize > 1024 * 1024 * 1024) {
-				throw new AppException("Ã¿´Î¶ÁÈ¡´óÐ¡×îÐ¡ÊÇ1byte,×î´óÊÇ1GB(1073741824byte)£¡£¡");
+				throw new AppException("æ¯æ¬¡è¯»å–å¤§å°æœ€å°æ˜¯1byte,æœ€å¤§æ˜¯1GB(1073741824byte)ï¼ï¼");
 			}
 			this.byteSize = byteSize;
 			this.readByte = new byte[byteSize];
@@ -74,10 +74,10 @@ public class FileByteReader {
 				long size = this.file.length();
 				byte[] byteTemp = null;
 				if (start > size || end > size || start < 0 || end < 0) {
-					throw new AppException("ÎÄ¼þ´óÐ¡Îª£º" + size + "£¬Çë¼ì²é£¡£¡");
+					throw new AppException("æ–‡ä»¶å¤§å°ä¸ºï¼š" + size + "ï¼Œè¯·æ£€æŸ¥ï¼ï¼");
 				}
 				if (end < start) {
-					throw new AppException("¿ªÊ¼´óÓÚ½áÊø£¡£¡");
+					throw new AppException("å¼€å§‹å¤§äºŽç»“æŸï¼ï¼");
 				}
 				fileForJump = new FileInputStream(file);
 				long getSize = end - start;
@@ -130,7 +130,7 @@ public class FileByteReader {
 				fos.write(bytes);
 				fos.flush();
 				fos.close();
-				// ¶ÁÈ¡µ½Ö¸¶¨Î»ÖÃ
+				// è¯»å–åˆ°æŒ‡å®šä½ç½®
 				this.fileForByte = new FileInputStream(this.file);
 				if (isAppend) {
 					for (int i = 0; i < readNumber; i++) {
@@ -165,7 +165,7 @@ public class FileByteReader {
 	}
 
 	/**
-	 * ÐÂµÄ×·¼ÓÐ´Èë²»»á¸ü¸ÄÔ­¶ÁÈ¡Ë³Ðò£¬µ«·Ç×·¼ÓÐÔÐ´Èë»áÖØÖÃÔ­¶ÁÐ´Ë³Ðò
+	 * æ–°çš„è¿½åŠ å†™å…¥ä¸ä¼šæ›´æ”¹åŽŸè¯»å–é¡ºåºï¼Œä½†éžè¿½åŠ æ€§å†™å…¥ä¼šé‡ç½®åŽŸè¯»å†™é¡ºåº
 	 * 
 	 * @param alSave
 	 * @param isAppend
@@ -174,9 +174,9 @@ public class FileByteReader {
 	public static void saveFile(byte[] bytes, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
-			if (!isAppend) {// ²»ÊÇ×·¼Ó
+			if (!isAppend) {// ä¸æ˜¯è¿½åŠ 
 				if (file.exists()) {
-					throw new AppException("ÎÄ¼þ[" + url + "]ÒÑ´æÔÚÇÒ²»Îª×·¼Ó£¡");
+					throw new AppException("æ–‡ä»¶[" + url + "]å·²å­˜åœ¨ä¸”ä¸ä¸ºè¿½åŠ ï¼");
 				} else {
 					file.createNewFile();
 				}

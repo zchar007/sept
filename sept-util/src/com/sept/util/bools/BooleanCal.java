@@ -12,9 +12,9 @@ import javax.script.ScriptEngineManager;
 import com.sept.util.UnitConversionUtil;
 
 /**
- * ½ÓÊÜboolean´®²¢¼ÆËã½á¹û Ì«Âı£¬½¨ÒéÊ¹ÓÃBooleanUtil
+ * æ¥å—booleanä¸²å¹¶è®¡ç®—ç»“æœ å¤ªæ…¢ï¼Œå»ºè®®ä½¿ç”¨BooleanUtil
  * 
- * @author ÕÅ³¬
+ * @author å¼ è¶…
  */
 @Deprecated
 public final class BooleanCal {
@@ -45,43 +45,43 @@ public final class BooleanCal {
 	}
 
 	/**
-	 * ¼ÆËã a == b and c == dÕâÖÖ´®µÄboolÖµ
+	 * è®¡ç®— a == b and c == dè¿™ç§ä¸²çš„boolå€¼
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static boolean calBoolStr(String calBooleanStr)
 			throws Exception {
-		// Ê×ÏÈ¼ì²é´Ë´®µÄÀ¨ºÅÊÇ·ñÆ¥Åä
+		// é¦–å…ˆæ£€æŸ¥æ­¤ä¸²çš„æ‹¬å·æ˜¯å¦åŒ¹é…
 		if (!parenthesesPattern(calBooleanStr)) {
-			throw new Exception("À¨ºÅ²»Æ¥Åä:" + calBooleanStr);
+			throw new Exception("æ‹¬å·ä¸åŒ¹é…:" + calBooleanStr);
 		}
-		// ±¾ÕıÔò±í´ïÊ½»á°Ñ´øÀ¨ºÅµÄµÈµÈÈ«²¿ÅãÅã³öÀ´,ÈçÉÏ×Ö·û´®
+		// æœ¬æ­£åˆ™è¡¨è¾¾å¼ä¼šæŠŠå¸¦æ‹¬å·çš„ç­‰ç­‰å…¨éƒ¨é™ªé™ªå‡ºæ¥,å¦‚ä¸Šå­—ç¬¦ä¸²
 		String regx = "(?<=(\\btrue\\b|\\bfalse\\b)\\s{1,10})(((\\)\\s){0,})\\band\\b((\\s\\(){0,})|((\\)\\s){0,})\\bor\\b((\\s\\(){0,}))(?=\\s+(\\btrue\\b|\\bfalse\\b))";
 		Pattern pattern = Pattern.compile(regx);
 		Matcher matcher = pattern.matcher(calBooleanStr);
 
-		// Ò»ĞĞÒ»ĞĞµÄaaa == ss bbb > ccc
+		// ä¸€è¡Œä¸€è¡Œçš„aaa == ss bbb > ccc
 		String[] expStrArr = calBooleanStr.split(regx);
 		ArrayList<String> logicOps = new ArrayList<String>();
 		while (matcher.find()) {
-			// ¹ØÁª´Ê and or
+			// å…³è”è¯ and or
 			logicOps.add(matcher.group());
 		}
-		// È¥³ıÎŞÓÃÀ¨ºÅ
-		// ¼ì²éÊÇ·ñÓĞÀ¨ºÅÖĞÖ»¼ÓÁËbooleanÖµµÃ,ÓĞÔòÈ¥³ı´ËÀ¨ºÅ(ÎŞÓÃÀ¨ºÅ)
+		// å»é™¤æ— ç”¨æ‹¬å·
+		// æ£€æŸ¥æ˜¯å¦æœ‰æ‹¬å·ä¸­åªåŠ äº†booleanå€¼å¾—,æœ‰åˆ™å»é™¤æ­¤æ‹¬å·(æ— ç”¨æ‹¬å·)
 		for (int i = 0; i < logicOps.size() - 1; i++) {
 			String str1 = logicOps.get(i).trim();
 			String str2 = logicOps.get(i + 1).trim();
 
-			// Èç¹ûiÊÇµÚÒ»¸ö(0)ÇÒ·½ÏòÎª)»òÕß×îºóÒ»¸öÇÒ·½ÏòÎª(.,ÔòÈ¥³ıbooleanÖµÉÏµÄÇ°ºóÀ¨ºÅ( ) and)
+			// å¦‚æœiæ˜¯ç¬¬ä¸€ä¸ª(0)ä¸”æ–¹å‘ä¸º)æˆ–è€…æœ€åä¸€ä¸ªä¸”æ–¹å‘ä¸º(.,åˆ™å»é™¤booleanå€¼ä¸Šçš„å‰åæ‹¬å·( ) and)
 
 			if (i == 0 && str1.startsWith(")")) {
 				while (str1.startsWith(")")
 						&& expStrArr[0].trim().startsWith("(")) {
 					logicOps.set(i, str1.substring(1, str1.length()));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[0] = expStrArr[0].trim().substring(1,
 							expStrArr[0].trim().length());
 					str1 = logicOps.get(i).trim();
@@ -94,7 +94,7 @@ public final class BooleanCal {
 						&& expStrArr[expStrArr.length - 1].trim().endsWith(")")) {
 					logicOps.set(logicOps.size() - 1,
 							str2.substring(0, str2.length() - 1));
-					// È»ºóÈ¥³ıbooleanÊıÁĞµÄ×îÇ°·½À¨ºÅ
+					// ç„¶åå»é™¤booleanæ•°åˆ—çš„æœ€å‰æ–¹æ‹¬å·
 					expStrArr[expStrArr.length - 1] = expStrArr[expStrArr.length - 1]
 							.trim().substring(
 									0,
@@ -115,8 +115,8 @@ public final class BooleanCal {
 			}
 
 		}
-		// ÒÔÉÏ¼ÆËãÏÂÀ´¿ÉÄÜ»áÓàÏÂbooleanÊı×éÖĞÊ×Î²»¹ÓĞÀ¨ºÅ,ËùÒÔÖ»ĞèÉ¾³ı¼´¿É,ÔÙ´Î×éºÏ²¼¶û×Ö·û´®ÊÇ,È±)ÔòÔÚºó±ßÌîÉÏ,È±(ÔòÔÚÇ°±ßÌîÉÏ
-		// É¾³ıÀ¨ºÅ
+		// ä»¥ä¸Šè®¡ç®—ä¸‹æ¥å¯èƒ½ä¼šä½™ä¸‹booleanæ•°ç»„ä¸­é¦–å°¾è¿˜æœ‰æ‹¬å·,æ‰€ä»¥åªéœ€åˆ é™¤å³å¯,å†æ¬¡ç»„åˆå¸ƒå°”å­—ç¬¦ä¸²æ˜¯,ç¼º)åˆ™åœ¨åè¾¹å¡«ä¸Š,ç¼º(åˆ™åœ¨å‰è¾¹å¡«ä¸Š
+		// åˆ é™¤æ‹¬å·
 		while (expStrArr[0].trim().startsWith("(")) {
 			expStrArr[0] = expStrArr[0].trim().substring(1,
 					expStrArr[0].trim().length());
@@ -138,11 +138,11 @@ public final class BooleanCal {
 
 	/**
 	 * @param logicStrArr
-	 *            and or ´®,¿ÉÄÜÒ²Îª &&,|| »òÕßÊÇ´øÀ¨ºÅµÄ
+	 *            and or ä¸²,å¯èƒ½ä¹Ÿä¸º &&,|| æˆ–è€…æ˜¯å¸¦æ‹¬å·çš„
 	 * @param expStrArr
-	 *            true false ´®
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 *            true false ä¸²
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public final static boolean calBoolStr(ArrayList<String> logicStrArr,
@@ -153,7 +153,7 @@ public final class BooleanCal {
 		 * false true false and (, and (, or, ) and
 		 */
 		if (logicStrArr.size() != boolStrArr.size() - 1) {
-			throw new Exception("²¼¶û´®´íÎó!!");
+			throw new Exception("å¸ƒå°”ä¸²é”™è¯¯!!");
 		}
 		String calStr = "";
 		for (int i = 0; i < boolStrArr.size(); i++) {
@@ -186,28 +186,28 @@ public final class BooleanCal {
 		}
 		Object result = engine.eval(calStr);
 		if (!result.getClass().getName().equals("java.lang.Boolean")) {
-			throw new Exception("¼ÆËã½á¹û²»ÊÇbooleanÖµ!!");
+			throw new Exception("è®¡ç®—ç»“æœä¸æ˜¯booleanå€¼!!");
 		}
 		Boolean bool = (Boolean) result;
-		// System.out.println("½á¹ûÀàĞÍ:" + result.getClass().getName() + ",¼ÆËã½á¹û:" +
+		// System.out.println("ç»“æœç±»å‹:" + result.getClass().getName() + ",è®¡ç®—ç»“æœ:" +
 		// result);
 		return bool.booleanValue();
 	}
 
 	/**
-	 * À¨ºÅÊÇ·ñÆ¥Åä
+	 * æ‹¬å·æ˜¯å¦åŒ¹é…
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	private static boolean parenthesesPattern(String parentStr) {
 		Stack<Character> stack = new Stack<Character>();
-		stack.trimToSize(); // ÈİÁ¿µ÷ÕûÎªÁã
-		// ×óÀ¨ºÅÊıÁ¿µÈÓÚÓÒÀ¨ºÅÊıÁ¿ÇÒµÈÓÚÆ¥ÅäÊıÁ¿ÔòÈÏÎªÊÇÕıÈ·µÄ
+		stack.trimToSize(); // å®¹é‡è°ƒæ•´ä¸ºé›¶
+		// å·¦æ‹¬å·æ•°é‡ç­‰äºå³æ‹¬å·æ•°é‡ä¸”ç­‰äºåŒ¹é…æ•°é‡åˆ™è®¤ä¸ºæ˜¯æ­£ç¡®çš„
 		int leftCount = getStrCount(parentStr, "(");
 		int rightCount = getStrCount(parentStr, ")");
-		// ÓĞĞ§ÊıÁ¿
+		// æœ‰æ•ˆæ•°é‡
 		int mateCount = 0;
 		for (int i = 0; i < parentStr.length(); i++) {
 			Character value = parentStr.charAt(i);
@@ -231,10 +231,10 @@ public final class BooleanCal {
 	}
 
 	/**
-	 * isRepeat:ÊÇ·ñÒªÖØ¸´¼ÆËã ÀıÈç aaaaaÖĞÆ¥Åäaa ÊÇÈçºÎ½øĞĞÆ¥ÅäµÄÎÊÌâ,Ä¿Ç°Ã»ÓĞºÃµÄ½â¾ö°ì·¨,Ö»ÄÜÏÈÄ¬ÈÏ»áÖØ¸´²éÕÒ
+	 * isRepeat:æ˜¯å¦è¦é‡å¤è®¡ç®— ä¾‹å¦‚ aaaaaä¸­åŒ¹é…aa æ˜¯å¦‚ä½•è¿›è¡ŒåŒ¹é…çš„é—®é¢˜,ç›®å‰æ²¡æœ‰å¥½çš„è§£å†³åŠæ³•,åªèƒ½å…ˆé»˜è®¤ä¼šé‡å¤æŸ¥æ‰¾
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	private static int getStrCount(String str, String strmate) {

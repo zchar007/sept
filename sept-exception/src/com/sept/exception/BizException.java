@@ -2,14 +2,14 @@ package com.sept.exception;
 
 public class BizException extends SeptException {
 	private static final long serialVersionUID = 1L;
-	public static final String exceptionType = "业务";
+	public static final String exceptionType = "涓氬姟";
 
 	public BizException() {
-		this(ExceptionNames.defaultCode, "程序出现业务异常!");
+		this(ExceptionNames.defaultCode, "绋嬪簭鍑虹幇涓氬姟寮傚父!");
 	}
 
 	public BizException(Throwable cause) {
-		this(ExceptionNames.defaultCode, cause == null ? "程序出现业务异常!" : cause.toString(), cause);
+		this(ExceptionNames.defaultCode, cause == null ? "绋嬪簭鍑虹幇涓氬姟寮傚父!" : cause.toString(), cause);
 	}
 
 	public BizException(String errtext) {

@@ -31,123 +31,123 @@ public class SDatePicker extends JComponent {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * label°´Å¥Êó±êÂÓ¹ıÑÕÉ«
+	 * labelæŒ‰é’®é¼ æ ‡æ è¿‡é¢œè‰²
 	 */
 	private static final Color BTH_COLOR_HOVER = Color.BLUE;
 	/**
-	 * label°´Å¥µ×É«
+	 * labelæŒ‰é’®åº•è‰²
 	 */
 	private static final Color BTH_COLOR_NORMAL = Color.GRAY;
 	/**
-	 * label°´Å¥Êó±ê°´ÏÂÑÕÉ«
+	 * labelæŒ‰é’®é¼ æ ‡æŒ‰ä¸‹é¢œè‰²
 	 */
 	private static final Color BTH_COLOR_CLICK = Color.RED;
 
 	/**
-	 * ÈÕÆÚÑ¡Ôñ±³¾°É«
+	 * æ—¥æœŸé€‰æ‹©èƒŒæ™¯è‰²
 	 */
 	private static final Color DATE_COLOR_SELECT = Color.GREEN;
 	/**
-	 * ÈÕÆÚ±³¾°É«
+	 * æ—¥æœŸèƒŒæ™¯è‰²
 	 */
 	private static final Color DATE_COLOR_NORMAL = Color.WHITE;
 	/**
-	 * ÈÕÆÚÊó±ê½øÈë±³¾°É«
+	 * æ—¥æœŸé¼ æ ‡è¿›å…¥èƒŒæ™¯è‰²
 	 */
 	private static final Color DATE_COLOR_HOVER = Color.LIGHT_GRAY;
 	/**
-	 * ÈÕÆÚ±êÌâ±³¾°É«
+	 * æ—¥æœŸæ ‡é¢˜èƒŒæ™¯è‰²
 	 */
 	private static final Color DATE_COLOR_TITLE_NORMAL = Color.GRAY;
 	/**
-	 * ÈÕÆÚ±êÌâ×ÖÌåÑÕÉ«
+	 * æ—¥æœŸæ ‡é¢˜å­—ä½“é¢œè‰²
 	 */
 	private static final Color DATE_COLOR_TITLE_FONT = Color.BLACK;
 	/**
-	 * ÈÕÆÚ×ÖÌåÑÕÉ«
+	 * æ—¥æœŸå­—ä½“é¢œè‰²
 	 */
 	private static final Color DATE_COLOR_FONT = Color.BLACK;
 	/**
-	 * ±±²àpanel
+	 * åŒ—ä¾§panel
 	 */
 	private JPanel panel_north;
 	/**
-	 * ÉÏÒ»Äê°´Å¥
+	 * ä¸Šä¸€å¹´æŒ‰é’®
 	 */
 	private JLabel label_previousYear;
 	/**
-	 * ÏÂÒ»Äê°´Å¥
+	 * ä¸‹ä¸€å¹´æŒ‰é’®
 	 */
 	private JLabel label_nextYear;
 	/**
-	 * ÉÏÒ»ÔÂ°´Å¥
+	 * ä¸Šä¸€æœˆæŒ‰é’®
 	 */
 	private JLabel label_previousMonth;
 	/**
-	 * ÏÂÒ»ÔÂ°´Å¥
+	 * ä¸‹ä¸€æœˆæŒ‰é’®
 	 */
 	private JLabel label_nextMonth;
 	/**
-	 * ÄêÑ¡Ôñ
+	 * å¹´é€‰æ‹©
 	 */
 	private JComboBox<String> comboBox_year;
 	/**
-	 * ÔÂÑ¡Ôñ
+	 * æœˆé€‰æ‹©
 	 */
 	private JComboBox<String> comboBox_month;
 	/**
-	 * ÖĞ¼ä
+	 * ä¸­é—´
 	 */
 	private JPanel panel_center;
 	/**
-	 * Äê×é
+	 * å¹´ç»„
 	 */
 	private static final String[] YEARS_ARRAY = new String[150];
 	/**
-	 * ÔÂ×é
+	 * æœˆç»„
 	 */
-	private static final String[] MONTHS_ARRAY = new String[] { "01ÔÂ", "02ÔÂ", "03ÔÂ", "04ÔÂ", "05ÔÂ", "06ÔÂ", "07ÔÂ", "08ÔÂ",
-			"09ÔÂ", "10ÔÂ", "11ÔÂ", "12ÔÂ" };
+	private static final String[] MONTHS_ARRAY = new String[] { "01æœˆ", "02æœˆ", "03æœˆ", "04æœˆ", "05æœˆ", "06æœˆ", "07æœˆ", "08æœˆ",
+			"09æœˆ", "10æœˆ", "11æœˆ", "12æœˆ" };
 
 	/**
-	 * Äê
+	 * å¹´
 	 */
 	private int year;
 	/**
-	 * ÔÂ
+	 * æœˆ
 	 */
 	private int month;
 	/**
-	 * ÈÕ
+	 * æ—¥
 	 */
 	private int day;
 	/**
-	 * Ê±
+	 * æ—¶
 	 */
 	private int hour;
 	/**
-	 * ·Ö
+	 * åˆ†
 	 */
 	private int minute;
 	/**
-	 * Ãë
+	 * ç§’
 	 */
 	private int second;
 	/**
-	 * ĞÇÆÚ
+	 * æ˜ŸæœŸ
 	 */
 	private int week;
 	/**
-	 * ÉÏÎçÏÂÎç
+	 * ä¸Šåˆä¸‹åˆ
 	 */
 	private int am_pm;
 	/**
-	 * Ìì±êÇ©±êÌâ
+	 * å¤©æ ‡ç­¾æ ‡é¢˜
 	 */
-	private JLabel[] label_days_title = new JLabel[] { new JLabel("ÈÕ"), new JLabel("Ò»"), new JLabel("¶ş"),
-			new JLabel("Èı"), new JLabel("ËÄ"), new JLabel("Îå"), new JLabel("Áù") };
+	private JLabel[] label_days_title = new JLabel[] { new JLabel("æ—¥"), new JLabel("ä¸€"), new JLabel("äºŒ"),
+			new JLabel("ä¸‰"), new JLabel("å››"), new JLabel("äº”"), new JLabel("å…­") };
 	/**
-	 * Ìì±êÇ©
+	 * å¤©æ ‡ç­¾
 	 */
 	private JLabel[][] label_days = new JLabel[6][7];
 	private JComboBox<String> comboBox_second;
@@ -160,7 +160,7 @@ public class SDatePicker extends JComponent {
 		int nowYear = Integer.parseInt(DateUtil.getCurrentDate("yyyy"));
 		int startYear = nowYear - 100;
 		for (int i = 0; i < YEARS_ARRAY.length; i++) {
-			YEARS_ARRAY[i] = (startYear++) + "Äê";
+			YEARS_ARRAY[i] = (startYear++) + "å¹´";
 		}
 	}
 
@@ -181,7 +181,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ³õÊ¼»¯UI
+	 * åˆå§‹åŒ–UI
 	 */
 	private void initGui(Date d) {
 		initNorth();
@@ -191,7 +191,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ±±²àUI
+	 * åŒ—ä¾§UI
 	 */
 	private void initNorth() {
 		panel_north = new JPanel();
@@ -246,8 +246,8 @@ public class SDatePicker extends JComponent {
 	}
 
 	private void initNorthLogic() {
-		String nowYear = DateUtil.getCurrentDate("yyyyÄê");
-		String nowMonth = DateUtil.getCurrentDate("MMÔÂ");
+		String nowYear = DateUtil.getCurrentDate("yyyyå¹´");
+		String nowMonth = DateUtil.getCurrentDate("MMæœˆ");
 		comboBox_year.setSelectedItem(nowYear);
 		comboBox_month.setSelectedItem(nowMonth);
 		ButtonLabelMouseListener buttonLabelMouseListener = new ButtonLabelMouseListener();
@@ -290,7 +290,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ÖĞ¼äUI
+	 * ä¸­é—´UI
 	 */
 	private void initCenter() {
 		panel_center = new JPanel();
@@ -326,7 +326,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ÄÏ²àUI
+	 * å—ä¾§UI
 	 */
 	private void initSouth() {
 		JPanel panel = new JPanel();
@@ -337,21 +337,21 @@ public class SDatePicker extends JComponent {
 		panel.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 6, 0, 1));
 
-		JLabel label_hour = new JLabel("Ê±");
+		JLabel label_hour = new JLabel("æ—¶");
 		label_hour.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_1.add(label_hour);
 
 		comboBox_hour = new JComboBox<String>();
 		panel_1.add(comboBox_hour);
 
-		JLabel label_minute = new JLabel("·Ö");
+		JLabel label_minute = new JLabel("åˆ†");
 		label_minute.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_1.add(label_minute);
 
 		comboBox_minute = new JComboBox<String>();
 		panel_1.add(comboBox_minute);
 
-		JLabel label_second = new JLabel("Ãë");
+		JLabel label_second = new JLabel("ç§’");
 		label_second.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(label_second);
 
@@ -362,17 +362,17 @@ public class SDatePicker extends JComponent {
 		panel.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 3, 0, 1));
 
-		label_clear = new JLabel("Çå¿Õ");
+		label_clear = new JLabel("æ¸…ç©º");
 		label_clear.setOpaque(true);
 		label_clear.setBackground(SDatePicker.BTH_COLOR_NORMAL);
 		panel_2.add(label_clear);
 
-		label_today = new JLabel("½ñÈÕ");
+		label_today = new JLabel("ä»Šæ—¥");
 		label_today.setOpaque(true);
 		label_today.setBackground(SDatePicker.BTH_COLOR_NORMAL);
 		panel_2.add(label_today);
 
-		label_yes = new JLabel("È·ÈÏ");
+		label_yes = new JLabel("ç¡®è®¤");
 		label_yes.setOpaque(true);
 		label_yes.setBackground(SDatePicker.BTH_COLOR_NORMAL);
 		panel_2.add(label_yes);
@@ -445,7 +445,7 @@ public class SDatePicker extends JComponent {
 
 	public void setYear(int year) {
 		this.year = year;
-		comboBox_year.setSelectedItem(year + "Äê");
+		comboBox_year.setSelectedItem(year + "å¹´");
 		setDayLabel(this.year, this.month);
 	}
 
@@ -457,17 +457,17 @@ public class SDatePicker extends JComponent {
 		if (month < 1) {
 			month = 12;
 			this.year = this.getYear() - 1;
-			comboBox_year.setSelectedItem(this.year + "Äê");
+			comboBox_year.setSelectedItem(this.year + "å¹´");
 		} else if (month > 12) {
 			month = 1;
 			this.year = this.getYear() + 1;
-			comboBox_year.setSelectedItem(this.year + "Äê");
+			comboBox_year.setSelectedItem(this.year + "å¹´");
 		}
 		this.month = month;
 		if (month >= 10) {
-			comboBox_month.setSelectedItem(month + "ÔÂ");
+			comboBox_month.setSelectedItem(month + "æœˆ");
 		} else {
-			comboBox_month.setSelectedItem("0" + month + "ÔÂ");
+			comboBox_month.setSelectedItem("0" + month + "æœˆ");
 		}
 		setDayLabel(this.year, this.month);
 	}
@@ -537,11 +537,11 @@ public class SDatePicker extends JComponent {
 	private void setDayLabel(int year, int month) {
 		if (year > 0 && month > 0 && month < 13) {
 
-			// »ñÈ¡±¾ÔÂÓĞ¶àÉÙÌì
+			// è·å–æœ¬æœˆæœ‰å¤šå°‘å¤©
 			try {
 				Calendar calendar = Calendar.getInstance();
 				calendar.set(year, month - 1, 1);
-				// »ñÈ¡±¾ÔÂµÚÒ»ÌìÊÇÖÜ¼¸
+				// è·å–æœ¬æœˆç¬¬ä¸€å¤©æ˜¯å‘¨å‡ 
 				int day_in_week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 				int days = DateUtil.getDaysInMonth(year, month);
 				int kday = day_in_week;
@@ -586,17 +586,17 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ½âÎöÄê·İ»òÔÂ·İ
+	 * è§£æå¹´ä»½æˆ–æœˆä»½
 	 * 
-	 * @param yearOrMonth Äê·İ»òÔÂ·İ×Ö·û´®
-	 * @return Äê·İ»òÔÂ·İ
+	 * @param yearOrMonth å¹´ä»½æˆ–æœˆä»½å­—ç¬¦ä¸²
+	 * @return å¹´ä»½æˆ–æœˆä»½
 	 */
 	private int parseYearOrMonth(String yearOrMonth) {
 		return Integer.parseInt(yearOrMonth.substring(0, yearOrMonth.length() - 1));
 	}
 
 	/**
-	 * ÄêÔÂÑ¡Ôñ¼àÌıÆ÷
+	 * å¹´æœˆé€‰æ‹©ç›‘å¬å™¨
 	 * 
 	 * @author zchar
 	 *
@@ -636,7 +636,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ±êÇ©Êó±ê¼àÌı
+	 * æ ‡ç­¾é¼ æ ‡ç›‘å¬
 	 * 
 	 * @author jianggujin
 	 * 
@@ -666,7 +666,7 @@ public class SDatePicker extends JComponent {
 	}
 
 	/**
-	 * ±êÇ©Êó±ê¼àÌı
+	 * æ ‡ç­¾é¼ æ ‡ç›‘å¬
 	 * 
 	 * @author jianggujin
 	 * 

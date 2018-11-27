@@ -3,25 +3,25 @@ package com.sept.datastructure.common;
 public interface SharedInformationPool {
 
 	/**
-	 * Ìí¼ÓÒ»¸öÏûÏ¢ĞÅÏ¢
+	 * æ·»åŠ ä¸€ä¸ªæ¶ˆæ¯ä¿¡æ¯
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void put(String key, Object value) throws Exception;
 
 	/**
-	 * Ìí¼ÓÒ»¸öÏûÏ¢ĞÅÏ¢µ½Ô­ÓĞĞÅÏ¢ÉÏ
+	 * æ·»åŠ ä¸€ä¸ªæ¶ˆæ¯ä¿¡æ¯åˆ°åŸæœ‰ä¿¡æ¯ä¸Š
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void put4Add(String key, Object value) throws Exception;
 
 	/**
-	 * Òì²½Ìí¼Ó
+	 * å¼‚æ­¥æ·»åŠ 
 	 * 
 	 * @param key
 	 * @param value
@@ -30,25 +30,25 @@ public interface SharedInformationPool {
 	public void asynchPut(String key, Object value) throws Exception;
 
 	/**
-	 * Òì²½Ìí¼ÓÒ»¸öÏûÏ¢ĞÅÏ¢µ½Ô­ÓĞĞÅÏ¢ÉÏ
+	 * å¼‚æ­¥æ·»åŠ ä¸€ä¸ªæ¶ˆæ¯ä¿¡æ¯åˆ°åŸæœ‰ä¿¡æ¯ä¸Š
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public void asynchPut4Add(String key, Object value) throws Exception;
 
 	/**
-	 * »ñÈ¡Êı¾İ
+	 * è·å–æ•°æ®
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-7
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-7
 	 * @since V1.0
 	 */
 	public Object get(String key) throws Exception;
 
 	/**
-	 * ´İ»Ù³Ø×Ó
+	 * æ‘§æ¯æ± å­
 	 */
 	public void killMine() throws Exception;
 

@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.util.Random;
 
 public class RandomFactory {
-	private boolean intabel = true;// ÊÇ·ñÓÃ×Ö·û
-	private boolean lowletterabel = true;// ÊÇ·ñĞ¡Ğ´×ÖÄ¸
-	private boolean upletterabel = true;// ÊÇ·ñ´óĞ´×ÖÄ¸
-	private boolean hanabel = true;// ÊÇ·ñÊ¹ÓÃÈ«ºº×Ö
-	private boolean commonhanabel = true;// ÊÇ·ñÊ¹ÓÃ³£ÓÃºº×Ö
+	private boolean intabel = true;// æ˜¯å¦ç”¨å­—ç¬¦
+	private boolean lowletterabel = true;// æ˜¯å¦å°å†™å­—æ¯
+	private boolean upletterabel = true;// æ˜¯å¦å¤§å†™å­—æ¯
+	private boolean hanabel = true;// æ˜¯å¦ä½¿ç”¨å…¨æ±‰å­—
+	private boolean commonhanabel = true;// æ˜¯å¦ä½¿ç”¨å¸¸ç”¨æ±‰å­—
 
 	private static RandomFactory randomFactory = null;
 
@@ -37,7 +37,7 @@ public class RandomFactory {
 			+ "\u5411\u4e8b";
 
 	/**
-	 * »ñÈ¡Ëæ»úÊı×Ö
+	 * è·å–éšæœºæ•°å­—
 	 * 
 	 * @param from
 	 * @param to
@@ -48,7 +48,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»ú×ÖÄ¸
+	 * è·å–éšæœºå­—æ¯
 	 * 
 	 * @param from
 	 * @param to
@@ -59,7 +59,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»úºº×Ö
+	 * è·å–éšæœºæ±‰å­—
 	 * 
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»ú³£ÓÃºº×Ö
+	 * è·å–éšæœºå¸¸ç”¨æ±‰å­—
 	 * 
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»úÑÕÉ«r+g+bµÄstringĞÎÊ½
+	 * è·å–éšæœºé¢œè‰²r+g+bçš„stringå½¢å¼
 	 * 
 	 * @return
 	 */
@@ -94,7 +94,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»úÑÕÉ« Ö±½Ó·µ»Øcolor
+	 * è·å–éšæœºé¢œè‰² ç›´æ¥è¿”å›color
 	 * 
 	 * @return
 	 */
@@ -110,7 +110,7 @@ public class RandomFactory {
 	}
 
 	/**
-	 * ´´½¨µÄÖ÷Èë¿Ú£¬²»½ø´Ë¿Ú£¬ÊµÀı²»±ä
+	 * åˆ›å»ºçš„ä¸»å…¥å£ï¼Œä¸è¿›æ­¤å£ï¼Œå®ä¾‹ä¸å˜
 	 */
 	public static RandomFactory newInstance() {
 		synchronized (hanCommon) {
@@ -122,10 +122,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÊ¹ÓÃÊı×Ö
+	 * è®¾ç½®æ˜¯å¦ä½¿ç”¨æ•°å­—
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public RandomFactory useInt(boolean initabel) {
@@ -134,10 +134,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * ÊÇ·ñÊ¹ÓÃ´óĞ´×ÖÄ¸
+	 * æ˜¯å¦ä½¿ç”¨å¤§å†™å­—æ¯
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public RandomFactory useUpLetter(boolean upletterabel) {
@@ -146,10 +146,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * ÊÇ·ñÊ¹ÓÃĞ¡Ğ´×ÖÄ¸
+	 * æ˜¯å¦ä½¿ç”¨å°å†™å­—æ¯
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public RandomFactory useLowLetter(boolean lowletterabel) {
@@ -158,10 +158,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * Ê¹ÓÃºº×Ö
+	 * ä½¿ç”¨æ±‰å­—
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public RandomFactory useHan(boolean hanabel) {
@@ -170,10 +170,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * Ê¹ÓÃ³£ÓÃºº×Ö
+	 * ä½¿ç”¨å¸¸ç”¨æ±‰å­—
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public RandomFactory useCommonHan(boolean commonhanabel) {
@@ -182,10 +182,10 @@ public class RandomFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ëæ»ú×Ö·û£¬Èë²ÎÎª×Ö·û³¤¶È
+	 * è·å–éšæœºå­—ç¬¦ï¼Œå…¥å‚ä¸ºå­—ç¬¦é•¿åº¦
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-27
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-27
 	 * @since V1.0
 	 */
 	public String getRandomStr(int length) {

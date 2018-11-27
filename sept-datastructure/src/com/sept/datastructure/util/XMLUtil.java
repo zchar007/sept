@@ -14,7 +14,7 @@ import com.sept.exception.AppException;
 
 public class XMLUtil {
 	/**
-	 * xmlString×ªÎªDataObject»ò DataStore
+	 * xmlStringè½¬ä¸ºDataObjectæˆ– DataStore
 	 * 
 	 * @param para
 	 * @return
@@ -38,7 +38,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * xmlString×ªÎªDataObject»ò DataStore
+	 * xmlStringè½¬ä¸ºDataObjectæˆ– DataStore
 	 * 
 	 * @param para
 	 * @return
@@ -53,7 +53,7 @@ public class XMLUtil {
 		} else if (TypeUtil.DATASTORE.equals(type)) {
 			return XmlToDataStore(element);
 		} else {
-			throw new AppException("ËùĞè½âÎöµÄxml±ØĞëÎªDataObject×ª³É»òDataStore×ª³É");
+			throw new AppException("æ‰€éœ€è§£æçš„xmlå¿…é¡»ä¸ºDataObjectè½¬æˆæˆ–DataStoreè½¬æˆ");
 		}
 	}
 
@@ -74,7 +74,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * DataObject ×ªxml Element
+	 * DataObject è½¬xml Element
 	 * 
 	 * @param pdo
 	 * @return
@@ -86,7 +86,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * DataObject ×ªxmlString
+	 * DataObject è½¬xmlString
 	 * 
 	 * @param pdo
 	 * @return
@@ -97,7 +97,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * DataStore×ªxml Element
+	 * DataStoreè½¬xml Element
 	 * 
 	 * @param pds
 	 * @return
@@ -109,7 +109,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * DataStore×ªxml×Ö·û´®
+	 * DataStoreè½¬xmlå­—ç¬¦ä¸²
 	 * 
 	 * @param pds
 	 * @return

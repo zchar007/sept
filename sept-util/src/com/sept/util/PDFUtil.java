@@ -13,25 +13,25 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.sept.exception.AppException;
 
 /**
- * ÀàÃèÊö:PDF¹¤¾ßÀà
+ * ç±»æè¿°:PDFå·¥å…·ç±»
  * 
- * @author ÉÛÓñÏÈ 2015-9-10
+ * @author é‚µç‰å…ˆ 2015-9-10
  */
 public class PDFUtil{
 	/**
-	 * ·½·¨¼ò½é.¸ù¾İÁ÷À´»ñÈ¡¿ÉĞ´µÄDocument
+	 * æ–¹æ³•ç®€ä»‹.æ ¹æ®æµæ¥è·å–å¯å†™çš„Document
 	 * 
-	 * @author ÉÛÓñÏÈ 2015-9-6
+	 * @author é‚µç‰å…ˆ 2015-9-6
 	 */
 	public static Document createDocument(ByteArrayOutputStream outputstream) throws AppException {
-		// ´´½¨Ò»¸öÎÄµµ¶ÔÏó
+		// åˆ›å»ºä¸€ä¸ªæ–‡æ¡£å¯¹è±¡
 		Document doc = new Document();
 
-		// ¶¨ÒåÊä³öÎÄ¼şµÄÎ»ÖÃ
+		// å®šä¹‰è¾“å‡ºæ–‡ä»¶çš„ä½ç½®
 		try {
 			PdfWriter.getInstance(doc, outputstream);
 		} catch (Exception e) {
-			throw new AppException("´´½¨pdfÎÄµµ¶ÔÏó³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("åˆ›å»ºpdfæ–‡æ¡£å¯¹è±¡å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 
 		doc.open();
@@ -39,26 +39,26 @@ public class PDFUtil{
 	}
 
 	/**
-	 * ·½·¨¼ò½é.´´½¨Ò»¸ö¿ÉĞ´µÄpdfÎÄµµ¶ÔÏó
+	 * æ–¹æ³•ç®€ä»‹.åˆ›å»ºä¸€ä¸ªå¯å†™çš„pdfæ–‡æ¡£å¯¹è±¡
 	 * 
-	 * @author ÉÛÓñÏÈ 2015-9-6
+	 * @author é‚µç‰å…ˆ 2015-9-6
 	 */
 	public static Document createDocument(String filepath, String filename) throws AppException {
-		// ´´½¨Ò»¸öÎÄµµ¶ÔÏó
+		// åˆ›å»ºä¸€ä¸ªæ–‡æ¡£å¯¹è±¡
 		Document doc = new Document();
 
 		OutputStream outputstream = null;
 		try {
 			outputstream = new FileOutputStream(filepath + File.separator + filename);
 		} catch (Exception e) {
-			throw new AppException("¶ÁÈ¡ÎÄ¼ş³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("è¯»å–æ–‡ä»¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 
-		// ¶¨ÒåÊä³öÎÄ¼şµÄÎ»ÖÃ
+		// å®šä¹‰è¾“å‡ºæ–‡ä»¶çš„ä½ç½®
 		try {
 			PdfWriter.getInstance(doc, outputstream);
 		} catch (Exception e) {
-			throw new AppException("´´½¨pdfÎÄµµ¶ÔÏó³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("åˆ›å»ºpdfæ–‡æ¡£å¯¹è±¡å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 
 		doc.open();
@@ -66,60 +66,60 @@ public class PDFUtil{
 	}
 
 	/**
-	 * ·½·¨¼ò½é.ÏòpdfÎÄµµ¶ÔÏóÖĞÌí¼ÓÍ¼Æ¬
+	 * æ–¹æ³•ç®€ä»‹.å‘pdfæ–‡æ¡£å¯¹è±¡ä¸­æ·»åŠ å›¾ç‰‡
 	 * 
-	 * @author ÉÛÓñÏÈ 2015-9-6
+	 * @author é‚µç‰å…ˆ 2015-9-6
 	 */
 	public static void addImage(Document doc, byte[] fileByte) throws AppException {
 
-		// ´´½¨Ò»¸öÍ¼Æ¬¶ÔÏó
+		// åˆ›å»ºä¸€ä¸ªå›¾ç‰‡å¯¹è±¡
 		Image img = null;
 		try {
 			img = Image.getInstance(fileByte);
 		} catch (Exception e) {
-			throw new AppException("³õÊ¼»¯Í¼Æ¬¶ÔÏóÊ±³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("åˆå§‹åŒ–å›¾ç‰‡å¯¹è±¡æ—¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
         
-		// ÉèÖÃÍ¼Æ¬¾ÓÖĞÏÔÊ¾
+		// è®¾ç½®å›¾ç‰‡å±…ä¸­æ˜¾ç¤º
 		img.setAlignment(Image.LEFT);
 
-		// ´¦ÀíÍ¼Æ¬Ì«´óµÄÇé¿ö
+		// å¤„ç†å›¾ç‰‡å¤ªå¤§çš„æƒ…å†µ
 		float width=doc.getPageSize().getWidth()-70;
         if(img.getWidth()>width){  
-        	img.scalePercent(width/img.getWidth()*100);//ÓÃÒ³ÃæÏÔÊ¾¿í¶È³ıÒÔÍ¼Æ¬¿í¶ÈËã³öËõĞ¡µÄºÏÊÊ°Ù·Ö±È  
+        	img.scalePercent(width/img.getWidth()*100);//ç”¨é¡µé¢æ˜¾ç¤ºå®½åº¦é™¤ä»¥å›¾ç‰‡å®½åº¦ç®—å‡ºç¼©å°çš„åˆé€‚ç™¾åˆ†æ¯”  
         }  
         
-		// Ìí¼ÓÍ¼Æ¬
+		// æ·»åŠ å›¾ç‰‡
 		try {
 			doc.add(img);
-			doc.add(new Paragraph(""));// »»ĞĞ
+			doc.add(new Paragraph(""));// æ¢è¡Œ
 		} catch (Exception e) {
-			throw new AppException("pdfÎÄ¼şÖĞÌí¼ÓÍ¼Æ¬Ê±³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("pdfæ–‡ä»¶ä¸­æ·»åŠ å›¾ç‰‡æ—¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 	}
 
 	/**
-	 * ·½·¨¼ò½é.ÏòpdfÎÄµµ¶ÔÏóÖĞÌí¼ÓÍ¼Æ¬£¬×Ô¶¯Ëõ·Å³ÉpdfÒ³Ãæ´óĞ¡
+	 * æ–¹æ³•ç®€ä»‹.å‘pdfæ–‡æ¡£å¯¹è±¡ä¸­æ·»åŠ å›¾ç‰‡ï¼Œè‡ªåŠ¨ç¼©æ”¾æˆpdfé¡µé¢å¤§å°
 	 * 
-	 * @author îç¿Ë·å 2015-10-22
+	 * @author é“‰å…‹å³° 2015-10-22
 	 */
 	public static void addImageFitPageSize(Document doc, byte[] fileByte) throws AppException {
 
-		// ´´½¨Ò»¸öÍ¼Æ¬¶ÔÏó
+		// åˆ›å»ºä¸€ä¸ªå›¾ç‰‡å¯¹è±¡
 		Image img = null;
 		try {
 			img = Image.getInstance(fileByte);
 		} catch (Exception e) {
-			throw new AppException("³õÊ¼»¯Í¼Æ¬¶ÔÏóÊ±³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("åˆå§‹åŒ–å›¾ç‰‡å¯¹è±¡æ—¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
         
 
-		//µ±¿í´óÓÚ¸ßÊ±£¬Ğı×ª90¡ã
+		//å½“å®½å¤§äºé«˜æ—¶ï¼Œæ—‹è½¬90Â°
 		if(img.getWidth() > img.getHeight()){
 			img.setRotationDegrees(90);
 		}
 		
-		// ÉèÖÃÍ¼Æ¬¾ÓÖĞÏÔÊ¾
+		// è®¾ç½®å›¾ç‰‡å±…ä¸­æ˜¾ç¤º
 		img.setAlignment(Image.ALIGN_MIDDLE);
 		img.setAlignment(Image.ALIGN_CENTER);
 		
@@ -131,46 +131,46 @@ public class PDFUtil{
 		
 		img.setAbsolutePosition(0,0);
         
-		// Ìí¼ÓÍ¼Æ¬
+		// æ·»åŠ å›¾ç‰‡
 		try {
 			doc.add(img);
 			doc.newPage();
 		} catch (Exception e) {
-			throw new AppException("pdfÎÄ¼şÖĞÌí¼ÓÍ¼Æ¬Ê±³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("pdfæ–‡ä»¶ä¸­æ·»åŠ å›¾ç‰‡æ—¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 	}
 	
 	/**
-	 * ·½·¨¼ò½é.¹Ø±Õ¶ÁÈ¡µÄpdfÎÄ¼ş.
+	 * æ–¹æ³•ç®€ä»‹.å…³é—­è¯»å–çš„pdfæ–‡ä»¶.
 	 * 
-	 * @author ÉÛÓñÏÈ 2015-9-6
+	 * @author é‚µç‰å…ˆ 2015-9-6
 	 */
 	public static void closeDocument(Document doc) throws AppException {
 		try {
 			doc.close();
 		} catch (Exception e) {
-			throw new AppException("ÎÄ¼ş¶ÁÈ¡Òì³££¬¹Ø±ÕpdfÎÄ¼şÁ÷Ê±³ö´í!´íÎóĞÅÏ¢Îª£º" + e.getMessage());
+			throw new AppException("æ–‡ä»¶è¯»å–å¼‚å¸¸ï¼Œå…³é—­pdfæ–‡ä»¶æµæ—¶å‡ºé”™!é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getMessage());
 		}
 	}
 
 	/**
-	 * ·½·¨¼ò½é.²âÊÔ·½·¨
+	 * æ–¹æ³•ç®€ä»‹.æµ‹è¯•æ–¹æ³•
 	 * 
-	 * @author ÉÛÓñÏÈ 2015-9-11
+	 * @author é‚µç‰å…ˆ 2015-9-11
 	 */
 	public static void main(String[] args) {
 		try {
-			// ¶ÁÈëÕÕÆ¬
+			// è¯»å…¥ç…§ç‰‡
 //			byte[] data1 = FileIOTool.getBytesFromFile(new File("c:/1.jpg"));
 //			
-//			// ´´½¨Ò»¸öÎÄµµ¶ÔÏó
+//			// åˆ›å»ºä¸€ä¸ªæ–‡æ¡£å¯¹è±¡
 //			ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
 //			Document doc = PDFUtil.createDocument(outputstream);
 //			doc.setMargins(0, 0, 0, 0);
 //			
-//			// Ñ¹ËõºóÍ¼Æ¬Ìí¼Óµ½pdfÖĞ
+//			// å‹ç¼©åå›¾ç‰‡æ·»åŠ åˆ°pdfä¸­
 //			PDFUtil.addImageFitPageSize(doc, data1);
-//			// ¹Ø±ÕÎÄµµ¶ÔÏó
+//			// å…³é—­æ–‡æ¡£å¯¹è±¡
 //			PDFUtil.closeDocument(doc);
 //			
 //			byte[] bytes = outputstream.toByteArray();

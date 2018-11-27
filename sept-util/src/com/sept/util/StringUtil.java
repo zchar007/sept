@@ -12,7 +12,7 @@ import com.sept.exception.AppException;
 
 public final class StringUtil {
 	/**
-	 * ËµÃ÷£º½«Ò»¸ö×Ö·û´®trim£¬Èç¹ûÊÇnull£¬·µ»Ønull
+	 * è¯´æ˜ï¼šå°†ä¸€ä¸ªå­—ç¬¦ä¸²trimï¼Œå¦‚æœæ˜¯nullï¼Œè¿”å›null
 	 * 
 	 * @param s
 	 * @return
@@ -30,13 +30,13 @@ public final class StringUtil {
 			return null;
 		}
 		s = s.replaceAll(" ", "");
-		s = s.replaceAll("¡¡", "");
+		s = s.replaceAll("ã€€", "");
 		s = s.replaceAll("	", "");
 		return s;
 	}
 
 	/**
-	 * ÅĞ¶¨Èç¹û×Ö·û´®a is null£¬·µ»Øb,·ñÔòÊÇa
+	 * åˆ¤å®šå¦‚æœå­—ç¬¦ä¸²a is nullï¼Œè¿”å›b,å¦åˆ™æ˜¯a
 	 * 
 	 * @param a
 	 * @param b
@@ -50,9 +50,9 @@ public final class StringUtil {
 	}
 
 	/**
-	 * È¥µôÓÒ¿Õ¸ñ
+	 * å»æ‰å³ç©ºæ ¼
 	 * 
-	 * @todo:Ëã·¨´ı¸Ä½ø
+	 * @todo:ç®—æ³•å¾…æ”¹è¿›
 	 * @param String
 	 *            str
 	 * @return String
@@ -68,7 +68,7 @@ public final class StringUtil {
 	}
 
 	/**
-	 * È¥µô×ó¿Õ¸ñ
+	 * å»æ‰å·¦ç©ºæ ¼
 	 * 
 	 * @param String
 	 *            str
@@ -85,7 +85,7 @@ public final class StringUtil {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª»¯Îªint£¬²»ÄÜ×ª»¯Å×Òì³£¡£
+	 * å°†å­—ç¬¦ä¸²è½¬åŒ–ä¸ºintï¼Œä¸èƒ½è½¬åŒ–æŠ›å¼‚å¸¸ã€‚
 	 * 
 	 * @throws AppException
 	 */
@@ -93,7 +93,7 @@ public final class StringUtil {
 		int iRet = 0;
 
 		if (intString == null || intString.equalsIgnoreCase("")) {
-			throw new AppException("´«Èë²ÎÊıÎª¿Õ!");
+			throw new AppException("ä¼ å…¥å‚æ•°ä¸ºç©º!");
 		}
 
 		intString = intString.trim();
@@ -105,8 +105,8 @@ public final class StringUtil {
 			try {
 				iRet = (int) Double.valueOf(intString).doubleValue();
 			} catch (NumberFormatException e1) {
-				throw new AppException("StringUtil.stringToDouble³ö´í£¬´«ÈëµÄ×Ö·û´®["
-						+ intString + "]²»ÄÜ±»×ª»»ÎªÕûĞÍ!");
+				throw new AppException("StringUtil.stringToDoubleå‡ºé”™ï¼Œä¼ å…¥çš„å­—ç¬¦ä¸²["
+						+ intString + "]ä¸èƒ½è¢«è½¬æ¢ä¸ºæ•´å‹!");
 			}
 
 		}
@@ -115,29 +115,29 @@ public final class StringUtil {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª»¯Îªint£¬²»ÄÜ×ª»¯Å×Òì³£¡£
+	 * å°†å­—ç¬¦ä¸²è½¬åŒ–ä¸ºintï¼Œä¸èƒ½è½¬åŒ–æŠ›å¼‚å¸¸ã€‚
 	 * 
 	 * @throws AppException
 	 */
 	public final static double stringToDouble(String s) throws AppException {
 		double i = 0;
 		if (s == null || s.equalsIgnoreCase("")) {
-			throw new AppException("´«Èë²ÎÊıÎª¿Õ!");
+			throw new AppException("ä¼ å…¥å‚æ•°ä¸ºç©º!");
 		}
 		s = s.trim();
 		try {
 			DecimalFormat df = new DecimalFormat("");
 			i = df.parse(s).doubleValue();
 		} catch (ParseException e) {
-			throw new AppException("StringUtil.stringToDouble³ö´í£¬´«ÈëµÄ×Ö·û´®[" + s
-					+ "]²»ÊÇÒ»¸ö°üº¬Êı×ÖµÄ×Ö·û´®!");
+			throw new AppException("StringUtil.stringToDoubleå‡ºé”™ï¼Œä¼ å…¥çš„å­—ç¬¦ä¸²[" + s
+					+ "]ä¸æ˜¯ä¸€ä¸ªåŒ…å«æ•°å­—çš„å­—ç¬¦ä¸²!");
 		}
 		return i;
 
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª»¯ÎªÆ´ÒôÊ××ÖÄ¸¡£
+	 * å°†å­—ç¬¦ä¸²è½¬åŒ–ä¸ºæ‹¼éŸ³é¦–å­—æ¯ã€‚
 	 * 
 	 * @param String
 	 *            str
@@ -150,10 +150,10 @@ public final class StringUtil {
 	}
 
 	/**
-	 * ²»ÄÜ¼òµ¥µÄÊ¹ÓÃ£ºnew String(string.getBytes("gbk"),"utf-8");
+	 * ä¸èƒ½ç®€å•çš„ä½¿ç”¨ï¼šnew String(string.getBytes("gbk"),"utf-8");
 	 * 
 	 * @author zqr
-	 * @date ´´½¨Ê±¼ä Jul 8, 2010
+	 * @date åˆ›å»ºæ—¶é—´ Jul 8, 2010
 	 * @since V3.9
 	 */
 	public final static byte[] gbk2utf8(String chenese) {
@@ -165,7 +165,7 @@ public final class StringUtil {
 
 			StringBuffer sb = new StringBuffer();
 			int len = 16 - word.length();
-			// ²¹Áã
+			// è¡¥é›¶
 			for (int j = 0; j < len; j++) {
 				sb.append("0");
 			}
@@ -194,13 +194,13 @@ public final class StringUtil {
 	}
 
 	/**
-	 * Description:StringµÄlength()·½·¨¼ÆËã×Ö·û´®³¤¶È£¬Ó¢ÎÄÒ»¸ö×ÖÄ¸ËãÒ»¸ö£¬ººÓïÒ»¸ö×ÖÒ²ËãÒ»¸ö¡£
+	 * Description:Stringçš„length()æ–¹æ³•è®¡ç®—å­—ç¬¦ä¸²é•¿åº¦ï¼Œè‹±æ–‡ä¸€ä¸ªå­—æ¯ç®—ä¸€ä¸ªï¼Œæ±‰è¯­ä¸€ä¸ªå­—ä¹Ÿç®—ä¸€ä¸ªã€‚
 	 * <p>
-	 * ÔÚÌî³ä±í¸ñÊ±²»ÄÜ¾«È·È·¶¨ÏÔÊ¾ÄÚÈİµÄ³¤¶È¡£±àĞ´chnSubstringºÍchnStrLen·½·¨£¬¼ÆËã×Ö·û
+	 * åœ¨å¡«å……è¡¨æ ¼æ—¶ä¸èƒ½ç²¾ç¡®ç¡®å®šæ˜¾ç¤ºå†…å®¹çš„é•¿åº¦ã€‚ç¼–å†™chnSubstringå’ŒchnStrLenæ–¹æ³•ï¼Œè®¡ç®—å­—ç¬¦
 	 * <p>
-	 * ´®³¤¶ÈºÍ½ØÈ¡×Ó´®Ê±£¬Ò»¸öºº×Ö³¤¶ÈËãÁ½¸ö¡£
+	 * ä¸²é•¿åº¦å’Œæˆªå–å­ä¸²æ—¶ï¼Œä¸€ä¸ªæ±‰å­—é•¿åº¦ç®—ä¸¤ä¸ªã€‚
 	 * <p>
-	 * ÏÂÃæÊÇchnSubstring·½·¨¡£
+	 * ä¸‹é¢æ˜¯chnSubstringæ–¹æ³•ã€‚
 	 * 
 	 * @param chinaString
 	 * @param start
@@ -248,13 +248,13 @@ public final class StringUtil {
 	}
 
 	/**
-	 * Description:StringµÄlength()·½·¨¼ÆËã×Ö·û´®³¤¶È£¬Ó¢ÎÄÒ»¸ö×ÖÄ¸ËãÒ»¸ö£¬ººÓïÒ»¸ö×ÖÒ²ËãÒ»¸ö¡£
+	 * Description:Stringçš„length()æ–¹æ³•è®¡ç®—å­—ç¬¦ä¸²é•¿åº¦ï¼Œè‹±æ–‡ä¸€ä¸ªå­—æ¯ç®—ä¸€ä¸ªï¼Œæ±‰è¯­ä¸€ä¸ªå­—ä¹Ÿç®—ä¸€ä¸ªã€‚
 	 * <p>
-	 * ÔÚÌî³ä±í¸ñÊ±²»ÄÜ¾«È·È·¶¨ÏÔÊ¾ÄÚÈİµÄ³¤¶È¡£±àĞ´chnSubstringºÍchnStrLen·½·¨£¬¼ÆËã×Ö·û
+	 * åœ¨å¡«å……è¡¨æ ¼æ—¶ä¸èƒ½ç²¾ç¡®ç¡®å®šæ˜¾ç¤ºå†…å®¹çš„é•¿åº¦ã€‚ç¼–å†™chnSubstringå’ŒchnStrLenæ–¹æ³•ï¼Œè®¡ç®—å­—ç¬¦
 	 * <p>
-	 * ´®³¤¶ÈºÍ½ØÈ¡×Ó´®Ê±£¬Ò»¸öºº×Ö³¤¶ÈËãÁ½¸ö¡£
+	 * ä¸²é•¿åº¦å’Œæˆªå–å­ä¸²æ—¶ï¼Œä¸€ä¸ªæ±‰å­—é•¿åº¦ç®—ä¸¤ä¸ªã€‚
 	 * <p>
-	 * ÏÂÃæÊÇchnStrLen·½·¨¡£
+	 * ä¸‹é¢æ˜¯chnStrLenæ–¹æ³•ã€‚
 	 * 
 	 * @param chinaString
 	 * @param start
@@ -273,7 +273,7 @@ public final class StringUtil {
 	}
 
 	/**
-	 * »ñÈ¡×Ö·û´®ÖĞºº×ÖµÄ¸öÊı
+	 * è·å–å­—ç¬¦ä¸²ä¸­æ±‰å­—çš„ä¸ªæ•°
 	 * 
 	 * @param chinaString
 	 * @return
@@ -288,7 +288,7 @@ public final class StringUtil {
 	}
 
 	/**
-	 * »ñÈ¡×Ö·û´®ÖĞ×ÖÄ¸ºÍÊı×ÖµÄ¸öÊı
+	 * è·å–å­—ç¬¦ä¸²ä¸­å­—æ¯å’Œæ•°å­—çš„ä¸ªæ•°
 	 * 
 	 * @param chinaString
 	 * @return
@@ -305,15 +305,15 @@ public final class StringUtil {
 	}
 
 	/**
-	 * »ñÈ¡×Ö·û´®µÄ³¤¶È
+	 * è·å–å­—ç¬¦ä¸²çš„é•¿åº¦
 	 * 
 	 * @param value
-	 *            Ô­Ê¼×Ö·û´®
+	 *            åŸå§‹å­—ç¬¦ä¸²
 	 * @param chinaLen
-	 *            Ã¿¸öºº×ÖËùÕ¼µÄ¿í¶È
+	 *            æ¯ä¸ªæ±‰å­—æ‰€å çš„å®½åº¦
 	 * @param englishLen
-	 *            Ã¿¸ö·Çºº×ÖËùÕ¼µÄ¿í¶È
-	 * @return Õû¸ö×Ö·û´®ËùÕ¼µÄ×Ü¿í¶È
+	 *            æ¯ä¸ªéæ±‰å­—æ‰€å çš„å®½åº¦
+	 * @return æ•´ä¸ªå­—ç¬¦ä¸²æ‰€å çš„æ€»å®½åº¦
 	 */
 	public final static int getCssLength(String value, int chinaLen,
 			int englishLen) {
@@ -330,9 +330,9 @@ public final class StringUtil {
 	}
 
 	/**
-	 * ËµÃ÷£º´ÓÉí·İÖ¤ÖĞµÃµ½ÄêÁä
+	 * è¯´æ˜ï¼šä»èº«ä»½è¯ä¸­å¾—åˆ°å¹´é¾„
 	 * 
-	 * @author:Ö£ÆäÈÙ May 13, 2009
+	 * @author:éƒ‘å…¶è£ May 13, 2009
 	 * @param card
 	 * @return
 	 * @throws AppException
@@ -341,33 +341,33 @@ public final class StringUtil {
 		int age = -1;
 		int length = card.length();
 		String birthday = "";
-		// 20120929 modi by www ĞŞ¸Ä¸ù¾İÉí·İÖ¤¼ÆËãÄêÁäµÄ»úÖÆ
+		// 20120929 modi by www ä¿®æ”¹æ ¹æ®èº«ä»½è¯è®¡ç®—å¹´é¾„çš„æœºåˆ¶
 		if (length == 15) {
 			birthday = card.substring(6, 8);
 			birthday = "19" + birthday;
 		} else if (length == 18)
 			birthday = card.substring(6, 14);
 		else
-			throw new AppException("´íÎóµÄÉí·İÖ¤ºÅ!");
-		// »ñÈ¡µ±Ç°Ê±¼ä
+			throw new AppException("é”™è¯¯çš„èº«ä»½è¯å·!");
+		// è·å–å½“å‰æ—¶é—´
 		Date currentTime = new Date();
-		// ¼ÆËã³öµ±Ç°Ê±¼äÓë³öÉúÄêÔÂµÄÔÂÊı²î
+		// è®¡ç®—å‡ºå½“å‰æ—¶é—´ä¸å‡ºç”Ÿå¹´æœˆçš„æœˆæ•°å·®
 		int diffMonths = DateUtil.getMonthDifferenceBetweenTwoDate(
 				DateUtil.formatStrToDate(birthday), currentTime);
 
-		// Ô¤·ÀÉí·İÖ¤ĞÅÏ¢ÓĞ´í
+		// é¢„é˜²èº«ä»½è¯ä¿¡æ¯æœ‰é”™
 		if (diffMonths < 0) {
-			throw new AppException("´íÎóµÄÉí·İÖ¤ºÅ£º³öÉúÈÕÆÚ´óÓÚµ±Ç°ÈÕÆÚ!");
+			throw new AppException("é”™è¯¯çš„èº«ä»½è¯å·ï¼šå‡ºç”Ÿæ—¥æœŸå¤§äºå½“å‰æ—¥æœŸ!");
 		}
 
-		// ¼ÆËãÄêÁä£¬²»Âú12¸öÔÂºöÂÔ
+		// è®¡ç®—å¹´é¾„ï¼Œä¸æ»¡12ä¸ªæœˆå¿½ç•¥
 		age = diffMonths / 12;
-		// 20120929 end modi by www ĞŞ¸Ä¸ù¾İÉí·İÖ¤¼ÆËãÄêÁäµÄ»úÖÆ
+		// 20120929 end modi by www ä¿®æ”¹æ ¹æ®èº«ä»½è¯è®¡ç®—å¹´é¾„çš„æœºåˆ¶
 		return age;
 	}
 
 	/**
-	 * ÅĞ¶ÏÉí·İÖ¤ºÅÂëÊÇ·ñºÏ·¨
+	 * åˆ¤æ–­èº«ä»½è¯å·ç æ˜¯å¦åˆæ³•
 	 */
 	public final static String validateCard(String p_sfzhm) throws AppException {
 		int vsfz_sum, vsfz_vi, vsfz_si, vsfz_wi, vsfz_vj, vsfz_res;
@@ -375,7 +375,7 @@ public final class StringUtil {
 		String vsfz_err = "0";
 
 		if (p_sfzhm == null) {
-			throw new AppException("´«ÈëµÄÉí·İÖ¤ºÅÂëÎª¿Õ!");
+			throw new AppException("ä¼ å…¥çš„èº«ä»½è¯å·ç ä¸ºç©º!");
 		}
 		p_sfzhm = p_sfzhm.trim();
 		if (p_sfzhm.length() == 18) {
@@ -391,12 +391,12 @@ public final class StringUtil {
 				vsfz_vi++;
 			}
 			if ("1".equals(vsfz_err)) {
-				return "Éí·İÖ¤ºÅÂëµÄµÚ" + vsfz_vi + "Î»ÊÇ·Ç·¨Êı×ÖÇëĞŞ¸Ä!";
+				return "èº«ä»½è¯å·ç çš„ç¬¬" + vsfz_vi + "ä½æ˜¯éæ³•æ•°å­—è¯·ä¿®æ”¹!";
 			}
 
 			boolean vflag = DateUtil.isDate(p_sfzhm.substring(6, 14));
 			if (!vflag) {
-				return "Éí·İÖ¤ºÅÂëµÄ³öÉúÈÕÆÚ²»¶Ô£¬ÇëĞŞ¸Ä!";
+				return "èº«ä»½è¯å·ç çš„å‡ºç”Ÿæ—¥æœŸä¸å¯¹ï¼Œè¯·ä¿®æ”¹!";
 			}
 
 			vsfz_vi = 0;
@@ -415,40 +415,40 @@ public final class StringUtil {
 			vsfz_res = vsfz_sum % 11;
 			vsfz_jg = vsfz_temp.substring(vsfz_res, vsfz_res + 1);
 			if (!vsfz_jg.equals(p_sfzhm.substring(17, 18))) {
-				// return "Éí·İÖ¤ºÅÂë×îºóÒ»Î»²»¶Ô£¬Ó¦¸ÃÊÇ" + vsfz_jg+"!";
-				return "Éí·İÖ¤ºÅÂëµÄĞ£ÑéÎ»²»¶Ô£¬Çë¼ì²é!";
+				// return "èº«ä»½è¯å·ç æœ€åä¸€ä½ä¸å¯¹ï¼Œåº”è¯¥æ˜¯" + vsfz_jg+"!";
+				return "èº«ä»½è¯å·ç çš„æ ¡éªŒä½ä¸å¯¹ï¼Œè¯·æ£€æŸ¥!";
 			}
 		} else {
-			return "Éí·İÖ¤ºÅÂëµÄ³¤¶È²»ÊÇ18Î»!";
+			return "èº«ä»½è¯å·ç çš„é•¿åº¦ä¸æ˜¯18ä½!";
 		}
 		return "";
 	}
 
 	/**
-	 * ¹¦ÄÜ£º´Ó×Ö·û´®×î×ó±ßÆğ£¬¸ù¾İÏŞÖÆ³¤¶È½ØÈ¡×Ö·û´®£¨×Ö·û´®ÖĞ°üÀ¨ºº×Ö£¬Ò»¸öºº×ÖµÈÓÚÁ½¸ö×Ö·û£© Èç¹û×îºóÒ»¸ö×Ö·ûÊÇ°ë¸öºº×ÖÔò»áÉáÈ¥¡£
+	 * åŠŸèƒ½ï¼šä»å­—ç¬¦ä¸²æœ€å·¦è¾¹èµ·ï¼Œæ ¹æ®é™åˆ¶é•¿åº¦æˆªå–å­—ç¬¦ä¸²ï¼ˆå­—ç¬¦ä¸²ä¸­åŒ…æ‹¬æ±‰å­—ï¼Œä¸€ä¸ªæ±‰å­—ç­‰äºä¸¤ä¸ªå­—ç¬¦ï¼‰ å¦‚æœæœ€åä¸€ä¸ªå­—ç¬¦æ˜¯åŠä¸ªæ±‰å­—åˆ™ä¼šèˆå»ã€‚
 	 * 
 	 * @param strParameter
-	 *            Òª½ØÈ¡µÄ×Ö·û´®
+	 *            è¦æˆªå–çš„å­—ç¬¦ä¸²
 	 * @param limitLength
-	 *            ½ØÈ¡µÄ³¤¶È
-	 * @return ½ØÈ¡ºóµÄ×Ö·û´®
+	 *            æˆªå–çš„é•¿åº¦
+	 * @return æˆªå–åçš„å­—ç¬¦ä¸²
 	 * @throws AppException
 	 */
 	public final static String leftb(String strParameter, int limitLength)
 			throws AppException {
 		if (strParameter == null) {
-			throw new AppException("ÊäÈëµÄ×Ö·û´®²ÎÊıÎª¿Õ!");
+			throw new AppException("è¾“å…¥çš„å­—ç¬¦ä¸²å‚æ•°ä¸ºç©º!");
 		}
-		String return_str = strParameter; // ·µ»ØµÄ×Ö·û´®
-		int temp_int = 0; // ½«ºº×Ö×ª»»³ÉÁ½¸ö×Ö·ûºóµÄ×Ö·û´®³¤¶È
-		int cut_int = 0; // ¶ÔÔ­Ê¼×Ö·û´®½ØÈ¡µÄ³¤¶È
-		byte[] b = strParameter.getBytes(); // ½«×Ö·û´®×ª»»³É×Ö·ûÊı×é
+		String return_str = strParameter; // è¿”å›çš„å­—ç¬¦ä¸²
+		int temp_int = 0; // å°†æ±‰å­—è½¬æ¢æˆä¸¤ä¸ªå­—ç¬¦åçš„å­—ç¬¦ä¸²é•¿åº¦
+		int cut_int = 0; // å¯¹åŸå§‹å­—ç¬¦ä¸²æˆªå–çš„é•¿åº¦
+		byte[] b = strParameter.getBytes(); // å°†å­—ç¬¦ä¸²è½¬æ¢æˆå­—ç¬¦æ•°ç»„
 		int last_length;
 		for (int i = 0; i < b.length; i++) {
 			if (b[i] >= 0) {
-				last_length = 1; // Ó¢ÎÄ×Ö·û
+				last_length = 1; // è‹±æ–‡å­—ç¬¦
 			} else {
-				last_length = 2; // Ò»¸öºº×ÖµÈÓÚÁ½¸ö×Ö·û
+				last_length = 2; // ä¸€ä¸ªæ±‰å­—ç­‰äºä¸¤ä¸ªå­—ç¬¦
 				i++;
 			}
 			temp_int = temp_int + last_length;
@@ -466,7 +466,7 @@ public final class StringUtil {
 	}
 
 	/**
-	 * ½âÂë
+	 * è§£ç 
 	 * 
 	 * @param originalString
 	 * @param encoding
@@ -492,14 +492,14 @@ public final class StringUtil {
 	}
 
 	/**
-	 * »ñÈ¡Ò»¸ö×ÖÄ¸£¨Çø·Ö´óĞ¡Ğ´£©»òÕßÊı×ÖµÄASCIIÖµ£¬ÆäËû×Ö·ûµÄ·µ»Ø"-1"
+	 * è·å–ä¸€ä¸ªå­—æ¯ï¼ˆåŒºåˆ†å¤§å°å†™ï¼‰æˆ–è€…æ•°å­—çš„ASCIIå€¼ï¼Œå…¶ä»–å­—ç¬¦çš„è¿”å›"-1"
 	 * 
 	 */
 	public final static String getASCIIOfLetterAndNumber(String str) {
 		char a = str.charAt(0);
 		int b = a;
 
-		// Êı×ÖµÄ·¶Î§ÊÇ48-57£¬´óĞ´×Ö·ûµÄÊÇ65-90£¬Ğ¡Ğ´×ÖÄ¸µÄÊÇ97-122
+		// æ•°å­—çš„èŒƒå›´æ˜¯48-57ï¼Œå¤§å†™å­—ç¬¦çš„æ˜¯65-90ï¼Œå°å†™å­—æ¯çš„æ˜¯97-122
 		if ((47 < b && b < 58) || (64 < b && b < 91) || (96 < b && b < 123)) {
 			return String.valueOf(b);
 		} else {
@@ -508,6 +508,6 @@ public final class StringUtil {
 	}
 
 	public final static void main(String[] args) throws AppException {
-		System.out.println(trim("ds	ni ¡¡skasdsa"));
+		System.out.println(trim("ds	ni ã€€skasdsa"));
 	}
 }

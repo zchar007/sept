@@ -3,7 +3,7 @@ package com.sept.util;
 import java.io.UnsupportedEncodingException;
 
 /*
- * ×Ö·û´® DESede(3DES) ¼ÓÃÜ
+ * å­—ç¬¦ä¸² DESede(3DES) åŠ å¯†
  */
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -15,18 +15,18 @@ import com.sept.exception.AppException;
 
 public class SecUtil {
 
-	private static final String Algorithm = "DESede"; // ¶¨Òå ¼ÓÃÜËã·¨,¿ÉÓÃ
+	private static final String Algorithm = "DESede"; // å®šä¹‰ åŠ å¯†ç®—æ³•,å¯ç”¨
 	// DES,DESede,Blowfish
 	private static final byte[] keyBytes = { 0x11, 0x22, 0x4F, 0x58, (byte) 0x88, 0x10, 0x40, 0x38, 0x28, 0x25, 0x79,
-			0x51, (byte) 0xCB, (byte) 0xDD, 0x55, 0x66, 0x77, 0x29, 0x74, (byte) 0x98, 0x30, 0x40, 0x36, (byte) 0xE2 };// 24×Ö½ÚµÄÃÜÔ¿
+			0x51, (byte) 0xCB, (byte) 0xDD, 0x55, 0x66, 0x77, 0x29, 0x74, (byte) 0x98, 0x30, 0x40, 0x36, (byte) 0xE2 };// 24å­—èŠ‚çš„å¯†é’¥
 
-	// keybyteÎª¼ÓÃÜÃÜÔ¿£¬³¤¶ÈÎª24×Ö½Ú
-	// srcÎª±»¼ÓÃÜµÄÊı¾İ»º³åÇø£¨Ô´£©
+	// keybyteä¸ºåŠ å¯†å¯†é’¥ï¼Œé•¿åº¦ä¸º24å­—èŠ‚
+	// srcä¸ºè¢«åŠ å¯†çš„æ•°æ®ç¼“å†²åŒºï¼ˆæºï¼‰
 	public static byte[] encryptMode(byte[] keybyte, byte[] src) {
 		try {
-			// Éú³ÉÃÜÔ¿
+			// ç”Ÿæˆå¯†é’¥
 			SecretKey deskey = new SecretKeySpec(keybyte, Algorithm);
-			// ¼ÓÃÜ
+			// åŠ å¯†
 			Cipher c1 = Cipher.getInstance(Algorithm);
 			c1.init(Cipher.ENCRYPT_MODE, deskey);
 			return c1.doFinal(src);
@@ -40,13 +40,13 @@ public class SecUtil {
 		return null;
 	}
 
-	// 2009-12-3 ³Â¿­Æ½ĞŞ¸Ä£ºÔö¼ÓString2StringµÄ¼ÓÃÜ
+	// 2009-12-3 é™ˆå‡¯å¹³ä¿®æ”¹ï¼šå¢åŠ String2Stringçš„åŠ å¯†
 	public static String encryptMode(byte[] keybyte, String src) {
 		try {
-			// Éú³ÉÃÜÔ¿
+			// ç”Ÿæˆå¯†é’¥
 			SecretKey deskey = new SecretKeySpec(keybyte, Algorithm);
 
-			// ¼ÓÃÜ
+			// åŠ å¯†
 			Cipher c1 = Cipher.getInstance(Algorithm);
 			c1.init(Cipher.ENCRYPT_MODE, deskey);
 			byte[] srcBytes = src.getBytes("UTF-8");
@@ -67,14 +67,14 @@ public class SecUtil {
 		return SecUtil.encryptMode(keyBytes, src);
 	}
 
-	// keybyteÎª¼ÓÃÜÃÜÔ¿£¬³¤¶ÈÎª24×Ö½Ú
-	// srcÎª¼ÓÃÜºóµÄ»º³åÇø
+	// keybyteä¸ºåŠ å¯†å¯†é’¥ï¼Œé•¿åº¦ä¸º24å­—èŠ‚
+	// srcä¸ºåŠ å¯†åçš„ç¼“å†²åŒº
 	public static byte[] decryptMode(byte[] keybyte, byte[] src) {
 		try {
-			// Éú³ÉÃÜÔ¿
+			// ç”Ÿæˆå¯†é’¥
 			SecretKey deskey = new SecretKeySpec(keybyte, Algorithm);
 
-			// ½âÃÜ
+			// è§£å¯†
 			// Cipher c1 = Cipher.getInstance(Algorithm);
 			Cipher c1 = Cipher.getInstance("DESede/ECB/PKCS5Padding");
 			c1.init(Cipher.DECRYPT_MODE, deskey);
@@ -89,13 +89,13 @@ public class SecUtil {
 		return null;
 	}
 
-	// 2009-12-3 ³Â¿­Æ½ĞŞ¸Ä£ºÔö¼ÓString2StringµÄ½âÃÜ
+	// 2009-12-3 é™ˆå‡¯å¹³ä¿®æ”¹ï¼šå¢åŠ String2Stringçš„è§£å¯†
 	public static String decryptMode(byte[] keybyte, String src) {
 		try {
-			// Éú³ÉÃÜÔ¿
+			// ç”Ÿæˆå¯†é’¥
 			SecretKey deskey = new SecretKeySpec(keybyte, Algorithm);
 
-			// ½âÃÜ
+			// è§£å¯†
 			// Cipher c1 = Cipher.getInstance(Algorithm);
 			Cipher c1 = Cipher.getInstance("DESede/ECB/PKCS5Padding");
 			c1.init(Cipher.DECRYPT_MODE, deskey);
@@ -118,7 +118,7 @@ public class SecUtil {
 	}
 
 	/**
-	 * ÓÃÓÚ¶Ôsrc½øĞĞbase64±àÂë
+	 * ç”¨äºå¯¹srcè¿›è¡Œbase64ç¼–ç 
 	 * 
 	 * @param src
 	 * @return
@@ -141,7 +141,7 @@ public class SecUtil {
 	}
 
 	/**
-	 * ÓÃÓÚ¶Ôsrc½øĞĞbase64½âÂë
+	 * ç”¨äºå¯¹srcè¿›è¡Œbase64è§£ç 
 	 * 
 	 * @param src
 	 * @return
@@ -165,7 +165,7 @@ public class SecUtil {
 		}
 	}
 
-	// ×ª»»³ÉÊ®Áù½øÖÆ×Ö·û´®
+	// è½¬æ¢æˆåå…­è¿›åˆ¶å­—ç¬¦ä¸²
 	public static String byte2hex(byte[] b) {
 		String hs = "";
 		String stmp = "";

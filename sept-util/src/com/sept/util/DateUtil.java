@@ -13,14 +13,14 @@ import com.sept.exception.AppException;
  */
 public final class DateUtil {
 	/*
-	 * »ñÈ¡µ±Ç°Ê±¼äµÄ¸÷¸ö²ÎÊı
+	 * è·å–å½“å‰æ—¶é—´çš„å„ä¸ªå‚æ•°
 	 */
 	public final static HashMap<String, Integer> getCurrentHMTime() {
 		return getHMTime(new Date());
 	}
 
 	/*
-	 * »ñÈ¡Ê±¼äµÄ¸÷¸ö²ÎÊı
+	 * è·å–æ—¶é—´çš„å„ä¸ªå‚æ•°
 	 */
 	public final static HashMap<String, Integer> getHMTime(Date date) {
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
@@ -38,7 +38,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ÒÔÖ¸¶¨¸ñÊ½»ñÈ¡µ±Ç°Ê±¼ä
+	 * ä»¥æŒ‡å®šæ ¼å¼è·å–å½“å‰æ—¶é—´
 	 * 
 	 * @param formatStr
 	 * @return
@@ -50,7 +50,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ÒÔÖ¸¶¨¸ñÊ½»ñÈ¡µ±Ç°Ê±¼ä
+	 * ä»¥æŒ‡å®šæ ¼å¼è·å–å½“å‰æ—¶é—´
 	 * 
 	 * @param formatStr
 	 * @return
@@ -61,7 +61,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸ñÊ½»¯Ò»¸öÊ±¼ä
+	 * æ ¼å¼åŒ–ä¸€ä¸ªæ—¶é—´
 	 * 
 	 * @param d
 	 * @param formatStr
@@ -73,10 +73,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡Ò»¸öÊı¾İ¿âÊ±¼ä
+	 * è·å–ä¸€ä¸ªæ•°æ®åº“æ—¶é—´
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static java.sql.Date getCurrentDBDate() {
@@ -84,10 +84,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * sqldate×ªjavadate
+	 * sqldateè½¬javadate
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date formatSqlDateToJavaDate(java.sql.Date date) {
@@ -95,10 +95,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * javadate×ªsqldate
+	 * javadateè½¬sqldate
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static java.sql.Date formatSqlDateToJavaDate(Date date) {
@@ -106,7 +106,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ÒÔ×Ö·û´®Éè¶¨µ±Ç°Ê±¼ä 2016 10 14 09 08 07
+	 * ä»¥å­—ç¬¦ä¸²è®¾å®šå½“å‰æ—¶é—´ 2016 10 14 09 08 07
 	 * 
 	 * @param formatStr
 	 * @return
@@ -117,7 +117,7 @@ public final class DateUtil {
 		String yx = "4,6,8,10,12,14";
 		String dq = timeStr.length() + "";
 		if (yx.indexOf(dq) < 0) {
-			throw new AppException("¡¾" + timeStr + "¡¿ÈÕÆÚ¸ñÊ½´íÎó£¡£¡");
+			throw new AppException("ã€" + timeStr + "ã€‘æ—¥æœŸæ ¼å¼é”™è¯¯ï¼ï¼");
 		}
 		while (timeStr.length() != 14) {
 			timeStr += "01";
@@ -129,55 +129,55 @@ public final class DateUtil {
 		int minutes = Integer.parseInt(timeStr.substring(10, 12));
 		int seconds = Integer.parseInt(timeStr.substring(12, 14));
 		if (month > 12 || month < 1) {
-			throw new AppException("¸ñÊ½»¯×Ö·û´®Ê±,ÔÂ·İ³ö´í£¡¡¾" + month + "¡¿");
+			throw new AppException("æ ¼å¼åŒ–å­—ç¬¦ä¸²æ—¶,æœˆä»½å‡ºé”™ï¼ã€" + month + "ã€‘");
 		}
 		if (day < 1) {
-			throw new AppException("¸ñÊ½»¯×Ö·û´®Ê±,ÈÕ³ö´í£¡¡¾" + day + "¡¿");
+			throw new AppException("æ ¼å¼åŒ–å­—ç¬¦ä¸²æ—¶,æ—¥å‡ºé”™ï¼ã€" + day + "ã€‘");
 		}
-		// Èç¹ûÊÇÈòÄê
+		// å¦‚æœæ˜¯é—°å¹´
 		if (month == 2) {
 			if (isLeapYear(year)) {
 				if (day > 29) {
-					throw new AppException("¸ñÊ½»¯×Ö·û´®Ê±,ÈÕ³ö´í£¡¡¾" + day + "¡¿,Äê·İ¡¾" + year + "¡¿ÊÇÈòÄê£¬¶şÔÂ²»µÃ´óÓÚ29Ìì");
+					throw new AppException("æ ¼å¼åŒ–å­—ç¬¦ä¸²æ—¶,æ—¥å‡ºé”™ï¼ã€" + day + "ã€‘,å¹´ä»½ã€" + year + "ã€‘æ˜¯é—°å¹´ï¼ŒäºŒæœˆä¸å¾—å¤§äº29å¤©");
 				}
 			} else {
 				if (day > 28) {
-					throw new AppException("¸ñÊ½»¯×Ö·û´®Ê±,ÈÕ³ö´í£¡¡¾" + day + "¡¿,Äê·İ¡¾" + year + "¡¿ÊÇÆ½Äê£¬¶şÔÂ²»µÃ´óÓÚ28Ìì");
+					throw new AppException("æ ¼å¼åŒ–å­—ç¬¦ä¸²æ—¶,æ—¥å‡ºé”™ï¼ã€" + day + "ã€‘,å¹´ä»½ã€" + year + "ã€‘æ˜¯å¹³å¹´ï¼ŒäºŒæœˆä¸å¾—å¤§äº28å¤©");
 				}
 			}
 		}
 		if (month == 4 || month == 6 || month == 9 || month == 11) {
 			if (day > 30) {
-				throw new AppException("µ±Ç°ÔÂ·İÎª¡¾" + month + "¡¿£¬´ËÔÂ·İ²»µÃ´óÓÚ30Ìì");
+				throw new AppException("å½“å‰æœˆä»½ä¸ºã€" + month + "ã€‘ï¼Œæ­¤æœˆä»½ä¸å¾—å¤§äº30å¤©");
 			}
 		}
 		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 			if (day > 31) {
-				throw new AppException("µ±Ç°ÔÂ·İÎª¡¾" + month + "¡¿£¬´ËÔÂ·İ²»µÃ´óÓÚ31Ìì");
+				throw new AppException("å½“å‰æœˆä»½ä¸ºã€" + month + "ã€‘ï¼Œæ­¤æœˆä»½ä¸å¾—å¤§äº31å¤©");
 			}
 		}
-		// Ğ¡Ê±µÄ·¶Î§Îª0Ê±µ½24Ê± [0,24)
+		// å°æ—¶çš„èŒƒå›´ä¸º0æ—¶åˆ°24æ—¶ [0,24)
 		if (hour >= 24 || hour < 0) {
-			throw new AppException("Ğ¡Ê±µÄ·¶Î§Îª [0,24)£¬µ±Ç°Â¼ÈëÎª¡¾" + hour + "¡¿");
+			throw new AppException("å°æ—¶çš„èŒƒå›´ä¸º [0,24)ï¼Œå½“å‰å½•å…¥ä¸ºã€" + hour + "ã€‘");
 		}
-		// Ğ¡Ê±µÄ·¶Î§Îª0Ê±µ½24Ê± [0,24)
+		// å°æ—¶çš„èŒƒå›´ä¸º0æ—¶åˆ°24æ—¶ [0,24)
 		if (minutes >= 60 || minutes < 0) {
-			throw new AppException("·ÖÖÓµÄ·¶Î§Îª [0,60)£¬µ±Ç°Â¼ÈëÎª¡¾" + minutes + "¡¿");
+			throw new AppException("åˆ†é’Ÿçš„èŒƒå›´ä¸º [0,60)ï¼Œå½“å‰å½•å…¥ä¸ºã€" + minutes + "ã€‘");
 		}
-		// Ğ¡Ê±µÄ·¶Î§Îª0Ê±µ½24Ê± [0,24)
+		// å°æ—¶çš„èŒƒå›´ä¸º0æ—¶åˆ°24æ—¶ [0,24)
 		if (seconds >= 60 || seconds < 0) {
-			throw new AppException("ÃëµÄ·¶Î§Îª [0,60)£¬µ±Ç°Â¼ÈëÎª¡¾" + seconds + "¡¿");
+			throw new AppException("ç§’çš„èŒƒå›´ä¸º [0,60)ï¼Œå½“å‰å½•å…¥ä¸ºã€" + seconds + "ã€‘");
 		}
 		cal.set(year, month - 1, day, hour, minutes, seconds);
 		return cal.getTime();
 	}
 
 	/**
-	 * ¸ñÊ½»¯ÈÎÒâ¸ñÊ½µÄString Îªdate
+	 * æ ¼å¼åŒ–ä»»æ„æ ¼å¼çš„String ä¸ºdate
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws Exception
-	 * @date ´´½¨Ê±¼ä 2017-6-3
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-3
 	 * @since V1.0
 	 */
 	public final static Date formatStrToDate(String dateStr) throws AppException {
@@ -191,10 +191,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»Äê
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€å¹´
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addYearsToStr(String date, int years) throws Exception {
@@ -210,10 +210,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»Äê
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€å¹´
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addYearsToDate(Date date, int years) {
@@ -225,10 +225,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»ÔÂ
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€æœˆ
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addMonthsToStr(String date, int months) throws Exception {
@@ -244,10 +244,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»ÔÂ
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€æœˆ
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addMonthsToDate(Date date, int months) {
@@ -259,10 +259,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»Ìì
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€å¤©
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addDaysToStr(String date, int days) throws Exception {
@@ -278,10 +278,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»Ìì
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€å¤©
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addDaysToDate(Date date, int days) {
@@ -293,10 +293,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»Ğ¡Ê±
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€å°æ—¶
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addHoursToStr(String date, int hours) throws Exception {
@@ -313,10 +313,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»Ğ¡Ê±
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€å°æ—¶
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addHoursToDate(Date date, int hours) {
@@ -328,10 +328,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»·ÖÖÓ
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€åˆ†é’Ÿ
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addMinutesToStr(String date, int minutes) throws Exception {
@@ -348,10 +348,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»·ÖÖÓ
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€åˆ†é’Ÿ
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addMinutesToDate(Date date, int minutes) {
@@ -363,10 +363,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚ×Ö·û´®Ôö¼ÓÒ»Ãë
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå­—ç¬¦ä¸²å¢åŠ ä¸€ç§’
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static String addSecondToStr(String date, int second) throws Exception {
@@ -383,10 +383,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ¸øÒ»¸öÈÕÆÚÔö¼ÓÒ»Ãë
+	 * ç»™ä¸€ä¸ªæ—¥æœŸå¢åŠ ä¸€ç§’
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-5-30
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-30
 	 * @since V1.0
 	 */
 	public final static Date addSecondToDate(Date date, int second) {
@@ -398,10 +398,10 @@ public final class DateUtil {
 	}
 
 	/**
-	 * 1.´ÓÇ°Íùºóyyyy ---->ssµÄËæÒâ´ÓºóÃæ¼õÉÙµÄÊı¾İ 2.¿ÉÒÔ²»Ğ´yyyy
+	 * 1.ä»å‰å¾€åyyyy ---->ssçš„éšæ„ä»åé¢å‡å°‘çš„æ•°æ® 2.å¯ä»¥ä¸å†™yyyy
 	 * 
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-6
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-6
 	 * @since V1.0
 	 */
 	public final static String calculateDateStrFormat(String dateStr) throws AppException {
@@ -418,7 +418,7 @@ public final class DateUtil {
 			}
 		}
 		if (count > 14) {
-			throw new AppException("×Ö·û´®¡¾" + dateStr + "¡¿²»ÊÇÓĞĞ§µÄÈÕÆÚ×Ö·û´®£¡");
+			throw new AppException("å­—ç¬¦ä¸²ã€" + dateStr + "ã€‘ä¸æ˜¯æœ‰æ•ˆçš„æ—¥æœŸå­—ç¬¦ä¸²ï¼");
 		}
 		String head = "";
 		String formatStr = formatSB.toString();
@@ -431,7 +431,7 @@ public final class DateUtil {
 			formatStr = formatStr.replaceFirst("yy", format[index++]);
 		}
 		formatStr = head + formatStr;
-		// Èç¹ûº¬ÓĞĞ¡Ê±
+		// å¦‚æœå«æœ‰å°æ—¶
 		if (formatStr.indexOf("hh") >= 0) {
 			int hh = Integer.parseInt(dateStr.substring(formatStr.indexOf("hh"), formatStr.indexOf("hh") + 2));
 			if (hh > 12) {
@@ -444,7 +444,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÇ²»ÊÇÈÕÆÚĞÍ×Ö·û´®
+	 * åˆ¤æ–­æ˜¯ä¸æ˜¯æ—¥æœŸå‹å­—ç¬¦ä¸²
 	 * 
 	 * @param dateStr
 	 * @return
@@ -459,7 +459,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ´Ë·½·¨½öÄÜÅĞ¶Ï¹«ÔªºóµÄÄê·İ£¬ÇÒÄê·İ²»ÄÜ¶àÓÚËÄÎ»Êı
+	 * æ­¤æ–¹æ³•ä»…èƒ½åˆ¤æ–­å…¬å…ƒåçš„å¹´ä»½ï¼Œä¸”å¹´ä»½ä¸èƒ½å¤šäºå››ä½æ•°
 	 * 
 	 * @param year
 	 * @return
@@ -467,11 +467,11 @@ public final class DateUtil {
 	 */
 	public final static boolean isLeapYear(String year) throws AppException {
 		if (null == year || year.trim().isEmpty()) {
-			throw new AppException("ÅĞ¶ÏÊÇ·ñÎªÈòÄêÊ±£¬yearÎªnull");
+			throw new AppException("åˆ¤æ–­æ˜¯å¦ä¸ºé—°å¹´æ—¶ï¼Œyearä¸ºnull");
 		}
 		String nowYear = StringUtil.trimAll(year);
 		if (nowYear.length() != 4) {
-			throw new AppException("ÅĞ¶ÏÊÇ·ñÎªÈòÄêÊ±£¬year²»ÊÇ4Î»µÄÄê");
+			throw new AppException("åˆ¤æ–­æ˜¯å¦ä¸ºé—°å¹´æ—¶ï¼Œyearä¸æ˜¯4ä½çš„å¹´");
 		}
 
 		int intYear = StringUtil.stringToInt(year);
@@ -481,10 +481,10 @@ public final class DateUtil {
 
 	public final static boolean isLeapYear(int intYear) throws AppException {
 		if (intYear > 9999 || intYear < 0) {
-			throw new AppException("´Ë·½·¨½öÄÜÅĞ¶Ï¹«ÔªºóµÄÄê·İ£¬ÇÒÄê·İ²»ÄÜ¶àÓÚËÄÎ»Êı");
+			throw new AppException("æ­¤æ–¹æ³•ä»…èƒ½åˆ¤æ–­å…¬å…ƒåçš„å¹´ä»½ï¼Œä¸”å¹´ä»½ä¸èƒ½å¤šäºå››ä½æ•°");
 		}
 
-		// Õû°ÙÄê£ºÄÜ±»400Õû³ıµÄÊÇÈòÄê
+		// æ•´ç™¾å¹´ï¼šèƒ½è¢«400æ•´é™¤çš„æ˜¯é—°å¹´
 		if (intYear % 100 == 0) {
 			if (intYear % 400 == 0) {
 				return true;
@@ -492,7 +492,7 @@ public final class DateUtil {
 				return false;
 			}
 		}
-		// ·ÇÕû°ÙÄê£ºÄÜ±»4Õû³ıµÄÎªÈòÄê¡£
+		// éæ•´ç™¾å¹´ï¼šèƒ½è¢«4æ•´é™¤çš„ä¸ºé—°å¹´ã€‚
 		else {
 			if (intYear % 4 == 0) {
 				return true;
@@ -506,19 +506,19 @@ public final class DateUtil {
 		// HashMap<String, Integer> hm = getCurrentTime();
 		// System.out.println(hm.toString());
 		// System.out.println(formatTime(formatAnyStrToDate("20170808080808"),
-		// "yyyyÄêMMÔÂddÈÕ hh:mm:ss"));
+		// "yyyyå¹´MMæœˆddæ—¥ hh:mm:ss"));
 		// System.out.println(addYearsToStr("20161020162710", -5));
-		System.out.println(addMonthsToStr("2015Äê-04ÔÂ-03ÈÕ 13Ê±:23·Ö:30Ãë", -1));
-		// System.out.println(calculateDateStrFormat("2015Äê-04ÔÂ-03ÈÕ 13Ê±:23·Ö:30Ãë"));
-		System.out.println(calculateDateStrFormat("2015Äê"));
+		System.out.println(addMonthsToStr("2015å¹´-04æœˆ-03æ—¥ 13æ—¶:23åˆ†:30ç§’", -1));
+		// System.out.println(calculateDateStrFormat("2015å¹´-04æœˆ-03æ—¥ 13æ—¶:23åˆ†:30ç§’"));
+		System.out.println(calculateDateStrFormat("2015å¹´"));
 		System.out.println(formatNormStrToDate("20181298"));
 		System.out.println(StringUtil.stringToInt("0012"));
 	}
 
 	/**
-	 * ËµÃ÷£º ÇóÁ½¸öÈÕÆÚÖ®¼äÏà²îµÄÔÂÊı
+	 * è¯´æ˜ï¼š æ±‚ä¸¤ä¸ªæ—¥æœŸä¹‹é—´ç›¸å·®çš„æœˆæ•°
 	 * 
-	 * @author:ÕÅ³¬
+	 * @author:å¼ è¶…
 	 * @param beginDate
 	 * @param endDate
 	 * @return
@@ -526,9 +526,9 @@ public final class DateUtil {
 	 */
 	public final static int getMonthDifferenceBetweenTwoDate(Date beginDate, Date endDate) throws AppException {
 		if (beginDate == null)
-			throw new AppException("´«Èë²ÎÊı[¿ªÊ¼Ê±¼ä]Îª¿Õ");
+			throw new AppException("ä¼ å…¥å‚æ•°[å¼€å§‹æ—¶é—´]ä¸ºç©º");
 		if (endDate == null)
-			throw new AppException("´«Èë²ÎÊı[½áÊøÊ±¼ä]Îª¿Õ");
+			throw new AppException("ä¼ å…¥å‚æ•°[ç»“æŸæ—¶é—´]ä¸ºç©º");
 		int year1 = StringUtil.stringToInt(formatDate(beginDate, "yyyy"));
 		int year2 = StringUtil.stringToInt(formatDate(endDate, "yyyy"));
 		int month1 = StringUtil.stringToInt(formatDate(beginDate, "MM"));
@@ -550,7 +550,7 @@ public final class DateUtil {
 	private static int getLastDayOfMonth(Date date) throws AppException {
 		int year = StringUtil.stringToInt(formatDate(date, "yyyy"));
 		int month = StringUtil.stringToInt(formatDate(date, "MM"));
-		// Èç¹ûÊÇÈòÄê
+		// å¦‚æœæ˜¯é—°å¹´
 		if (month == 2) {
 			if (isLeapYear(year)) {
 				return 29;
@@ -568,11 +568,11 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃÖ¸¶¨ÄêÖ¸¶¨ÔÂ·İµÄÌìÊı
+	 * è·å¾—æŒ‡å®šå¹´æŒ‡å®šæœˆä»½çš„å¤©æ•°
 	 * 
-	 * @param year  Äê·İ
-	 * @param month ÔÂ·İ
-	 * @return ÌìÊı
+	 * @param year  å¹´ä»½
+	 * @param month æœˆä»½
+	 * @return å¤©æ•°
 	 * @throws AppException 
 	 */
 	public static final int getDaysInMonth(int year, int month) throws AppException {

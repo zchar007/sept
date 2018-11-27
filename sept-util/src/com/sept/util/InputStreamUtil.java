@@ -16,7 +16,7 @@ public class InputStreamUtil {
 	final static int BUFFER_SIZE = 4096;
 
 	/**
-	 * 将InputStream转换成String
+	 * 灏咺nputStream杞崲鎴怱tring
 	 * 
 	 * @param in
 	 *            InputStream
@@ -37,7 +37,7 @@ public class InputStreamUtil {
 	}
 
 	/**
-	 * 将InputStream转换成某种字符编码的String
+	 * 灏咺nputStream杞崲鎴愭煇绉嶅瓧绗︾紪鐮佺殑String
 	 * 
 	 * @param in
 	 * @param encoding
@@ -58,7 +58,7 @@ public class InputStreamUtil {
 	}
 
 	/**
-	 * 将String转换成InputStream
+	 * 灏哠tring杞崲鎴怚nputStream
 	 * 
 	 * @param in
 	 * @return
@@ -72,7 +72,7 @@ public class InputStreamUtil {
 	}
 
 	/**
-	 * 将InputStream转换成byte数组
+	 * 灏咺nputStream杞崲鎴恇yte鏁扮粍
 	 * 
 	 * @param in
 	 *            InputStream
@@ -92,7 +92,7 @@ public class InputStreamUtil {
 	}
 
 	/**
-	 * 将byte数组转换成InputStream
+	 * 灏哹yte鏁扮粍杞崲鎴怚nputStream
 	 * 
 	 * @param in
 	 * @return
@@ -105,7 +105,7 @@ public class InputStreamUtil {
 	}
 
 	/**
-	 * 将byte数组转换成String
+	 * 灏哹yte鏁扮粍杞崲鎴怱tring
 	 * 
 	 * @param in
 	 * @return

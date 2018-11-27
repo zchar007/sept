@@ -1,37 +1,37 @@
 package com.sept.database.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.sql.Clob;
 import java.sql.SQLException;
 import java.util.Date;
 
-import com.alibaba.druid.proxy.jdbc.ClobProxy;
-import com.sept.framework.exception.AppException;
-import com.sept.framework.util.data.DataStore;
-
-import oracle.sql.CLOB;
+import com.sept.database.db.DatabaseSessionUtil;
+import com.sept.database.db.Sql;
+import com.sept.datastructure.DataStore;
+import com.sept.exception.AppException;
+import com.sept.project.context.GlobalContext;
+import com.sept.util.DateUtil;
 
 public class DBUtil {
-	public static long dbTime = 0; // Êı¾İ¿âÊ±¼ä
-	public static long serverStartTime = 0; // »ñÈ¡Êı¾İ¿âÊ±¼äµÄ¿ªÊ¼Ê±¼ä
+	public static long dbTime = 0; // æ•°æ®åº“æ—¶é—´
+	public static long serverStartTime = 0; // è·å–æ•°æ®åº“æ—¶é—´çš„å¼€å§‹æ—¶é—´
+	public static final Object refreshDBTime = new Object();// å¹¶å‘è®¿é—®æ§åˆ¶ä¿¡å·é‡ï¼Œé¿å…å¹¶å‘é”™è¯¯ã€‚
+
 	/**
-	 * ËµÃ÷£º»ñÈ¡Êı¾İ¿âÊ±¼ä
+	 * è¯´æ˜ï¼šè·å–æ•°æ®åº“æ—¶é—´
 	 * 
-	 * @throws SqlException
+	 * @throws SQLException
 	 */
-	public final static Date getDBDate() throws AppException, SqlException {
+	public final static Date getDBDate() throws AppException, SQLException {
 		String s = null;
+		if (!"true".equals(GlobalContext.DATABASE_ABLE.toLowerCase())) {
+			return new Date();
+		}
 		Sql sql = new Sql();
 		if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_ORACLE) {
 			sql.setSql("select to_char(sysdate,'yyyy-MM-dd') dbdate from dual");
 		} else if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_POSTGRESQL) {
 			sql.setSql("select to_char(CURRENT_DATE,'yyyy-MM-dd') dbdate from dual");
 		} else {
-			throw new AppException("¿ò¼Ü²»Ç©²»ÄÜÊ¶±ğÊı¾İ¿âÀàĞÍ¡¾"
-					+ DatabaseSessionUtil.getDBType() + "¡¿");
+			throw new AppException("æ¡†æ¶ä¸ç­¾ä¸èƒ½è¯†åˆ«æ•°æ®åº“ç±»å‹ã€" + DatabaseSessionUtil.getDBType() + "ã€‘");
 		}
 
 		DataStore vds = sql.executeQuery();
@@ -39,23 +39,22 @@ public class DBUtil {
 			s = vds.getString(0, "dbdate");
 		}
 
-		return new Date(formatStrToDate(s).getTime());
+		return new Date(DateUtil.formatStrToDate(s).getTime());
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İÊ±¼ä£º¸ñÊ½Îª£ºyyyy-MM-dd hh:mm:ss
+	 * è·å–æ•°æ®æ—¶é—´ï¼šæ ¼å¼ä¸ºï¼šyyyy-MM-dd hh:mm:ss
 	 * 
-	 * @throws SqlException
+	 * @throws SQLException
 	 */
-	public final static Date getDBTime() throws AppException, SqlException {
+	public final static Date getDBTime() throws AppException, SQLException {
 		synchronized (refreshDBTime) {
 			long currentTime = System.currentTimeMillis();
-			if(!"true".equals(GlobalNames.getDeploy("sql", "SPRING-DBABLE"))){
+			if (!"true".equals(GlobalContext.DATABASE_ABLE.toLowerCase())) {
 				return new Date();
 			}
 
-			if (dbTime == 0
-					|| (dbTime != 0 && currentTime - serverStartTime > 60000)) {
+			if (dbTime == 0 || (dbTime != 0 && currentTime - serverStartTime > 60000)) {
 				String s = null;
 				Sql sql = new Sql();
 				if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_ORACLE) {
@@ -63,8 +62,7 @@ public class DBUtil {
 				} else if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_POSTGRESQL) {
 					sql.setSql("select to_char(CURRENT_TIMESTAMP,'yyyy-mm-dd hh24:mi:ss') dbdate from dual");
 				} else {
-					throw new AppException("¿ò¼Ü²»Ç©²»ÄÜÊ¶±ğÊı¾İ¿âÀàĞÍ¡¾"
-							+ DatabaseSessionUtil.getDBType() + "¡¿");
+					throw new AppException("æ¡†æ¶ä¸ç­¾ä¸èƒ½è¯†åˆ«æ•°æ®åº“ç±»å‹ã€" + DatabaseSessionUtil.getDBType() + "ã€‘");
 				}
 
 				DataStore vds = sql.executeQuery();
@@ -72,95 +70,13 @@ public class DBUtil {
 					s = vds.getString(0, "dbdate");
 				}
 
-				dbTime = formatStrToDate(s).getTime();
+				dbTime = DateUtil.formatStrToDate(s).getTime();
 				serverStartTime = System.currentTimeMillis();
 			} else {
 				dbTime += currentTime - serverStartTime;
 				serverStartTime = currentTime;
 			}
 			return new Date(dbTime);
-		}
-	}
-	
-	/**
-	 * ½«ClobÀàĞÍµÄ¶ÔÏó×ª»»³É×Ö·û´® Èç¹ûClobÊÇÒ»¸ö¿ÕClob¶ÔÏó»òÊÇ±¾ÉíÎª¿Õ Ôò×ª»»³Énull
-	 * 
-	 * @param clob
-	 * @return Èç¹ûclobÎª null ·µ»Ø null
-	 * @throws AppException
-	 * @since 2.0
-	 * @author wf 2009-12-2 13:31:05
-	 */
-	public final static String clob2string(Clob clob) throws AppException {
-		if (clob == null) {
-			return null;
-		}
-		Reader reader;
-		try {
-			if (clob instanceof ClobProxy) {
-				ClobProxy clobProxy = (ClobProxy) clob;
-				reader = clobProxy.getRawClob().getCharacterStream();
-			} else if (clob instanceof javax.sql.rowset.serial.SerialClob) {
-				javax.sql.rowset.serial.SerialClob serialClob = (javax.sql.rowset.serial.SerialClob) clob;
-				reader = serialClob.getCharacterStream();
-			} else {
-				reader = clob.getCharacterStream();
-			}
-			if (reader != null) {
-				BufferedReader br = new BufferedReader(reader);
-				String lineString = br.readLine();
-				StringBuffer sb = new StringBuffer();
-				while (lineString != null) {
-					if (sb.length() == 0) {
-						sb.append(lineString);
-					} else {
-						sb.append("\n" + lineString);
-					}
-					lineString = br.readLine();
-				}
-				return sb.toString();
-			} else {
-				return null;
-			}
-		} catch (SQLException e) {
-			throw new AppException("´ÓClob¶ÔÏóÖĞ»ñÈ¡×Ö·ûÁ÷Êä³ö¶ÔÏóÊ±³öÏÖÒì³£!");
-		} catch (IOException e) {
-			throw new AppException("´ÓClob¶ÔÏóÖĞ¶ÁÈ¡ÄÚÈİÊÇ³öÏÖ I/O Òì³£!");
-		}
-	}
-
-	/**
-	 * ½«StringÀàĞÍµÄ³¤ÎÄ±¾ÄÚÈİĞ´Èëµ½ClobÀàĞÍµÄ¶ÔÏóµ±ÖĞ
-	 * 
-	 * @param clobObj
-	 *            ´ÓÊı¾İ¿âÖĞ»ñÈ¡µÄClobÁĞµÄ¶ÔÏó
-	 * @param clobString
-	 *            ÒªĞ´ÈëµÄ³¤ÎÄ±¾×Ö·û´®
-	 * @throws AppException
-	 */
-	public final static void writeString2Clob(Clob clobObj, String clobString)
-			throws AppException {
-		if (clobObj == null) {// Èç¹ûÃ»ÓĞ»ñÈ¡µ½
-			throw new AppException("ÔÚÏòClobÀàĞÍÖĞĞ´ÈëÊı¾İÊ±£¬´«ÈëµÄClobÀàĞÍÎªNULL£¬ÊôÓÚ·Ç·¨¶ÔÏó!");
-		}
-		try {
-			Writer out = null;
-			if (clobObj instanceof ClobProxy) {
-				ClobProxy clobProxy = (ClobProxy) clobObj;
-				out = clobProxy.getRawClob().setCharacterStream(0L);
-			} else if (clobObj instanceof javax.sql.rowset.serial.SerialClob) {
-				javax.sql.rowset.serial.SerialClob serialClob = (javax.sql.rowset.serial.SerialClob) clobObj;
-				out = serialClob.setCharacterStream(0L);
-			} else {
-				out = ((CLOB) clobObj).setCharacterStream(0L);
-			}
-
-			out.write(clobString);
-			out.close();
-		} catch (IOException e) {
-			throw new AppException("ÔÚÏòClob¶ÔÏóÖĞĞ´ÈëÊı¾İÊ±³öÏÖI/OÒì³£!", e);
-		} catch (SQLException e) {
-			throw new AppException("ÔÚ»ñÈ¡ClobÎÄ±¾Êä³öÁ÷Ê±³öÏÖSQLException!", e);
 		}
 	}
 

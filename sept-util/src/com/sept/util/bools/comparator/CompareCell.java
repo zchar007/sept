@@ -2,15 +2,15 @@ package com.sept.util.bools.comparator;
 
 public class CompareCell {
 	/**
-	 * ²Ù×÷·û
+	 * æ“ä½œç¬¦
 	 */
 	private String cmpoperator;
 	/**
-	 * ²Ù×÷×Ö¶ÎµÄkey
+	 * æ“ä½œå­—æ®µçš„key
 	 */
 	private String cmpkey;
 	/**
-	 * ĞèÒª×÷Îª±È½ÏµÄÖµ
+	 * éœ€è¦ä½œä¸ºæ¯”è¾ƒçš„å€¼
 	 */
 	private String cmpvalue;
 

@@ -5,18 +5,18 @@ import com.jacob.com.Variant;
 
 public class VoiceUtil {
 	public static void main(String[] args) {
-		say("ÄãºÃ");
+		say("ä½ å¥½");
 	}
 	public static void say(String message) {
 		// 
 		ActiveXComponent sap = new ActiveXComponent("Sapi.SpVoice");
-		// DispatchÊÇ×öÊ²Ã´µÄ£¿
+		// Dispatchæ˜¯åšä»€ä¹ˆçš„ï¼Ÿ
 		Dispatch sapo = sap.getObject();
 		try {
 
-			// ÒôÁ¿ 0-100
+			// éŸ³é‡ 0-100
 			sap.setProperty("Volume", new Variant(100));
-			// ÓïÒôÀÊ¶ÁËÙ¶È -10 µ½ +10
+			// è¯­éŸ³æœ—è¯»é€Ÿåº¦ -10 åˆ° +10
 			sap.setProperty("Rate", new Variant(-10));
 
 			// Variant defalutVoice = sap.getProperty("Voice");
@@ -33,7 +33,7 @@ public class VoiceUtil {
 			// ActiveXComponent(setvoice);
 
 			// Variant item = Dispatch.call(setvoiceActivex, "GetDescription");
-			// Ö´ĞĞÀÊ¶Á
+			// æ‰§è¡Œæœ—è¯»
 			Dispatch.call(sapo, "Speak", new Variant(
 					message));
 

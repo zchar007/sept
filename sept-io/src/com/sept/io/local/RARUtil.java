@@ -6,7 +6,7 @@ import com.sept.exception.AppException;
 import com.sept.util.CmdUtil;
 
 /**
- * ²»ÊÊÓÃÓÚwebÊ¹ÓÃ
+ * ä¸é€‚ç”¨äºwebä½¿ç”¨
  * 
  * @author zchar
  * 
@@ -18,7 +18,7 @@ public final class RARUtil {
 	public final static boolean unRarFile(String urlFrom, String urlTo, String passWord) throws AppException {
 		//
 		if (urlFrom == null || !(urlFrom.endsWith("rar") || urlFrom.endsWith("RAR"))) {
-			throw new AppException("Òª½âÑ¹µÄÎÄ¼ş²»´æÔÚ»ò²»ÊÇRARÎÄ¼ş£¡£¡");
+			throw new AppException("è¦è§£å‹çš„æ–‡ä»¶ä¸å­˜åœ¨æˆ–ä¸æ˜¯RARæ–‡ä»¶ï¼ï¼");
 		}
 		File fileFrom = new File(urlFrom);
 		File fileTo = urlTo == null ? fileFrom.getParentFile() : new File(urlTo);
@@ -40,7 +40,7 @@ public final class RARUtil {
 		try {
 			CmdUtil.run(cmd);
 		} catch (Exception e) {
-			String error = "Î´ÕÒµ½Rar.exe";
+			String error = "æœªæ‰¾åˆ°Rar.exe";
 			throw new AppException(e.getMessage() + error);
 		}
 
@@ -49,36 +49,36 @@ public final class RARUtil {
 	}
 
 	/**
-	 * Ñ¹ËõÎÄ¼ş
+	 * å‹ç¼©æ–‡ä»¶
 	 * 
 	 * @param urlFrom
-	 *            :ÎÄ¼şÀ´Ô´ ¿ÉÒÔÊ¹ÎÄ¼ş¼Ğ£¬Ò²¿ÉÒÔÊÇÎÄ¼ş
+	 *            :æ–‡ä»¶æ¥æº å¯ä»¥ä½¿æ–‡ä»¶å¤¹ï¼Œä¹Ÿå¯ä»¥æ˜¯æ–‡ä»¶
 	 * @param urlTo
-	 *            : ²»¿ÉÒÔÊÇÎÄ¼ş Ó¦¸ÃÊÇÎÄ¼ş¼Ğ
+	 *            : ä¸å¯ä»¥æ˜¯æ–‡ä»¶ åº”è¯¥æ˜¯æ–‡ä»¶å¤¹
 	 * @return
 	 * @throws Exception
 	 */
 	public final static boolean RarFile(String urlFrom, String urlTo, String passWord) throws AppException {
 		if (urlFrom == null) {
-			throw new AppException("Èë²Î´íÎó£¡£¡");
+			throw new AppException("å…¥å‚é”™è¯¯ï¼ï¼");
 		}
 		File fileFrom = new File(urlFrom);
 		urlTo = urlTo == null ? fileFrom.getParentFile().getAbsolutePath() : urlTo;
 		File fileTo = new File(urlTo);
-		// ÎÄ¼şÀ´Ô´ÊÇ·ñ´æÔÚ
+		// æ–‡ä»¶æ¥æºæ˜¯å¦å­˜åœ¨
 		if (!fileFrom.exists()) {
-			throw new AppException("ÒªÑ¹ËõµÄÎÄ¼ş²»´æÔÚ£¡£¡");
+			throw new AppException("è¦å‹ç¼©çš„æ–‡ä»¶ä¸å­˜åœ¨ï¼ï¼");
 		}
-		// Èç¹ûÎÄ¼şÈ¥Ïò²»ÊÇRAR½áÎ²µÄ£¬ÄÇÃ´£¬ÔÚÆäÎÄ¼ş¼ĞÏÂĞÂÔöÒÔÔ´ÎÄ¼şÃüÃû²¢ÇÒÒÔrar½áÎ²µÄÎÄ¼ş
+		// å¦‚æœæ–‡ä»¶å»å‘ä¸æ˜¯RARç»“å°¾çš„ï¼Œé‚£ä¹ˆï¼Œåœ¨å…¶æ–‡ä»¶å¤¹ä¸‹æ–°å¢ä»¥æºæ–‡ä»¶å‘½åå¹¶ä¸”ä»¥rarç»“å°¾çš„æ–‡ä»¶
 
 		fileTo = new File(fileTo.getAbsolutePath() + "//" + fileFrom.getName() + ".rar");
-		// »ñÈ¡Æä¸¸ÎÄ¼ş¼Ğ
+		// è·å–å…¶çˆ¶æ–‡ä»¶å¤¹
 		File fTemp = fileTo.getParentFile();
-		// Èç¹û²»´æÔÚ£¬Ôò´´½¨
+		// å¦‚æœä¸å­˜åœ¨ï¼Œåˆ™åˆ›å»º
 		if (!fTemp.exists()) {
 			fTemp.mkdirs();
 		}
-		// Èç¹ûrarÎÄ¼ş²»´æÔÚ£¬Ôò´´½¨(²»ÄÜ´´½¨£¬Èç¹û´´½¨ÁË»áÌáÊ¾ÎÄ¼ş´íÎó)
+		// å¦‚æœraræ–‡ä»¶ä¸å­˜åœ¨ï¼Œåˆ™åˆ›å»º(ä¸èƒ½åˆ›å»ºï¼Œå¦‚æœåˆ›å»ºäº†ä¼šæç¤ºæ–‡ä»¶é”™è¯¯)
 		File fRar = new File(RARUtil.rarExeFile);
 		//
 		String pwStr = "";
@@ -90,7 +90,7 @@ public final class RARUtil {
 		try {
 			CmdUtil.run(cmd);
 		} catch (Exception e) {
-			String error = "Î´ÕÒµ½Rar.exeÎÄ¼ş";
+			String error = "æœªæ‰¾åˆ°Rar.exeæ–‡ä»¶";
 			throw new AppException(e.getMessage() + error);
 		}
 

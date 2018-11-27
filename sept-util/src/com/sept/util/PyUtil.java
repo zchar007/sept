@@ -7,10 +7,10 @@ import com.sept.exception.ExceptionNames;
 
 /**
  * <p>
- * Title: È¡µÃºº×ÖÆ´ÒôÂë
+ * Title: å–å¾—æ±‰å­—æ‹¼éŸ³ç 
  * </p>
  * <p>
- * Description: dareway¹«¹²Àà.È¡µÃºº×ÖÆ´ÒôÂë.
+ * Description: darewayå…¬å…±ç±».å–å¾—æ±‰å­—æ‹¼éŸ³ç .
  * </p>
  * <p>
  * Copyright: Copyright (c) 2002
@@ -25,7 +25,7 @@ import com.sept.exception.ExceptionNames;
 public class PyUtil {
 
 	/**
-	 * ¶¨ÒåÃ¿Ò»¸öºº×ÖµÄÆ´ÒôÂë_ GB2312±àÂëµÄºº×Ö
+	 * å®šä¹‰æ¯ä¸€ä¸ªæ±‰å­—çš„æ‹¼éŸ³ç _ GB2312ç¼–ç çš„æ±‰å­—
 	 */
 	private static final String GB2312PyTable = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + "aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 			+ "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" + "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
@@ -560,12 +560,12 @@ public class PyUtil {
 
 	static {
 		if (GB2312PyTable.length() != 6768) {
-			System.err.println("GB2312ºº×ÖÆ´ÒôÂë×ª»»×ÖµäÊı¾İ´íÎó£¡");
+			System.err.println("GB2312æ±‰å­—æ‹¼éŸ³ç è½¬æ¢å­—å…¸æ•°æ®é”™è¯¯ï¼");
 		}
 	}
 
 	/**
-	 * È¡µÃGB2312±àÂëºº×ÖµÄÆ´ÒôÂë.ÆäËû²»ÄÜÊ¶±ğµÄºº×Ö,»á×ª»»´íÎó. PB³ÌĞòËã·¨.<br>
+	 * å–å¾—GB2312ç¼–ç æ±‰å­—çš„æ‹¼éŸ³ç .å…¶ä»–ä¸èƒ½è¯†åˆ«çš„æ±‰å­—,ä¼šè½¬æ¢é”™è¯¯. PBç¨‹åºç®—æ³•.<br>
 	 * 
 	 * <pre>
 	*     begin
@@ -605,7 +605,7 @@ public class PyUtil {
 		try {
 			eB = hzString.getBytes("GB2312");
 		} catch (UnsupportedEncodingException e) {
-			throw new AppException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGB2312±àÂë");
+			throw new AppException(ExceptionNames.defaultCode, "å­—ç¬¦ä¸²ç”¨GB2312ç¼–ç ");
 		}
 		String eRe = "";
 		int Hz_1 = 0, Hz_2 = 0;
@@ -636,9 +636,9 @@ public class PyUtil {
 	}
 
 	/**
-	 * »ñÈ¡GBK×ÖµÄÆ´ÒôµÄÊ××ÖÄ¸ ÓÉÓÚÊı¾İ½Ï´ó,ÍêÕûµÄGBK±àÂë±í°´GBK¹æ·¶·Ö³É3²¿·Ö
-	 * GBK/2ÎªÓëGB2312¼æÈİµÄ¹ú±êºº×Ö²¿·Ö£¬GBK/3ºÍGBK/4ÎªÀ©Õ¹ºº×Ö²¿·Ö Ã¿Ò»²¿·Ö¶¼ÓĞ×Ô¼ºµÄµØÖ·¼ÆËã¹«Ê½
-	 * ÈôÊäÈëÊÇacsiiÔò·µ»ØÍ¬ÑùµÄacsii ÈôÊäÈëÊÇÖĞÎÄ×Ö·ûÔò·µ»ØÆ´ÒôµÄÊ××ÖÄ¸ ÈôÊäÈëÊÇÖĞÎÄ×Ö·ûµ«ÊÇ¸Ã×Ö·û²»ÖªµÀÈçºÎ·¢Òô£¬Ôò·µ»Ø¿Õ×Ö·û
+	 * è·å–GBKå­—çš„æ‹¼éŸ³çš„é¦–å­—æ¯ ç”±äºæ•°æ®è¾ƒå¤§,å®Œæ•´çš„GBKç¼–ç è¡¨æŒ‰GBKè§„èŒƒåˆ†æˆ3éƒ¨åˆ†
+	 * GBK/2ä¸ºä¸GB2312å…¼å®¹çš„å›½æ ‡æ±‰å­—éƒ¨åˆ†ï¼ŒGBK/3å’ŒGBK/4ä¸ºæ‰©å±•æ±‰å­—éƒ¨åˆ† æ¯ä¸€éƒ¨åˆ†éƒ½æœ‰è‡ªå·±çš„åœ°å€è®¡ç®—å…¬å¼
+	 * è‹¥è¾“å…¥æ˜¯acsiiåˆ™è¿”å›åŒæ ·çš„acsii è‹¥è¾“å…¥æ˜¯ä¸­æ–‡å­—ç¬¦åˆ™è¿”å›æ‹¼éŸ³çš„é¦–å­—æ¯ è‹¥è¾“å…¥æ˜¯ä¸­æ–‡å­—ç¬¦ä½†æ˜¯è¯¥å­—ç¬¦ä¸çŸ¥é“å¦‚ä½•å‘éŸ³ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦
 	 * 
 	 * @param hzString
 	 * @return
@@ -651,7 +651,7 @@ public class PyUtil {
 		int ch1code = 0, ch2code = 0;
 		char ch1, ch2, pystr;
 		String py;
-		// ¿ìËÙ´¦Àí
+		// å¿«é€Ÿå¤„ç†
 		if (hzString == null || hzString.length() == 0)
 			return "";
 
@@ -659,11 +659,11 @@ public class PyUtil {
 		try {
 			eB = hzString.getBytes("GBK");
 		} catch (UnsupportedEncodingException e) {
-			throw new AppException(ExceptionNames.defaultCode, "×Ö·û´®ÓÃGBK±àÂë");
+			throw new AppException(ExceptionNames.defaultCode, "å­—ç¬¦ä¸²ç”¨GBKç¼–ç ");
 		}
 		len = eB.length;
 
-		// ¿ªÊ¼¼ÆËã
+		// å¼€å§‹è®¡ç®—
 		pyi = 0;
 		py = "";
 		while (pyi < len) {
@@ -671,11 +671,11 @@ public class PyUtil {
 			pyi = pyi + 1;
 			ch1code = ch1;
 			if (ch1code > 0 && ch1code < 129) {
-				// ÆÕÍ¨µÄacsii
+				// æ™®é€šçš„acsii
 				py = py + ch1;
 				continue;
 			} else {
-				// GBK×Ö·û
+				// GBKå­—ç¬¦
 				ch1 = (char) (256 + (int) ch1);
 				if (eB[pyi] < 0) {
 					ch2 = (char) (256 + (int) eB[pyi]);
@@ -690,23 +690,23 @@ public class PyUtil {
 			ch1code = ch1;
 			ch2code = ch2;
 			if (ch1code <= 160 && ch1code >= 129) {
-				// ²éÕÒGBK_3
+				// æŸ¥æ‰¾GBK_3
 				no = (ch1code - 129) * 191 + (ch2code - 63);
 				if (no <= 0 || no > 6112) {
 					continue;
 				}
 				pystr = gbk3.charAt(no - 1);
 			} else if (ch1code <= 254 && ch1code >= 170) {
-				// ²éÕÒGBK_3
+				// æŸ¥æ‰¾GBK_3
 				if (ch2code > 160) {
-					// ²éÕÒGBK_2
+					// æŸ¥æ‰¾GBK_2
 					no = (ch1code - 176) * 94 + (ch2code - 160);
 					if (no <= 0 || no > 6768) {
 						continue;
 					}
 					pystr = gbk2.charAt(no - 1);
 				} else {
-					// ²éÕÒGBK_4
+					// æŸ¥æ‰¾GBK_4
 					no = (ch1code - 170) * 97 + (ch2code - 63);
 					if (no <= 0 || no > 8245) {
 						continue;
@@ -714,7 +714,7 @@ public class PyUtil {
 					pystr = gbk4.charAt(no - 1);
 				}
 			} else {
-				// ²»ÊÇGBKºº×Ö
+				// ä¸æ˜¯GBKæ±‰å­—
 				continue;
 			}
 			py = py + pystr;
@@ -723,6 +723,6 @@ public class PyUtil {
 	}
 
 	public static void main(String[] args) throws AppException, UnsupportedEncodingException {
-		System.out.println(new String(getGBKpy("ÄãºÃ").getBytes("GBK")));
+		System.out.println(new String(getGBKpy("ä½ å¥½").getBytes("GBK")));
 	}
 }

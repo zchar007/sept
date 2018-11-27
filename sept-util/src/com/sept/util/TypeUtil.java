@@ -9,15 +9,15 @@ import java.util.HashMap;
 import com.sept.exception.AppException;
 
 public class TypeUtil {
-	public static final String STRING = "s";// ×Ö·û´®
-	public static final String NUMBER = "n";// Êı×Ö
+	public static final String STRING = "s";// å­—ç¬¦ä¸²
+	public static final String NUMBER = "n";// æ•°å­—
 	public static final String BLOB = "bb";
 	public static final String CLOB = "c";
 	public static final String BOOLEAN = "b";
 	public static final String DATE = "d";
 	public static final String OBJECT = "o";
 
-	// ÒÔÏÂ¿ÉÄÜ»á±»×ª»»
+	// ä»¥ä¸‹å¯èƒ½ä¼šè¢«è½¬æ¢
 	public static final String DATETIME = "dt";
 	public static final String DOUBLE = "db";
 	public static final String FLOAT = "f";
@@ -42,18 +42,18 @@ public class TypeUtil {
 	}
 
 	/**
-	 * DataStore DataObject ´æ´¢Êı¾İÊ±»ñÈ¡valueÀàĞÍ</br>
-	 * Êı×ÖĞÍ²ÎÊı×ª³ÉNumber ÈÕÆÚĞÍ×ª³É java.util.Date
+	 * DataStore DataObject å­˜å‚¨æ•°æ®æ—¶è·å–valueç±»å‹</br>
+	 * æ•°å­—å‹å‚æ•°è½¬æˆNumber æ—¥æœŸå‹è½¬æˆ java.util.Date
 	 * 
-	 * @param ¹Ø¼ü×Ö ËµÃ÷
-	 * @return ¹Ø¼ü×Ö ËµÃ÷
-	 * @throws Òì³£ËµÃ÷ ·¢ÉúÌõ¼ş
-	 * @author ÕÅ³¬
-	 * @date ´´½¨Ê±¼ä 2017-6-12
+	 * @param å…³é”®å­— è¯´æ˜
+	 * @return å…³é”®å­— è¯´æ˜
+	 * @throws å¼‚å¸¸è¯´æ˜ å‘ç”Ÿæ¡ä»¶
+	 * @author å¼ è¶…
+	 * @date åˆ›å»ºæ—¶é—´ 2017-6-12
 	 * @since V1.0
 	 */
 	public static final String getValueType(Object o) {
-		if (null == o) {// null×÷String ´¦Àí
+		if (null == o) {// nullä½œString å¤„ç†
 			return STRING;
 		}
 		String cname = o.getClass().getName();
@@ -88,7 +88,7 @@ public class TypeUtil {
 	}
 
 	/**
-	 * °ÑObject ×ª»»Îª¶ÔÓ¦µÄÀàĞÍ
+	 * æŠŠObject è½¬æ¢ä¸ºå¯¹åº”çš„ç±»å‹
 	 * 
 	 * @param type
 	 * @param value
@@ -146,7 +146,7 @@ public class TypeUtil {
 		if (o instanceof Blob || cname.equals("java.sql.Blob")) {
 			return (Blob) o;
 		}
-		throw new AppException("²»Ö§³ÖµÄ¿çÀàĞÍ×ª»»");
+		throw new AppException("ä¸æ”¯æŒçš„è·¨ç±»å‹è½¬æ¢");
 	}
 
 	public static Clob objectToClob(Object o) throws AppException {
@@ -157,7 +157,7 @@ public class TypeUtil {
 		if (o instanceof Clob || cname.equals("java.sql.Clob")) {
 			return (Clob) o;
 		}
-		throw new AppException("²»Ö§³ÖµÄ¿çÀàĞÍ×ª»»");
+		throw new AppException("ä¸æ”¯æŒçš„è·¨ç±»å‹è½¬æ¢");
 	}
 
 	public static String objectToString(Object o) throws AppException {

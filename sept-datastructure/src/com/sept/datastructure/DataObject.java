@@ -17,7 +17,7 @@ import com.sept.util.bools.comparator.Comparator;
 import com.sept.util.compara.ComparaUtil;
 
 /**
- * ĞÂµÄDataObject ,È¡ÖµÊ±²»±»ÏŞÖÆÀàĞÍ
+ * æ–°çš„DataObject ,å–å€¼æ—¶ä¸è¢«é™åˆ¶ç±»å‹
  * 
  * @author zchar
  *
@@ -25,13 +25,13 @@ import com.sept.util.compara.ComparaUtil;
 public class DataObject extends HashMap<String, Object> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private LinkedHashMap<String, String> typeList = null;
-	protected boolean isLowerKey = false;// Ä¬ÈÏ¶ÔËùÓĞkey½øĞĞĞ¡Ğ´»¯²Ù×÷
+	protected boolean isLowerKey = false;// é»˜è®¤å¯¹æ‰€æœ‰keyè¿›è¡Œå°å†™åŒ–æ“ä½œ
 
 	public DataObject() {
 		typeList = new LinkedHashMap<String, String>();
 	}
 
-	// ¿ÉÉèÖÃÊÇ·ñ½«keyÈ«²¿ÖÃÎªĞ¡Ğ´
+	// å¯è®¾ç½®æ˜¯å¦å°†keyå…¨éƒ¨ç½®ä¸ºå°å†™
 	public DataObject(boolean isLowerKey) {
 		this.isLowerKey = isLowerKey;
 		typeList = new LinkedHashMap<String, String>();
@@ -39,16 +39,16 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 
 	@Override
 	public Object put(String key, Object value) {
-		// key²»ÄÜÎª¿Õ
+		// keyä¸èƒ½ä¸ºç©º
 		if (null == key || key.trim().isEmpty()) {
 			return null;
 		}
-		// Êı¾İkey²»ÄÜÎªtypelistµÄÈÎÒâ´óĞ¡Ğ´Ë³Ğò×éºÏ
+		// æ•°æ®keyä¸èƒ½ä¸ºtypelistçš„ä»»æ„å¤§å°å†™é¡ºåºç»„åˆ
 		key = getKey(key).trim();
 		if (key.toUpperCase().equals("TYPELIST")) {
 			return null;
 		}
-		// Ì«ºÄÊ±ÁË£¬Õâ²¿·ÖÉ¶Ê±ºò»ñÈ¡É¶Ê±ºòÓÃ
+		// å¤ªè€—æ—¶äº†ï¼Œè¿™éƒ¨åˆ†å•¥æ—¶å€™è·å–å•¥æ—¶å€™ç”¨
 //		String type = TypeUtil.getValueType(value);
 //		this.typeList.put(key, type);
 		return super.put(key, value);
@@ -65,7 +65,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 //	}
 
 	/**
-	 * »ñÈ¡Object
+	 * è·å–Object
 	 * 
 	 * @param key
 	 * @return
@@ -73,13 +73,13 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	 */
 	public Object get(String key) throws AppException {
 		if (!this.containsKey(key)) {
-			throw new AppException("²»º¬ÓĞkeyÎª[" + key + "]µÄÖµ£¡");
+			throw new AppException("ä¸å«æœ‰keyä¸º[" + key + "]çš„å€¼ï¼");
 		}
 		return super.get(key);
 	}
 
 	/**
-	 * ´øÄ¬ÈÏÖµµÄ»ñÈ¡Object
+	 * å¸¦é»˜è®¤å€¼çš„è·å–Object
 	 * 
 	 * @param key
 	 * @param defaultValue
@@ -94,7 +94,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * »ñÈ¡Object
+	 * è·å–Object
 	 * 
 	 * @param key
 	 * @return
@@ -104,7 +104,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * ´øÄ¬ÈÏÖµµÄ»ñÈ¡Object
+	 * å¸¦é»˜è®¤å€¼çš„è·å–Object
 	 * 
 	 * @param key
 	 * @param defaultValue
@@ -123,7 +123,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (int) TypeUtil.getValueByType(TypeUtil.INTEGER, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡intÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–intç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -132,7 +132,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (double) TypeUtil.getValueByType(TypeUtil.DOUBLE, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡doubleÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–doubleç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -141,7 +141,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (long) TypeUtil.getValueByType(TypeUtil.LONG, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡longÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–longç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -150,7 +150,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (float) TypeUtil.getValueByType(TypeUtil.FLOAT, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡floatÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–floatç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -159,7 +159,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (String) TypeUtil.getValueByType(TypeUtil.STRING, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡StringÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–Stringç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -169,7 +169,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 			Date d = (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
 			return DateUtil.formatDate(d, formatStr);
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡DataStoreÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–DataStoreç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -178,7 +178,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (Date) TypeUtil.getValueByType(TypeUtil.DATE, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡DateÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–Dateç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -187,7 +187,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (BigDecimal) TypeUtil.getValueByType(TypeUtil.BIGDECIMAL, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡BigDecimalÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–BigDecimalç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -196,7 +196,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (boolean) TypeUtil.getValueByType(TypeUtil.BOOLEAN, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡booleanÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–booleanç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -205,7 +205,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (Blob) TypeUtil.getValueByType(TypeUtil.BLOB, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡BlobÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–Blobç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -214,7 +214,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (Clob) TypeUtil.getValueByType(TypeUtil.CLOB, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡ClobÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–Clobç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -223,7 +223,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (DataObject) TypeUtil.getValueByType(TypeUtil.DATAOBJECT, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡DataObjectÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–DataObjectç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -232,7 +232,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 		try {
 			return (DataStore) TypeUtil.getValueByType(TypeUtil.DATASTORE, this.get(key));
 		} catch (Exception e) {
-			throw new AppException("»ñÈ¡DataStoreÀàĞÍµÄ¡¾" + key + "¡¿Ê±³ö´í£º" + e.getMessage());
+			throw new AppException("è·å–DataStoreç±»å‹çš„ã€" + key + "ã€‘æ—¶å‡ºé”™ï¼š" + e.getMessage());
 		}
 	}
 
@@ -367,7 +367,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÀàĞÍ
+	 * è·å–å‚æ•°ç±»å‹
 	 * 
 	 * @param key
 	 * @return
@@ -384,7 +384,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÀàĞÍ
+	 * è®¾ç½®å‚æ•°ç±»å‹
 	 * 
 	 * @param key
 	 * @param type
@@ -412,11 +412,11 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 				key = tl2[0];
 				value = tl2[1];
 				key = this.getKey(key);
-				// Èç¹ûÊÇÀàĞÍ£¬Ö±½Ó²åÈë
+				// å¦‚æœæ˜¯ç±»å‹ï¼Œç›´æ¥æ’å…¥
 				if (TypeUtil.isType(value)) {
 					this.typeList.put(key, value);
 				} else {
-					// ·ñÔò²é¿´µ±Ç°´æÈëµÄÖµ,´æÈëÆäÄ¬ÈÏÀàĞÍ
+					// å¦åˆ™æŸ¥çœ‹å½“å‰å­˜å…¥çš„å€¼,å­˜å…¥å…¶é»˜è®¤ç±»å‹
 					Object o = this.get(key);
 					this.typeList.put(key, TypeUtil.getValueType(o));
 
@@ -440,7 +440,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * »ñÈ¡ÀàĞÍ
+	 * è·å–ç±»å‹
 	 * 
 	 * @return
 	 * @throws AppException
@@ -481,7 +481,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * ¼ìË÷
+	 * æ£€ç´¢
 	 * 
 	 * @param comparator
 	 * @return
@@ -492,7 +492,7 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * ÄÚ²¿¼ìË÷ÓÃ£¬²»»áÅĞ¶ÏÀàĞÍ
+	 * å†…éƒ¨æ£€ç´¢ç”¨ï¼Œä¸ä¼šåˆ¤æ–­ç±»å‹
 	 * 
 	 * @param comparator
 	 * @return
@@ -503,10 +503,10 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * µ±Ç°Éî¿ËÂ¡Ö»ÄÜ¸²¸ÇDataStoreºÍDataObject
+	 * å½“å‰æ·±å…‹éš†åªèƒ½è¦†ç›–DataStoreå’ŒDataObject
 	 */
 	public DataObject clone() {
-		// ĞèÒªÖØĞ´
+		// éœ€è¦é‡å†™
 		DataObject doTemp = new DataObject(this.isLowerKey);
 		doTemp.putAll(this);
 		for (Entry<String, Object> entry : this.entrySet()) {
@@ -524,12 +524,12 @@ public class DataObject extends HashMap<String, Object> implements Serializable 
 	}
 
 	/**
-	 * µ±Ç°Éî¿ËÂ¡Ö»ÄÜ¸²¸ÇDataStoreºÍDataObject
+	 * å½“å‰æ·±å…‹éš†åªèƒ½è¦†ç›–DataStoreå’ŒDataObject
 	 * 
 	 * @throws AppException
 	 */
 	public DataObject clone(boolean isLowerKey) throws AppException {
-		// ĞèÒªÖØĞ´
+		// éœ€è¦é‡å†™
 		DataObject doTemp = new DataObject(isLowerKey);
 		doTemp.putAll(this);
 		for (Entry<String, Object> entry : this.entrySet()) {

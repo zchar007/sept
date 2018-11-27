@@ -17,13 +17,13 @@ import com.sept.datastructure.util.XMLUtil;
 import com.sept.exception.AppException;
 
 public class DataStore extends ArrayList<DataObject> implements Serializable {
-	protected boolean isLowerKey = false;// Ä¬ÈÏ¶ÔËùÓĞkey²»½øĞĞĞ¡Ğ´»¯²Ù×÷
-	// É¸Ñ¡Ïà¹Ø
+	protected boolean isLowerKey = false;// é»˜è®¤å¯¹æ‰€æœ‰keyä¸è¿›è¡Œå°å†™åŒ–æ“ä½œ
+	// ç­›é€‰ç›¸å…³
 	/*
 	 * private Object filterKey = new Object(); private ArrayList<Integer> filterAl
 	 * = new ArrayList<Integer>(); private int nowIndex = 0; private ExecutorService
 	 * fixedThreadPool; private static int minSerchCount = 1000; private static int
-	 * maxSerchCount = 100000;// Ã¿¸öÏß³Ì´¦Àí10WÌõÊı¾İ»¹ÊÇ±È½ÏÓÅµÄ£¬ÔÙ¶àÁË¾ÍãÂ±ÆÁË
+	 * maxSerchCount = 100000;// æ¯ä¸ªçº¿ç¨‹å¤„ç†10Wæ¡æ•°æ®è¿˜æ˜¯æ¯”è¾ƒä¼˜çš„ï¼Œå†å¤šäº†å°±æ‡µé€¼äº†
 	 * 
 	 * protected long debug_costTime; protected int debug_threadcount; protected int
 	 * debug_every; protected int debug_last;
@@ -47,7 +47,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 
 	public boolean addRow(DataObject vdo) throws AppException {
 		if (null == vdo) {
-			throw new AppException("DataStore ²»¿É´æÈëÎª null µÄ DataObject");
+			throw new AppException("DataStore ä¸å¯å­˜å…¥ä¸º null çš„ DataObject");
 		}
 		vdo.setLowerKey(isLowerKey);
 		return this.add(vdo);
@@ -55,7 +55,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 
 	public boolean addAll(DataStore vds) throws AppException {
 		if (null == vds) {
-			throw new AppException("DataStore ²»¿É´æÈëÎª null µÄ DataStore");
+			throw new AppException("DataStore ä¸å¯å­˜å…¥ä¸º null çš„ DataStore");
 		}
 //		for (DataObject pdo : vds) {
 //			this.addRow(pdo);
@@ -65,173 +65,173 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	public Object put(int row, String key, Object value) throws AppException {
-		this.checkRow("´æÈëÎ»ÖÃ", row);
+		this.checkRow("å­˜å…¥ä½ç½®", row);
 		return this.getRow(row).put(key, value);
 	}
 
 	public DataObject getRow(int row) throws AppException {
-		this.checkRow("»ñÈ¡Î»ÖÃ", row);
+		this.checkRow("è·å–ä½ç½®", row);
 		return this.get(row);
 	}
 
 	// String
 	public String getString(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getString(key);
 	}
 
 	public String getString(int row, String key, String defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getString(key, defaul);
 	}
 
 	// Integer
 	public int getInt(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getInt(key);
 	}
 
 	public int getInt(int row, String key, int defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getInt(key, defaul);
 	}
 
 	// Double
 	public double getDouble(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDouble(key);
 	}
 
 	public double getDouble(int row, String key, double defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDouble(key, defaul);
 	}
 
 	// Float
 	public float getFloat(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getFloat(key);
 	}
 
 	public float getFloat(int row, String key, float defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getFloat(key, defaul);
 	}
 
 	// Long
 	public long getLong(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getLong(key);
 	}
 
 	public long getLong(int row, String key, long defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getLong(key, defaul);
 	}
 
 	// Long
 	public BigDecimal getBigDecimal(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBigDecimal(key);
 	}
 
 	public BigDecimal getBigDecimal(int row, String key, BigDecimal defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBigDecimal(key, defaul);
 	}
 
 	// Blob
 	public Blob getBlob(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBlob(key);
 	}
 
 	public Blob getBlob(int row, String key, Blob defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBlob(key, defaul);
 	}
 
 	public Clob getClob(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getClob(key);
 	}
 
 	public Clob getClob(int row, String key, Clob defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getClob(key, defaul);
 	}
 
 	// Date
 	public Date getDate(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDate(key);
 	}
 
 	public Date getDate(int row, String key, Date defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDate(key, defaul);
 	}
 
 	// Boolean
 	public boolean getBoolean(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBoolean(key);
 	}
 
 	public boolean getBoolean(int row, String key, boolean defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getBoolean(key, defaul);
 	}
 
 	// DataStore
 	public DataStore getDataStore(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDataStore(key);
 	}
 
 	public DataStore getDataStore(int row, String key, DataStore defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDataStore(key, defaul);
 	}
 
 	// DataObject
 	public DataObject getDataObject(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDataObject(key);
 	}
 
 	public DataObject getDataObject(int row, String key, DataObject defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getDataObject(key, defaul);
 	}
 
 	// Object
 	public Object getObject(int row, String key) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getObject(key);
 	}
 
 	public Object getObject(int row, String key, Object defaul) throws AppException {
-		this.checkRow("»ñÈ¡Êı¾İ", row);
+		this.checkRow("è·å–æ•°æ®", row);
 		return this.get(row).getObject(key, defaul);
 	}
 
 	private void checkRow(String message, int row) throws AppException {
 		if (row >= this.size()) {
-			throw new AppException(message + ":[" + row + "] ³¬¹ıÁË±¾ DataStoreµÄ×î´óĞòÁĞ" + (this.size() - 1));
+			throw new AppException(message + ":[" + row + "] è¶…è¿‡äº†æœ¬ DataStoreçš„æœ€å¤§åºåˆ—" + (this.size() - 1));
 		}
 	}
 
 	public void insertRow(int row, DataObject vdo) throws AppException {
 		if (null == vdo) {
-			throw new AppException("DataStore ²»¿É´æÈëÎª null µÄ DataObject");
+			throw new AppException("DataStore ä¸å¯å­˜å…¥ä¸º null çš„ DataObject");
 		}
 		super.add(row, vdo);
 //		if (row > this.size()) {
-//			throw new AppException("Ëù²åÈëµÄÎ»ÖÃ £º " + row + " ³¬¹ıÁË±¾ DataStoreµÄÏÂÒ»¸öĞòÁĞ" + this.size());
+//			throw new AppException("æ‰€æ’å…¥çš„ä½ç½® ï¼š " + row + " è¶…è¿‡äº†æœ¬ DataStoreçš„ä¸‹ä¸€ä¸ªåºåˆ—" + this.size());
 //		}
 //		if (null == vdo) {
-//			throw new AppException("DataStore ²»¿É´æÈëÎª null µÄ DataObject");
+//			throw new AppException("DataStore ä¸å¯å­˜å…¥ä¸º null çš„ DataObject");
 //		}
 //		if (row == this.size()) {
 //			this.add(vdo);
@@ -247,7 +247,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	public Object delRow(int row) throws AppException {
-		this.checkRow("É¾³ıÊı¾İ", row);
+		this.checkRow("åˆ é™¤æ•°æ®", row);
 		return super.remove(row);
 	}
 
@@ -257,13 +257,13 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 
 	/*
 	 * //
-	 * ²éÕÒÏà¹Ø£¬ÔİÊ±·ÏÆú£¬¶àÏß³ÌºÄ×ÊÔ´£¬¹ıÂË²¢ĞŞ¸Äµ±Ç°DataStoreµ¹ÊÇÍ¦¿ìµÄ£¬±£³Öµ±Ç°DataStore²»±ä¶ÔÓÚĞÂ½¨DataStoreµÄ»°£¬Õ¼ÓÃ×ÊÔ´¹ı¶à£¨
-	 * °üÀ¨Ïß³Ì£©»áµ¼ÖÂÔËĞĞ»ºÂı,ËùÒÔ¾¡Á¿Ê±ÓÃµÄÊ±ºòÖ±½ÓÓÃ±¼À×µÄFilter·½·¨
+	 * æŸ¥æ‰¾ç›¸å…³ï¼Œæš‚æ—¶åºŸå¼ƒï¼Œå¤šçº¿ç¨‹è€—èµ„æºï¼Œè¿‡æ»¤å¹¶ä¿®æ”¹å½“å‰DataStoreå€’æ˜¯æŒºå¿«çš„ï¼Œä¿æŒå½“å‰DataStoreä¸å˜å¯¹äºæ–°å»ºDataStoreçš„è¯ï¼Œå ç”¨èµ„æºè¿‡å¤šï¼ˆ
+	 * åŒ…æ‹¬çº¿ç¨‹ï¼‰ä¼šå¯¼è‡´è¿è¡Œç¼“æ…¢,æ‰€ä»¥å°½é‡æ—¶ç”¨çš„æ—¶å€™ç›´æ¥ç”¨å¥”é›·çš„Filteræ–¹æ³•
 	 *//**
 		 * == and <> a == 0 and x <> 0 and
 		 * 
 		 * @param fliterStr
-		 * @param isModifyMine ÊÇ·ñĞŞ¸Ä×ÔÉíÊı¾İ£¬trueĞŞ¸Ä£¬false²»ĞŞ¸Ä
+		 * @param isModifyMine æ˜¯å¦ä¿®æ”¹è‡ªèº«æ•°æ®ï¼Œtrueä¿®æ”¹ï¼Œfalseä¸ä¿®æ”¹
 		 * @return
 		 * @throws AppException
 		 * @throws Exception
@@ -276,7 +276,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * this.addAll(vdsReturn); } return this; }
 	 * 
 	 *//**
-		 * É¸Ñ¡²¢ĞŞ¸ÄÊı¾İ
+		 * ç­›é€‰å¹¶ä¿®æ”¹æ•°æ®
 		 * 
 		 * @param conditions
 		 * @return
@@ -287,7 +287,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * this.filter(conditions, true); }
 	 * 
 	 *//**
-		 * É¸Ñ¡Êı¾İ£¬·µ»ØÉ¸Ñ¡½á¹û£¬¶ÔÔ­Êı¾İ²»×öĞŞ¸Ä
+		 * ç­›é€‰æ•°æ®ï¼Œè¿”å›ç­›é€‰ç»“æœï¼Œå¯¹åŸæ•°æ®ä¸åšä¿®æ”¹
 		 * 
 		 * @param conditions
 		 * @return
@@ -299,7 +299,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * this.filter(conditions, false); }
 	 * 
 	 *//**
-		 * ²éÕÒËùÓĞ·ûºÏÌõ¼şµÄÊı¾İËùÔÚĞĞ == and <> a == 0 and x <> 0 and ²»ĞŞ¸Ä×ÔÉíÊı¾İ£¬·µ»Ørow´®
+		 * æŸ¥æ‰¾æ‰€æœ‰ç¬¦åˆæ¡ä»¶çš„æ•°æ®æ‰€åœ¨è¡Œ == and <> a == 0 and x <> 0 and ä¸ä¿®æ”¹è‡ªèº«æ•°æ®ï¼Œè¿”å›rowä¸²
 		 * 
 		 * @return
 		 * @throws AppException
@@ -313,31 +313,31 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * booleanArray = comparator.getCompareCells();
 	 * 
 	 * if (null == logicArray) { throw new AppException(this.getClass().getName() +
-	 * ":²ÎÊılogicArrayÎªnull"); } if (null == booleanArray) { throw new
-	 * AppException(this.getClass().getName() + ":²ÎÊıbooleanArrayÎªnull"); } if
+	 * ":å‚æ•°logicArrayä¸ºnull"); } if (null == booleanArray) { throw new
+	 * AppException(this.getClass().getName() + ":å‚æ•°booleanArrayä¸ºnull"); } if
 	 * (logicArray.size() != booleanArray.size() - 1) { throw new
-	 * AppException(this.getClass().getName() + ":²ÎÊı²»Æ¥Åä"); }
+	 * AppException(this.getClass().getName() + ":å‚æ•°ä¸åŒ¹é…"); }
 	 * 
 	 * if (this.size() <= 0) { return null; } for (int i = 0; i <
 	 * booleanArray.size(); i++) { CompareCell compareCell = booleanArray.get(i);
 	 * String columnName = compareCell.getCmpkey(); Object cmpLVal =
 	 * this.get(0).get(columnName);
 	 * 
-	 * // ¼ì²éÊÇ·ñ¿ÉÒÔ¼ìË÷ String valueType = TypeUtil.getValueType(cmpLVal); if
+	 * // æ£€æŸ¥æ˜¯å¦å¯ä»¥æ£€ç´¢ String valueType = TypeUtil.getValueType(cmpLVal); if
 	 * (!(TypeUtil.DATE + "," + TypeUtil.NUMBER + "," + TypeUtil.BOOLEAN + "," +
-	 * TypeUtil.STRING) .contains(valueType)) { throw new AppException("ÁĞ[" +
-	 * columnName + "]ÀàĞÍÎª[" + valueType + "]²»Ö§³Ö¼ìË÷!"); }
+	 * TypeUtil.STRING) .contains(valueType)) { throw new AppException("åˆ—[" +
+	 * columnName + "]ç±»å‹ä¸º[" + valueType + "]ä¸æ”¯æŒæ£€ç´¢!"); }
 	 * 
 	 * }
 	 * 
 	 * ArrayList<Integer> al = new ArrayList<>(); // Date d2 = new Date(); int index
-	 * = 0; int onceCount = minSerchCount;// ×îĞ¡µÄÒ»´ÎËÑË÷ int threadCount = 9;//
-	 * Ïß³ÌÊı,²»°üÀ¨×îºóÒ»¸öÏß³Ì // ÊıÁ¿Ğ¡ÓÚµÈÓÚ10W if (this.rowCount() <= minSerchCount * 10) {
-	 * threadCount = this.rowCount() / minSerchCount;// µÃµ½0-10µÄÊı if (threadCount >
+	 * = 0; int onceCount = minSerchCount;// æœ€å°çš„ä¸€æ¬¡æœç´¢ int threadCount = 9;//
+	 * çº¿ç¨‹æ•°,ä¸åŒ…æ‹¬æœ€åä¸€ä¸ªçº¿ç¨‹ // æ•°é‡å°äºç­‰äº10W if (this.rowCount() <= minSerchCount * 10) {
+	 * threadCount = this.rowCount() / minSerchCount;// å¾—åˆ°0-10çš„æ•° if (threadCount >
 	 * 0) { onceCount = minSerchCount; } else { onceCount = this.rowCount();
 	 * threadCount = 0; } } else if (this.rowCount() > minSerchCount * 10 &&
-	 * this.rowCount() <= maxSerchCount * 10) {// ÊıÁ¿´óÓÚ10W threadCount = 9; onceCount
-	 * = this.rowCount() / 10;// Æ½·Ö } else { threadCount = this.rowCount() /
+	 * this.rowCount() <= maxSerchCount * 10) {// æ•°é‡å¤§äº10W threadCount = 9; onceCount
+	 * = this.rowCount() / 10;// å¹³åˆ† } else { threadCount = this.rowCount() /
 	 * maxSerchCount; onceCount = maxSerchCount; } fixedThreadPool =
 	 * Executors.newFixedThreadPool(threadCount * 2); for (int i = 0; i <
 	 * threadCount; i++) { final int indexTemp = index; final int onceCountTemp =
@@ -347,20 +347,20 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * final int indexTemp = index; final int end = this.rowCount();
 	 * fixedThreadPool.execute(() -> threadDoFilter(comparator, indexTemp, end));
 	 * 
-	 * } System.out.println(this.rowCount() + "×îÖÕ¾ö¶¨ÓÃ" + (threadCount + 1) +
-	 * "¸öÏß³Ì£¬Ã¿¸öÏß³Ì" + onceCount + "¸ö£¬×îºóÒ»¸ö" + (this.rowCount() - index) + "¸ö");
+	 * } System.out.println(this.rowCount() + "æœ€ç»ˆå†³å®šç”¨" + (threadCount + 1) +
+	 * "ä¸ªçº¿ç¨‹ï¼Œæ¯ä¸ªçº¿ç¨‹" + onceCount + "ä¸ªï¼Œæœ€åä¸€ä¸ª" + (this.rowCount() - index) + "ä¸ª");
 	 * synchronized (filterKey) { while (this.rowCount() != this.nowIndex) { try {
 	 * filterKey.wait(); } catch (InterruptedException e) { e.printStackTrace(); } }
 	 * } al = this.filterAl;
 	 * 
-	 * // ³õÊ¼»¯ËùÓĞ²ÎÊı£¬ fixedThreadPool.shutdownNow(); fixedThreadPool = null; filterAl =
+	 * // åˆå§‹åŒ–æ‰€æœ‰å‚æ•°ï¼Œ fixedThreadPool.shutdownNow(); fixedThreadPool = null; filterAl =
 	 * new ArrayList<Integer>(); nowIndex = 0;
 	 * 
 	 * int[] ii = new int[al.size()]; for (int i = 0; i < al.size(); i++) { ii[i] =
 	 * al.get(i); } return ii; }
 	 * 
 	 *//**
-		 * ²éÕÒµÚÒ»¸ö·ûºÏÌõ¼şµÄÊı¾İËùÔÚĞĞ£¬Î´ÕÒµ½·µ»Ø-1 == and <> a == 0 and x <> 0 and ²»ĞŞ¸Ä×ÔÉíÊı¾İ
+		 * æŸ¥æ‰¾ç¬¬ä¸€ä¸ªç¬¦åˆæ¡ä»¶çš„æ•°æ®æ‰€åœ¨è¡Œï¼Œæœªæ‰¾åˆ°è¿”å›-1 == and <> a == 0 and x <> 0 and ä¸ä¿®æ”¹è‡ªèº«æ•°æ®
 		 * 
 		 * @param conditions
 		 * @return
@@ -374,31 +374,31 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * comparator.getCompareCells();
 	 * 
 	 * if (null == logicArray) { throw new AppException(this.getClass().getName() +
-	 * ":²ÎÊılogicArrayÎªnull"); } if (null == booleanArray) { throw new
-	 * AppException(this.getClass().getName() + ":²ÎÊıbooleanArrayÎªnull"); } if
+	 * ":å‚æ•°logicArrayä¸ºnull"); } if (null == booleanArray) { throw new
+	 * AppException(this.getClass().getName() + ":å‚æ•°booleanArrayä¸ºnull"); } if
 	 * (logicArray.size() != booleanArray.size() - 1) { throw new
-	 * AppException(this.getClass().getName() + ":²ÎÊı²»Æ¥Åä"); }
+	 * AppException(this.getClass().getName() + ":å‚æ•°ä¸åŒ¹é…"); }
 	 * 
 	 * if (this.size() <= 0) { return -1; } for (int i = 0; i < booleanArray.size();
 	 * i++) { CompareCell compareCell = booleanArray.get(i); String columnName =
 	 * compareCell.getCmpkey(); Object cmpLVal = this.get(0).get(columnName);
 	 * 
-	 * // ¼ì²éÊÇ·ñ¿ÉÒÔ¼ìË÷ String valueType = TypeUtil.getValueType(cmpLVal); if
+	 * // æ£€æŸ¥æ˜¯å¦å¯ä»¥æ£€ç´¢ String valueType = TypeUtil.getValueType(cmpLVal); if
 	 * (!(TypeUtil.DATE + "," + TypeUtil.NUMBER + "," + TypeUtil.BOOLEAN + "," +
-	 * TypeUtil.STRING) .contains(valueType)) { throw new AppException("ÁĞ[" +
-	 * columnName + "]ÀàĞÍÎª[" + valueType + "]²»Ö§³Ö¼ìË÷!"); }
+	 * TypeUtil.STRING) .contains(valueType)) { throw new AppException("åˆ—[" +
+	 * columnName + "]ç±»å‹ä¸º[" + valueType + "]ä¸æ”¯æŒæ£€ç´¢!"); }
 	 * 
 	 * } for (int i = 0; i < this.size(); i++) { if
 	 * (ComparaUtil.matchWithoutCheck(this.get(i), comparator)) { return i; } }
 	 * return -1; }
 	 * 
 	 * // ////////////////////////////////////////////// //
-	 * ///////ÒÔÏÂÊÇÓÃÓÚÉ¸Ñ¡Êı¾İµÄ/////////////////////////
+	 * ///////ä»¥ä¸‹æ˜¯ç”¨äºç­›é€‰æ•°æ®çš„/////////////////////////
 	 *//**
-		 * ¶àÏß³Ì¼ÆËãµÄÀà
+		 * å¤šçº¿ç¨‹è®¡ç®—çš„ç±»
 		 * 
-		 * @author ÕÅ³¬
-		 * @version 1.0 ´´½¨Ê±¼ä 2017-5-31
+		 * @author å¼ è¶…
+		 * @version 1.0 åˆ›å»ºæ—¶é—´ 2017-5-31
 		 */
 	/*
 	 * class CalThread implements Runnable {
@@ -427,10 +427,10 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 * } setIndex(al, end - start); }
 	 * 
 	 *//**
-		 * ÉèÖÃÉ¸Ñ¡ºÃµÄindex
+		 * è®¾ç½®ç­›é€‰å¥½çš„index
 		 * 
-		 * @author ÕÅ³¬
-		 * @date ´´½¨Ê±¼ä 2017-5-31
+		 * @author å¼ è¶…
+		 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 		 * @since V1.0
 		 *//*
 			 * private void setIndex(ArrayList<Integer> indexs, int allIndex) { synchronized
@@ -441,7 +441,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 			 */
 
 	/**
-	 * ¸ù¾İËù¸ø×Ö¶Î,´ÓĞ¡µ½´óÅÅĞò
+	 * æ ¹æ®æ‰€ç»™å­—æ®µ,ä»å°åˆ°å¤§æ’åº
 	 * 
 	 * @param column
 	 */
@@ -454,7 +454,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * ¸ù¾İËù¸ø×Ö¶Î´Ó´óµ½Ğ¡ÅÅĞò
+	 * æ ¹æ®æ‰€ç»™å­—æ®µä»å¤§åˆ°å°æ’åº
 	 * 
 	 * @param column
 	 */
@@ -468,11 +468,11 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡²ğ·Övds (ºÄÊ±Ì«¸ß£¬²éÕÒËã·¨²»Ó¦¸Ãµ÷ÓÃËü)
+	 * è·å–æ‹†åˆ†vds (è€—æ—¶å¤ªé«˜ï¼ŒæŸ¥æ‰¾ç®—æ³•ä¸åº”è¯¥è°ƒç”¨å®ƒ)
 	 * 
-	 * @author ÕÅ³¬
+	 * @author å¼ è¶…
 	 * @throws AppException
-	 * @date ´´½¨Ê±¼ä 2017-5-31
+	 * @date åˆ›å»ºæ—¶é—´ 2017-5-31
 	 * @since V1.0
 	 */
 	public DataStore subDataStore(int fromIndex, int toIndex) throws AppException {
@@ -488,7 +488,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * * (ºÄÊ±Ì«¸ß£¬²éÕÒËã·¨²»Ó¦¸Ãµ÷ÓÃËü)
+	 * * (è€—æ—¶å¤ªé«˜ï¼ŒæŸ¥æ‰¾ç®—æ³•ä¸åº”è¯¥è°ƒç”¨å®ƒ)
 	 * 
 	 */
 	public DataStore clone() {
@@ -503,7 +503,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * * (ºÄÊ±Ì«¸ß£¬²éÕÒËã·¨²»Ó¦¸Ãµ÷ÓÃËü)
+	 * * (è€—æ—¶å¤ªé«˜ï¼ŒæŸ¥æ‰¾ç®—æ³•ä¸åº”è¯¥è°ƒç”¨å®ƒ)
 	 * 
 	 */
 	public DataStore clone(boolean isLowerKey) {
@@ -518,7 +518,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡Ä³ÁĞµÄÀàĞÍ
+	 * è·å–æŸåˆ—çš„ç±»å‹
 	 * 
 	 * @param colName
 	 * @return
@@ -526,7 +526,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	 */
 	public String getColumnType(String colName) throws AppException {
 		if (this.rowCount() <= 0) {
-			throw new AppException("±¾DataStoreĞĞÊıÎª0");
+			throw new AppException("æœ¬DataStoreè¡Œæ•°ä¸º0");
 		}
 		DataObject vDataObject = this.get(0);
 		String colType = vDataObject.getType(colName);
@@ -548,14 +548,14 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡ÀàĞÍ
+	 * è·å–ç±»å‹
 	 * 
 	 * @return
 	 * @throws AppException
 	 */
 	public String getTypeList() throws AppException {
 		if (this.rowCount() <= 0) {
-			throw new AppException("±¾DataStoreĞĞÊıÎª0");
+			throw new AppException("æœ¬DataStoreè¡Œæ•°ä¸º0");
 		}
 		DataObject vDataObject = this.get(0);
 		return vDataObject.getTypeList();
@@ -581,7 +581,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡ds´óĞ¡
+	 * è·å–dså¤§å°
 	 * 
 	 * @return
 	 */
@@ -616,7 +616,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 
 	private DataObject getRowWithDefaultColumns() throws AppException {
 		DataObject dob = new DataObject();
-		// ×Ô¶¯½«typelistÖĞ¸÷ÁĞ¶¼ÖÃÎª¿ÕÖµ
+		// è‡ªåŠ¨å°†typelistä¸­å„åˆ—éƒ½ç½®ä¸ºç©ºå€¼
 		LinkedHashMap<String, String> all = this.get(0).getTypelistByList();
 		for (String key : all.keySet()) {
 			dob.put(key, null);
@@ -642,7 +642,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * ²éÕÒµÚÒ»¸öºÏÊÊµÄ
+	 * æŸ¥æ‰¾ç¬¬ä¸€ä¸ªåˆé€‚çš„
 	 * 
 	 * @param filterStr
 	 * @return
@@ -653,7 +653,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * ²éÕÒËùÓĞ
+	 * æŸ¥æ‰¾æ‰€æœ‰
 	 * 
 	 * @param filterStr
 	 * @return
@@ -664,7 +664,7 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 	}
 
 	/**
-	 * ¹ıÂË£¬»á¸Ä±äµ±Ç°¶ÔÏóÊı¾İ
+	 * è¿‡æ»¤ï¼Œä¼šæ”¹å˜å½“å‰å¯¹è±¡æ•°æ®
 	 * 
 	 * @param filterStr
 	 * @return

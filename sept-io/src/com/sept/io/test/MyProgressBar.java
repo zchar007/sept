@@ -56,7 +56,7 @@ public class MyProgressBar extends JPanel {
 	public void finshOneNumber() {
 		synchronized (key) {
 			this.finshNumber++;
-			this.setShowText("已完成[" + finshNumber + "/" + allNumber + "]["
+			this.setShowText("宸插畬鎴怺" + finshNumber + "/" + allNumber + "]["
 					+ UnitConversionUtil.formatBitToASUnit(nowFinshStep.longValue()) + "/"
 					+ UnitConversionUtil.formatBitToASUnit(allSize) + "]");
 		}
@@ -81,7 +81,7 @@ public class MyProgressBar extends JPanel {
 			}
 			BigDecimal bigAdd = new BigDecimal(Long.toString(step));
 			nowFinshStep = nowFinshStep.add(bigAdd);
-			this.setShowText("已完成[" + finshNumber + "/" + allNumber + "]["
+			this.setShowText("宸插畬鎴怺" + finshNumber + "/" + allNumber + "]["
 					+ UnitConversionUtil.formatBitToASUnit(nowFinshStep.longValue()) + "/"
 					+ UnitConversionUtil.formatBitToASUnit(allSize) + "]");
 

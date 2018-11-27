@@ -8,21 +8,21 @@ import com.sept.exception.AppException;
 
 public interface TreeInterface<T> {
 	/**
-	 * Ìí¼Ó×Ó´ú
+	 * æ·»åŠ å­ä»£
 	 * 
 	 * @param node
 	 * @throws AppException
 	 */
 	public void addChild(T node) throws AppException;
 	/**
-	 * É¾³ı×Ó´ú
+	 * åˆ é™¤å­ä»£
 	 * 
 	 * @param node
 	 * @throws AppException
 	 */
 	public void removeChild(T node) throws AppException;
 	/**
-	 * »ñÈ¡×Ó´ú
+	 * è·å–å­ä»£
 	 * 
 	 * @return
 	 * @throws AppException
@@ -30,7 +30,7 @@ public interface TreeInterface<T> {
 	LinkedList<T> getChildren() throws AppException;
 
 	/**
-	 * »ñÈ¡ËùÓĞºó´ú
+	 * è·å–æ‰€æœ‰åä»£
 	 * 
 	 * @return
 	 * @throws AppException
@@ -38,7 +38,7 @@ public interface TreeInterface<T> {
 	LinkedList<T> getPosterity() throws AppException;
 
 	/**
-	 * »ñÈ¡½ÚµãµÄDataObject±í´ïĞÎÊ½
+	 * è·å–èŠ‚ç‚¹çš„DataObjectè¡¨è¾¾å½¢å¼
 	 * 
 	 * @return
 	 * @throws AppException
@@ -46,7 +46,7 @@ public interface TreeInterface<T> {
 	public DataObject getDataObject() throws AppException;
 
 	/**
-	 * »ñÈ¡½ÚµãµÄDataStore±í´ïĞÎÊ½
+	 * è·å–èŠ‚ç‚¹çš„DataStoreè¡¨è¾¾å½¢å¼
 	 * 
 	 * @return
 	 * @throws AppException
