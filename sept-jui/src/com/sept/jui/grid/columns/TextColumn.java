@@ -1,46 +1,52 @@
 package com.sept.jui.grid.columns;
 
-import javax.swing.JComponent;
+import java.awt.Component;
 
-import com.sept.jui.grid.GridColumn;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import com.sept.jui.grid.action.GridCellAction;
+import com.sept.jui.grid.model.GridColumn;
 
 public class TextColumn implements GridColumn {
+	private static final long serialVersionUID = 1L;
 	private String name;
-	private String showName;
+	private String head;
 	private String defaultValue;
 	private boolean readonly;
 
-	public TextColumn(String name, String showName, String defaultValue, boolean readonly) {
+	public TextColumn(String name, String head, String defaultValue, boolean readonly) {
 		super();
 		this.name = name;
-		this.showName = showName;
+		this.head = head;
 		this.defaultValue = defaultValue;
 		this.readonly = readonly;
 	}
 
 	@Override
-	public Class<?> getComponentType() {
-		return String.class;
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		JTextField jtf = new JTextField();
+		//jtf.setOpaque(false);  
+		jtf.setBorder(null);  
+		jtf.setText(String.valueOf(value));
+		if (isSelected) {
+			jtf.setBackground(table.getSelectionBackground());
+		} else {
+			jtf.setBackground(table.getBackground());
+		}
+		return jtf;
 	}
 
 	@Override
-	public String getShowName() {
-		return this.showName;
+	public String getHead() {
+		return this.head;
 	}
 
 	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public Object getDefaultValue() {
-		return this.dealValue(this.defaultValue);
-	}
-
-	@Override
-	public Object dealValue(Object value) {
-		return null == value ? "" : value.toString();
+	public Object getDefault() {
+		return this.defaultValue;
 	}
 
 	@Override
@@ -49,13 +55,36 @@ public class TextColumn implements GridColumn {
 	}
 
 	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
 	public JComponent getComponent() {
+		JTextField jtf = new JTextField((String) this.getDefault());
+		//jtf.setOpaque(false);  
+		jtf.setBorder(null);  
+		return jtf;
+	}
+
+	@Override
+	public Object dealValue(Object value) {
+		return String.valueOf(value);
+	}
+
+	@Override
+	public GridCellAction getAction() {
 		return null;
 	}
 
 	@Override
 	public Object dealValue4Get(Object value) {
-		return null == value ? "" : value.toString();
+		return String.valueOf(value);
+	}
+
+	@Override
+	public int getValueIndex(Object value) {
+		return 0;
 	}
 
 }

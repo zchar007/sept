@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 import com.sept.exception.AppException;
 import com.sept.jui.input.combox.color.SColorPickerCombobox;
 import com.sept.jui.input.date.SDateField;
+import com.sept.jui.input.radio.SRadio;
 
 public class SInput extends JComponent {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +33,7 @@ public class SInput extends JComponent {
 	private int input_type;
 	private JSplitPane splitPane;
 	private JComponent rightComponent;
-	private String format;
+	private String additionInfo;
 
 	public SInput(String title, int input_type) {
 		this.title = title;
@@ -41,10 +42,10 @@ public class SInput extends JComponent {
 		initialize();
 	}
 
-	public SInput(String title, int input_type, String format) {
+	public SInput(String title, int input_type, String additionInfo) {
 		this.title = title;
 		this.input_type = input_type;
-		this.setFormat(format);
+		this.setAddition(additionInfo);
 		setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		initialize();
 	}
@@ -58,19 +59,20 @@ public class SInput extends JComponent {
 		this.splitPane = new JSplitPane();
 		this.splitPane.setDividerSize(0);
 		this.splitPane.setBorder(null);
+		this.setOpaque(false);
+		this.splitPane.setOpaque(false);
 		add(this.splitPane, "Center");
-		this.splitPane.setDividerLocation(getWidth() / 3);
+		this.splitPane.setDividerLocation(50);
 
 		JLabel jl_title = new JLabel(this.title);
 		this.splitPane.setLeftComponent(jl_title);
 		jl_title.setBorder(null);
 		jl_title.setHorizontalAlignment(4);
 		switch (this.input_type) {
-		case 0:
+		case INPUT_TEXT_FILED:
 			this.rightComponent = new JTextField();
-
 			break;
-		case 1:
+		case INPUT_TEXT_AREA:
 			setSize(new Dimension(getWidth(), getHeight() * 4));
 			JScrollPane scrollPane = new JScrollPane();
 			this.splitPane.setRightComponent(scrollPane);
@@ -79,25 +81,23 @@ public class SInput extends JComponent {
 			this.rightComponent.setPreferredSize(new Dimension(getWidth() * 2, getHeight() * 2));
 
 			scrollPane.setViewportView(this.rightComponent);
-			System.out.println(getWidth());
 			scrollPane.repaint();
 			scrollPane.revalidate();
-
 			break;
-		case 2:
+		case INPUT_DROPDOWN:
 			this.rightComponent = new JComboBox<Object>();
-
 			break;
-		case 3:
+		case INPUT_RADIO:
+			this.rightComponent = new SRadio(additionInfo);
 			break;
-		case 4:
+		case INPUT_CHECKBOX:
 			break;
-		case 5:
+		case INPUT_COLOR:
 			this.rightComponent = new SColorPickerCombobox();
 
 			break;
-		case 6:
-			this.rightComponent = new SDateField(this.format);
+		case INPUT_DATE:
+			this.rightComponent = new SDateField(this.additionInfo);
 
 			break;
 		}
@@ -117,19 +117,8 @@ public class SInput extends JComponent {
 			}
 			return ((JTextPane) this.rightComponent).getText();
 		}
-		if (this.input_type == 5) {
-			if ((this.rightComponent == null) && ((this.rightComponent instanceof SColorPickerCombobox))) {
-				throw new AppException("程序出现异常，rightComponent为null或不为SColorPickerCombobox,请联系开发者!");
-			}
-			return ((SColorPickerCombobox) this.rightComponent).getSelectedColor();
-		}
-		if (this.input_type == 6) {
-			if ((this.rightComponent == null) && ((this.rightComponent instanceof SDateField))) {
-				throw new AppException("程序出现异常，rightComponent为null或不为SDateField,请联系开发者!");
-			}
-			return ((SDateField) this.rightComponent).getDate();
-		}
-		return null;
+
+		return ((SInputCell) rightComponent).getValue();
 	}
 
 	public JComponent getInputComponent() {
@@ -138,14 +127,14 @@ public class SInput extends JComponent {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		this.splitPane.setDividerLocation(getWidth() / 3);
+		this.splitPane.setDividerLocation(50);
 	}
 
-	public String getFormat() {
-		return format;
+	public String getAddition() {
+		return additionInfo;
 	}
 
-	public void setFormat(String format) {
-		this.format = format;
+	public void setAddition(String additionInfo) {
+		this.additionInfo = additionInfo;
 	}
 }

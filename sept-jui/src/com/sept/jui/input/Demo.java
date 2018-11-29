@@ -50,15 +50,20 @@ public class Demo extends JFrame {
 		final SInput input = new SInput("颜色输入", 5);
 		input.setLocation(10, 50);
 		this.contentPane.add(input);
+		
 
+		
 		final SInput inputDate = new SInput("日期输入", SInput.INPUT_DATE,"yyyy-MM");
 		inputDate.setLocation(10, 90);
 		this.contentPane.add(inputDate);
 		
-		final SInput input_1 = new SInput("多行文本", 1);
-		input_1.setLocation(10, 130);
-
-		this.contentPane.add(input_1);
+//		final SInput input_1 = new SInput("多行文本", 1);
+//		input_1.setLocation(10, 130);
+//		this.contentPane.add(input_1);
+		
+		final SInput inputR = new SInput("radio", SInput.INPUT_RADIO,"1:aaa,2:bbb,3:ccc");
+		inputR.setBounds(10, 130, 500, 30);
+		this.contentPane.add(inputR);
 
 		this.btnHuo = new JButton("获取");
 		this.btnHuo.addActionListener(new ActionListener() {
@@ -66,7 +71,9 @@ public class Demo extends JFrame {
 				try {
 					System.out.println(Demo.this.textField.get());
 					System.out.println(input.get());
-					System.out.println(input_1.get());
+					System.out.println(inputDate.get());
+					System.out.println(inputR.get());
+
 				} catch (AppException e1) {
 					e1.printStackTrace();
 				}

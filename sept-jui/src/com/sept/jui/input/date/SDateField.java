@@ -1,17 +1,16 @@
 package com.sept.jui.input.date;
 
-import java.awt.Container;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sept.exception.AppException;
+import com.sept.jui.input.SInputCell;
 import com.sept.util.DateUtil;
 
-public class SDateField extends JTextField {
+public class SDateField extends JTextField implements SInputCell {
 
 	/**
 	 * 
@@ -40,5 +39,10 @@ public class SDateField extends JTextField {
 
 	public Date getDate() throws AppException {
 		return DateUtil.formatStrToDate(this.getText());
+	}
+
+	@Override
+	public Object getValue() throws AppException {
+		return this.getDate();
 	}
 }

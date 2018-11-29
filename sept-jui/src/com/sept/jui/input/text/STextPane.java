@@ -1,10 +1,5 @@
 package com.sept.jui.input.text;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-
 import java.awt.BorderLayout;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -15,18 +10,20 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JScrollPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-public class STextPane extends JPanel implements MouseListener {
+import com.sept.jui.input.SInputCell;
+
+public class STextPane extends JTextPane implements MouseListener, SInputCell {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JScrollPane scrollPane;
-	private JTextPane textPane;
 	private JPopupMenu pop_main;
 	private JMenuItem menuItem_copy;
 	private JMenuItem menuItem_paste;
@@ -38,12 +35,7 @@ public class STextPane extends JPanel implements MouseListener {
 	public STextPane() {
 		setLayout(new BorderLayout(0, 0));
 
-		scrollPane = new JScrollPane();
-		add(scrollPane, BorderLayout.CENTER);
-
-		textPane = new JTextPane();
-		textPane.addMouseListener(this);
-		scrollPane.setViewportView(textPane);
+		this.addMouseListener(this);
 		this.initPop();
 	}
 
@@ -59,21 +51,21 @@ public class STextPane extends JPanel implements MouseListener {
 
 		menuItem_copy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPane.copy();
+				STextPane.this.copy();
 			}
 		});
 		menuItem_paste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPane.paste();
+				STextPane.this.paste();
 			}
 		});
 		menuItem_cut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPane.cut();
+				STextPane.this.cut();
 			}
 		});
 
-		textPane.add(pop_main);
+		this.add(pop_main);
 	}
 
 	/**
@@ -122,19 +114,6 @@ public class STextPane extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * 获取底层JTextPane,一般用户到
-	 * 
-	 * @return
-	 */
-	public JTextPane getJTextPane() {
-		return textPane;
-	}
-
-	public String getSelectText() {
-		return textPane.getSelectedText();
-	}
-
-	/**
 	 * 剪切板中是否有文本数据可供粘贴
 	 * 
 	 * @return true为有文本数据
@@ -159,8 +138,8 @@ public class STextPane extends JPanel implements MouseListener {
 	 */
 	protected boolean isCanCopy() {
 		boolean b = false;
-		int start = textPane.getSelectionStart();
-		int end = textPane.getSelectionEnd();
+		int start = this.getSelectionStart();
+		int end = this.getSelectionEnd();
 		if (start != end)
 			b = true;
 		return b;
@@ -198,5 +177,10 @@ public class STextPane extends JPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Object getValue() {
+		return this.getText();
 	}
 }

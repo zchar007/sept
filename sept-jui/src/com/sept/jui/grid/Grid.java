@@ -1,44 +1,42 @@
 package com.sept.jui.grid;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
 import com.sept.jui.grid.columns.GridLineNumberColumn;
-import com.sept.jui.grid.columns.GridSelectionModelColumn;
+import com.sept.jui.grid.columns.GridSelectionColumn;
+import com.sept.jui.grid.model.GridCellEditor;
+import com.sept.jui.grid.model.GridColumn;
 import com.sept.jui.util.TextUtil;
 
-public class Grid extends JTable implements ActionListener, MouseListener {
+public class Grid extends JTable implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 选择模式
-	 */
 	public static final int SINGLE_SELECTION = ListSelectionModel.SINGLE_SELECTION;
 	public static final int SINGLE_INTERVAL_SELECTION = ListSelectionModel.SINGLE_INTERVAL_SELECTION;
 	public static final int MULTIPLE_INTERVAL_SELECTION = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
-	private int selection = SINGLE_SELECTION;
+	private int selectionMode = SINGLE_SELECTION;
+	private boolean showLineNumbers = false;
+
 	private ArrayList<GridColumn> gridColumns;
 	private GridModel model;
-	private boolean showLineNumber = false;
+	private int selectCubColumnIndex = -1;
+
 	private JPopupMenu popupMenu;
 	private JMenuItem menuItem_add;
 	private JMenuItem menuItem_delete;
@@ -46,167 +44,57 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 	private JMenuItem menuItem_copy;
 	private JMenuItem menuItem_paste;
 	private JMenuItem menuItem_paste4Insert;
-
-	private int selectCubColumnIndex = -1;
+	private JMenuItem menuItem_insertEmpty;
 
 	public Grid() {
-		super();
-		this.gridColumns = new ArrayList<GridColumn>();
+		this.setRowHeight(25);
+		this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		gridColumns = new ArrayList<>();
 		this.addPopMenu();
-		this.addMouseListener(this);
-	}
-
-	private void addPopMenu() {
-		this.popupMenu = new JPopupMenu();
-		addPopup(this, this.popupMenu);
-
-		this.menuItem_copy = new JMenuItem("Copy");
-		this.menuItem_paste = new JMenuItem("Paste");
-		this.menuItem_paste4Insert = new JMenuItem("Insert");
-
-		this.menuItem_add = new JMenuItem("Add");
-		this.menuItem_delete = new JMenuItem("Delete");
-		this.menuItem_clear = new JMenuItem("Clear");
-
-		this.menuItem_copy.addActionListener(this);
-		this.popupMenu.add(this.menuItem_copy);
-
-		this.menuItem_paste.addActionListener(this);
-		this.popupMenu.add(this.menuItem_paste);
-
-		this.menuItem_paste4Insert.addActionListener(this);
-		this.popupMenu.add(this.menuItem_paste4Insert);
-
-		this.menuItem_add.addActionListener(this);
-		this.popupMenu.add(this.menuItem_add);
-
-		this.menuItem_delete.addActionListener(this);
-		this.popupMenu.add(menuItem_delete);
-
-		this.menuItem_clear.addActionListener(this);
-		this.popupMenu.add(this.menuItem_clear);
-
-	}
-
-	public void addDefaultPopMenuToComponent(Component component) {
-		this.addPopup(component, this.popupMenu);
-	}
-
-	public void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					if (Grid.this.selection == SINGLE_SELECTION) {
-						Grid.this.setSelectTable(e);
-					} else {
-						Grid.this.addSelectTable(e);
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (Grid.this.selectionMode != SINGLE_SELECTION) {
+					int count = Grid.this.getRowCount();
+					int[] indexs = Grid.this.getSelectedRows();
+					HashSet<String> hs = new HashSet<>();
+					for (int i = 0; i < indexs.length; i++) {
+						hs.add(indexs[i] + "");
 					}
-					showMenu(e);
+					for (int i = 0; i < count; i++) {
+						if (hs.contains(i + "")) {
+							Grid.this.setValueAt(true, i, Grid.this.selectCubColumnIndex);
+						} else {
+							Grid.this.setValueAt(false, i, Grid.this.selectCubColumnIndex);
+						}
+					}
 				}
 			}
 
+			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					if (Grid.this.selection == SINGLE_SELECTION) {
-						Grid.this.setSelectTable(e);
-					} else {
-						Grid.this.addSelectTable(e);
+				if (Grid.this.selectionMode != SINGLE_SELECTION) {
+					int count = Grid.this.getRowCount();
+					int[] indexs = Grid.this.getSelectedRows();
+					HashSet<String> hs = new HashSet<>();
+					for (int i = 0; i < indexs.length; i++) {
+						hs.add(indexs[i] + "");
 					}
-					showMenu(e);
+					for (int i = 0; i < count; i++) {
+						if (hs.contains(i + "")) {
+							Grid.this.setValueAt(true, i, Grid.this.selectCubColumnIndex);
+						} else {
+							Grid.this.setValueAt(false, i, Grid.this.selectCubColumnIndex);
+						}
+					}
 				}
-			}
-
-			private void showMenu(MouseEvent e) {
-				if (!isEditAble()) {
-					return;
-				}
-				Point mousepoint = e.getPoint();
-
-				int index = Grid.this.rowAtPoint(mousepoint);
-				if (index < 0) {
-					menuItem_delete.setEnabled(false);
-				} else {
-					menuItem_delete.setEnabled(true);
-				}
-
-				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(this.menuItem_add)) {
-			try {
-				addRow(new DataObject());
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-		if (e.getSource().equals(this.menuItem_delete)) {
-			try {
-				int[] indexs = this.getSelectedRows();
-				for (int i = 0; i < indexs.length; i++) {
-					this.removeRow(indexs[i]);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-		if (e.getSource().equals(this.menuItem_clear)) {
-			try {
-				this.clear();
-			} catch (AppException e1) {
-				e1.printStackTrace();
-			}
-		}
-		if (e.getSource().equals(this.menuItem_copy)) {
-			try {
-				DataStore ds = this.getSelectData();
-				TextUtil.sendStringToClipboard(ds.toJSON());
-			} catch (AppException e1) {
-				e1.printStackTrace();
-			}
-		}
-		if (e.getSource().equals(this.menuItem_paste4Insert)) {
-			String text = TextUtil.getStringFromClipboard();
-			try {
-				DataStore ds = DataStore.parseFromJSON(text);
-				this.insertRows(this.getSelectedRow(), ds);
-			} catch (AppException e1) {
-				DataStore ds = new DataStore();
-				ds.addRow();
-				try {
-					this.insertRows(this.getSelectedRow(), ds);
-				} catch (AppException e2) {
-					e2.printStackTrace();
-				}
-			}
-
-		}
-		if (e.getSource().equals(this.menuItem_paste)) {
-			String text = TextUtil.getStringFromClipboard();
-			try {
-				DataStore ds = DataStore.parseFromJSON(text);
-				this.addRows(ds);
-			} catch (AppException e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
-
-	private void setSelectTable(MouseEvent e) {
-		int row = this.rowAtPoint(e.getPoint());
-		if (row >= 0) {
-			this.setRowSelectionInterval(row, row);
-		}
-	}
-
-	private void addSelectTable(MouseEvent e) {
-		int row = this.rowAtPoint(e.getPoint());
-		if (row >= 0) {
-			this.addRowSelectionInterval(row, row);
-		}
+	public void addColumn(GridColumn column) throws AppException {
+		this.gridColumns.add(column);
+		this.setModel();
 	}
 
 	/**
@@ -222,45 +110,7 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 			}
 			this.gridColumns.add(gridClumns.get(i));
 		}
-		model = new GridModel(this.gridColumns);
-		this.setModel(model);
-
-		DefaultTableCellRenderer cellRenderer = this.getHeadCellRenderer();
-		for (int i = 0; i < this.gridColumns.size(); i++) {
-			if (this.gridColumns.get(i).getComponentType().equals(JComboBox.class)) {
-				TableColumn tc = this.getColumnModel().getColumn(i);
-				tc.setCellEditor(new DefaultCellEditor((JComboBox<?>) this.gridColumns.get(i).getComponent()));
-			}
-			// i是表头的列
-			TableColumn column = this.getTableHeader().getColumnModel().getColumn(i);
-			column.setHeaderRenderer(cellRenderer);
-		}
-	}
-
-	/**
-	 * 增加一列
-	 *
-	 * @param gridClumn
-	 * @throws AppException
-	 */
-	public void addColumn(GridColumn gridClumn) throws AppException {
-		if (gridClumn == null) {
-			return;
-		}
-		this.gridColumns.add(gridClumn);
-		model = new GridModel(this.gridColumns);
-		this.setModel(model);
-
-		DefaultTableCellRenderer cellRenderer = this.getHeadCellRenderer();
-		for (int i = 0; i < this.gridColumns.size(); i++) {
-			if (this.gridColumns.get(i).getComponentType().equals(JComboBox.class)) {
-				TableColumn tc = this.getColumnModel().getColumn(i);
-				tc.setCellEditor(new DefaultCellEditor((JComboBox<?>) this.gridColumns.get(i).getComponent()));
-			}
-			// i是表头的列
-			TableColumn column = this.getTableHeader().getColumnModel().getColumn(i);
-			column.setHeaderRenderer(cellRenderer);
-		}
+		this.setModel();
 	}
 
 	/**
@@ -349,7 +199,7 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 	 * @throws AppException
 	 */
 	public void updateData(DataStore dataStore) throws AppException {
-		this.model.setData(dataStore);
+		this.model.updateData(dataStore);
 	}
 
 	/**
@@ -397,20 +247,34 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 	}
 
 	/**
-	 * 是否显示行号
+	 * 设置模型
 	 * 
-	 * @param showLineNumber
 	 * @throws AppException
 	 */
-	public void showLineNumber(boolean showLineNumber) throws AppException {
-		this.showLineNumber = showLineNumber;
-		if (this.showLineNumber) {
+	private void setModel() throws AppException {
+		model = new GridModel(this.gridColumns);
+		this.setModel(model);
+		TableColumnModel columnModel = this.getColumnModel();
+		for (int i = 0; i < gridColumns.size(); i++) {
+			columnModel.getColumn(i).setCellRenderer((TableCellRenderer) gridColumns.get(i));
+			columnModel.getColumn(i).setCellEditor(new GridCellEditor(gridColumns.get(i)));
+		}
+	}
+
+	/**
+	 * 显示行号
+	 * 
+	 * @param showLineNumbers
+	 * @throws AppException
+	 */
+	public void showLineNumbers(boolean showLineNumbers) throws AppException {
+		this.showLineNumbers = showLineNumbers;
+		if (this.showLineNumbers) {
 			if (this.gridColumns.size() <= 0) {
 				GridLineNumberColumn gc = new GridLineNumberColumn();
 				this.gridColumns.add(gc);
 				DataStore dataStore = this.getDataStore();
-				this.model = new GridModel(this.gridColumns);
-				this.setModel(this.model);
+				this.setModel();
 				this.updateData(dataStore);
 
 			} else {
@@ -422,8 +286,7 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 					}
 					this.gridColumns.set(0, gc);
 					DataStore dataStore = this.getDataStore();
-					this.model = new GridModel(this.gridColumns);
-					this.setModel(this.model);
+					this.setModel();
 					this.updateData(dataStore);
 				}
 			}
@@ -432,11 +295,130 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 					&& this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)) {
 				this.gridColumns.remove(0);
 				DataStore dataStore = this.getDataStore();
-				this.model = new GridModel(this.gridColumns);
-				this.setModel(this.model);
+				this.setModel();
 				this.updateData(dataStore);
 			}
 		}
+	}
+
+	@Override
+	public void setSelectionMode(int selectionMode) {
+		super.setSelectionMode(selectionMode);
+		this.selectionMode = selectionMode;
+		try {
+			if (Grid.SINGLE_SELECTION == selectionMode) {
+				// 移除选择列
+				/**
+				 * 有行号无选择
+				 */
+				if (this.gridColumns.get(0).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {
+					this.gridColumns.remove(0);
+					DataStore dataStore = this.getDataStore();
+					this.setModel();
+					this.updateData(dataStore);
+				} else if (this.gridColumns.get(1).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {// 无行号无选择
+					this.gridColumns.remove(1);
+					DataStore dataStore = this.getDataStore();
+					this.setModel();
+					this.updateData(dataStore);
+				}
+
+			} else if (Grid.SINGLE_INTERVAL_SELECTION == selectionMode) {
+				// 增加选择列
+				if (this.gridColumns.size() <= 0) {
+					GridSelectionColumn gc = new GridSelectionColumn();
+					this.gridColumns.add(gc);
+					DataStore dataStore = this.getDataStore();
+					this.setModel();
+					this.updateData(dataStore);
+					setSelectCubColumnIndex(0);
+				} else {
+					/**
+					 * 有行号无选择
+					 */
+					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(1).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {
+						GridSelectionColumn gc = new GridSelectionColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(1, gc);
+						DataStore dataStore = this.getDataStore();
+						this.setModel();
+						this.updateData(dataStore);
+						setSelectCubColumnIndex(1);
+					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(0).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {// 无行号无选择
+
+						GridSelectionColumn gc = new GridSelectionColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(0, gc);
+						DataStore dataStore = this.getDataStore();
+						this.setModel();
+						this.updateData(dataStore);
+						setSelectCubColumnIndex(0);
+					}
+				}
+
+			} else if (Grid.MULTIPLE_INTERVAL_SELECTION == selectionMode) {
+				// 增加选择列
+
+				// 增加选择列
+				if (this.gridColumns.size() <= 0) {
+					GridSelectionColumn gc = new GridSelectionColumn();
+					this.gridColumns.add(gc);
+					DataStore dataStore = this.getDataStore();
+					this.setModel();
+					this.updateData(dataStore);
+					setSelectCubColumnIndex(0);
+				} else {
+					/**
+					 * 有行号无选择
+					 */
+					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(1).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {
+						GridSelectionColumn gc = new GridSelectionColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(1, gc);
+						DataStore dataStore = this.getDataStore();
+						this.setModel();
+						this.updateData(dataStore);
+						setSelectCubColumnIndex(1);
+					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
+							&& !this.gridColumns.get(0).getName().equals(GridSelectionColumn.DEFAULT_NAME)) {// 无行号无选择
+
+						GridSelectionColumn gc = new GridSelectionColumn();
+						this.gridColumns.add(null);
+						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
+							this.gridColumns.set(i, this.gridColumns.get(i - 1));
+						}
+						this.gridColumns.set(0, gc);
+						DataStore dataStore = this.getDataStore();
+						this.setModel();
+						this.updateData(dataStore);
+						setSelectCubColumnIndex(0);
+					}
+				}
+
+			}
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void setSelectCubColumnIndex(int selectCubColumnIndex) {
+		this.selectCubColumnIndex = selectCubColumnIndex;
+	}
+
+	public int getSelection() {
+		return selectionMode;
 	}
 
 	/**
@@ -448,227 +430,169 @@ public class Grid extends JTable implements ActionListener, MouseListener {
 		this.updateData(new DataStore());
 	}
 
-	protected DefaultTableCellRenderer getHeadCellRenderer() {
+	// 右键菜单
+	private void addPopMenu() {
+		this.popupMenu = new JPopupMenu();
+		addPopup(this, this.popupMenu);
 
-		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-		cellRenderer.setBackground(new Color(51, 102, 255));
-		return cellRenderer;
+		this.menuItem_copy = new JMenuItem("Copy");
+		this.menuItem_paste = new JMenuItem("Paste");
+		this.menuItem_paste4Insert = new JMenuItem("Insert");
+		this.menuItem_insertEmpty = new JMenuItem("Insert Empty");
+
+		this.menuItem_add = new JMenuItem("Add");
+		this.menuItem_delete = new JMenuItem("Delete");
+		this.menuItem_clear = new JMenuItem("Clear");
+
+		this.menuItem_copy.addActionListener(this);
+		this.popupMenu.add(this.menuItem_copy);
+
+		this.menuItem_paste.addActionListener(this);
+		this.popupMenu.add(this.menuItem_paste);
+
+		this.menuItem_paste4Insert.addActionListener(this);
+		this.popupMenu.add(this.menuItem_paste4Insert);
+
+		this.menuItem_insertEmpty.addActionListener(this);
+		this.popupMenu.add(this.menuItem_insertEmpty);
+
+		this.menuItem_add.addActionListener(this);
+		this.popupMenu.add(this.menuItem_add);
+
+		this.menuItem_delete.addActionListener(this);
+		this.popupMenu.add(menuItem_delete);
+
+		this.menuItem_clear.addActionListener(this);
+		this.popupMenu.add(this.menuItem_clear);
+
 	}
 
-	@Override
-	public void setSelectionMode(int selectionMode) {
-		super.setSelectionMode(selectionMode);
-		this.selection = selectionMode;
-		try {
-			if (Grid.SINGLE_SELECTION == selectionMode) {
-				// 移除选择列
-				/**
-				 * 有行号无选择
-				 */
-				if (this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
-					this.gridColumns.remove(0);
-					DataStore dataStore = this.getDataStore();
-					this.model = new GridModel(this.gridColumns);
-					this.setModel(this.model);
-					this.updateData(dataStore);
-				} else if (this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// 无行号无选择
-					this.gridColumns.remove(1);
-					DataStore dataStore = this.getDataStore();
-					this.model = new GridModel(this.gridColumns);
-					this.setModel(this.model);
-					this.updateData(dataStore);
-				}
+	public void addDefaultPopMenuToComponent(Component component) {
+		this.addPopup(component, this.popupMenu);
+	}
 
-			} else if (Grid.SINGLE_INTERVAL_SELECTION == selectionMode) {
-				// 增加选择列
-				if (this.gridColumns.size() <= 0) {
-					GridSelectionModelColumn gc = new GridSelectionModelColumn();
-					this.gridColumns.add(gc);
-					DataStore dataStore = this.getDataStore();
-					this.model = new GridModel(this.gridColumns);
-					this.setModel(this.model);
-					this.updateData(dataStore);
-					selectCubColumnIndex = 0;
-				} else {
-					/**
-					 * 有行号无选择
-					 */
-					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
-							&& !this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
-						GridSelectionModelColumn gc = new GridSelectionModelColumn();
-						this.gridColumns.add(null);
-						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
-							this.gridColumns.set(i, this.gridColumns.get(i - 1));
-						}
-						this.gridColumns.set(1, gc);
-						DataStore dataStore = this.getDataStore();
-						this.model = new GridModel(this.gridColumns);
-						this.setModel(this.model);
-						this.updateData(dataStore);
-						selectCubColumnIndex = 1;
-					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
-							&& !this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// 无行号无选择
-
-						GridSelectionModelColumn gc = new GridSelectionModelColumn();
-						this.gridColumns.add(null);
-						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
-							this.gridColumns.set(i, this.gridColumns.get(i - 1));
-						}
-						this.gridColumns.set(0, gc);
-						DataStore dataStore = this.getDataStore();
-						this.model = new GridModel(this.gridColumns);
-						this.setModel(this.model);
-						this.updateData(dataStore);
-						selectCubColumnIndex = 0;
+	public void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					if (Grid.this.selectionMode == SINGLE_SELECTION) {
+						Grid.this.setSelectTable(e);
+					} else {
+						Grid.this.addSelectTable(e);
 					}
+					showMenu(e);
 				}
+			}
 
-			} else if (Grid.MULTIPLE_INTERVAL_SELECTION == selectionMode) {
-				// 增加选择列
-
-				// 增加选择列
-				if (this.gridColumns.size() <= 0) {
-					GridSelectionModelColumn gc = new GridSelectionModelColumn();
-					this.gridColumns.add(gc);
-					DataStore dataStore = this.getDataStore();
-					this.model = new GridModel(this.gridColumns);
-					this.setModel(this.model);
-					this.updateData(dataStore);
-					selectCubColumnIndex = 0;
-				} else {
-					/**
-					 * 有行号无选择
-					 */
-					if (this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
-							&& !this.gridColumns.get(1).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {
-						GridSelectionModelColumn gc = new GridSelectionModelColumn();
-						this.gridColumns.add(null);
-						for (int i = this.gridColumns.size() - 1; i > 1; i--) {
-							this.gridColumns.set(i, this.gridColumns.get(i - 1));
-						}
-						this.gridColumns.set(1, gc);
-						DataStore dataStore = this.getDataStore();
-						this.model = new GridModel(this.gridColumns);
-						this.setModel(this.model);
-						this.updateData(dataStore);
-						selectCubColumnIndex = 1;
-					} else if (!this.gridColumns.get(0).getName().equals(GridLineNumberColumn.DEFAULT_NAME)
-							&& !this.gridColumns.get(0).getName().equals(GridSelectionModelColumn.DEFAULT_NAME)) {// 无行号无选择
-
-						GridSelectionModelColumn gc = new GridSelectionModelColumn();
-						this.gridColumns.add(null);
-						for (int i = this.gridColumns.size() - 1; i > 0; i--) {
-							this.gridColumns.set(i, this.gridColumns.get(i - 1));
-						}
-						this.gridColumns.set(0, gc);
-						DataStore dataStore = this.getDataStore();
-						this.model = new GridModel(this.gridColumns);
-						this.setModel(this.model);
-						this.updateData(dataStore);
-						selectCubColumnIndex = 0;
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					if (Grid.this.selectionMode == SINGLE_SELECTION) {
+						Grid.this.setSelectTable(e);
+					} else {
+						Grid.this.addSelectTable(e);
 					}
+					showMenu(e);
 				}
-
 			}
-		} catch (AppException e) {
-			e.printStackTrace();
-		}
-	}
 
-	@Override
-	public void setSelectionModel(ListSelectionModel newModel) {
-		super.setSelectionModel(newModel);
-	}
+			private void showMenu(MouseEvent e) {
+				if (!isEditAble()) {
+					return;
+				}
+				Point mousepoint = e.getPoint();
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (selection != SINGLE_SELECTION) {
-			int count = this.getRowCount();
-			int[] indexs = this.getSelectedRows();
-			HashSet<String> hs = new HashSet<>();
-			for (int i = 0; i < indexs.length; i++) {
-				hs.add(indexs[i] + "");
-			}
-			for (int i = 0; i < count; i++) {
-				if (hs.contains(i + "")) {
-					this.setValueAt(true, i, this.selectCubColumnIndex);
+				int index = Grid.this.rowAtPoint(mousepoint);
+				if (index < 0) {
+					menuItem_delete.setEnabled(false);
 				} else {
-					this.setValueAt(false, i, this.selectCubColumnIndex);
+					menuItem_delete.setEnabled(true);
 				}
+
+				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
-			for (int i = 0; i < indexs.length; i++) {
-				//setOneRowBackgroundColor(this, indexs[i], Color.RED);
+		});
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource().equals(this.menuItem_add)) {
+			try {
+				addRow(new DataObject());
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		if (selection != SINGLE_SELECTION) {
-			int count = this.getRowCount();
-			int[] indexs = this.getSelectedRows();
-			HashSet<String> hs = new HashSet<>();
-			for (int i = 0; i < indexs.length; i++) {
-				hs.add(indexs[i] + "");
+		if (e.getSource().equals(this.menuItem_delete)) {
+			try {
+				int[] indexs = this.getSelectedRows();
+				for (int i = indexs.length - 1; i >= 0; i--) {
+					this.removeRow(indexs[i]);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
-			for (int i = 0; i < count; i++) {
-				if (hs.contains(i + "")) {
-					this.setValueAt(true, i, this.selectCubColumnIndex);
-				} else {
-					this.setValueAt(false, i, this.selectCubColumnIndex);
+		}
+		if (e.getSource().equals(this.menuItem_clear)) {
+			try {
+				this.clear();
+			} catch (AppException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource().equals(this.menuItem_copy)) {
+			try {
+				DataStore ds = this.getSelectData();
+				TextUtil.sendStringToClipboard(ds.toJSON());
+			} catch (AppException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource().equals(this.menuItem_paste4Insert)) {
+			String text = TextUtil.getStringFromClipboard();
+			try {
+				DataStore ds = DataStore.parseFromJSON(text);
+				this.insertRows(this.getSelectedRow(), ds);
+			} catch (AppException e1) {
+				DataStore ds = new DataStore();
+				ds.addRow();
+				try {
+					this.insertRows(this.getSelectedRow(), ds);
+				} catch (AppException e2) {
+					e2.printStackTrace();
 				}
 			}
-			for (int i = 0; i < indexs.length; i++) {
-				//setOneRowBackgroundColor(this, indexs[i], Color.RED);
+		}
+		if (e.getSource().equals(this.menuItem_insertEmpty)) {
+			DataStore ds = new DataStore();
+			ds.addRow();
+			try {
+				this.insertRows(this.getSelectedRow(), ds);
+			} catch (AppException e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (e.getSource().equals(this.menuItem_paste)) {
+			String text = TextUtil.getStringFromClipboard();
+			try {
+				DataStore ds = DataStore.parseFromJSON(text);
+				this.addRows(ds);
+			} catch (AppException e1) {
+				e1.printStackTrace();
 			}
 		}
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
+	private void setSelectTable(MouseEvent e) {
+		int row = this.rowAtPoint(e.getPoint());
+		if (row >= 0) {
+			this.setRowSelectionInterval(row, row);
+		}
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
-
-	/**
-	 * 设置表格的某一行的背景色
-	 * 
-	 * @param table
-	 */
-	public static void setOneRowBackgroundColor(JTable table, int rowIndex, Color color) {
-		try {
-			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
-
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-
-				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-						boolean hasFocus, int row, int column) {
-					if (isSelected) {
-						setBackground(color);
-						setForeground(Color.WHITE);
-					}else {
-						setBackground(Color.WHITE);
-						setForeground(Color.WHITE);
-					}
-
-					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				}
-			};
-			int columnCount = table.getColumnCount();
-			for (int i = 0; i < columnCount; i++) {
-				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
+	private void addSelectTable(MouseEvent e) {
+		int row = this.rowAtPoint(e.getPoint());
+		if (row >= 0) {
+			this.addRowSelectionInterval(row, row);
 		}
 	}
 

@@ -15,18 +15,22 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.plaf.metal.MetalComboBoxUI;
 
-public class SColorPickerCombobox extends JComboBox<Object> {
+import com.sept.exception.AppException;
+import com.sept.jui.input.SInputCell;
+
+public class SColorPickerCombobox extends JComboBox<Object> implements SInputCell {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String SELECTEDCOLOR = "selectedcolor";
-	private  Color defulColor = null;
+	private Color defulColor = null;
 
 	public SColorPickerCombobox() {
 		this.setEditable(false);
 		this.setRenderer(new ListCellRenderer<Object>() {
-			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
 				SColorTextField textField = new SColorTextField();
 				textField.setColor(getSelectedColor());
 				return textField;
@@ -77,12 +81,28 @@ public class SColorPickerCombobox extends JComboBox<Object> {
 			return defulColor;
 		}
 	}
-	public boolean setDefulColor(Color defulColor){
+
+	public boolean setDefulColor(Color defulColor) {
 		this.defulColor = defulColor;
 		return true;
 	}
 
 	public void setSelectedColor(Color selectedColor) {
 		putClientProperty(SELECTEDCOLOR, selectedColor);
+	}
+
+	@Override
+	public Object getSelectedItem() {
+		return this.getSelectedColor();
+	}
+
+	@Override
+	public void setSelectedItem(Object anObject) {
+		this.setSelectedColor((Color) anObject);
+	}
+
+	@Override
+	public Object getValue() throws AppException {
+		return this.getSelectedItem();
 	}
 }

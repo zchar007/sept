@@ -5,23 +5,29 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.plaf.FontUIResource;
 
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
-import com.sept.jui.grid.columns.CheckboxColumn;
+import com.sept.jui.grid.action.GridCellAction;
+import com.sept.jui.grid.columns.BooleanColumn;
+import com.sept.jui.grid.columns.ButtonColumn;
+import com.sept.jui.grid.columns.ButtonsColumn;
+import com.sept.jui.grid.columns.ColorColumn;
+import com.sept.jui.grid.columns.DateColumn;
 import com.sept.jui.grid.columns.DropdownColumn;
 import com.sept.jui.grid.columns.TextColumn;
+import com.sept.jui.grid.model.GridColumn;
+import com.sept.jui.themes.Themes;
 
 public class Demo {
 
@@ -38,8 +44,7 @@ public class Demo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					String windows = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-					UIManager.setLookAndFeel(windows);
+					Themes.setTheme(Themes.THEME_NIMBUS);
 					Demo window = new Demo();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -48,7 +53,6 @@ public class Demo {
 			}
 		});
 	}
-
 	/**
 	 * Create the application.
 	 * 
@@ -71,66 +75,53 @@ public class Demo {
 		JScrollPane scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		table = new Grid() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+		table = new Grid();
 
-			protected DefaultTableCellRenderer getHeadCellRenderer() {
-				DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-				cellRenderer.setBackground(Color.LIGHT_GRAY);
-				cellRenderer.setFont(new Font("宋体", Font.BOLD, 40));
-				cellRenderer.setBorder(BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-				cellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
-				return cellRenderer;
-			}
-		};
-
-		table.showLineNumber(true);
 		table.addColumns(getHead());
 		table.addRows(getData());
-		table.setEditAble(true);
+		table.showLineNumbers(true);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-		scrollPane.setViewportView(table);
 		table.addDefaultPopMenuToComponent(scrollPane);
+		scrollPane.setViewportView(table);
 
-		btnE = new JButton("获取数据");
-		btnE.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					System.out.println(table.getDataStore().toJSON());
-				} catch (AppException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		frame.getContentPane().add(btnE, BorderLayout.NORTH);
-
-		btnNewButton = new JButton("获取选中行");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int[] indexs = table.getSelectedRows();
-				for (int i = 0; i < indexs.length; i++) {
-					System.out.println(indexs[i] + ",");
-				}
-				System.out.println();
-			}
-		});
-		frame.getContentPane().add(btnNewButton, BorderLayout.SOUTH);
 	}
 
 	private ArrayList<GridColumn> getHead() throws AppException {
 		ArrayList<GridColumn> gridColumns = new ArrayList<>();
 		gridColumns.add(new TextColumn("xm", "姓名", "", false));
-		gridColumns.add(new TextColumn("nl", "年龄", "", false));
-		gridColumns.add(new TextColumn("dh", "电话", "", false));
-		gridColumns.add(new TextColumn("jtzz", "家庭住址", "", false));
-		gridColumns.add(new CheckboxColumn("sfzx", "住校", true, true));
+//		gridColumns.add(new TextColumn("nl", "年龄", "", false));
+//		gridColumns.add(new TextColumn("dh", "电话", "", false));
+//		gridColumns.add(new TextColumn("jtzz", "家庭住址", "", false));
+		gridColumns.add(new DateColumn("csrq", "出生日期", "20160101", "yyyyMMddhhmmss", "yyyy-MM-dd hh:mm:ss", false));
+		gridColumns.add(new ColorColumn("color", "喜欢的颜色", Color.RED, false));
+		gridColumns.add(new BooleanColumn("sfzx", "是否住校", true, false));
+		gridColumns.add(new DropdownColumn("nj", "年级", "1", "2:一年级,1:二年级,5:三年级", false));
+		gridColumns.add(new ButtonColumn("操作", "按钮", false, new GridCellAction() {
+			private static final long serialVersionUID = 1L;
 
-		gridColumns.add(new DropdownColumn("nj", "年级", "1", "1:一年级,2:二年级,3:三年级", false));
+			@Override
+			public void actionPerformed(ActionEvent e, int columnIndex, int rowIndex) {
+				System.out.println(e.getActionCommand());
+				System.out.println(columnIndex);
+				System.out.println(rowIndex);
+
+			}
+
+		}));
+		gridColumns.add(new ButtonsColumn("操作1,操作2,操作3", "按钮", false, new GridCellAction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e, int columnIndex, int rowIndex) {
+				System.out.println(e.getActionCommand());
+				System.out.println(columnIndex);
+				System.out.println(rowIndex);
+
+			}
+
+		}));
+
 		return gridColumns;
 	}
 
@@ -142,9 +133,9 @@ public class Demo {
 			vds.put(vds.rowCount() - 1, "nl", 10 + i);
 			vds.put(vds.rowCount() - 1, "dh", "137937" + 10 + i);
 			vds.put(vds.rowCount() - 1, "jtzz", "没有住址");
-			vds.put(vds.rowCount() - 1, "nj", "");
-			vds.put(vds.rowCount() - 1, "sfzx", false);
-
+			vds.put(vds.rowCount() - 1, "nj", "5");
+			vds.put(vds.rowCount() - 1, "sfzx", true);
+			vds.put(vds.rowCount() - 1, "color", "0xFF0000FF");
 		}
 		return vds;
 	}
