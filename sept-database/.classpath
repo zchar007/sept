@@ -25,5 +25,7 @@
 	<classpathentry kind="lib" path="lib/spring-beans-4.2.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-expression-4.2.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/sept.io.jar"/>
+	<classpathentry kind="lib" path="lib/sept.debug.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

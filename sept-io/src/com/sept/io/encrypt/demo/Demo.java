@@ -1,65 +1,59 @@
 package com.sept.io.encrypt.demo;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.concurrent.ExecutorService;
-
-import com.sept.datastructure.common.MessagePool;
 import com.sept.exception.AppException;
-import com.sept.io.encrypt.EncryptUtil;
+import com.sept.io.encrypt.Encrypt;
+import com.sept.io.encrypt.EncryptListener;
+import com.sept.io.encrypt.EncryptNames;
 
-public class Demo {
+public class Demo implements EncryptListener {
+	private boolean init = false;
 
-	public static void main(String[] args) throws UnsupportedEncodingException, AppException {
-		final MessagePool mess = new MessagePool();
-//		final ExecutorService es = EncryptUtil.encryptFiles(new File("F:\\仓库_待整理\\[白鹿原]第58集_bd.mp4"),
-//				"F:\\仓库_待整理\\[白鹿原]第58集_bd", "123", mess, null);
-		final ExecutorService es = EncryptUtil.encryptFiles(
-				new File("F:\\\\仓库_待整理\\\\[白鹿原]第58集_bd\\\\[白鹿原]第58集_bd.mp4"), "F:\\仓库_待整理\\[白鹿原]第58集_bd\\[白鹿原]第58集_bd",
-				"123", mess, null);
+	public static void main(String[] args) throws AppException {
+		Encrypt encrypt = new Encrypt("12345678","G:\\EncryptDemo\\B\\A", "G:\\EncryptDemo\\C");
+		EncryptNames.setEvery_size(102400);
+		encrypt.addEncryptListener(new Demo());
+		encrypt.doEncrypt();
+		
+		//encrypt.doEncrypt(new File("G:\\EncryptDemo\\A\\拉卡.mp4"), new File("G:\\EncryptDemo\\B"));
 
-		new Thread() {
-			public void run() {
-				while (true) {
-					Object objNow = null;
-					try {
-						objNow = mess.get(EncryptUtil.ENCRYPT_NOW_SIZE);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					Object objAll = null;
-					try {
-						objAll = mess.get(EncryptUtil.ENCRYPT_ALL_SIZE);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					if (null == objAll || null == objNow) {
-						continue;
-					}
-					long nowSzie = (long) objNow;
-					long allsize = (long) objAll;
-					System.out.println(nowSzie + "/" + allsize);
-					if (nowSzie == allsize) {
-						try {
-							mess.killMine();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						es.shutdownNow();
-						break;
-					}
-					try {
-						Thread.sleep(200);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+	}
 
-			};
-		}.start();
+	@Override
+	public void clear() {
+		System.out.println("clear");
+	}
+
+	@Override
+	public boolean hasInit() {
+		return init;
+	}
+
+	@Override
+	public void onStart(int fileCount, long allLength) {
+		init = true;
+		System.out.println("onStart--allLength["+allLength+"],fileCount["+fileCount+"]");		
+	}
+
+	@Override
+	public void onLengthChanged(long length) {
+		System.out.println("onLengthChanged--length["+length+"]");
+		
+	}
+
+	@Override
+	public void onFinshFile(String fileName) {
+		System.out.println("onFinshFile--fileName["+fileName+"]");
+		
+	}
+
+	@Override
+	public void onStartFile(String fromFileName, String toFileName, long fileLength) {
+		System.out.println("onStartFile--fromFileName["+fromFileName+"],toFileName["+toFileName+"],fileLength["+fileLength+"]");
+		
+	}
+
+	@Override
+	public void onMessageChanged(String message) {
+		System.out.println("onMessageChanged--"+message);
 	}
 }

@@ -47,6 +47,7 @@ public class Demo extends JFrame {
 		panel_1.add(btnNewButton_2);
 		progressBarBox.setEast(panel_1);
 
+		progressBarBox.setWest("asdsa");
 		final SProgressBar progressBar = progressBarBox.getProgressBar();
 		progressBar.setTotalValue(1000L);
 		progressBar.setAutoPercentage(true);

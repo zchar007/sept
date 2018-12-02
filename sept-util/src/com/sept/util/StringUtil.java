@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.tools.ant.filters.LineContains.Contains;
 import org.safehaus.uuid.UUID;
 import org.safehaus.uuid.UUIDGenerator;
 
@@ -53,8 +54,7 @@ public final class StringUtil {
 	 * 去掉右空格
 	 * 
 	 * @todo:算法待改进
-	 * @param String
-	 *            str
+	 * @param String str
 	 * @return String
 	 */
 	public final static String rTrim(String str) {
@@ -70,8 +70,7 @@ public final class StringUtil {
 	/**
 	 * 去掉左空格
 	 * 
-	 * @param String
-	 *            str
+	 * @param String str
 	 * @return String
 	 */
 	public final static String lTrim(String str) {
@@ -105,8 +104,7 @@ public final class StringUtil {
 			try {
 				iRet = (int) Double.valueOf(intString).doubleValue();
 			} catch (NumberFormatException e1) {
-				throw new AppException("StringUtil.stringToDouble出错，传入的字符串["
-						+ intString + "]不能被转换为整型!");
+				throw new AppException("StringUtil.stringToDouble出错，传入的字符串[" + intString + "]不能被转换为整型!");
 			}
 
 		}
@@ -129,8 +127,7 @@ public final class StringUtil {
 			DecimalFormat df = new DecimalFormat("");
 			i = df.parse(s).doubleValue();
 		} catch (ParseException e) {
-			throw new AppException("StringUtil.stringToDouble出错，传入的字符串[" + s
-					+ "]不是一个包含数字的字符串!");
+			throw new AppException("StringUtil.stringToDouble出错，传入的字符串[" + s + "]不是一个包含数字的字符串!");
 		}
 		return i;
 
@@ -139,14 +136,12 @@ public final class StringUtil {
 	/**
 	 * 将字符串转化为拼音首字母。
 	 * 
-	 * @param String
-	 *            str
+	 * @param String str
 	 * @return String
 	 * @throws AppException
 	 */
 	public final static String getPy(String str) throws AppException {
-		return str;
-		// return GetPy.getGBKpy(str);
+		return PyUtil.getGBKpy(str);
 	}
 
 	/**
@@ -208,8 +203,7 @@ public final class StringUtil {
 	 * @return
 	 * @throws AppException
 	 */
-	public final static String chnSubstring(String chinaString, int start, int end)
-			throws AppException {
+	public final static String chnSubstring(String chinaString, int start, int end) throws AppException {
 		if (null == chinaString)
 			return null;
 		int startIdx = 0, endIdx = chinaString.length();
@@ -307,16 +301,12 @@ public final class StringUtil {
 	/**
 	 * 获取字符串的长度
 	 * 
-	 * @param value
-	 *            原始字符串
-	 * @param chinaLen
-	 *            每个汉字所占的宽度
-	 * @param englishLen
-	 *            每个非汉字所占的宽度
+	 * @param value      原始字符串
+	 * @param chinaLen   每个汉字所占的宽度
+	 * @param englishLen 每个非汉字所占的宽度
 	 * @return 整个字符串所占的总宽度
 	 */
-	public final static int getCssLength(String value, int chinaLen,
-			int englishLen) {
+	public final static int getCssLength(String value, int chinaLen, int englishLen) {
 		int clen = 0;
 		int elen = 0;
 		for (int i = 0, j = value.length(); i < j; i++) {
@@ -352,8 +342,7 @@ public final class StringUtil {
 		// 获取当前时间
 		Date currentTime = new Date();
 		// 计算出当前时间与出生年月的月数差
-		int diffMonths = DateUtil.getMonthDifferenceBetweenTwoDate(
-				DateUtil.formatStrToDate(birthday), currentTime);
+		int diffMonths = DateUtil.getMonthDifferenceBetweenTwoDate(DateUtil.formatStrToDate(birthday), currentTime);
 
 		// 预防身份证信息有错
 		if (diffMonths < 0) {
@@ -427,15 +416,12 @@ public final class StringUtil {
 	/**
 	 * 功能：从字符串最左边起，根据限制长度截取字符串（字符串中包括汉字，一个汉字等于两个字符） 如果最后一个字符是半个汉字则会舍去。
 	 * 
-	 * @param strParameter
-	 *            要截取的字符串
-	 * @param limitLength
-	 *            截取的长度
+	 * @param strParameter 要截取的字符串
+	 * @param limitLength  截取的长度
 	 * @return 截取后的字符串
 	 * @throws AppException
 	 */
-	public final static String leftb(String strParameter, int limitLength)
-			throws AppException {
+	public final static String leftb(String strParameter, int limitLength) throws AppException {
 		if (strParameter == null) {
 			throw new AppException("输入的字符串参数为空!");
 		}
@@ -473,13 +459,11 @@ public final class StringUtil {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public final static String decode(String originalString, String encoding)
-			throws UnsupportedEncodingException {
+	public final static String decode(String originalString, String encoding) throws UnsupportedEncodingException {
 		return java.net.URLDecoder.decode(originalString, encoding);
 	}
 
-	public final static String encode(String originalString, String encoding)
-			throws UnsupportedEncodingException {
+	public final static String encode(String originalString, String encoding) throws UnsupportedEncodingException {
 		return java.net.URLEncoder.encode(originalString, encoding);
 	}
 
@@ -505,6 +489,36 @@ public final class StringUtil {
 		} else {
 			return "-1";
 		}
+	}
+
+	/**
+	 * 查看字符串中是否含有中文
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public final static boolean containsChn(String str) {
+		for (int i = 0; i < str.length(); i++) {
+			if (((int) str.charAt(i)) > 255) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 查看字符串中是否含有非中文字符（验证中文名的时候）
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public final static boolean isChn(String str) {
+		for (int i = 0; i < str.length(); i++) {
+			if (((int) str.charAt(i)) <= 255) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public final static void main(String[] args) throws AppException {

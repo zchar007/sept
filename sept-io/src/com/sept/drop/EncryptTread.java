@@ -1,4 +1,4 @@
-package com.sept.io.encrypt;
+package com.sept.drop;
 
 import java.io.File;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import com.sept.datastructure.DataStore;
 import com.sept.datastructure.common.SharedInformationPool;
 
-public class EncryptTread implements Runnable {
+class EncryptTread implements Runnable {
 	// private File fromFile;
 	// String toUrl;
 	// String key;
@@ -28,7 +28,7 @@ public class EncryptTread implements Runnable {
 	public void run() {
 		try {
 			for (int i = 0; i < vdsFiles.size(); i++) {
-				File file = (File) vdsFiles.get(i).get("file");
+				File file = (File)vdsFiles.get(i).get("file");
 				String toUrl = (String) vdsFiles.get(i).get("tourl");
 				EncryptUtil.encryptFile(file, toUrl, key, mp, pdoConfig);
 			}

@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 import com.sept.exception.AppException;
 import com.sept.jui.input.combox.color.SColorPickerCombobox;
 import com.sept.jui.input.date.SDateField;
+import com.sept.jui.input.file.SFileField;
 import com.sept.jui.input.radio.SRadio;
 
 public class SInput extends JComponent {
@@ -26,6 +27,7 @@ public class SInput extends JComponent {
 	public static final int INPUT_CHECKBOX = 4;
 	public static final int INPUT_COLOR = 5;
 	public static final int INPUT_DATE = 6;
+	public static final int INPUT_FILE = 7;
 
 	private static final int DEFAULT_WIDTH = 200;
 	private static final int DEFAULT_HEIGHT = 25;
@@ -34,6 +36,7 @@ public class SInput extends JComponent {
 	private JSplitPane splitPane;
 	private JComponent rightComponent;
 	private String additionInfo;
+	private int additionInt;
 
 	public SInput(String title, int input_type) {
 		this.title = title;
@@ -49,7 +52,14 @@ public class SInput extends JComponent {
 		setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		initialize();
 	}
-
+	public SInput(String title, int input_type, String additionInfo, int additionInt) {
+		this.title = title;
+		this.input_type = input_type;
+		this.setAddition(additionInfo);
+		this.setAdditionInt(additionInt);
+		setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+		initialize();
+	}
 	private void initialize() {
 		removeAll();
 		revalidate();
@@ -100,6 +110,10 @@ public class SInput extends JComponent {
 			this.rightComponent = new SDateField(this.additionInfo);
 
 			break;
+		case INPUT_FILE:
+			this.rightComponent = new SFileField(this.additionInfo,this.additionInt);
+
+			break;
 		}
 		this.splitPane.setRightComponent(this.rightComponent);
 	}
@@ -136,5 +150,13 @@ public class SInput extends JComponent {
 
 	public void setAddition(String additionInfo) {
 		this.additionInfo = additionInfo;
+	}
+
+	public int getAdditionInt() {
+		return additionInt;
+	}
+
+	public void setAdditionInt(int additionInt) {
+		this.additionInt = additionInt;
 	}
 }

@@ -1,0 +1,3 @@
+= 2018-11-18 16:28:25,223 DEBUG com.sept.debug.log4j.LogHandler.debug(LogHandler.java:57) -hello log4j !
+= 2018-11-18 16:29:28,616 DEBUG com.sept.debug.log4j.LogHandler.debug(LogHandler.java:65) -[com.sept.debug.log4j.Demo]hello log4j !
+= 2018-11-18 16:31:15,003 DEBUG com.sept.debug.log4j.LogHandler.debug(LogHandler.java:65) -[class com.sept.debug.Deubg.end][kkk]

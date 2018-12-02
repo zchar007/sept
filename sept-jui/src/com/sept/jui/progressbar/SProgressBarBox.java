@@ -25,30 +25,30 @@ public class SProgressBarBox extends JComponent {
 		setLayout(new BorderLayout(0, 0));
 
 		this.component_north = new JPanel();
-		add(this.component_north, "North");
+		add(this.component_north, BorderLayout.NORTH);
 		this.component_north.setLayout(new BorderLayout(0, 0));
 
 		this.component_south = new JPanel();
-		add(this.component_south, "West");
+		add(this.component_south, BorderLayout.SOUTH);
 		this.component_south.setLayout(new BorderLayout(0, 0));
 
 		this.component_west = new JPanel();
-		add(this.component_west, "South");
+		add(this.component_west, BorderLayout.WEST);
 		this.component_west.setLayout(new BorderLayout(0, 0));
 
 		this.component_east = new JPanel();
-		add(this.component_east, "East");
+		add(this.component_east, BorderLayout.EAST);
 		this.component_east.setLayout(new BorderLayout(0, 0));
 
 		this.progressBar = new SProgressBar();
-		add(this.progressBar, "Center");
+		add(this.progressBar, BorderLayout.CENTER);
 	}
 
 	public void setNorth(String text) {
 		if (this.label_north == null) {
 			this.label_north = new JLabel(text);
 			this.label_north.setHorizontalAlignment(2);
-			this.component_north.add(this.label_north, "Center");
+			this.component_north.add(this.label_north, BorderLayout.CENTER);
 			revalidate();
 		} else {
 			this.label_north.setText(text);
@@ -56,7 +56,7 @@ public class SProgressBarBox extends JComponent {
 	}
 
 	public void setNorth(JComponent component) {
-		this.component_north.add(component, "Center");
+		this.component_north.add(component, BorderLayout.CENTER);
 		revalidate();
 	}
 
@@ -64,7 +64,7 @@ public class SProgressBarBox extends JComponent {
 		if (this.label_south == null) {
 			this.label_south = new JLabel(text);
 			this.label_south.setHorizontalAlignment(4);
-			this.component_south.add(this.label_south, "Center");
+			this.component_south.add(this.label_south, BorderLayout.CENTER);
 			revalidate();
 		} else {
 			this.label_south.setText(text);
@@ -72,7 +72,7 @@ public class SProgressBarBox extends JComponent {
 	}
 
 	public void setSouth(JComponent component) {
-		this.component_south.add(component, "Center");
+		this.component_south.add(component, BorderLayout.CENTER);
 		revalidate();
 	}
 
@@ -80,7 +80,7 @@ public class SProgressBarBox extends JComponent {
 		if (this.label_west == null) {
 			this.label_west = new JLabel(text);
 			this.label_west.setHorizontalAlignment(4);
-			this.component_west.add(this.label_west, "Center");
+			this.component_west.add(this.label_west, BorderLayout.CENTER);
 			revalidate();
 		} else {
 			this.label_west.setText(text);
@@ -88,7 +88,7 @@ public class SProgressBarBox extends JComponent {
 	}
 
 	public void setWest(JComponent component) {
-		this.component_west.add(component, "Center");
+		this.component_west.add(component, BorderLayout.CENTER);
 		revalidate();
 	}
 
@@ -96,7 +96,7 @@ public class SProgressBarBox extends JComponent {
 		if (this.label_east == null) {
 			this.label_east = new JLabel(text);
 			this.label_east.setHorizontalAlignment(2);
-			this.component_east.add(this.label_east, "Center");
+			this.component_east.add(this.label_east, BorderLayout.CENTER);
 			revalidate();
 		} else {
 			this.label_east.setText(text);
@@ -104,7 +104,7 @@ public class SProgressBarBox extends JComponent {
 	}
 
 	public void setEast(JComponent component) {
-		this.component_east.add(component, "Center");
+		this.component_east.add(component, BorderLayout.CENTER);
 	}
 
 	public SProgressBar getProgressBar() {

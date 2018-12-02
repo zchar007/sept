@@ -3,6 +3,7 @@ package com.sept.jui.progressbar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -23,6 +24,7 @@ public class SProgressBar extends JProgressBar {
 	private boolean isFinsh = false;
 	private Color indeterminateColor = Color.GRAY;
 	private Object key = new Object();
+	private LinkedHashMap<Long, Long> times = new LinkedHashMap<>();
 
 	public SProgressBar() {
 		this.lhmColors = new LinkedHashMap<>();
@@ -48,6 +50,13 @@ public class SProgressBar extends JProgressBar {
 
 	public void setValue(long nowValue) {
 		synchronized (this.key) {
+			if (times.size() > 3) {
+				for (Long key : times.keySet()) {
+					times.remove(key);
+					break;
+				}
+			}
+			times.put(new Date().getTime(), nowValue);
 			setValuePrivate(nowValue);
 		}
 	}
@@ -203,5 +212,56 @@ public class SProgressBar extends JProgressBar {
 			}
 			super.paintDeterminate(g, c);
 		}
+	}
+
+	/**
+	 * 获取速度
+	 * 
+	 * @return
+	 */
+	public long getSpeed() {
+		synchronized (this.key) {
+			long time1 = 0, time2 = 0, size1 = 0, size2 = 0;
+			int index = 0;
+			for (java.util.Map.Entry<Long, Long> entry : this.times.entrySet()) {
+				if (0 == index) {
+					time1 = entry.getKey();
+					size1 = entry.getValue();
+				}
+
+				if (this.times.size() - 1 == index) {
+					time2 = entry.getKey();
+					size2 = entry.getValue();
+				}
+				index++;
+			}
+			// between
+			long costTime = time2 - time1;
+			long costSize = size2 - size1;
+			if (costTime == 0) {
+				return 0;
+			}
+			long everySecond = costSize * 1000 / costTime;
+			return everySecond;
+		}
+	}
+
+	/**
+	 * 获取预计时间（毫秒）
+	 * 
+	 * @param speed
+	 * @return
+	 */
+	public long estimateTime(long speed) {
+		if (speed == 0) {
+			return 0;
+		}
+		return this.totalValue / speed * 1000;
+	}
+
+	public void clear() {
+		totalValue = 100L;
+		nowValue = 0L;
+		bd_totalValue = new BigDecimal(100L);
 	}
 }

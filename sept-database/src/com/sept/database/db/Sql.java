@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import com.sept.database.util.BlobUtil;
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.exception.SeptException;
 import com.sept.util.DateUtil;
@@ -48,6 +49,14 @@ public class Sql {
 		this("dataSource");
 	}
 
+	/**
+	 * 对sql的执行权限进行控制
+	 * 
+	 * @param dQLAble
+	 * @param dMLAble
+	 * @param dDLAble
+	 * @param dCLAble
+	 */
 	public Sql(boolean dQLAble, boolean dMLAble, boolean dDLAble, boolean dCLAble) {
 		this("dataSource");
 		this.DQLAble = dQLAble;
@@ -235,6 +244,12 @@ public class Sql {
 				vi += this.executeUpdate(this.nowSql, this.alBatchParas.get(i));
 			}
 		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		} finally {
 			this.batchFlag = false;
@@ -243,6 +258,12 @@ public class Sql {
 
 	}
 
+	/**
+	 * 执行update操作
+	 * 
+	 * @return
+	 * @throws AppException
+	 */
 	public int executeUpdate() throws AppException {
 		if (!DMLAble && (this.nowSql.trim().toLowerCase().startsWith("update")
 				|| this.nowSql.trim().toLowerCase().startsWith("insert")
@@ -265,6 +286,14 @@ public class Sql {
 
 	}
 
+	/**
+	 * 执行update操作
+	 * 
+	 * @param sql
+	 * @param alTempPara
+	 * @return
+	 * @throws AppException
+	 */
 	private int executeUpdate(String sql, ArrayList<Object> alTempPara) throws AppException {
 		int vi = 0;
 		try {
@@ -292,6 +321,12 @@ public class Sql {
 			};
 			vi = this.jdbcTemplate.update(sql, pss);
 		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		} finally {
 			// 这里需要设置执行过的sql
@@ -411,6 +446,11 @@ public class Sql {
 							ds.addRow(doTemp);
 						}
 					} catch (Exception e) {
+						if (!(e instanceof AppException)) {
+							LogHandler.fatal(e.getMessage(), e);
+						} else {
+							LogHandler.error(e.getMessage(), e);
+						}
 						throw new SQLException(e);
 					}
 					return ds;
@@ -421,6 +461,12 @@ public class Sql {
 			DataStore ds = (DataStore) this.jdbcTemplate.query(sql, pss, resultSetExtractor);
 			return ds;
 		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		} finally {
 			// 别忘了记sql日志
@@ -488,6 +534,12 @@ public class Sql {
 				}
 			}
 		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException)e;
+			}
 			throw new AppException(e);
 		}
 	}

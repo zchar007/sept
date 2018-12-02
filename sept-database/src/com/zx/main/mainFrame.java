@@ -18,7 +18,7 @@ public class mainFrame {
 					mainFrame window = new mainFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		});

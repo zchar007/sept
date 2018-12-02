@@ -176,7 +176,6 @@ public final class FileUtil {
 		}
 		return file.getName().substring(file.getName().lastIndexOf(".") + 1);
 	}
-
 	/**
 	 * 获取文件后缀名
 	 * 

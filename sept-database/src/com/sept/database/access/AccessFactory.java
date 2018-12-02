@@ -24,7 +24,6 @@ public class AccessFactory {
 
 		if (file.exists()) {
 			throw new AppException("Access文件【" + url + "】已存在！");
-
 		}
 		return new Access(url);
 	}

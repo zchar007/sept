@@ -3,7 +3,7 @@ package com.sept.io.local;
 import java.io.File;
 
 import com.sept.exception.AppException;
-import com.sept.util.CmdUtil;
+import com.sept.util.cmd.CmdUtil;
 
 /**
  * 不适用于web使用

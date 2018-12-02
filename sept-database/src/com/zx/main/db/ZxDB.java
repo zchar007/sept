@@ -18,7 +18,7 @@ public class ZxDB implements DBNames {
 			f.mkdirs();
 		}
 		Access access = AccessFactory.newAccess(PATH + File.separator + FILE_DB);
-		access.newTable("god", "id:12,name:12");
+		access.newTable("god", "id:12,name:1244");
 		for (int i = 0; i < 10; i++) {
 			HashMap<String, String> hm = new HashMap<>();
 			hm.put("id","id" + i);

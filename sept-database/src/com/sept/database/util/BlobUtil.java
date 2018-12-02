@@ -56,7 +56,6 @@ public final class BlobUtil {
 			throw new AppException("BLOB所获取的bytes为null!");
 		}
 		try {
-
 			os = blob.setBinaryStream(1L);
 			os.write(bytes);
 		} catch (SQLException e) {

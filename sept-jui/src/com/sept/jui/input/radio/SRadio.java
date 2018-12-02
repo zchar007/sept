@@ -19,6 +19,9 @@ public class SRadio extends JComponent implements ItemListener, SInputCell {
 	private LinkedHashMap<String, String> valueKey;
 	private String select_item;
 
+	private LinkedHashMap<String, JRadioButton> keyValueBt;
+	private LinkedHashMap<String, JRadioButton> valueKeyBt;
+
 	public SRadio(String arrayCode) {
 		this.setLayout(new GridLayout(0, 5, 0, 4));
 
@@ -31,7 +34,8 @@ public class SRadio extends JComponent implements ItemListener, SInputCell {
 		this.bGroup = new ButtonGroup();
 		this.keyValue = new LinkedHashMap<>();
 		this.valueKey = new LinkedHashMap<>();
-
+		this.keyValueBt = new LinkedHashMap<>();
+		this.valueKeyBt = new LinkedHashMap<>();
 		String[] str = this.arrayCode.split(",");
 		for (int i = 0; i < str.length; i++) {
 			String[] st2 = str[i].split(":");
@@ -39,11 +43,14 @@ public class SRadio extends JComponent implements ItemListener, SInputCell {
 			this.valueKey.put(st2[1], st2[0]);
 		}
 
-		for (String value : this.keyValue.values()) {
-			JRadioButton jrb = new JRadioButton(value);
+		for (String key : this.keyValue.keySet()) {
+			JRadioButton jrb = new JRadioButton(this.keyValue.get(key));
 			this.add(jrb);
 			this.bGroup.add(jrb);
 			jrb.addItemListener(this);
+			this.keyValueBt.put(key, jrb);
+			this.valueKeyBt.put(this.keyValue.get(key), jrb);
+
 		}
 
 	}
@@ -70,6 +77,20 @@ public class SRadio extends JComponent implements ItemListener, SInputCell {
 				JRadioButton jrb = (JRadioButton) item;
 				this.select_item = jrb.getText();
 			}
+		}
+	}
+
+	public void setSelectedKey(String key) {
+		if (this.keyValueBt.containsKey(key)) {
+			this.keyValueBt.get(key).setSelected(true);
+			;
+		}
+	}
+
+	public void setSelectedValue(String value) {
+		if (this.valueKeyBt.containsKey(value)) {
+			this.valueKeyBt.get(value).setSelected(true);
+			;
 		}
 	}
 }

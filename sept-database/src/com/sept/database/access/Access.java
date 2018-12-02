@@ -21,6 +21,7 @@ import com.healthmarketscience.jackcess.Table;
 import com.healthmarketscience.jackcess.TableBuilder;
 import com.sept.datastructure.DataStore;
 import com.sept.datastructure.comparator.Datas;
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.io.local.FileIOUtil;
 
@@ -60,8 +61,13 @@ public class Access {
 
 			}
 			hmTables = new HashMap<String, Table>();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 	}
@@ -85,8 +91,13 @@ public class Access {
 				this.hmTables.put(string, accdb.getTable(string));
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 		return this;
@@ -113,8 +124,13 @@ public class Access {
 			}
 			newTable = tableBuilder.toTable(accdb);
 			hmTables.put(tableName, newTable);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 	}
@@ -149,6 +165,7 @@ public class Access {
 			try {
 				columnBuilder = new ColumnBuilder(columnName).setSQLType(type);
 			} catch (SQLException e) {
+				LogHandler.fatal(e.getMessage(), e);
 				throw new AppException(e);
 			}
 
@@ -211,7 +228,12 @@ public class Access {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 		return Datas.filter(vds, filterStr, true);
@@ -239,7 +261,12 @@ public class Access {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 		return vds;
@@ -251,7 +278,6 @@ public class Access {
 		try {
 			table = accdb.getTable(tableName);
 			List<? extends Column> columns = table.getColumns();
-			int j = 0;
 			for (Row row : table) {
 				vds.addRow();
 				for (int i = 0; i < columns.size(); i++) {
@@ -260,7 +286,12 @@ public class Access {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			if (!(e instanceof AppException)) {
+				LogHandler.fatal(e.getMessage(), e);
+			} else {
+				LogHandler.error(e.getMessage(), e);
+				throw (AppException) e;
+			}
 			throw new AppException(e);
 		}
 		return 1;

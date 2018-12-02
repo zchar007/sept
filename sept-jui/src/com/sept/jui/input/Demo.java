@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.sept.exception.AppException;
+import com.sept.jui.alert.Alert;
 
 public class Demo extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -50,22 +51,24 @@ public class Demo extends JFrame {
 		final SInput input = new SInput("颜色输入", 5);
 		input.setLocation(10, 50);
 		this.contentPane.add(input);
-		
 
-		
-		final SInput inputDate = new SInput("日期输入", SInput.INPUT_DATE,"yyyy-MM");
+		final SInput inputDate = new SInput("日期输入", SInput.INPUT_DATE, "yyyy-MM");
 		inputDate.setLocation(10, 90);
 		this.contentPane.add(inputDate);
-		
+
 //		final SInput input_1 = new SInput("多行文本", 1);
 //		input_1.setLocation(10, 130);
 //		this.contentPane.add(input_1);
-		
-		final SInput inputR = new SInput("radio", SInput.INPUT_RADIO,"1:aaa,2:bbb,3:ccc");
+
+		final SInput inputR = new SInput("radio", SInput.INPUT_RADIO, "1:aaa,2:bbb,3:ccc");
 		inputR.setBounds(10, 130, 500, 30);
 		this.contentPane.add(inputR);
-
+		
+		final SInput inputF = new SInput("radio", SInput.INPUT_FILE, "D://", Alert.SelectFileType_DIRECTORIES_ONLY);
+		inputF.setBounds(20, 170, 261, 25);
+		contentPane.add(inputF);
 		this.btnHuo = new JButton("获取");
+		
 		this.btnHuo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -73,7 +76,7 @@ public class Demo extends JFrame {
 					System.out.println(input.get());
 					System.out.println(inputDate.get());
 					System.out.println(inputR.get());
-
+					System.out.println(inputF.get());
 				} catch (AppException e1) {
 					e1.printStackTrace();
 				}
@@ -89,5 +92,6 @@ public class Demo extends JFrame {
 		});
 		this.btnTanchu.setBounds(231, 228, 93, 23);
 		this.contentPane.add(this.btnTanchu);
+
 	}
 }

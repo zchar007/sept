@@ -15,11 +15,13 @@ public class Deubg {
 
 	public static final void end(String id) {
 		Date dStart = hmDatas.get(id);
-		LogHandler.debug("[" + id + "]" + UnitConversionUtil.formatMSToASUnit(new Date().getTime() - dStart.getTime()),
-				Deubg.class+".end");
+		LogHandler.debug(
+				"[" + id + "]耗时[" + UnitConversionUtil.formatMSToASUnit(new Date().getTime() - dStart.getTime()) + "]");
 	}
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws InterruptedException {
 		Deubg.start("kkk");
+		Thread.sleep(200);
 		Deubg.end("kkk");
 
 	}
