@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.sept.exception.AppException;
 import com.sept.project.context.GlobalContext;
-
+@SuppressWarnings( value = { "" })
 public class DatabaseSessionUtil {
 
 	/**
@@ -31,7 +31,7 @@ public class DatabaseSessionUtil {
 	private static HashMap<String, DataSourceTransactionManager> tmMap = new HashMap<String, DataSourceTransactionManager>();
 
 	private static ApplicationContext ctx = null;
-
+	private final int DEFAULT_DTASOURCE_NAME = 1;
 	public static JdbcTemplate getCurrentSession() throws AppException {
 		return getCurrentSession(DEFAULT_DATASOURCE_NAME);
 	}

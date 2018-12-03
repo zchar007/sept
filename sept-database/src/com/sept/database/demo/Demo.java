@@ -13,11 +13,11 @@ public class Demo {
 		Transaction transaction = TransactionManager.getTransaction();
 		transaction.begin();
 		StringBuilder sb = new StringBuilder();
-		sb.append("update * from zx.codes ");
+		sb.append("SELECT trandate FROM pub_sysctrl_info where subsys='11'");
 		Sql sql = new Sql();
 		sql.setSql(sb);
-		 sql.executeUpdate();
-		//System.out.println(rdo);
+		DataStore ds = sql.executeQuery();
+		System.out.println(ds);
 		transaction.rollbackWithoutStart();
 	}
 }
