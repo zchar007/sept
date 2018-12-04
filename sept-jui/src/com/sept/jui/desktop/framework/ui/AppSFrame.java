@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.sept.jui.desktop.framework.history.Historys;
+import com.sept.jui.themes.Themes;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
@@ -42,6 +43,7 @@ public class AppSFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Themes.setTheme(Themes.THEME_WINDOWS);
 					AppSFrame frame = new AppSFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
