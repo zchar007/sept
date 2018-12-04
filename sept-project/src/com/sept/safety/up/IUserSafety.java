@@ -1,4 +1,4 @@
-package com.sept.safety.user;
+package com.sept.safety.up;
 
 public interface IUserSafety {
 	public static final int NOUSER = -1;// 无此用户
