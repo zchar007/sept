@@ -1,0 +1,10 @@
+= 2018-11-30 02:07:35,000 DEBUG com.healthmarketscience.jackcess.impl.DatabaseImpl.readSystemCatalog(DatabaseImpl.java:887) -Finished reading system catalog.  Tables: [] (Db=zx2.access)
+= 2018-11-30 02:09:15,390 DEBUG com.healthmarketscience.jackcess.impl.DatabaseImpl.readSystemCatalog(DatabaseImpl.java:887) -Finished reading system catalog.  Tables: [] (Db=zx2.access)
+= 2018-11-30 02:09:15,484 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.database.access.Access.newTable(Access.java:168) - Unsupported SQL type: 1244
+java.sql.SQLException: Unsupported SQL type: 1244
+	at com.healthmarketscience.jackcess.DataType.fromSQLType(DataType.java:462)
+	at com.healthmarketscience.jackcess.ColumnBuilder.setSQLType(ColumnBuilder.java:107)
+	at com.healthmarketscience.jackcess.ColumnBuilder.setSQLType(ColumnBuilder.java:97)
+	at com.sept.database.access.Access.newTable(Access.java:166)
+	at com.zx.main.db.ZxDB.initDB(ZxDB.java:21)
+	at com.zx.main.db.ZxDB.main(ZxDB.java:13)

@@ -226,23 +226,19 @@ public class DataStore extends ArrayList<DataObject> implements Serializable {
 		if (null == vdo) {
 			throw new AppException("DataStore 不可存入为 null 的 DataObject");
 		}
-		super.add(row, vdo);
-//		if (row > this.size()) {
-//			throw new AppException("所插入的位置 ： " + row + " 超过了本 DataStore的下一个序列" + this.size());
-//		}
-//		if (null == vdo) {
-//			throw new AppException("DataStore 不可存入为 null 的 DataObject");
-//		}
-//		if (row == this.size()) {
-//			this.add(vdo);
-//			return;
-//		}
-//
-//		this.addRow();
-//		for (int i = this.size() - 1; i > row; i++) {
-//			this.set(i, this.get(i - 1));
-//		}
-//		this.set(row, vdo);
+		if (row > this.size()) {
+			throw new AppException("所插入的位置 ： " + row + " 超过了本 DataStore的下一个序列" + this.size());
+		}
+		if (row == this.size()) {
+			this.add(vdo);
+			return;
+		}
+
+		this.addRow();
+		for (int i = this.size() - 1; i > row; i++) {
+			this.set(i, this.get(i - 1));
+		}
+		this.set(row, vdo);
 
 	}
 

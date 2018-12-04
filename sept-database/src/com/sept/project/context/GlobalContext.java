@@ -7,11 +7,12 @@ public class GlobalContext {
 	 * sept-database
 	 */
 	public static String DATABASE_ABLE = "true";
+	public static String DEFAULT_DATABASE = "true";
 
 	public static String DATABASE_IS_CONFIG_INWAR = "true";
 	public static String DATABASE_CONFIG_NAME = "applicationContext-jdbc.xml";
 	public static String DATABASE_CONFIG_OUTWARFILE = null;
 
-	public static String DATABASE_MAX_LINE= "400";
+	public static String DATABASE_MAX_LINE = "400";
 
 }

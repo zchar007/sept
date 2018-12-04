@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
+import com.sept.util.CloneUtil;
 import com.sept.util.TypeUtil;
 import com.sept.util.bools.BooleanUtil;
 import com.sept.util.bools.FilterUtil;
@@ -23,17 +24,24 @@ public class Datas {
 	 * @param filterStr
 	 * @param modify
 	 * @return
-	 * @throws AppException
+	 * @throws Exception
 	 */
 	public static final DataStore filter(DataStore pds, String filterStr, boolean modify) throws AppException {
+
+		DataStore dsFilter;
+		try {
+			dsFilter = modify ? pds : CloneUtil.deepClone(pds);
+		} catch (Exception e) {
+			throw new AppException(e);
+		}
 		/**
 		 * 入参验证
 		 */
-		if (null == pds || pds.size() <= 0) {
-			return pds;
+		if (null == dsFilter || dsFilter.size() <= 0) {
+			return dsFilter;
 		}
 		if (null == filterStr || filterStr.trim().isEmpty()) {
-			throw new AppException(pds.getClass().getName() + ":入参filterStr为null");
+			throw new AppException(dsFilter.getClass().getName() + ":入参filterStr为null");
 		}
 		/**
 		 * 获取比较器
@@ -49,19 +57,19 @@ public class Datas {
 		 * 参数验证
 		 */
 		if (null == logicArray) {
-			throw new AppException(pds.getClass().getName() + ":参数logicArray为null");
+			throw new AppException(dsFilter.getClass().getName() + ":参数logicArray为null");
 		}
 		if (null == booleanArray) {
-			throw new AppException(pds.getClass().getName() + ":参数booleanArray为null");
+			throw new AppException(dsFilter.getClass().getName() + ":参数booleanArray为null");
 		}
 		if (logicArray.size() != booleanArray.size() - 1) {
-			throw new AppException(pds.getClass().getName() + ":参数不匹配");
+			throw new AppException(dsFilter.getClass().getName() + ":参数不匹配");
 		}
 
 		/**
 		 * 比较项验证
 		 */
-		DataObject pdo = pds.get(0);
+		DataObject pdo = dsFilter.get(0);
 		for (int i = 0; i < booleanArray.size(); i++) {
 			CompareCell compareCell = booleanArray.get(i);
 			String columnName = compareCell.getCmpkey();
@@ -82,8 +90,7 @@ public class Datas {
 		 */
 		HashMap<String, Boolean> hmBools = new HashMap<>();
 
-		DataStore dsNew = new DataStore();
-		for (int i = pds.rowCount() - 1; i >= 0; i--) {
+		for (int i = dsFilter.rowCount() - 1; i >= 0; i--) {
 			String boolStr = "";
 			for (int j = 0; j < booleanArray.size(); j++) {
 				CompareCell compareCell = booleanArray.get(j);
@@ -91,7 +98,7 @@ public class Datas {
 				String operator = compareCell.getCmpoperator();
 				Object cmpRVal = compareCell.getCmpvalue();
 
-				Object cmpLVal = pds.getObject(i, columnName);
+				Object cmpLVal = dsFilter.getObject(i, columnName);
 
 				boolean nowBool = ObjectComparator.compare(cmpLVal, cmpRVal, operator);
 				boolStr += nowBool + ",";
@@ -105,20 +112,22 @@ public class Datas {
 				isTrue = BooleanUtil.calBoolean(logicArray, boolStr);
 				hmBools.put(boolStr, isTrue);
 			}
-			if (isTrue) {
-				if (!modify) {
-					dsNew.addRow(pds.get(i));
-				}
-			} else {
-				if (modify) {
-					pds.remove(i);
-				}
+			if (!isTrue) {
+				dsFilter.remove(i);
 			}
 		}
 
-		return modify ? pds : dsNew;
+		return dsFilter;
 	}
 
+	/**
+	 * 查找，返回找到的第一个，找不到返回-1
+	 * 
+	 * @param pds
+	 * @param filterStr
+	 * @return
+	 * @throws AppException
+	 */
 	public static final int find(DataStore pds, String filterStr) throws AppException {
 		/**
 		 * 入参验证
@@ -205,6 +214,14 @@ public class Datas {
 		return -1;
 	}
 
+	/**
+	 * 找寻所有的符合数据
+	 * 
+	 * @param pds
+	 * @param filterStr
+	 * @return
+	 * @throws AppException
+	 */
 	public static final int[] findAll(DataStore pds, String filterStr) throws AppException {
 		/**
 		 * 入参验证
@@ -257,9 +274,7 @@ public class Datas {
 				throw new AppException("列[" + columnName + "]类型为[" + valueType + "]不支持检索!");
 			}
 		}
-		/**
-		 * 循环比较，保存返回的bool式
-		 */
+		/** 循环比较，保存返回的bool式 **/
 		HashMap<String, Boolean> hmBools = new HashMap<>();
 
 		int[] indexs = new int[0];
@@ -293,6 +308,13 @@ public class Datas {
 		return indexs;
 	}
 
+	/**
+	 * 数组扩容
+	 * 
+	 * @param indexs
+	 * @param number
+	 * @return
+	 */
 	private static int[] addToArray(int[] indexs, int number) {
 		indexs = Arrays.copyOf(indexs, indexs.length + 1);
 		indexs[indexs.length - 1] = number;

@@ -13,7 +13,7 @@
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@10.24.19.152:1521:oradb" /><!-- 10.1.50.26:1521 -->
 		<property name="username" value="aecc" />
-		<property name="password" value="`vdejgeeokeeksdehy"/>
+		<property name="password" value="password"/>
 
 		<!-- POSTGRESQL 
 		<property name="driverClassName" value="org.postgresql.Driver" />

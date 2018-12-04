@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/com/sept/database/access/Access.java=UTF-8
-encoding//src/com/sept/database/access/AccessFactory.java=UTF-8
-encoding//src/com/sept/database/util/BlobUtil.java=UTF-8
-encoding//src/com/sept/database/util/DBUtil.java=UTF-8
+encoding//src/com/sept/db/pbf/access/Access.java=UTF-8
+encoding//src/com/sept/db/pbf/access/AccessFactory.java=UTF-8
+encoding//src/com/sept/db/util/BlobUtil.java=UTF-8
+encoding//src/com/sept/db/util/DBUtil.java=UTF-8
 encoding/<project>=UTF-8
