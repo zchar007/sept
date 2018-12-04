@@ -35,8 +35,7 @@ public class ImageUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Image getAnySize(Image img, int sizeX, int sizeY)
-			throws IOException {
+	public static Image getAnySize(Image img, int sizeX, int sizeY) throws IOException {
 		if (img == null)
 			return null;
 		BufferedImage bfi = toBufferedImage(img);
@@ -71,8 +70,7 @@ public class ImageUtil {
 		// Create a buffered image with a format that's compatible with the
 		// screen
 		BufferedImage bimage = null;
-		GraphicsEnvironment ge = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
 			// Determine the type of transparency of the new buffered image
 			int transparency = Transparency.OPAQUE;
@@ -83,8 +81,7 @@ public class ImageUtil {
 			// Create the buffered image
 			GraphicsDevice gs = ge.getDefaultScreenDevice();
 			GraphicsConfiguration gc = gs.getDefaultConfiguration();
-			bimage = gc.createCompatibleImage(image.getWidth(null),
-					image.getHeight(null), transparency);
+			bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
 		} catch (HeadlessException e) {
 			// The system does not have a screen
 		}
@@ -96,8 +93,7 @@ public class ImageUtil {
 			/*
 			 * if (hasAlpha) { type = BufferedImage.TYPE_INT_ARGB; }
 			 */
-			bimage = new BufferedImage(image.getWidth(null),
-					image.getHeight(null), type);
+			bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
 		}
 
 		// Copy image to buffered image
@@ -120,8 +116,7 @@ public class ImageUtil {
 	 * @param h
 	 * @return
 	 */
-	public static BufferedImage getSubimage(Image img, int x, int y, int w,
-			int h) {
+	public static BufferedImage getSubimage(Image img, int x, int y, int w, int h) {
 		return getSubimage(toBufferedImage(img), x, y, w, h);
 	}
 
@@ -135,8 +130,7 @@ public class ImageUtil {
 	 * @param h
 	 * @return
 	 */
-	public static BufferedImage getSubimage(BufferedImage img, int x, int y,
-			int w, int h) {
+	public static BufferedImage getSubimage(BufferedImage img, int x, int y, int w, int h) {
 		return img.getSubimage(x, y, w, h);
 	}
 
@@ -148,12 +142,27 @@ public class ImageUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static BufferedImage getGsPic(String url, int index)
-			throws IOException {
+	public static BufferedImage getGsPic(String url, int index) throws IOException {
 		File file = new File(url);
-	//	String url2 = file.getParent();
-		//System.out.println(url2);
+		// String url2 = file.getParent();
+		// System.out.println(url2);
 		BufferedImage bImage = getGsPic(ImageIO.read(file));
+		for (int i = 0; i < index; i++) {
+			bImage = getGsPic(bImage);
+		}
+		return bImage;
+	}
+
+	/**
+	 * 获取index级别的模糊图片（毛玻璃效果）
+	 * 
+	 * @param url
+	 * @param index
+	 * @return
+	 * @throws IOException
+	 */
+	public static BufferedImage getGsPic(BufferedImage img, int index) throws IOException {
+		BufferedImage bImage = getGsPic(img);
 		for (int i = 0; i < index; i++) {
 			bImage = getGsPic(bImage);
 		}
@@ -175,8 +184,7 @@ public class ImageUtil {
 		int height = img.getHeight();
 		int minx = img.getMinX();
 		int miny = img.getMinY();
-		BufferedImage imgWriter = new BufferedImage(width, height,
-				img.getType());
+		BufferedImage imgWriter = new BufferedImage(width, height, img.getType());
 		Graphics2D g2d = (Graphics2D) imgWriter.getGraphics();
 		// System.out.println("width=" + width + ",height=" + height + ".");
 		// System.out.println("minx=" + minx + ",miniy=" + miny + ".");
@@ -209,17 +217,13 @@ public class ImageUtil {
 			// 右
 			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_" + j));
 			// 左上
-			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_"
-					+ (j - 1 < 0 ? 0 : j - 1)));
+			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_" + (j - 1 < 0 ? 0 : j - 1)));
 			// 右上
-			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_"
-					+ (j - 1 < 0 ? 0 : j - 1)));
+			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_" + (j - 1 < 0 ? 0 : j - 1)));
 			// 左下
-			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_"
-					+ (j + 1 >= height ? j : j + 1)));
+			al.add(hMap.get((i - 1 < 0 ? 0 : i - 1) + "_" + (j + 1 >= height ? j : j + 1)));
 			// 右下
-			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_"
-					+ (j + 1 >= height ? j : j + 1)));
+			al.add(hMap.get((i + 1 >= width ? i : i + 1) + "_" + (j + 1 >= height ? j : j + 1)));
 			// 加上自己
 			al.add(hMap.get(i + "_" + j));
 			int[] rgb = getAvageRGB(al);

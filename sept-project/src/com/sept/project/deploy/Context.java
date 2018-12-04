@@ -8,6 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 
 /**
@@ -28,8 +29,10 @@ public abstract class Context {
 	/*****
 	 * 读取配置信息
 	 * 
-	 *****/
-	protected HashMap<String, String> readXML(String sourceName) {
+	 * @throws AppException
+	 * 
+	 */
+	protected HashMap<String, String> readXML(String sourceName) throws AppException {
 		Document document = null;
 		HashMap<String, String> hmParas = new HashMap<String, String>();
 		try {
@@ -37,7 +40,8 @@ public abstract class Context {
 			URL url = this.getClass().getResource(sourceName);
 			document = reader.read(url);
 		} catch (Exception e) {
-			LogHandler.logException(sourceName + "不存在，无法加载", e);
+			LogHandler.error(sourceName + "不存在，无法加载", e);
+			throw new AppException(e);
 		}
 		try {
 			Element root = document.getRootElement();
@@ -48,8 +52,9 @@ public abstract class Context {
 				hmParas.put(itemName, itemValue);
 			}
 
-		} catch (AppException e) {
-			LogHandler.logException(sourceName + ":" + e.getMessage(), e);
+		} catch (Exception e) {
+			LogHandler.error(sourceName + ":" + e.getMessage(), e);
+			throw new AppException(e);
 		}
 		return hmParas;
 	}
