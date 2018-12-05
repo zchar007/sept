@@ -21,9 +21,7 @@ public class ComparaUtil {
 	 */
 	public static final ArrayList<HashMap<String, Object>> filter(ArrayList<HashMap<String, Object>> al,
 			String filterStr) throws AppException {
-		Deubg.start("获取comparator");
 		Comparator comparator = FilterUtil.getComparator(filterStr);
-		Deubg.end("获取comparator");
 
 		ArrayList<String> logicArray = comparator.getCompareConnectors();
 		ArrayList<CompareCell> booleanArray = comparator.getCompareCells();
@@ -41,7 +39,6 @@ public class ComparaUtil {
 		if (al.size() <= 0) {
 			return new ArrayList<HashMap<String, Object>>();
 		}
-		Deubg.start("类型验证");
 		for (int i = 0; i < booleanArray.size(); i++) {
 			CompareCell compareCell = booleanArray.get(i);
 			String columnName = compareCell.getCmpkey();
@@ -55,17 +52,13 @@ public class ComparaUtil {
 			}
 
 		}
-		Deubg.end("类型验证");
 
 		int index = al.size() - 1;
-		Deubg.start("处理");
 		for (int i = index; i >= 0; i--) {
 			if (!ComparaUtil.matchWithoutCheck(al.get(i), comparator)) {
 				al.remove(i);
 			}
 		}
-		Deubg.start("处理");
-
 		return al;
 	}
 

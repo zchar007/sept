@@ -1,9 +1,9 @@
-package com.sept.safety.encrypt.demo;
+package com.sept.safety.应该放入app中.demo;
 
 import com.sept.exception.AppException;
-import com.sept.safety.encrypt.Encrypt;
-import com.sept.safety.encrypt.EncryptListener;
-import com.sept.safety.encrypt.EncryptNames;
+import com.sept.safety.应该放入app中.Encrypt;
+import com.sept.safety.应该放入app中.EncryptListener;
+import com.sept.safety.应该放入app中.EncryptNames;
 
 public class Demo implements EncryptListener {
 	private boolean init = false;

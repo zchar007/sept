@@ -4,63 +4,11 @@ import java.text.DecimalFormat;
 
 import com.sept.exception.AppException;
 
-/**
- * 用于单位转换的类
- * 
- * @author zchar
- */
-public final class UnitConversionUtil {
+public class UnitConverUtil {
 	private static final char[] CHINESE_NUMBER = { '零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖' };
 	private static final char[] CHINESE_CODE = { '角', '分', '整' };
 	private static final char[] CHINESE_CARRY = { '元', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟', '兆', '拾',
 			'佰', '仟', '万', '拾', '佰', '仟' };
-
-	/**
-	 * 由传入的bit转成合适的单位表示 名字不太合适
-	 * 
-	 * @param bits
-	 * @return
-	 */
-	@Deprecated
-	public final static String BitToAnySuitableUnit(long bits) {
-		long sizeTemp = bits;
-		String returnStr = bits + "Bit";
-		DecimalFormat format = new DecimalFormat("0.00");
-		if (sizeTemp >= 1024) {
-			sizeTemp = bits / 1024l;
-			String xs = bits % 1024l + "";
-			xs = format.format((Double.parseDouble(xs) / 1024.0d)).substring(2);
-			returnStr = sizeTemp + "." + xs + "KB";
-		}
-		if (sizeTemp >= 1024) {
-			sizeTemp = bits / (1024l * 1024l);
-			String xs = bits % (1024l * 1024l) + "";
-			xs = format.format((Double.parseDouble(xs) / 1024.0d / 1024.0d)).substring(2);
-			returnStr = sizeTemp + "." + xs + "MB";
-		}
-		if (sizeTemp >= 1024) {
-			sizeTemp = bits / (1024l * 1024l * 1024l);
-			String xs = bits % (1024l * 1024l * 1024l) + "";
-			xs = format.format((Double.parseDouble(xs) / 1024.0d / 1024.0d / 1024.0d)).substring(2);
-
-			returnStr = sizeTemp + "." + xs + "GB";
-		}
-		if (sizeTemp >= 1024) {
-			sizeTemp = bits / (1024l * 1024l * 1024l * 1024l);
-			String xs = bits % (1024l * 1024l * 1024l * 1024l) + "";
-			xs = format.format((Double.parseDouble(xs) / 1024.0d / 1024.0d / 1024.0d / 1024.0d)).substring(2);
-
-			returnStr = sizeTemp + "." + xs + "TB";
-		}
-		if (sizeTemp >= 1024) {
-			sizeTemp = bits / (1024l * 1024l * 1024l * 1024l * 1024l);
-			String xs = bits % (1024l * 1024l * 1024l * 1024l * 1024l) + "";
-			xs = format.format((Double.parseDouble(xs) / 1024.0d / 1024.0d / 1024.0d / 1024.0d / 1024.0d)).substring(2);
-
-			returnStr = sizeTemp + "." + xs + "PB";
-		}
-		return returnStr;
-	}
 
 	/**
 	 * 由传入的bit转成合适的单位表示
@@ -68,7 +16,7 @@ public final class UnitConversionUtil {
 	 * @param bits
 	 * @return
 	 */
-	public final static String formatBitToASUnit(long bits) {
+	public final static String bitToAnySuit(long bits) {
 		long sizeTemp = bits;
 		String returnStr = bits + "Bit";
 		DecimalFormat format = new DecimalFormat("0.00");
@@ -106,45 +54,6 @@ public final class UnitConversionUtil {
 			returnStr = sizeTemp + "." + xs + "PB";
 		}
 		return returnStr;
-	}
-
-	/**
-	 * 格式化毫秒到合适的格式 名字太长，但还有地方要用
-	 * 
-	 * @author 张超
-	 * @date 创建时间 2017-5-30
-	 * @since V1.0
-	 */
-	@Deprecated
-	public final static String MillisecondToAnySuitableUnit(long times) {
-		Integer ss = 1000;
-		Integer mi = ss * 60;
-		Integer hh = mi * 60;
-		Integer dd = hh * 24;
-
-		Long day = times / dd;
-		Long hour = (times - day * dd) / hh;
-		Long minute = (times - day * dd - hour * hh) / mi;
-		Long second = (times - day * dd - hour * hh - minute * mi) / ss;
-		Long milliSecond = times - day * dd - hour * hh - minute * mi - second * ss;
-
-		StringBuffer sb = new StringBuffer();
-		if (day > 0) {
-			sb.append(day + "天");
-		}
-		if (hour > 0) {
-			sb.append(hour + "小时");
-		}
-		if (minute > 0) {
-			sb.append(minute + "分");
-		}
-		if (second > 0) {
-			sb.append(second + "秒");
-		}
-		if (milliSecond > 0) {
-			sb.append(milliSecond + "毫秒");
-		}
-		return sb.toString();
 	}
 
 	/**
@@ -154,7 +63,7 @@ public final class UnitConversionUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String formatMSToASUnit(long times) {
+	public final static String msToAnySuit(long times) {
 		Integer ss = 1000;
 		Integer mi = ss * 60;
 		Integer hh = mi * 60;
@@ -192,8 +101,8 @@ public final class UnitConversionUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String formatMoneyToChinese(double vMoney) throws AppException {
-		return formatMoneyToChinese(Double.toString(vMoney));
+	public final static String moneyToChinese(double vMoney) throws AppException {
+		return moneyToChinese(Double.toString(vMoney));
 	}
 
 	/**
@@ -203,7 +112,7 @@ public final class UnitConversionUtil {
 	 * @date 创建时间 2017-5-30
 	 * @since V1.0
 	 */
-	public final static String formatMoneyToChinese(String vMoney) throws AppException {
+	public final static String moneyToChinese(String vMoney) throws AppException {
 		// 是不是数字格式,不是则直接报错
 		Double.parseDouble(vMoney);
 		String zheng = vMoney;
@@ -279,11 +188,6 @@ public final class UnitConversionUtil {
 			chineseStr = chineseStr.substring(0, chineseStr.length() - 1);
 		}
 		return chineseStr;
-
-	}
-
-	public final static void main(String[] args) {
-		System.out.println(UnitConversionUtil.BitToAnySuitableUnit(1234247832647l));
 
 	}
 }

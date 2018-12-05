@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import com.sept.util.UnitConversionUtil;
+import com.sept.util.UnitConverUtil;
 
 /**
  * 接受boolean串并计算结果 太慢，建议使用BooleanUtil
@@ -31,13 +31,13 @@ public final class BooleanCal {
 		for (int i = 0; i < 200; i++) {
 			a = calBoolStr(calBooleanStr);
 		}
-		System.out.println(UnitConversionUtil.formatMSToASUnit(new Date()
+		System.out.println(UnitConverUtil.msToAnySuit(new Date()
 				.getTime() - d1.getTime()));
 		 d1 = new Date();
 		for (int i = 0; i < 200; i++) {
 			 b = BooleanUtil.calBoolean(calBooleanStr);
 		}
-		System.out.println(UnitConversionUtil.formatMSToASUnit(new Date()
+		System.out.println(UnitConverUtil.msToAnySuit(new Date()
 				.getTime() - d1.getTime()));
 		System.out.println(a);
 		System.out.println(b);

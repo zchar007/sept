@@ -1,6 +1,6 @@
 package com.sept.project.context.demo;
 
-import com.sept.safety.user.IUserSafety;
+import com.sept.safety.up.IUserSafety;
 
 public class PBFUserSafetyDriver implements IUserSafety {
 
