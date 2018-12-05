@@ -1,13 +1,81 @@
 package com.sept.safety.encrypt;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.util.HashMap;
 
 import com.sept.exception.AppException;
+import com.sept.io.local.FileByteReader;
 import com.sept.io.local.FileUtil;
 
 public class EncryptUtil {
+	public static void main(String[] args) throws AppException {
+		File f = encryptFile("8848ttt", "D:\\笔记.docx", "D:\\");
+		File f2 = encryptFile("8848ttt", f.getAbsolutePath(), "D:\\");
+
+	}
+
+	/**
+	 * 加密一些小文件
+	 * 
+	 * @param key
+	 * @param fromurl
+	 * @param tourl
+	 * @return
+	 * @throws AppException
+	 */
+	public static final File encryptFile(String key, String fromurl, String tourl) throws AppException {
+		FileByteReader fbr = new FileByteReader(fromurl, 1024 * 1024);
+		File toUrl = new File(tourl);
+		File fromUrl = new File(fromurl);
+		File toFile = null;
+		try {
+			if (toUrl.exists()) {
+				if (!toUrl.isDirectory()) {
+					toFile = toUrl;
+				} else {
+					toFile = new File(toUrl.getAbsolutePath() + File.separator + fromUrl.getName());
+					String fileName = toFile.getName().substring(0, toFile.getName().lastIndexOf("."));
+					String fileType = toFile.getName().substring(toFile.getName().lastIndexOf("."),
+							toFile.getName().length());
+					int index = 0;
+					while (toFile.exists()) {
+						toFile = new File(tourl + File.separator + fileName + "(" + (++index) + ")" + fileType);
+					}
+					toFile.createNewFile();
+				}
+			} else {
+				toUrl.mkdir();
+				toFile = new File(toUrl.getAbsolutePath() + File.separator + fromUrl.getName());
+				String fileName = toFile.getName().substring(0, toFile.getName().lastIndexOf("."));
+				String fileType = toFile.getName().substring(toFile.getName().lastIndexOf("."),
+						toFile.getName().length());
+
+				int index = 0;
+				while (toFile.exists()) {
+					toFile = new File(tourl + File.separator + fileName + "(" + (++index) + ")" + fileType);
+				}
+				toFile.createNewFile();
+			}
+			if (!toFile.exists()) {
+
+			}
+
+			FileByteReader fbrTo = new FileByteReader(toFile.getAbsolutePath());
+			Index index = new Index(key);
+			byte[] datas;
+			while ((datas = fbr.read()) != null) {
+				datas = encryptByte(datas, index);
+				fbrTo.write(datas, true);
+			}
+			fbrTo.close();
+			fbr.close();
+		} catch (IOException e) {
+			throw new AppException(e);
+		}
+		return toFile;
+	}
+
 	/**
 	 * 把byte按照给定字符串来加密，循环给定字符串 最终结果为同1，异0，解密秘钥和加密秘钥相同<br>
 	 * 对于字符串的加密，获取到byte后要以iso-8859-1格式创建字符串后再以iso-8859-1格式形式获取byte进行解密 <br>
@@ -42,7 +110,6 @@ public class EncryptUtil {
 	 */
 	public static final byte[] encryptByte(byte[] byteData, Index key) {
 		for (int i = 0; i < byteData.length; i++) {
-
 			byteData[i] = (byte) (byteData[i] ^ (key.getNextKey() | 0xFF));
 		}
 		return byteData;
@@ -101,7 +168,7 @@ public class EncryptUtil {
 		String head_new = fromFileHead_t.substring(0, fromFileHead_t.length() - fromFileHeadFile.getName().length());
 		String directory = fromUrl.substring(head_new.length(), fromUrl_t.length() - fromFile.getName().length());
 
-		returnUrl += File.separator+directory;
+		returnUrl += File.separator + directory;
 		if (autoMkdirs) {
 			File file = new File(returnUrl);
 			if (!file.exists()) {
@@ -114,16 +181,5 @@ public class EncryptUtil {
 				+ (config.containsKey(type) ? config.get(type) : type);
 
 		return returnUrl;
-	}
-
-	public static void main(String[] args) throws UnsupportedEncodingException, AppException {
-//		String str = "hello你好";
-//		str = new String(encryptByte(str.getBytes(), "12345678"), "iso-8859-1");
-//		System.out.println(str);
-//		str = new String(encryptByte(str.getBytes("iso-8859-1"), "12345678"));
-//		System.out.println(str);
-		HashMap<String, String> config = new HashMap<>();
-		config.put("jar", "jarrz");
-		System.out.println(dealPath4ToUrl("G:\\Files\\jar\\sept.io.jar", "G:\\Files\\jar\\sept.io.jar", "D:\\", config));
 	}
 }

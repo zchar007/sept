@@ -5,6 +5,7 @@ import com.sept.exception.AppException;
 public interface ITransaction {
 	boolean isUnderTransaction();
 
+	/**这种模式有何用？**/
 	boolean isRollbackOnly();
 
 	int begin();

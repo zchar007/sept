@@ -1,4 +1,4 @@
-package com.sept.db.dba;
+package com.sept.db;
 
 import java.sql.Blob;
 import java.sql.Clob;

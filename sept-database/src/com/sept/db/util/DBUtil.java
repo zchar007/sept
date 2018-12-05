@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import com.sept.datastructure.DataStore;
-import com.sept.db.dba.DatabaseSessionUtil;
+import com.sept.db.DBDeploy;
+import com.sept.db.dba.DBSessionUtil;
+import com.sept.db.dba.DBType;
 import com.sept.db.dba.Sql;
 import com.sept.exception.AppException;
-import com.sept.project.context.GlobalContext;
+import com.sept.project.deploy.DeployFactory;
 import com.sept.util.DateUtil;
 
 public class DBUtil {
@@ -22,16 +24,18 @@ public class DBUtil {
 	 */
 	public final static Date getDBDate() throws AppException, SQLException {
 		String s = null;
-		if (!"true".equals(GlobalContext.DATABASE_ABLE.toLowerCase())) {
+		if (!DeployFactory.get(DBDeploy.class).isDbAble()) {
 			return new Date();
 		}
 		Sql sql = new Sql();
-		if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_ORACLE) {
+		if (DBSessionUtil.getDBType() == DBType.ORACLE) {
 			sql.setSql("select to_char(sysdate,'yyyy-MM-dd') dbdate from dual");
-		} else if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_POSTGRESQL) {
+		} else if (DBSessionUtil.getDBType() == DBType.MYSQL) {
+			sql.setSql("select date_format(now(),'%Y-%m-%d %H:%i:%S') dbdate from dual");
+		} else if (DBSessionUtil.getDBType() == DBType.POSTGRESQL) {
 			sql.setSql("select to_char(CURRENT_DATE,'yyyy-MM-dd') dbdate from dual");
 		} else {
-			throw new AppException("框架不签不能识别数据库类型【" + DatabaseSessionUtil.getDBType() + "】");
+			throw new AppException("框架不签不能识别数据库类型【" + DBSessionUtil.getDBType() + "】");
 		}
 
 		DataStore vds = sql.executeQuery();
@@ -50,19 +54,21 @@ public class DBUtil {
 	public final static Date getDBTime() throws AppException, SQLException {
 		synchronized (refreshDBTime) {
 			long currentTime = System.currentTimeMillis();
-			if (!"true".equals(GlobalContext.DATABASE_ABLE.toLowerCase())) {
+			if (!DeployFactory.get(DBDeploy.class).isDbAble()) {
 				return new Date();
 			}
 
 			if (dbTime == 0 || (dbTime != 0 && currentTime - serverStartTime > 60000)) {
 				String s = null;
 				Sql sql = new Sql();
-				if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_ORACLE) {
+				if (DBSessionUtil.getDBType() == DBType.ORACLE) {
 					sql.setSql("select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') dbdate from dual");
-				} else if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_POSTGRESQL) {
+				} else if (DBSessionUtil.getDBType() == DBType.MYSQL) {
+					sql.setSql("select date_format(now(),'%Y-%m-%d %H:%i:%S') dbdate from dual");
+				} else if (DBSessionUtil.getDBType() == DBType.POSTGRESQL) {
 					sql.setSql("select to_char(CURRENT_TIMESTAMP,'yyyy-mm-dd hh24:mi:ss') dbdate from dual");
 				} else {
-					throw new AppException("框架不签不能识别数据库类型【" + DatabaseSessionUtil.getDBType() + "】");
+					throw new AppException("框架不签不能识别数据库类型【" + DBSessionUtil.getDBType() + "】");
 				}
 
 				DataStore vds = sql.executeQuery();

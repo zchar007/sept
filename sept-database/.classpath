@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="lib/sept.debug.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/jxl.jar"/>
+	<classpathentry kind="lib" path="lib/sept.project.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

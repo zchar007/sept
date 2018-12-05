@@ -1,13 +1,15 @@
 package com.sept.db.dba.object;
 
 import com.sept.datastructure.DataStore;
-import com.sept.db.dba.DatabaseSessionUtil;
+import com.sept.db.DBDeploy;
+import com.sept.db.dba.DBSessionUtil;
+import com.sept.db.dba.DBType;
 import com.sept.db.dba.Sql;
 import com.sept.exception.AppException;
-import com.sept.project.context.GlobalContext;
+import com.sept.project.deploy.DeployFactory;
 
 public class QueryAble {
-	protected Sql sql = new Sql();//默认只允许查询的sql
+	protected Sql sql = new Sql();// 默认只允许查询的sql
 
 	/**
 	 * 查询一个表的数据
@@ -20,14 +22,14 @@ public class QueryAble {
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append(" select * from " + tableName + " where rowcount <= ?");
 		this.sql.setSql(sqlSb);
-		this.sql.setInt(1, Integer.parseInt(GlobalContext.DATABASE_MAX_LINE));
+		this.sql.setInt(1, DeployFactory.get(DBDeploy.class).getMaxSelectLine());
 		DataStore ds = this.sql.executeQuery();
 		return ds;
 	}
 
 	protected DataStore query(String tableName, String id) throws AppException {
 		DataStore dsReturn = new DataStore();
-		if (DatabaseSessionUtil.getDBType() == DatabaseSessionUtil.DBTYPE_ORACLE) {
+		if (DBSessionUtil.getDBType() == DBType.ORACLE) {
 			String[] owner_table = tableName.split(".");
 			StringBuilder sqlSb = new StringBuilder();
 			sqlSb.append("select column_name ");

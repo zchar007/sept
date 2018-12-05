@@ -21,7 +21,7 @@ import com.sept.datastructure.DataStore;
 import com.sept.datastructure.common.MessagePool;
 import com.sept.datastructure.common.SharedInformationPool;
 import com.sept.exception.AppException;
-import com.sept.io.local.FileIOTool;
+import com.sept.io.local.FilePathUtil;
 import com.sept.io.web.ftp.tree.FTPFileNode;
 import com.sept.io.web.ftp.tree.FTPFileTree;
 import com.sept.util.RandomManager;
@@ -226,7 +226,7 @@ public class FTPUtil {
 
 			String needRemovePath = fromFile.getAbsolutePath().substring(0,
 					fromFile.getAbsolutePath().lastIndexOf(File.separator));
-			HashMap<String, Object> pdo = FileIOTool.getFilesFormPath(fromFile.getAbsolutePath(), "");
+			HashMap<String, Object> pdo = FilePathUtil.getFilesFormPath(fromFile.getAbsolutePath(), "");
 			long length = (long) pdo.get("length");
 			@SuppressWarnings("unchecked")
 			ArrayList<File> alFiles = (ArrayList<File>) pdo.get("files");

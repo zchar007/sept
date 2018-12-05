@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.apache.tools.ant.filters.LineContains.Contains;
 import org.safehaus.uuid.UUID;
 import org.safehaus.uuid.UUIDGenerator;
 

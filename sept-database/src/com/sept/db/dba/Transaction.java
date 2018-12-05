@@ -1,26 +1,28 @@
 package com.sept.db.dba;
 
-import java.util.HashMap;
-
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.sept.db.ITransaction;
 import com.sept.exception.AppException;
 
-public class Transaction {
-	static ThreadLocal<HashMap<String, Transaction>> transLocalMap = new ThreadLocal<HashMap<String, Transaction>>();
-	public static final int PROPAGATION_MANDATORY = 2;
-	public static final int PROPAGATION_REQUIRED = 0;
-	public static final int PROPAGATION_REQUIRES_NEW = 3;
-	private PlatformTransactionManager ptm;
+public class Transaction implements ITransaction {
 	private TransactionStatus status = null;
+	private PlatformTransactionManager ptm;
 	private boolean transactionStarted = false;
 
+	public Transaction(DataSourceTransactionManager ptm) {
+		this.ptm = ptm;
+	}
+
+	@Override
 	public boolean isUnderTransaction() {
 		return (this.status != null) && (!this.status.isCompleted());
 	}
 
+	@Override
 	public boolean isRollbackOnly() {
 		if (this.status == null) {
 			return false;
@@ -28,41 +30,12 @@ public class Transaction {
 		return this.status.isRollbackOnly();
 	}
 
-	private Transaction() {
-	}
-
-	private Transaction(PlatformTransactionManager pPtm) {
-		this.ptm = pPtm;
-	}
-
-	public static Transaction getTransaction(PlatformTransactionManager pPtm,
-			String dbName) throws AppException {
-		HashMap<String, Transaction> transMap = (HashMap<String, Transaction>) transLocalMap
-				.get();
-		if (null == transMap) {
-			transMap = new HashMap<String, Transaction>();
-		}
-		Transaction transaction = (Transaction) transMap.get(dbName);
-		if (transaction == null) {
-			transaction = new Transaction(pPtm);
-			transMap.put(dbName, transaction);
-		} else if (transaction.isRollbackOnly() == true) {
-			transaction.rollback();
-			transaction = new Transaction(pPtm);
-			transMap.put(dbName, transaction);
-		}
-		transLocalMap.set(transMap);
-		return transaction;
-	}
-
-	public PlatformTransactionManager getPtm() {
-		return this.ptm;
-	}
-
+	@Override
 	public int begin() {
 		return begin(0);
 	}
 
+	@Override
 	public int begin(int propagation) {
 		if (this.transactionStarted) {
 			return 0;
@@ -75,11 +48,13 @@ public class Transaction {
 		return 1;
 	}
 
+	@Override
 	public void commit() throws AppException {
 		commitWithoutStart();
 		begin();
 	}
 
+	@Override
 	public void commitWithoutStart() throws AppException {
 		if (null == this.status) {
 			throw new AppException("当前commit操作，未正常开启事物，请联系开发人员处理！");
@@ -96,11 +71,13 @@ public class Transaction {
 		this.transactionStarted = false;
 	}
 
+	@Override
 	public void rollback() throws AppException {
 		rollbackWithoutStart();
 		begin();
 	}
 
+	@Override
 	public void rollbackWithoutStart() throws AppException {
 		if (null == this.status) {
 			throw new AppException("当前rollback操作，未正常开启事物，请联系开发人员处理！");
@@ -110,5 +87,9 @@ public class Transaction {
 		}
 		this.ptm.rollback(this.status);
 		this.transactionStarted = false;
+	}
+
+	public PlatformTransactionManager getPtm() {
+		return ptm;
 	}
 }

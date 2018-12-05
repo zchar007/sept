@@ -1,6 +1,6 @@
 package com.sept.safety.encrypt;
 
-class Index{
+public class Index{
 	private String key;
 	private int index = -1;
 

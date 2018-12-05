@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.sept.exception.AppException;
-import com.sept.io.local.FileIOTool;
 import com.sept.io.local.FileLineReader;
+import com.sept.io.local.FilePathUtil;
 
 public class FileCopy {
 	private String fromUrl;
@@ -36,7 +36,7 @@ public class FileCopy {
 		progressBar.reset();
 		File fromFile = new File(fromUrl);
 		File toFile = new File(toUrl);
-		HashMap<String, Object> filess = FileIOTool.getFilesFormFile(fromFile, types);
+		HashMap<String, Object> filess = FilePathUtil.getFilesFormFile(fromFile, types);
 		long allSize = (long) filess.get("length");
 		@SuppressWarnings("unchecked")
 		ArrayList<File> alFile = (ArrayList<File>) filess.get("files");
@@ -153,7 +153,7 @@ public class FileCopy {
 				File toFile = new File(toUrl);
 				HashMap<String, Object> hmReturn = null;
 				try {
-					hmReturn = FileIOTool.getFilesFormFile(fromFile, types, filePathFilePath);
+					hmReturn = FilePathUtil.getFilesFormFile(fromFile, types, filePathFilePath);
 				} catch (AppException e1) {
 					e1.printStackTrace();
 				}

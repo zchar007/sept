@@ -27,7 +27,6 @@ import com.sept.db.util.BlobUtil;
 import com.sept.db.util.ClobUtil;
 import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
-import com.sept.project.context.GlobalContext;
 import com.sept.util.DateUtil;
 import com.sept.util.TypeUtil;
 
@@ -43,11 +42,9 @@ public class Sql implements ISql {
 	private boolean DQLAble = true;// 查询是否允许
 	private boolean DMLAble = false;// 表数据操作是否允许
 	private boolean DDLAble = false;// 创建是否允许
-	private boolean DCLAble = false;// 控制是否允许
+	//private boolean DCLAble = false;// 控制是否允许,暂时用不到
 
 	// private boolean batch = false;
-
-
 
 	public Sql() {
 		this("dataSource");
@@ -65,12 +62,11 @@ public class Sql implements ISql {
 	 * @param dDLAble
 	 * @param dCLAble
 	 */
-	public Sql(boolean dQLAble, boolean dMLAble, boolean dDLAble, boolean dCLAble) {
+	public Sql(boolean dQLAble, boolean dMLAble, boolean dDLAble) {
 		this("dataSource");
 		this.DQLAble = dQLAble;
 		this.DMLAble = dMLAble;
 		this.DDLAble = dDLAble;
-		this.DCLAble = dCLAble;
 	}
 
 	/**
@@ -81,12 +77,11 @@ public class Sql implements ISql {
 	 * @param dDLAble
 	 * @param dCLAble
 	 */
-	public Sql(String dataSource, boolean dQLAble, boolean dMLAble, boolean dDLAble, boolean dCLAble) {
+	public Sql(String dataSource, boolean dQLAble, boolean dMLAble, boolean dDLAble) {
 		this(dataSource);
 		this.DQLAble = dQLAble;
 		this.DMLAble = dMLAble;
 		this.DDLAble = dDLAble;
-		this.DCLAble = dCLAble;
 	}
 
 	@Override
@@ -358,7 +353,7 @@ public class Sql implements ISql {
 	private int executeUpdate(String sql, ArrayList<Object> alTempPara) throws AppException {
 		int vi = 0;
 		try {
-			this.jdbcTemplate = DatabaseSessionUtil.getCurrentSession(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
 			Transaction trans = TransactionManager.getTransaction(this.dbName);
 
 			if (!trans.isUnderTransaction()) {
@@ -431,7 +426,7 @@ public class Sql implements ISql {
 				throw new AppException("还未开启事物！");
 			}
 
-			this.jdbcTemplate = DatabaseSessionUtil.getCurrentSession(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
 			final ArrayList<Object> exePara = alTempPara;
 
 			PreparedStatementSetter pss = new PreparedStatementSetter() {
@@ -520,7 +515,7 @@ public class Sql implements ISql {
 					return ds;
 				}
 			};
-			this.jdbcTemplate = DatabaseSessionUtil.getCurrentSession(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
 			this.jdbcTemplate.setFetchSize(1000);
 			DataStore ds = (DataStore) this.jdbcTemplate.query(sql, pss, resultSetExtractor);
 			return ds;

@@ -5,7 +5,7 @@ import com.sept.datastructure.DataStore;
 import com.sept.db.dba.Sql;
 
 public class OperationAble {
-	protected Sql sql = new Sql(true, true, false, false);// 允许查询和表数据操作
+	protected Sql sql = new Sql(true, true, false);// 允许查询和表数据操作
 
 	protected void insert(String tableName, DataObject pdo) {
 

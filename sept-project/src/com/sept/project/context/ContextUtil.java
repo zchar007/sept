@@ -8,8 +8,8 @@ import com.sept.project.context.demo.PBFDataSource;
 
 public class ContextUtil {
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = getApplicationContext("applicationContext-pbf.xml");
-		PBFDataSource pbfDs = (PBFDataSource) applicationContext.getBean("dataSource");
+		ApplicationContext applicationContext = getApplicationContext("applicationContext-deploy.xml");
+		PBFDataSource pbfDs = (PBFDataSource) applicationContext.getBean(ApplicationContext.class);
 		System.out.println(pbfDs.toString());
 		((ClassPathXmlApplicationContext) applicationContext).close();
 	}

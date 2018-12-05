@@ -1,172 +1,28 @@
-= 2018-12-04 11:08:03,721 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@58d25a40: startup date [Tue Dec 04 11:08:03 CST 2018]; root of context hierarchy
-= 2018-12-04 11:08:03,797 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
-= 2018-12-04 11:08:05,041 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
-= 2018-12-04 17:20:02,775 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@726f3b58: startup date [Tue Dec 04 17:20:02 CST 2018]; root of context hierarchy
-= 2018-12-04 17:20:02,826 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
-= 2018-12-04 17:20:03,944 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
-= 2018-12-04 17:20:16,694 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@726f3b58: startup date [Tue Dec 04 17:20:16 CST 2018]; root of context hierarchy
-= 2018-12-04 17:20:16,745 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
-= 2018-12-04 17:20:17,551 ERROR com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:626) -init datasource error
-java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
-	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
-	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:131)
-	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:204)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:455)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:406)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
-	at oracle.jdbc.driver.T4CTTIoauthenticate.receiveOauth(T4CTTIoauthenticate.java:799)
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:368)
-	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:508)
-	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:203)
-	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:33)
-	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:510)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1368)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1424)
-	at com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:616)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1706)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1645)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1574)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
-	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:83)
-	at com.sept.db.dba.DatabaseSessionUtil.getCtx(DatabaseSessionUtil.java:163)
-	at com.sept.db.dba.DatabaseSessionUtil.initTransactionManager(DatabaseSessionUtil.java:150)
-	at com.sept.db.demo.Demo.main(Demo.java:12)
-= 2018-12-04 17:20:17,561 ERROR com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:643) -dataSource init error
-java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
-	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
-	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:131)
-	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:204)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:455)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:406)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
-	at oracle.jdbc.driver.T4CTTIoauthenticate.receiveOauth(T4CTTIoauthenticate.java:799)
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:368)
-	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:508)
-	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:203)
-	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:33)
-	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:510)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1368)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1424)
-	at com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:616)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1706)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1645)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1574)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
-	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:83)
-	at com.sept.db.dba.DatabaseSessionUtil.getCtx(DatabaseSessionUtil.java:163)
-	at com.sept.db.dba.DatabaseSessionUtil.initTransactionManager(DatabaseSessionUtil.java:150)
-	at com.sept.db.demo.Demo.main(Demo.java:12)
-= 2018-12-04 17:20:17,562 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
-= 2018-12-04 17:20:17,563 WARN org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [applicationContext-jdbc.xml]: Invocation of init method failed; nested exception is java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
-= 2018-12-04 17:59:23,858 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@569cfc36: startup date [Tue Dec 04 17:59:23 CST 2018]; root of context hierarchy
-= 2018-12-04 17:59:26,828 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
-= 2018-12-04 17:59:32,093 ERROR com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:626) -init datasource error
-java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
-	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
-	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:131)
-	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:204)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:455)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:406)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
-	at oracle.jdbc.driver.T4CTTIoauthenticate.receiveOauth(T4CTTIoauthenticate.java:799)
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:368)
-	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:508)
-	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:203)
-	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:33)
-	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:510)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1368)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1424)
-	at com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:616)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1706)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1645)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1574)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
-	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:83)
-	at com.sept.db.dba.DatabaseSessionUtil.getCtx(DatabaseSessionUtil.java:163)
-	at com.sept.db.dba.DatabaseSessionUtil.initTransactionManager(DatabaseSessionUtil.java:150)
-	at com.sept.db.demo.Demo.main(Demo.java:12)
-= 2018-12-04 17:59:32,163 ERROR com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:643) -dataSource init error
-java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
-	at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:70)
-	at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:131)
-	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:204)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:455)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:406)
-	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
-	at oracle.jdbc.driver.T4CTTIoauthenticate.receiveOauth(T4CTTIoauthenticate.java:799)
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:368)
-	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:508)
-	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:203)
-	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:33)
-	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:510)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1368)
-	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1424)
-	at com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:616)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1706)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1645)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1574)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:545)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
-	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
-	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:83)
-	at com.sept.db.dba.DatabaseSessionUtil.getCtx(DatabaseSessionUtil.java:163)
-	at com.sept.db.dba.DatabaseSessionUtil.initTransactionManager(DatabaseSessionUtil.java:150)
-	at com.sept.db.demo.Demo.main(Demo.java:12)
-= 2018-12-04 17:59:32,173 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
-= 2018-12-04 17:59:32,178 WARN org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [applicationContext-jdbc.xml]: Invocation of init method failed; nested exception is java.sql.SQLException: ORA-01017: invalid username/password; logon denied
-
+= 2018-12-05 11:07:55,838 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@41975e01: startup date [Wed Dec 05 11:07:55 CST 2018]; root of context hierarchy
+= 2018-12-05 11:07:55,910 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 11:07:56,135 INFO com.sept.debug.log4j.LogHandler.info(LogHandler.java:17) - com.sept.project.deploy.DeployFactory.get(DeployFactory.java:41) - 未找到配置[class com.sept.project.deploy.ProjectDeploy],将采用配置的默认init初始化配置类！
+= 2018-12-05 12:21:25,195 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@41975e01: startup date [Wed Dec 05 12:21:25 CST 2018]; root of context hierarchy
+= 2018-12-05 12:21:25,243 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 12:21:25,408 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5c5a1b69: startup date [Wed Dec 05 12:21:25 CST 2018]; root of context hierarchy
+= 2018-12-05 12:21:25,409 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
+= 2018-12-05 12:21:26,589 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-05 12:22:50,364 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@74a10858: startup date [Wed Dec 05 12:22:50 CST 2018]; root of context hierarchy
+= 2018-12-05 12:22:50,459 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 12:23:03,776 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3738449f: startup date [Wed Dec 05 12:23:03 CST 2018]; root of context hierarchy
+= 2018-12-05 12:23:03,825 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
+= 2018-12-05 12:23:14,446 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-05 12:25:51,587 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@41975e01: startup date [Wed Dec 05 12:25:51 CST 2018]; root of context hierarchy
+= 2018-12-05 12:25:51,632 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 12:25:51,807 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5c5a1b69: startup date [Wed Dec 05 12:25:51 CST 2018]; root of context hierarchy
+= 2018-12-05 12:25:51,808 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
+= 2018-12-05 12:25:52,614 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-05 12:27:40,668 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@41975e01: startup date [Wed Dec 05 12:27:40 CST 2018]; root of context hierarchy
+= 2018-12-05 12:27:40,717 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 12:27:40,912 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5c5a1b69: startup date [Wed Dec 05 12:27:40 CST 2018]; root of context hierarchy
+= 2018-12-05 12:27:40,913 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
+= 2018-12-05 12:27:41,734 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-05 12:29:24,556 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@41975e01: startup date [Wed Dec 05 12:29:24 CST 2018]; root of context hierarchy
+= 2018-12-05 12:29:24,611 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-05 12:29:24,804 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5c5a1b69: startup date [Wed Dec 05 12:29:24 CST 2018]; root of context hierarchy
+= 2018-12-05 12:29:24,806 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
+= 2018-12-05 12:29:25,632 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
