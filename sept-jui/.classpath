@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="lib/thumbnailator-0.4.8.jar"/>
 	<classpathentry kind="lib" path="lib/sept.datastructure.jar"/>
 	<classpathentry kind="lib" path="lib/rt.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/sept.debug.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

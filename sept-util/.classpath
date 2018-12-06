@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jacob.jar"/>
 	<classpathentry kind="lib" path="lib/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/sept.debug.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
