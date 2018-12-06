@@ -154,3 +154,13 @@ java.sql.SQLException: ORA-01017: invalid username/password; logon denied
 	at com.sept.db.dba.DatabaseSessionUtil.getCtx(DatabaseSessionUtil.java:163)
 	at com.sept.db.dba.DatabaseSessionUtil.initTransactionManager(DatabaseSessionUtil.java:150)
 	at com.sept.db.demo.Demo.main(Demo.java:12)
+= 2018-12-06 13:35:26,275 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:19)
+= 2018-12-06 13:37:04,704 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:22)

@@ -26,3 +26,26 @@
 = 2018-12-05 12:29:24,804 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5c5a1b69: startup date [Wed Dec 05 12:29:24 CST 2018]; root of context hierarchy
 = 2018-12-05 12:29:24,806 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-jdbc.xml]
 = 2018-12-05 12:29:25,632 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-06 12:14:12,588 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dcf3e99: startup date [Thu Dec 06 12:14:12 CST 2018]; root of context hierarchy
+= 2018-12-06 12:14:12,630 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-06 12:15:50,693 INFO org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578) -Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d9c638: startup date [Thu Dec 06 12:15:50 CST 2018]; root of context hierarchy
+= 2018-12-06 12:15:50,736 INFO org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317) -Loading XML bean definitions from class path resource [applicationContext-deploy.xml]
+= 2018-12-06 12:57:27,664 WARN org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:554) -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: @Bean method 'dataSource' must not be private or final; change the method's modifiers to continue
+Offending resource: com.sept.db.dba.AnnotationConfig_e756d17d_fa60_4823_b6e7_faf3795d9b6d
+= 2018-12-06 13:35:26,268 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-06 13:35:26,275 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:19)
+= 2018-12-06 13:36:30,490 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-06 13:36:30,499 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-2} inited
+= 2018-12-06 13:36:53,527 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-06 13:36:53,537 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-2} inited
+= 2018-12-06 13:37:04,616 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-1} inited
+= 2018-12-06 13:37:04,626 INFO com.alibaba.druid.pool.DruidDataSource.init(DruidDataSource.java:652) -{dataSource-2} inited
+= 2018-12-06 13:37:04,704 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:22)

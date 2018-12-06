@@ -31,12 +31,6 @@
 	<classpathentry kind="lib" path="lib/sept.project.jar"/>
 	<classpathentry kind="lib" path="lib/sept.safety.jar"/>
 	<classpathentry kind="lib" path="lib/sept.util.jar"/>
-	<classpathentry kind="lib" path="lib/spring-beans-4.2.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-context-4.2.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-core-4.3.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-expression-4.2.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-jdbc-4.3.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring-tx-4.3.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/thumbnailator-0.4.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

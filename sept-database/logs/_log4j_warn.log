@@ -158,3 +158,15 @@ java.sql.SQLException: ORA-01017: invalid username/password; logon denied
 	at com.sept.db.demo.Demo.main(Demo.java:12)
 = 2018-12-04 17:59:32,178 WARN org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [applicationContext-jdbc.xml]: Invocation of init method failed; nested exception is java.sql.SQLException: ORA-01017: invalid username/password; logon denied
 
+= 2018-12-06 12:57:27,664 WARN org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:554) -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: @Bean method 'dataSource' must not be private or final; change the method's modifiers to continue
+Offending resource: com.sept.db.dba.AnnotationConfig_e756d17d_fa60_4823_b6e7_faf3795d9b6d
+= 2018-12-06 13:35:26,275 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:19)
+= 2018-12-06 13:37:04,704 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.dba.Sql.executeQuery(Sql.java:526) - -1_-1_还未开启事物！
+com.sept.exception.AppException: -1_-1_还未开启事物！
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
+	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
+	at com.sept.db.Demo.main(Demo.java:22)

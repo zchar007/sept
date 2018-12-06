@@ -1,4 +1,4 @@
-package com.sept.db.dba;
+package com.sept.db;
 
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
