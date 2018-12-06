@@ -1,11 +1,29 @@
-package com.sept.drop.pbf.temp;
+package com.sept.db.pdf;
+
+import java.sql.Types;
 
 public class DataTableColumn implements IDataTableColumn {
 	private String name;
 	private String showName;
-	private String dataType;
+	private int dataType;
 	private String mask;
 	private String defaultValue;
+
+	public DataTableColumn() {
+	}
+
+	public DataTableColumn(String name, String showName, int dataType) {
+		super();
+		this.name = name;
+		this.showName = showName;
+		this.dataType = dataType;
+	}
+
+	public DataTableColumn(String name, String showName) {
+		super();
+		this.name = name;
+		this.showName = showName;
+	}
 
 	@Override
 	public String getName() {
@@ -15,6 +33,7 @@ public class DataTableColumn implements IDataTableColumn {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+		this.setShowName(name);
 	}
 
 	@Override
@@ -28,12 +47,12 @@ public class DataTableColumn implements IDataTableColumn {
 	}
 
 	@Override
-	public String getDataType() {
+	public int getDataType() {
 		return dataType;
 	}
 
 	@Override
-	public void setDataType(String dataType) {
+	public void setDataType(int dataType) {
 		this.dataType = dataType;
 	}
 

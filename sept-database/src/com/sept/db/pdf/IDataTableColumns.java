@@ -1,4 +1,4 @@
-package com.sept.drop.pbf.temp;
+package com.sept.db.pdf;
 
 import java.util.ArrayList;
 
@@ -25,4 +25,9 @@ public interface IDataTableColumns {
 	ArrayList<String> getHead() throws AppException;
 
 	int columnCount() throws AppException;
+
+	String getName(String showName);
+
+	String getShowName(String showName);
+
 }

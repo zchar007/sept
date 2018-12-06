@@ -1,4 +1,4 @@
-package com.sept.drop.pbf.temp;
+package com.sept.db.pdf;
 
 public interface IDataTableColumn {
 	public String getName();
@@ -9,9 +9,9 @@ public interface IDataTableColumn {
 
 	public void setShowName(String showName);
 
-	public String getDataType();
+	public int getDataType();
 
-	public void setDataType(String dataType);
+	public void setDataType(int dataType);
 
 	public String getMask();
 

@@ -1,4 +1,4 @@
-package com.sept.drop.pbf.temp;
+package com.sept.db.pdf;
 
 import java.util.ArrayList;
 
@@ -34,5 +34,8 @@ public interface IDataTable {
 	/** 获取行首展示名称（value） **/
 	ArrayList<String> getHead() throws AppException;
 
-	byte[] getBytes() throws AppException;
+	DataStore getDataStore() throws AppException;
+
+	void ready() throws AppException;
+
 }

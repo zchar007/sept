@@ -1,6 +1,5 @@
-package com.sept.drop.pbf.temp.access;
+package com.sept.db.pdf.access;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +11,19 @@ import com.healthmarketscience.jackcess.Table;
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.datastructure.comparator.Datas;
-import com.sept.drop.pbf.temp.DataTableColumn;
-import com.sept.drop.pbf.temp.DataTableColumns;
-import com.sept.drop.pbf.temp.IDataTable;
-import com.sept.drop.pbf.temp.IDataTableColumn;
-import com.sept.drop.pbf.temp.IDataTableColumns;
+import com.sept.db.pdf.DataTableColumn;
+import com.sept.db.pdf.DataTableColumns;
+import com.sept.db.pdf.IDataTable;
+import com.sept.db.pdf.IDataTableColumn;
+import com.sept.db.pdf.IDataTableColumns;
 import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
-import com.sept.io.local.FileIOUtil;
 
 class AccessTable implements IDataTable, IAccessTable {
 	private Table table;
 	private Database accdb;
-
 	private IDataTableColumns dtColumns;
-
-	private DataStore datas;;
+	private DataStore datas;
 
 	public AccessTable(Table table, Database accdb) throws AppException {
 		this.table = table;
@@ -100,36 +96,25 @@ class AccessTable implements IDataTable, IAccessTable {
 	@Override
 
 	public DataObject checkRow(DataObject row) throws AppException {
+		// 保证datas和表里存的一样
 		if (null == row) {
 			return new DataObject();
 		}
+		DataObject rowT = new DataObject();
+		for (int i = 0; i < this.dtColumns.columnCount(); i++) {
+			IDataTableColumn idtc = this.dtColumns.getColumn(i);
+			rowT.put(idtc.getShowName(),
+					row.containsKey(idtc.getName()) ? row.getString(idtc.getName())
+							: (row.containsKey(idtc.getShowName()) ? row.getString(idtc.getShowName())
+									: idtc.getDefaultValue()));
+		}
 
-		return row;
+		return rowT;
 	}
 
 	@Override
 	public ArrayList<String> getHead() throws AppException {
 		return this.dtColumns.getHead();
-	}
-
-	@Override
-	public byte[] getBytes() throws AppException {
-		if (this.isInDataBase()) {
-			File file = accdb.getFile();
-			byte[] accbytes;
-			try {
-				accbytes = FileIOUtil.getBytesFromFile(file);
-				return accbytes;
-			} catch (IOException e) {
-				throw new AppException(e);
-			}
-		}
-		throw new AppException("当前表未在表空间中，无法获取byte数组,请检查！");
-	}
-
-	@Override
-	public DataStore getData() {
-		return this.datas;
 	}
 
 	@Override
@@ -161,30 +146,8 @@ class AccessTable implements IDataTable, IAccessTable {
 	}
 
 	@Override
-	public boolean save() throws AppException {
-		if (!this.isInDataBase()) {
-			throw new AppException("当前表未在表空间中，无法直接保存，请检查！");
-		}
-		try {
-			ArrayList<Row> al = new ArrayList<>();
-			for (Row row : this.table) {
-				al.add(row);
-			}
-			for (int i = 0; i < al.size(); i++) {
-				this.table.deleteRow(al.get(i));
-			}
-
-			this.table.addRowsFromMaps(this.datas);
-			return true;
-		} catch (IOException e) {
-			LogHandler.error(e.getMessage());
-			return false;
-		}
-	}
-
-	@Override
 	public boolean isInDataBase() {
-		return null == this.accdb;
+		return null != this.accdb;
 	}
 
 	private void setDefault() throws AppException {
@@ -217,6 +180,48 @@ class AccessTable implements IDataTable, IAccessTable {
 			throw new AppException(e);
 		}
 
+	}
+
+	@Override
+	public DataStore getDataStore() throws AppException {
+		// 修正
+		DataStore dsTemp = new DataStore();
+		for (int i = 0; i < this.datas.rowCount(); i++) {
+			dsTemp.addRow();
+		}
+		for (int i = 0; i < this.dtColumns.columnCount(); i++) {
+			IDataTableColumn idtc = this.dtColumns.getColumn(i);
+			for (int j = 0; j < this.datas.rowCount(); j++) {
+				dsTemp.put(j, idtc.getName(),
+						this.datas.get(j).containsKey(idtc.getShowName()) ? this.datas.getString(j, idtc.getShowName())
+								: (this.datas.get(j).containsKey(idtc.getName())
+										? this.datas.getString(j, idtc.getName())
+										: ""));
+			}
+		}
+
+		return dsTemp;
+	}
+
+	@Override
+	public void ready() throws AppException {
+		if (!this.isInDataBase()) {
+			return;
+		}
+
+		try {
+			ArrayList<Row> al = new ArrayList<>();
+			for (Row row : this.table) {
+				al.add(row);
+			}
+			for (int i = 0; i < al.size(); i++) {
+				this.table.deleteRow(al.get(i));
+			}
+
+			this.table.addRowsFromMaps(this.datas);
+		} catch (IOException e) {
+			LogHandler.error(e.getMessage());
+		}
 	}
 
 }

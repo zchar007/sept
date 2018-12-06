@@ -1,4 +1,4 @@
-package com.sept.db.dba.temp;
+package com.sept.drop.temp2;
 
 public class AccessDBFSource {
 	private String url;

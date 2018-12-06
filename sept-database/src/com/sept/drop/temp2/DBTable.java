@@ -1,8 +1,8 @@
-package com.sept.db.dba.temp;
+package com.sept.drop.temp2;
 
 import java.util.ArrayList;
 
-import com.sept.db.dba.DBType;
+import com.sept.db.DBType;
 import com.sept.exception.AppException;
 
 public class DBTable implements IDBTable {

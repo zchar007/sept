@@ -6,3 +6,20 @@ java.sql.SQLException: Unsupported SQL type: 1244
 	at com.sept.database.access.Access.newTable(Access.java:166)
 	at com.zx.main.db.ZxDB.initDB(ZxDB.java:21)
 	at com.zx.main.db.ZxDB.main(ZxDB.java:13)
+= 2018-12-06 14:17:04,246 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.Access.newTable(Access.java:137) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.Access.iDataTableColumnsToAlColumnBuilder(Access.java:151)
+	at com.sept.db.pdf.access.Access.newTable(Access.java:126)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:38)
+= 2018-12-06 14:19:18,051 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.Access.newTable(Access.java:137) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.Access.iDataTableColumnsToAlColumnBuilder(Access.java:151)
+	at com.sept.db.pdf.access.Access.newTable(Access.java:126)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:38)
+= 2018-12-06 15:27:30,543 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.AccessTable.setDefault(AccessTable.java:210) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.AccessTable.setDefault(AccessTable.java:191)
+	at com.sept.db.pdf.access.AccessTable.<init>(AccessTable.java:35)
+	at com.sept.db.pdf.access.Access.getTable(Access.java:176)
+	at com.sept.db.pdf.access.Demo.get(Demo.java:20)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:14)

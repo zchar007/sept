@@ -1,4 +1,4 @@
-package com.sept.db;
+package com.sept.db.dba;
 
 import javax.sql.DataSource;
 
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AnnotationDBConfig {
+class AnnotationDBConfig {
 	private static DataSource ds = null;
 
 	@Bean(name = "dsBean")

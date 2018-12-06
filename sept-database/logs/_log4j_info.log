@@ -49,3 +49,33 @@ com.sept.exception.AppException: -1_-1_还未开启事物！
 	at com.sept.db.dba.Sql.executeQuery(Sql.java:426)
 	at com.sept.db.dba.Sql.executeQuery(Sql.java:406)
 	at com.sept.db.Demo.main(Demo.java:22)
+= 2018-12-06 14:17:04,246 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.Access.newTable(Access.java:137) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.Access.iDataTableColumnsToAlColumnBuilder(Access.java:151)
+	at com.sept.db.pdf.access.Access.newTable(Access.java:126)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:38)
+= 2018-12-06 14:19:18,051 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.Access.newTable(Access.java:137) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.Access.iDataTableColumnsToAlColumnBuilder(Access.java:151)
+	at com.sept.db.pdf.access.Access.newTable(Access.java:126)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:38)
+= 2018-12-06 15:27:30,543 FATAL com.sept.debug.log4j.LogHandler.fatal(LogHandler.java:73) - com.sept.db.pdf.access.AccessTable.setDefault(AccessTable.java:210) - null
+java.lang.NullPointerException
+	at com.sept.db.pdf.access.AccessTable.setDefault(AccessTable.java:191)
+	at com.sept.db.pdf.access.AccessTable.<init>(AccessTable.java:35)
+	at com.sept.db.pdf.access.Access.getTable(Access.java:176)
+	at com.sept.db.pdf.access.Demo.get(Demo.java:20)
+	at com.sept.db.pdf.access.Demo.main(Demo.java:14)
+= 2018-12-06 16:52:08,757 ERROR com.sept.debug.log4j.LogHandler.error(LogHandler.java:60) - com.sept.db.pdf.excel.Excel.open(Excel.java:133) - -1_-1_jxl.read.biff.BiffException: Unable to recognize OLE stream
+com.sept.exception.AppException: -1_-1_jxl.read.biff.BiffException: Unable to recognize OLE stream
+	at com.sept.db.pdf.excel.Excel.<init>(Excel.java:152)
+	at com.sept.db.pdf.excel.Excel.open(Excel.java:126)
+	at com.sept.db.pdf.excel.Excel.open(Excel.java:108)
+	at com.sept.db.pdf.excel.Demo.main(Demo.java:7)
+Caused by: jxl.read.biff.BiffException: Unable to recognize OLE stream
+	at jxl.read.biff.CompoundFile.<init>(CompoundFile.java:116)
+	at jxl.read.biff.File.<init>(File.java:127)
+	at jxl.Workbook.getWorkbook(Workbook.java:268)
+	at jxl.Workbook.getWorkbook(Workbook.java:253)
+	at com.sept.db.pdf.excel.Excel.<init>(Excel.java:147)
+	... 3 more

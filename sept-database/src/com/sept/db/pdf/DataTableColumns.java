@@ -1,4 +1,4 @@
-package com.sept.drop.pbf.temp;
+package com.sept.db.pdf;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,6 +10,7 @@ public class DataTableColumns implements IDataTableColumns {
 
 	public DataTableColumns() {
 		this.lhmClumns = new LinkedHashMap<String, IDataTableColumn>();
+
 	}
 
 	@Override
@@ -18,10 +19,39 @@ public class DataTableColumns implements IDataTableColumns {
 			throw new AppException("即将增加的第[" + this.lhmClumns.size() + "]列存不符合列数据要求，请检查！");
 		}
 		this.lhmClumns.put(idtColumn.getName(), idtColumn);
+
 	}
 
 	@Override
 	public void insertColumn(int index, IDataTableColumn idtColumn) throws AppException {
+		if (index < 0) {
+			throw new AppException("下标[" + index + "]不能小于0,请检查！");
+		}
+		if (index > this.lhmClumns.size()) {
+			throw new AppException("下标[" + index + "]大于当前所有列的最大下标[" + this.lhmClumns.size() + "],请检查！");
+		}
+		if (!this.checkColumn(idtColumn)) {
+			throw new AppException("即将设置的第[" + (index + 1) + "]列存不符合列数据要求，请检查！");
+		}
+		if (index == this.lhmClumns.size()) {
+			this.lhmClumns.put(idtColumn.getName(), idtColumn);
+		} else {
+			LinkedHashMap<String, IDataTableColumn> lhmClumns_temp = new LinkedHashMap<>();
+			int i = 0;
+			for (String key : this.lhmClumns.keySet()) {
+				if (i == index) {
+					lhmClumns_temp.put(idtColumn.getName(), idtColumn);
+				} else {
+					lhmClumns_temp.put(key, this.lhmClumns.get(key));
+				}
+			}
+			this.lhmClumns = lhmClumns_temp;
+		}
+
+	}
+
+	@Override
+	public void setColumn(int index, IDataTableColumn idtColumn) throws AppException {
 		if (index < 0) {
 			throw new AppException("下标[" + index + "]不能小于0,请检查！");
 		}
@@ -46,33 +76,6 @@ public class DataTableColumns implements IDataTableColumns {
 	}
 
 	@Override
-	public void setColumn(int index, IDataTableColumn idtColumn) throws AppException {
-		if (index < 0) {
-			throw new AppException("下标[" + index + "]不能小于0,请检查！");
-		}
-		if (index > this.lhmClumns.size()) {
-			throw new AppException("下标[" + index + "]大于当前所有列的最大下标[" + this.lhmClumns.size() + "],请检查！");
-		}
-		if (!this.checkColumn(idtColumn)) {
-			throw new AppException("即将设置的第[" + (index + 1) + "]列存不符合列数据要求，请检查！");
-		}
-		if (index == this.lhmClumns.size()) {
-			this.lhmClumns.put(idtColumn.getName(), idtColumn);
-		} else {
-			LinkedHashMap<String, IDataTableColumn> lhmClumns_temp = new LinkedHashMap<>();
-			int i = 0;
-			for (String key : this.lhmClumns.keySet()) {
-				if (i == index) {
-					lhmClumns_temp.put(idtColumn.getName(), idtColumn);
-				} else {
-					lhmClumns_temp.put(key, this.lhmClumns.get(key));
-				}
-			}
-			this.lhmClumns = lhmClumns_temp;
-		}
-	}
-
-	@Override
 	public void deleteColumn(int index) throws AppException {
 		if (index < 0) {
 			throw new AppException("下标[" + index + "]不能小于0,请检查！");
@@ -86,6 +89,7 @@ public class DataTableColumns implements IDataTableColumns {
 				this.lhmClumns.remove(key);
 				break;
 			}
+			i++;
 		}
 	}
 
@@ -118,6 +122,7 @@ public class DataTableColumns implements IDataTableColumns {
 			if (i == index) {
 				return this.lhmClumns.get(key);
 			}
+			i++;
 		}
 		return null;
 	}
@@ -151,6 +156,21 @@ public class DataTableColumns implements IDataTableColumns {
 	@Override
 	public int columnCount() {
 		return this.lhmClumns.size();
+	}
+
+	@Override
+	public String getName(String showName) {
+		for (IDataTableColumn idTableColumn : this.lhmClumns.values()) {
+			if (idTableColumn.getShowName().equals(showName)) {
+				return idTableColumn.getName();
+			}
+		}
+		return showName;
+	}
+
+	@Override
+	public String getShowName(String name) {
+		return this.lhmClumns.containsKey(name) ? this.lhmClumns.get(name).getShowName() : name;
 	}
 
 }

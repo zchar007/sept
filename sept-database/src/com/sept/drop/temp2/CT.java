@@ -1,4 +1,4 @@
-package com.sept.db.dba.temp;
+package com.sept.drop.temp2;
 
 public enum CT {
 	ORACLE_CT_CHAR("CHAR"), ORACLE_CT_VARCHAR2("VARCHAR2"), ORACLE_CT_NCHAR("NCHAR"), ORACLE_CT_NVARCHAR2("NVARCHAR2"),
