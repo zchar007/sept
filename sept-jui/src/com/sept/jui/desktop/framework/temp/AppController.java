@@ -1,4 +1,4 @@
-package com.zchar.appFramework;
+package com.sept.jui.desktop.framework.temp;
 
 import java.awt.Component;
 import java.awt.Image;
@@ -26,7 +26,7 @@ import com.zchar.framework.Utils.DataStore;
 import com.zchar.framework.Utils.XMLUtils;
 
 /**
- * ±¾Àà¸ºÔð£º 1.Ð­µ÷treeºÍpanelµÄÏÔÊ¾ÎÊÌâ 2.Ôö¼ÓÉèÖÃappÎÄ¼þ¼Ð 3.ÉèÖÃÖ¸¶¨appÎÄ¼þ¼ÐÏÂµÄapp
+ * ï¿½ï¿½ï¿½à¸ºï¿½ï¿½ 1.Ð­ï¿½ï¿½treeï¿½ï¿½panelï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ 2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½appï¿½Ä¼ï¿½ï¿½ï¿½ 3.ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½appï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Âµï¿½app
  * 
  * @author zchar
  *
@@ -45,10 +45,10 @@ public class AppController {
 
 	public AppController(AppFrame fr) {
 		frame = fr;
-		// ³õÊ¼»¯¸ù½Úµã
+		// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
 		f_root = new File("./img/icon.bmp");
 		try {
-			root = new AppModel("¸ù½Úµã", ImageIO.read(f_root), null, null, null);
+			root = new AppModel("ï¿½ï¿½ï¿½Úµï¿½", ImageIO.read(f_root), null, null, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,14 +69,14 @@ public class AppController {
 		for (int i = 0; i < root_folder.size(); i++) {
 			root_folder.get(i).setAppModels(root_app.get(root_folder.get(i).getAppID()));
 		}
-		// ´Ë·½·¨ÖØÐÂÐ´Ò»ÏÂ,´Ó¼¸¸ö¼¯ºÏÖÐÈ¡Êý¾ÝÈ»ºó×éºÏ
+		// ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´Ò»ï¿½ï¿½,ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½
 		rModel = new RootModel(root, root_folder);
 
 		return rModel;
 	}
 
 	/**
-	 * ÔÚ´ò¿ªappµÄÊ±ºòÖ±½ÓÉèÖÃ
+	 * ï¿½Ú´ï¿½appï¿½ï¿½Ê±ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param fatherAm
 	 * @param am
@@ -84,8 +84,8 @@ public class AppController {
 	 */
 	public static boolean openApp(String appid) {
 
-		// ²é¿´ÊÇ·ñ´æÔÚpanel
-		// Èç¹ûappIdÏàÍ¬,ÔòÈÏÎªÊÇÍ¬Ò»¸ö,Ôò²»ÔÊÐíÔö¼Ó
+		// ï¿½é¿´ï¿½Ç·ï¿½ï¿½ï¿½ï¿½panel
+		// ï¿½ï¿½ï¿½appIdï¿½ï¿½Í¬,ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Í¬Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (apps.containsKey(appid)) {
 			AppPanel appPanel = apps.get(appid).getAppPanel();
 
@@ -94,9 +94,9 @@ public class AppController {
 			}
 			// System.out.println(appPanel.appid);
 			tabbedPane.addTab(apps.get(appid));
-			// ÏÈÒÆ³ýËùÓÐmenu
+			// ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½menu
 			AppUI.clearMenu();
-			// ÉèÖÃ²Ëµ¥°´Å¥
+			// ï¿½ï¿½ï¿½Ã²Ëµï¿½ï¿½ï¿½Å¥
 			if (app_menus.containsKey(appid)) {
 				AppUI.setMenu(app_menus.get(appid));
 			}
@@ -120,9 +120,9 @@ public class AppController {
 		if (!checkFolder(am)) {
 			return false;
 		}
-		// ¼ì²âÊÇ²»ÊÇ´æÔÚ´Ëfload
+		// ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½Ç´ï¿½ï¿½Ú´ï¿½fload
 		for (int i = 0; i < root_folder.size(); i++) {
-			// Èç¹ûappIdÏàÍ¬,ÔòÈÏÎªÊÇÍ¬Ò»¸ö,Ôò²»ÔÊÐíÔö¼Ó
+			// ï¿½ï¿½ï¿½appIdï¿½ï¿½Í¬,ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Í¬Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (root_folder.get(i).getAppID().equals(am.getAppID())) {
 				return false;
 			}
@@ -151,9 +151,9 @@ public class AppController {
 			return false;
 		}
 
-		// ¼ÓÈëµ½ËùÓÐappÐÐÁÐ
+		// ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½appï¿½ï¿½ï¿½ï¿½
 		apps.put(am.getAppID(), am);
-		// ¼ÓÈëµ½appÐÐÁÐ
+		// ï¿½ï¿½ï¿½ëµ½appï¿½ï¿½ï¿½ï¿½
 		root_app.get(amFather.getAppID()).add(am);
 
 		return true;
@@ -163,7 +163,7 @@ public class AppController {
 		if (null == am || !am.isApp()) {
 			return false;
 		}
-		// Èç¹ûappIdÏàÍ¬,ÔòÈÏÎªÊÇÍ¬Ò»¸ö,Ôò²»ÔÊÐíÔö¼Ó
+		// ï¿½ï¿½ï¿½appIdï¿½ï¿½Í¬,ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Í¬Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (apps.containsKey(am.getAppID())) {
 			return false;
 		}
@@ -241,10 +241,10 @@ public class AppController {
 	}
 
 	public static String getXMLModel() {
-		String xml = "<folders>\n" + "<folder>\n" + "<foldername>ÕâÊÇÎÄ¼þ¼Ð</foldername>\n"
+		String xml = "<folders>\n" + "<folder>\n" + "<foldername>ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½</foldername>\n"
 				+ "<foldericon>./img/icon.bmp</foldericon>\n" + "<app>\n" + "<appname>MenuTest</appname>\n"
 				+ "<appicon>./img/icon.bmp</appicon>\n" + "<apppanel>com.zchar.framework.UIModel.testPanel</apppanel>\n"
-				+ "</app>\n" + "<app>\n" + "<appname>ÕâÊÇ¶þ¸ö²âÊÔapp</appname>\n" + "<appicon>./img/icon.bmp</appicon>\n"
+				+ "</app>\n" + "<app>\n" + "<appname>ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½app</appname>\n" + "<appicon>./img/icon.bmp</appicon>\n"
 				+ "<apppanel>com.zchar.framework.UIModel.AppPanel</apppanel>\n" + "</app>\n" + "</folder>\n"
 				+ "</folders>";
 		return xml;
@@ -257,7 +257,7 @@ public class AppController {
 			component_temp = component_temp.getParent();
 		}
 		if (component_temp == null) {
-			throw new Exception("ÏòÉÏËÝÔ´Ã»ÓÐÕÒµ½JFrame!!");
+			throw new Exception("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ã»ï¿½ï¿½ï¿½Òµï¿½JFrame!!");
 		}
 		return (JFrame) component_temp;
 	}

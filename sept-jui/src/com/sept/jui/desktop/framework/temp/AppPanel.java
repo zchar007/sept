@@ -1,4 +1,4 @@
-package com.zchar.appFramework.CompantCell;
+package com.sept.jui.desktop.framework.temp;
 
 import javax.swing.JPanel;
 
@@ -26,7 +26,7 @@ public class AppPanel extends JPanel{
 
 	public void addMenu(MenuModel menuModel) {
 		menuModel.setActionClass(this.getClass());
-		// ÕâÀï¾Í¿ÉÒÔÍù×Ô¼ºµÄ AppModelÖÐÔö¼Ó
+		// ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ AppModelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		AppController.addMenu(this.appid, menuModel);
 	}
 

@@ -1,4 +1,4 @@
-package com.zchar.appFramework.uiCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.awt.Image;
 import java.util.ArrayList;
@@ -7,11 +7,11 @@ import java.util.Date;
 import com.zchar.appFramework.CompantCell.AppPanel;
 
 public class AppModel {
-	private String rootName;// Ãû×Ö
-	private Image imageIcon;// Í¼±ê
+	private String rootName;// ï¿½ï¿½ï¿½ï¿½
+	private Image imageIcon;// Í¼ï¿½ï¿½
 	private AppPanel appPanel;
 	private AppModel fatherModel;
-	private ArrayList<AppModel> appModels;// Èç¹ûÆä×Ô¼ºÊÇapp,Ôò²»´æÔÚ´ËÏî
+	private ArrayList<AppModel> appModels;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½app,ï¿½ò²»´ï¿½ï¿½Ú´ï¿½ï¿½ï¿½
 	private ArrayList<MenuModel> menuModels;
 	private String appID;
 	private static int index = 0;
@@ -103,7 +103,7 @@ public class AppModel {
 	// + ", fatherModel=" + fatherModel + ", appModels=" + appModels + "]";
 	// }
 	/**
-	 * ¼ì²âÊÇ·ñ·ûºÏÎÄ¼þ¼Ð±ê×¼ 1.rootName²»Îª¿Õ 2.
+	 * ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð±ï¿½×¼ 1.rootNameï¿½ï¿½Îªï¿½ï¿½ 2.
 	 * 
 	 * @return
 	 */
@@ -118,7 +118,7 @@ public class AppModel {
 	}
 
 	/**
-	 * ¼ì²âÊÇ·ñ·ûºÏÈí¼þ±ê×¼ 1.¿ÉÒÔ×÷ÎªÎÄ¼þ¼Ð 2.AppPanel²»Îª¿Õ
+	 * ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ 2.AppPanelï¿½ï¿½Îªï¿½ï¿½
 	 * 
 	 * @return
 	 */

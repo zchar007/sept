@@ -1,4 +1,4 @@
-package com.zchar.appFramework.CompantCell;
+package com.sept.jui.desktop.framework.temp;
 
 import javax.swing.JFrame;
 

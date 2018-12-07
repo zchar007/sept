@@ -1,4 +1,4 @@
-package com.zchar.appFramework.uiCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

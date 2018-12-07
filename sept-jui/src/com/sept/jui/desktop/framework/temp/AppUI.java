@@ -1,4 +1,4 @@
-package com.zchar.appFramework.CompantCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -39,7 +39,7 @@ public class AppUI extends JPanel {
 		JMenuBar menuBar = new JMenuBar();
 		add(menuBar, BorderLayout.NORTH);
 		
-		 mnNewMenu = new JMenu("¹¤¾ß");
+		 mnNewMenu = new JMenu("ï¿½ï¿½ï¿½ï¿½");
 		menuBar.add(mnNewMenu);
 		
 //		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");

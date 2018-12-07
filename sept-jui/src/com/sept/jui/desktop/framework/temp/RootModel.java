@@ -1,4 +1,4 @@
-package com.zchar.appFramework.uiCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.util.ArrayList;
 

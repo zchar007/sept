@@ -1,4 +1,4 @@
-package com.zchar.appFramework.CompantCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -85,7 +85,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 		hmS.remove(hmP.remove(component));
 		maps.remove("tab" + component.hashCode());
 		super.removeTabAt(index);
-		//¹Ø±ÕÖ®ºó´ò¿ªÆäÏÂÒ»¸ö£¬Èç¹ûÏÂÒ»¸ö
+		//ï¿½Ø±ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		AppModel AM = hmApp.get(hmP.get(this.getComponent(index)));
 		AppController.setTitle(AM.getFatherModel().getRootName() + "--" + AM.getRootName());
 		AppController.openApp(AM.getAppID());
@@ -189,7 +189,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 
 	private void showPopupMenu(final MouseEvent event) {
 
-		// Èç¹ûµ±Ç°ÊÂ¼şÓëÓÒ¼ü²Ëµ¥ÓĞ¹Ø£¨µ¥»÷ÓÒ¼ü£©£¬Ôòµ¯³ö²Ëµ¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½Ëµï¿½ï¿½Ğ¹Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òµ¯³ï¿½ï¿½Ëµï¿½
 		// if (event.isPopupTrigger()) {
 		final int index = ((AppTab) event.getComponent()).getUI().tabForCoordinate(this, event.getX(),
 				event.getY());
@@ -197,7 +197,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 
 		JPopupMenu pop = new JPopupMenu();
 
-		JMenuItem closeAll = new JMenuItem("¹Ø±ÕËùÓĞ±êÇ©");
+		JMenuItem closeAll = new JMenuItem("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½Ç©");
 		closeAll.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 
@@ -208,7 +208,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 		});
 		pop.add(closeAll);
 		if (index != -1) {
-			JMenuItem closeCurrent = new JMenuItem("¹Ø±Õµ±Ç°");
+			JMenuItem closeCurrent = new JMenuItem("ï¿½Ø±Õµï¿½Ç°");
 			closeCurrent.addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent e) {
 					((AppTab) event.getComponent()).removeTabAt(index);
@@ -216,7 +216,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 			});
 			pop.add(closeCurrent);
 
-			JMenuItem closeLeft = new JMenuItem("¹Ø±Õ×ó²à±êÇ©");
+			JMenuItem closeLeft = new JMenuItem("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ç©");
 			closeLeft.addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent e) {
 					for (int j = (index - 1); j >= 0; j--) {
@@ -226,7 +226,7 @@ public class AppTab extends JTabbedPane implements MouseListener {
 			});
 			pop.add(closeLeft);
 
-			JMenuItem closeRight = new JMenuItem("¹Ø±ÕÓÒ²à±êÇ©");
+			JMenuItem closeRight = new JMenuItem("ï¿½Ø±ï¿½ï¿½Ò²ï¿½ï¿½Ç©");
 			closeRight.addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent e) {
 					for (int j = (count - 1); j > index; j--) {

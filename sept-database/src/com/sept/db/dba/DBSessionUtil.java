@@ -20,7 +20,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.sept.db.DBDeploy;
 import com.sept.db.DBType;
-import com.sept.db.pdf.IPBFSource;
 import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.project.classz.dynamic.JavaStringCompiler;
@@ -301,7 +300,6 @@ public class DBSessionUtil {
 		} catch (Exception e) {
 			throw new AppException(e);
 		}
-		 
 
 		if (dsObj instanceof com.alibaba.druid.pool.DruidDataSource) {
 			com.alibaba.druid.pool.DruidDataSource dsT = (DruidDataSource) dsObj;
@@ -310,13 +308,17 @@ public class DBSessionUtil {
 			dsT.setPassword(password);
 			dsT.setUrl(url);
 			ds = dsT;
-		} else if (dsObj instanceof IPBFSource) {
-			IPBFSource dsT = (IPBFSource) dsObj;
-			dsT.setDriver(driverObj);
-			dsT.setUsername(username);
-			dsT.setPassword(password);
-			dsT.setUrl(url);
-			ds = dsT;
+		}
+//		else if (dsObj instanceof IPBFSource) {
+//			IPBFSource dsT = (IPBFSource) dsObj;
+//			dsT.setDriver(driverObj);
+//			dsT.setUsername(username);
+//			dsT.setPassword(password);
+//			dsT.setUrl(url);
+//			ds = dsT;
+//		}
+		else {
+			throw new AppException("暂时无法识别数据源！");
 		}
 		AnnotationDBConfig.setDataSource(ds);
 		acac.register(AnnotationDBConfig.class);
@@ -349,8 +351,19 @@ public class DBSessionUtil {
 
 	}
 
-	@Deprecated
-	private static final Class<?> createAnnotationContext(String dbName, Class<?> dataSourceClass, Class<?> driverClass,
+	/**
+	 * 应该废弃
+	 * 
+	 * @param dbName
+	 * @param dataSourceClass
+	 * @param driverClass
+	 * @param url
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws AppException
+	 */
+	public static final Class<?> createAnnotationContext(String dbName, Class<?> dataSourceClass, Class<?> driverClass,
 			String url, String username, String password) throws AppException {
 		String className = "AnnotationConfig_" + StringUtil.getUUID();
 		Class<?> clazz = null;

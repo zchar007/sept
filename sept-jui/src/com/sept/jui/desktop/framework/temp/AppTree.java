@@ -1,4 +1,4 @@
-package com.zchar.appFramework.CompantCell;
+package com.sept.jui.desktop.framework.temp;
 
 import java.awt.Component;
 import java.awt.Image;
@@ -19,7 +19,7 @@ import com.zchar.appFramework.uiCell.AppModel;
 import com.zchar.appFramework.uiCell.RootModel;
 
 /**
- * 创建时需要获取树的数据
+ * 锟斤拷锟斤拷时锟斤拷要锟斤拷取锟斤拷锟斤拷锟斤拷锟斤拷
  * @author zchar
  *
  */
@@ -31,15 +31,15 @@ public class AppTree extends JTree {
 
 	public AppTree() {
 
-		// 创建数据
+		// 锟斤拷锟斤拷锟斤拷锟斤拷
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(AppController.getRootModel().getRoot());
 		DefaultTreeModel defaultTreeModel = new DefaultTreeModel(createModel(root, AppController.getRootModel()));
 
-		// 设置数据
+		// 锟斤拷锟斤拷锟斤拷锟斤拷
 		this.setModel(defaultTreeModel);
 
 	
-		// 单击显示已打开的app,双击打开新app事件
+		// 锟斤拷锟斤拷锟斤拷示锟窖打开碉拷app,双锟斤拷锟斤拷锟斤拷app锟铰硷拷
 		this.addMouseListener(new MouseAdapter() {
 			int n = 0;
 
@@ -56,20 +56,20 @@ public class AppTree extends JTree {
 								- 1];
 					//	AppModel appModelFather = (AppModel) dtFather.getUserObject();
 						AppModel appModel = (AppModel) dt.getUserObject();
-						//通知控制端打开app
+						//通知锟斤拷锟狡端达拷app
 						AppController.openApp(appModel.getAppID());
 					}
 				}
 			}
 		});
 		//
-		// 设置自定义描述类
+		// 锟斤拷锟斤拷锟皆讹拷锟斤拷锟斤拷锟斤拷锟斤拷
 		this.setCellRenderer(new MyDefaultTreeCellRenderer());
 
 	}
 
 	/**
-	 * 创建的形式为 a-a1,a2,a3 b-b1,b2,b3 只会存在二级菜单的app
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷式为 a-a1,a2,a3 b-b1,b2,b3 只锟斤拷锟斤拷诙锟斤拷锟斤拷说锟斤拷锟絘pp
 	 * 
 	 * @param root
 	 * @param rm
@@ -95,7 +95,7 @@ public class AppTree extends JTree {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * 重写父类DefaultTreeCellRenderer的方法
+		 * 锟斤拷写锟斤拷锟斤拷DefaultTreeCellRenderer锟侥凤拷锟斤拷
 		 */
 		FileSystemView fsv = FileSystemView.getFileSystemView();
 
@@ -103,7 +103,7 @@ public class AppTree extends JTree {
 		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
 				boolean leaf, int row, boolean hasFocus) {
 
-			// 执行父类原型操作
+			// 执锟叫革拷锟斤拷原锟酵诧拷锟斤拷
 			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 			DefaultMutableTreeNode dt = (DefaultMutableTreeNode) value;
 			AppModel appModel = (AppModel) dt.getUserObject();
@@ -119,7 +119,7 @@ public class AppTree extends JTree {
 				setForeground(getTextNonSelectionColor());
 			}
 
-			// 判断是哪个文本的节点设置对应的值（这里如果节点传入的是一个实体,则可以根据实体里面的一个类型属性来显示对应的图标）
+			// 锟叫讹拷锟斤拷锟侥革拷锟侥憋拷锟侥节碉拷锟斤拷锟矫讹拷应锟斤拷值锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷诘愦拷锟斤拷锟斤拷一锟斤拷实锟斤拷,锟斤拷锟斤拷愿锟斤拷锟绞碉拷锟斤拷锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷示锟斤拷应锟斤拷图锟疥）
 			if (null != icon)
 				this.setIcon(icon);
 
