@@ -1,4 +1,4 @@
-package com.sept.datastructure.excel.newexcel;
+package com.sept.datastructure.excel.poi;
 
 /**
  * HSMF － 提供读Microsoft Outlook格式档案的功能。

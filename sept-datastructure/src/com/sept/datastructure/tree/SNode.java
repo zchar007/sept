@@ -7,7 +7,7 @@ import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
 import com.sept.util.StringUtil;
 
-public class SNode implements TreeInterface<SNode> {
+public class SNode implements ITree<SNode> {
 	private String id;
 	private String name;
 	private DataObject attribute;

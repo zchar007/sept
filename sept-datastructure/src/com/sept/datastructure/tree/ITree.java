@@ -6,7 +6,7 @@ import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
 
-public interface TreeInterface<T> {
+public interface ITree<T> {
 	/**
 	 * 添加子代
 	 * 
@@ -14,6 +14,7 @@ public interface TreeInterface<T> {
 	 * @throws AppException
 	 */
 	public void addChild(T node) throws AppException;
+
 	/**
 	 * 删除子代
 	 * 
@@ -21,6 +22,7 @@ public interface TreeInterface<T> {
 	 * @throws AppException
 	 */
 	public void removeChild(T node) throws AppException;
+
 	/**
 	 * 获取子代
 	 * 

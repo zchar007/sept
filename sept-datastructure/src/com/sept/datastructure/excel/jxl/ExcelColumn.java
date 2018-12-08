@@ -1,4 +1,4 @@
-package com.sept.datastructure.excel;
+package com.sept.datastructure.excel.jxl;
 
 public class ExcelColumn {
 	private String name;
