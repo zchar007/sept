@@ -32,8 +32,13 @@ public class CopyJarUtil {
 		ArrayList<String> alJars = parseClasspath(classUrl);
 		File directory = new File("");
 		String fromPath = directory.getAbsolutePath() + File.separator + "lib" + File.separator;
-		String toPath = new File(classUrl).getParentFile().getAbsolutePath() + File.separator + "lib" + File.separator;
 
+		String toPath = new File(classUrl).getParentFile().getAbsolutePath() + File.separator + "lib" + File.separator;
+		File file = new File(toPath);
+		//System.out.println(toPath+file.exists());
+		if(!file.exists()) {
+			file.mkdirs();
+		}
 		for (int i = 0; i < alJars.size(); i++) {
 			JarCopyFrame.appendMessage("ÕýÔÚ¿½±´["+alJars.get(i)+"]");
 			byte[] datas = getBytesFromFile(new File(fromPath + alJars.get(i)));

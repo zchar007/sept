@@ -6,7 +6,7 @@ import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
 import com.sept.exception.AppException;
 
-public class STree implements TreeInterface<SNode> {
+public class STree implements ITree<SNode> {
 	private LinkedList<SNode> rootNodes;
 
 	public STree() {
