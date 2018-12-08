@@ -1,0 +1,108 @@
+columns
+array
+DataGrid列配置对象，详见列属性说明中更多的细节。 undefined 
+frozenColumns
+array
+同列属性，但是这些列将会被冻结在左侧。 undefined 
+fitColumns
+boolean
+真正的自动展开/收缩列的大小，以适应网格的宽度，防止水平滚动。 false 
+resizeHandle
+string
+调整列的位置，可用的值有：'left','right','both'。在使用'right'的时候用户可以通过拖动右侧边缘的列标题调整列，等等。（该属性自1.3.2版开始可用） right 
+autoRowHeight
+boolean
+定义设置行的高度，根据该行的内容。设置为false可以提高负载性能。 true 
+toolbar
+array,selector
+顶部工具栏的DataGrid面板。可能的值：1) 一个数组，每个工具属性都和linkbutton一样。2) 选择器指定的工具栏。 在<div>标签上定义工具栏： $('#dg').datagrid({toolbar: '#tb'});<div id="tb"><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"/a><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true"/a></div>通过数组定义工具栏：$('#dg').datagrid({toolbar: [{iconCls: 'icon-edit',handler: function(){alert('编辑按钮')}},'-',{iconCls: 'icon-help',handler: function(){alert('帮助按钮')}}]});   null 
+striped
+boolean
+是否显示斑马线效果。 false 
+method
+string
+该方法类型请求远程数据。 post 
+nowrap 
+boolean 
+如果为true，则在同一行中显示数据。设置为true可以提高加载性能。 true 
+idField 
+string 
+指明哪一个字段是标识字段。 null 
+url 
+string 
+一个URL从远程站点请求数据。 null 
+data 
+array,object 
+数据加载（该属性自1.3.2版开始可用） 代码示例：$('#dg').datagrid({data: [{f1:'value11', f2:'value12'},{f1:'value21', f2:'value22'}]}); null 
+loadMsg 
+string 
+在从远程站点加载数据的时候显示提示消息。 Processing, please wait … 
+pagination 
+boolean 
+如果为true，则在DataGrid控件底部显示分页工具栏。 false 
+rownumbers 
+boolean 
+如果为true，则显示一个行号列。 false 
+singleSelect 
+boolean 
+如果为true，则只允许选择一行。 false 
+ctrlSelect 
+boolean 
+在启用多行选择的时候允许使用Ctrl键+鼠标点击的方式进行多选操作。（该属性自1.3.6版开始可用） false 
+checkOnSelect 
+boolean 
+如果为true，当用户点击行的时候该复选框就会被选中或取消选中。如果为false，当用户仅在点击该复选框的时候才会呗选中或取消。（该属性自1.3版开始可用） true 
+selectOnCheck 
+boolean 
+如果为true，单击复选框将永远选择行。如果为false，选择行将不选中复选框。（该属性自1.3版开始可用）true 
+pagePosition
+string 
+定义分页工具栏的位置。可用的值有：'top','bottom','both'。（该属性自1.3版开始可用） bottom 
+pageNumber 
+number 
+在设置分页属性的时候初始化页码。 1 pageSize number 在设置分页属性的时候初始化页面大小。 10 
+pageList 
+array 
+在设置分页属性的时候 初始化页面大小选择列表。 [10,20,30,40,50] 
+queryParams 
+object 
+在请求远程数据的时候发送额外的参数。 代码示例：$('#dg').datagrid({queryParams: {name: 'easyui',subject: 'datagrid'}});  {} 
+sortName 
+string 
+定义哪些列可以进行排序。 null 
+sortOrder 
+string 
+定义列的排序顺序，只能是'asc'或'desc'。 asc 
+multiSort 
+boolean 
+定义是否允许多列排序。（该属性自1.3.4版开始可用） false 
+remoteSort 
+boolean 
+定义从服务器对数据进行排序。 true 
+showHeader
+boolean 
+定义是否显示行头。 true 
+showFooter 
+boolean 
+定义是否显示行脚。 false 
+scrollbarSize 
+number 
+滚动条的宽度(当滚动条是垂直的时候)或高度(当滚动条是水平的时候)。 18 
+rowStyler 
+function 
+index,row
+返回样式如'background:red'。带2个参数的函数：index：该行索引从0开始row：与此相对应的记录行。 代码示例：$('#dg').datagrid({rowStyler: function(index,row){if (row.listprice>80){return 'background-color:#6293BB;color:#fff;';}}});译者注（1.3.4新增方式）：$('#dg').datagrid({rowStyler: function(index,row){if (row.listprice>80){return 'rowStyle';    // rowStyle是一个已经定义了的ClassName(类名)}}});  
+loader 
+function 
+data
+定义如何从远程服务器加载数据。返回false可以放弃本次请求动作。该函数接受以下参数：param：参数对象传递给远程服务器。success(data)：当检索数据成功的时候会调用该回调函数。error()：当检索数据失败的时候会调用该回调函数。 json loader 
+loadFilter 
+function 
+data
+返回过滤数据显示。该函数带一个参数'data'用来指向源数据（即：获取的数据源，比如Json对象）。您可以改变源数据的标准数据格式。这个函数必须返回包含'total'和'rows'属性的标准数据对象。 代码示例：// 从Web Service（asp.net、java、php等）输出的JSON对象中移除'd'对象$('#dg').datagrid({loadFilter: function(data){if (data.d){return data.d;} else {return data;}}});
+editors 
+object 
+定义在编辑行的时候使用的编辑器。 预定义编辑器 
+view 
+object 
+定义DataGrid的视图。 默认视图 

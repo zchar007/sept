@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.example.org/DataStore/"
+	targetNamespace="http://www.example.org/DataStore/">
+	<element name="d" type="tns:dType"></element>
+	<complexType name="dType">
+		<sequence>
+			<element name="r" type="tns:rType"></element>
+			<element name="p" type="tns:pType"></element>
+		</sequence>
+		<attribute name="t" type="string" use="required"></attribute>
+		<attribute name="tl" type="string" use="required"></attribute>
+	</complexType>
+	<complexType name="rType">
+		<sequence>
+			<element name="p" type="tns:pType"></element>
+		</sequence>
+		<attribute name="l" type="int" use="required"></attribute>
+	</complexType>
+	<complexType name="pType">
+		<sequence>
+			<element name="d" type="tns:dType" maxOccurs="1"></element>
+		</sequence>
+		<attribute name="k" type="string" use="required"></attribute>
+		<attribute name="v" type="string"></attribute>
+	</complexType>
+</schema>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/sept.deploy/" targetNamespace="http://www.example.org/sept.deploy/">
+    <element name="deploys" type="tns:deploysType"></element>
+    
+    <complexType name="deploysType">
+    	<sequence>
+    		<element name="deploy" type="tns:deployType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="deployType">
+    	<sequence>
+    		<element name="property" type="tns:propertyType"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    </complexType>
+    
+    <complexType name="propertyType">
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="value" type="string" use="required"></attribute>
+    </complexType>
+</schema>

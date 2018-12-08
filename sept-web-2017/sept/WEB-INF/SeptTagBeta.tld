@@ -1,0 +1,1596 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xmls/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xmls/j2ee http://java.sun.com/xmls/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>A tag library exercising SimpleTag handlers.</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>FreamworkCenter</short-name>
+	<uri>/SeptTagBeta</uri>
+	<!-- scriptless 仅仅能包含自定义 -->
+	<!-- 总body标签 -->
+	<tag>
+		<description>总父标签,可作为单独页面使用</description>
+		<name>body</name>
+		<tag-class>com.sept.framework.taglib.sept.body.BodyTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description> 默认 ANT-TAGLIB-API</description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> 默认store/ico/ant.ico</description>
+			<name>pageIcon</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> 页面描述</description>
+			<name>description</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>页面关键词</description>
+			<name>keywords</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>是否主頁，默认非主页</description>
+			<name>root</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>布局类型，relative(相对布局),absolute(绝对布局),horizontal(横向布局),vertical(纵向布局)
+				均可写从前往后的任意长度字符，在使用自定义标签的情况下，默认vertical，前两个不生效，写原声html的情况下，默认absolute，后两个不生效
+			</description>
+			<name>layout</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>主题</description>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<!-- 原生html代码编写区域 -->
+	<tag>
+		<description>html编写区</description>
+		<name>diy</name>
+		<tag-class>com.sept.framework.taglib.sept.diy.DiyTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+
+
+	<tag>
+		<description>layout</description>
+		<name>layout</name>
+		<tag-class>com.sept.framework.taglib.sept.layout.LayoutTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>region 在折叠区域面板的时候触发。</description>
+			<name>onCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>region 在展开区域面板的时候触发。</description>
+			<name>onExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>region 在新增区域面板的时候触发</description>
+			<name>onAdd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>region 在移除区域面板的时候触发。</description>
+			<name>onRemove</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>layoutcell</description>
+		<name>layoutCell</name>
+		<tag-class>com.sept.framework.taglib.sept.layout.layoutCell.LayoutCellTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>位置north, south, east, west, center</description>
+			<name>region</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>布局面板标题文本。</description>
+			<name>labelValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时显示布局面板边框。</description>
+			<name>border</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时用户可以通过分割栏改变面板大小。</description>
+			<name>split</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>一个包含图标的CSS类ID，该图标将会显示到面板标题上。</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>加载地址</description>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义是否显示折叠按钮。</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>最小面板宽度</description>
+			<name>minWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>最小面板高度</description>
+			<name>minHeight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>最大面板宽度</description>
+			<name>maxWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>最大面板高度。</description>
+			<name>maxHeight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>在点击折叠面板时候的扩展模式。可用值有：“float”、“dock”和null
+				float：区域面板将展开并浮动在顶部，在鼠标焦点离开面板时会自动隐藏。
+				dock：区域面板将展开并钉在面板上，在鼠标焦点离开面板时不会自动隐藏。
+				null：什么也不会发生。
+			</description>
+			<name>expandMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>折叠后的面板大小。</description>
+			<name>collapsedSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时隐藏折叠面板上的扩展面板工具。</description>
+			<name>hideExpandTool</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时隐藏折叠面板上的标题栏。</description>
+			<name>hideCollapsedContent</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>不知道怎么用，先研究一下，会用自己先用</description>
+			<name>collapsedContent</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>tab</description>
+		<name>tab</name>
+		<tag-class>com.sept.framework.taglib.sept.tab.TabTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，将不显示控制面板背景。 false</description>
+			<name>plain</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> 设置为true时，选项卡的大小将铺满它所在的容器 默认true</description>
+			<name>fit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，显示选项卡容器边框。 true</description>
+			<name>border</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡滚动条每次滚动的像素值。 100</description>
+			<name>scrollIncrement</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 每次滚动动画持续的时间，单位：毫秒。 400</description>
+			<name>scrollDuration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>工具栏位置。可用值：'left','right'。</description>
+			<name>toolPosition</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡位置。可用值：'top','bottom','left','right'。</description>
+			<name>tabPosition</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡标题宽度，在tabPosition属性设置为'left'或'right'的时候才有效。 150
+			</description>
+			<name>headerWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>标签条的宽度。</description>
+			<name>tabWidth</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>标签条的高度。</description>
+			<name>tabHeight</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>初始化选中一个标签页。</description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，显示标签页标题</description>
+			<name>showHeader</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，生成等宽标题选项卡</description>
+			<name>justified</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，删除选项卡标题之间的空间 默认false</description>
+			<name>narrow</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>设置为true时，选项卡标题样式改为气泡状 默认false</description>
+			<name>pill</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>panel 在ajax选项卡面板加载完远程数据的时候触发。</description>
+			<name>onLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> title,index 用户在选择一个选项卡面板的时候触发。</description>
+			<name>onSelect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> title,index 用户在取消选择一个选项卡面板的时候触发</description>
+			<name>onUnselect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>title,index 在选项卡面板关闭的时候触发，返回false取消关闭操作</description>
+			<name>onBeforeClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>title,index 在用户关闭一个选项卡面板的时候触发。</description>
+			<name>onClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<description> title,index 在添加一个新选项卡面板的时候触发。</description>
+			<name>onAdd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> title,index 在更新一个选项卡面板的时候触发</description>
+			<name>onUpdate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>在右键点击一个选项卡面板的时候触发 e, title,index</description>
+			<name>onContextMenu</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>tabPage</description>
+		<name>tabPage</name>
+		<tag-class>com.sept.framework.taglib.sept.tab.TabPageTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的标题文本映射到title上</description>
+			<name>labelValue</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的内容 映射到href上</description>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的内容。</description>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>如果为true，在'url'属性设置了有效值的时候缓存选项卡面板。 true</description>
+			<name>cache</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义了一个图标的CSS类ID显示到选项卡面板标题</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>如果为true，则允许选项卡摺叠。 false</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>在设置为true的时候，选项卡面板将显示一个关闭按钮，在点击的时候会关闭选项卡面板。 false
+			</description>
+			<name>closable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>在设置为true的时候，选项卡面板会被选中 。false</description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>在设置为true的时候，选项卡面板会被禁用。false</description>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>按钮</description>
+		<name>button</name>
+		<tag-class>com.sept.framework.taglib.sept.button.ButtonTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的标题文本映射到title上</description>
+			<name>labelValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义了一个图标的CSS类ID显示到选项卡面板标题</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>宽度</description>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>高度</description>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时禁用按钮 false</description>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时允许用户切换其状态是被选中还是未选择，可实现checkbox复选效果 false
+			</description>
+			<name>toggle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义按钮初始的选择状态，true为被选中，false为未选中</description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>指定相同组名称的按钮同属于一个组，可实现radio单选效果。 false</description>
+			<name>group</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>为true时显示简洁效果。 false</description>
+			<name>plain</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>按钮图标位置。可用值有：'left','right'（该属性自1.3.2版开始可用）'top','bottom'（该属性自1.3.6版开始可用）
+				left
+			</description>
+			<name>iconAlign</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>按钮大小。可用值有：'small','large'。（该属性自1.3.6版开始可用） small
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>点击事件</description>
+			<name>onClick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>工具栏</description>
+		<name>tools</name>
+		<tag-class>com.sept.framework.taglib.sept.tools.ToolsTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>按钮</description>
+		<name>tbutton</name>
+		<tag-class>com.sept.framework.taglib.sept.tools.tbutton.TButtonTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义了一个图标的CSS类ID显示到选项卡面板标题</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>点击事件</description>
+			<name>onClick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Panel</description>
+		<name>panel</name>
+		<tag-class>com.sept.framework.taglib.sept.panel.PanelTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的标题文本映射到title上</description>
+			<name>labelValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义了一个图标的CSS类ID显示到选项卡面板标题</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>宽度</description>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>高度</description>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 设置面板距离左边的位置（即X轴位置）。 null</description>
+			<name>left_x</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 设置面板距离顶部的位置（即Y轴位置）。 null</description>
+			<name>top_y</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 添加一个CSS类ID到面板。 null</description>
+			<name>cls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 添加一个CSS类ID到面板头部。 null</description>
+			<name>headerCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> string 添加一个CSS类ID到面板正文部分。 null</description>
+			<name>bodyCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>object 添加一个当前指定样式到面板。 {}</description>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示面板边框。 true</description>
+			<name>border</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果设置为true，在面板被创建的时候将重置大小和重新布局。 true
+			</description>
+			<name>doSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 面板主体内容。 null</description>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示可折叠按钮。 false</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示最小化按钮。 false</description>
+			<name>minimizable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示最大化按钮。 false</description>
+			<name>maximizable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示关闭按钮。 false</description>
+			<name>closable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义打开面板的动画，可用值有：'slide','fade','show'。（该属性自1.4.1版开始可用）
+			</description>
+			<name>openAnimation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 定义打开面板的持续时间。（该属性自1.4.1版开始可用） 400</description>
+			<name>openDuration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义关闭面板的动画，可用值有：'slide','fade','show'。（该属性自1.4.1版开始可用）
+			</description>
+			<name>closeAnimation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 定义关闭面板的持续时间。（该属性自1.4.1版开始可用） 400</description>
+			<name>closeDuration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> boolean 定义是否在初始化的时候折叠面板。 false</description>
+			<name>collapsed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否在初始化的时候最小化面板。 false</description>
+			<name>minimized</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否在初始化的时候最大化面板。 false</description>
+			<name>maximized</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>初始化时是否关闭，false</description>
+			<name>closed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string url代替</description>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果为true，在超链接载入时缓存面板内容。 true</description>
+			<name>cache</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 在加载远程数据的时候在面板内显示一条消息。 Loading…</description>
+			<name>loadingMessage</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string
+				使用HTTP的哪一种方法读取内容页。可用值：'get','post'。（该属性自1.3.6版开始可用） get
+			</description>
+			<name>method</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>object 在加载内容页的时候添加的请求参数。（该属性自1.3.6版开始可用） {}
+			</description>
+			<name>queryParams</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载内容页之前触发，返回false将忽略该动作。（该事件自1.3.6版开始可用）
+			</description>
+			<name>onBeforeLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载远程数据时触发。</description>
+			<name>onLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载内容页发生错误时触发。（该事件自1.3.6版开始可用）</description>
+			<name>onLoadError</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在打开面板之前触发，返回false可以取消打开操作。</description>
+			<name>onBeforeOpen</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在打开面板之后触发。</description>
+			<name>onOpen</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。</description>
+			<name>onBeforeClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板关闭之后触发。</description>
+			<name>onClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板销毁之前触发，返回false可以取消销毁操作。</description>
+			<name>onBeforeDestroy</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板销毁之后触发。</description>
+			<name>onDestroy</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板折叠之前触发，返回false可以终止折叠操作</description>
+			<name>onBeforeCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板折叠之后触发。</description>
+			<name>onCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板展开之前触发，返回false可以终止展开操作。</description>
+			<name>onBeforeExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板展开之后触发。</description>
+			<name>onExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>width, height 在面板改变大小之后触发。 width：新的宽度。height：新的高度。
+			</description>
+			<name>onResize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>left,top 在面板移动之后触发。left：新的左边距位置。top：新的上边距位置。
+			</description>
+			<name>onMove</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口最大化之后触发</description>
+			<name>onMaximize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口恢复到原始大小以后触发。</description>
+			<name>onRestore</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口最小化之后触发。</description>
+			<name>onMinimize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> 设置为true时，选项卡的大小将铺满它所在的容器 默认true</description>
+			<name>fit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>分类空间允许用户使用多面板，但在同一时间只会显示一个。每个面板都内建支持展开和折叠功能。点击一个面板的标题将会展开或折叠面板主体。面板内容可以通过指定的'href'属性使用ajax方式读取面板内容。用户可以定义一个被默认选中的面板，如果未指定，那么第一个面板就是默认的。
+		</description>
+		<name>accordions</name>
+		<tag-class>com.sept.framework.taglib.sept.accordion.AccordionTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>fit:默认false</description>
+			<name>fit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>宽度</description>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>高度</description>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示边框。 true</description>
+			<name>border</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义在展开和折叠的时候是否显示动画效果。 true</description>
+			<name>animate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> boolean 如果为true时，同时展开多个面板。 false</description>
+			<name>multiple</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 设置初始化时默认选中的面板索引号。 0</description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>accordion</description>
+		<name>accordion</name>
+		<tag-class>com.sept.framework.taglib.sept.accordion.AccordionCellTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>选项卡面板的标题文本映射到title上</description>
+			<name>labelValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果设置为true将展开面板。 false</description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果设置为true将显示折叠按钮。 true</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义了一个图标的CSS类ID显示到选项卡面板标题</description>
+			<name>iconCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>宽度</description>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>高度</description>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 设置面板距离左边的位置（即X轴位置）。 null</description>
+			<name>left_x</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 设置面板距离顶部的位置（即Y轴位置）。 null</description>
+			<name>top_y</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 添加一个CSS类ID到面板。 null</description>
+			<name>cls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 添加一个CSS类ID到面板头部。 null</description>
+			<name>headerCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> string 添加一个CSS类ID到面板正文部分。 null</description>
+			<name>bodyCls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>object 添加一个当前指定样式到面板。 {}</description>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示面板边框。 true</description>
+			<name>border</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果设置为true，在面板被创建的时候将重置大小和重新布局。 true
+			</description>
+			<name>doSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 面板主体内容。 null</description>
+			<name>content</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示可折叠按钮。 false</description>
+			<name>collapsible</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示最小化按钮。 false</description>
+			<name>minimizable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示最大化按钮。 false</description>
+			<name>maximizable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否显示关闭按钮。 false</description>
+			<name>closable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义打开面板的动画，可用值有：'slide','fade','show'。（该属性自1.4.1版开始可用）
+			</description>
+			<name>openAnimation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 定义打开面板的持续时间。（该属性自1.4.1版开始可用） 400</description>
+			<name>openDuration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>定义关闭面板的动画，可用值有：'slide','fade','show'。（该属性自1.4.1版开始可用）
+			</description>
+			<name>closeAnimation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>number 定义关闭面板的持续时间。（该属性自1.4.1版开始可用） 400</description>
+			<name>closeDuration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> boolean 定义是否在初始化的时候折叠面板。 false</description>
+			<name>collapsed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否在初始化的时候最小化面板。 false</description>
+			<name>minimized</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 定义是否在初始化的时候最大化面板。 false</description>
+			<name>maximized</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>初始化时是否关闭，false</description>
+			<name>closed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string url代替</description>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>boolean 如果为true，在超链接载入时缓存面板内容。 true</description>
+			<name>cache</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string 在加载远程数据的时候在面板内显示一条消息。 Loading…</description>
+			<name>loadingMessage</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>string
+				使用HTTP的哪一种方法读取内容页。可用值：'get','post'。（该属性自1.3.6版开始可用） get
+			</description>
+			<name>method</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>object 在加载内容页的时候添加的请求参数。（该属性自1.3.6版开始可用） {}
+			</description>
+			<name>queryParams</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载内容页之前触发，返回false将忽略该动作。（该事件自1.3.6版开始可用）
+			</description>
+			<name>onBeforeLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载远程数据时触发。</description>
+			<name>onLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在加载内容页发生错误时触发。（该事件自1.3.6版开始可用）</description>
+			<name>onLoadError</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在打开面板之前触发，返回false可以取消打开操作。</description>
+			<name>onBeforeOpen</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在打开面板之后触发。</description>
+			<name>onOpen</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。</description>
+			<name>onBeforeClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板关闭之后触发。</description>
+			<name>onClose</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板销毁之前触发，返回false可以取消销毁操作。</description>
+			<name>onBeforeDestroy</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板销毁之后触发。</description>
+			<name>onDestroy</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板折叠之前触发，返回false可以终止折叠操作</description>
+			<name>onBeforeCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板折叠之后触发。</description>
+			<name>onCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板展开之前触发，返回false可以终止展开操作。</description>
+			<name>onBeforeExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在面板展开之后触发。</description>
+			<name>onExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>width, height 在面板改变大小之后触发。 width：新的宽度。height：新的高度。
+			</description>
+			<name>onResize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>left,top 在面板移动之后触发。left：新的左边距位置。top：新的上边距位置。
+			</description>
+			<name>onMove</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口最大化之后触发</description>
+			<name>onMaximize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口恢复到原始大小以后触发。</description>
+			<name>onRestore</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>none 在窗口最小化之后触发。</description>
+			<name>onMinimize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> 设置为true时，选项卡的大小将铺满它所在的容器 默认true</description>
+			<name>fit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>tree</description>
+		<name>tree</name>
+		<tag-class>com.sept.framework.taglib.sept.tree.TreeTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>是否隐藏</description>
+			<name>hidden</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>id</description>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>宽度</description>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>高度</description>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>是否撑满父容器，默认false</description>
+			<name>fit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>url string 检索远程数据的URL地址。 null 以classz代替，请求时附带此信息
+			</description>
+			<name>classz</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>method string 检索数据的HTTP方法。（POST / GET） post
+			</description>
+			<name>post</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>animate boolean 定义节点在展开或折叠的时候是否显示动画效果。 false
+			</description>
+			<name>animate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>checkbox boolean 定义是否在每一个借点之前都显示复选框。 false</description>
+			<name>checkbox</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>cascadeCheck boolean 定义是否层叠选中状态。 true</description>
+			<name>cascadeCheck</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>onlyLeafCheck boolean 定义是否只在末级节点之前显示复选框。 false
+			</description>
+			<name>onlyLeafCheck</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>lines boolean 定义是否显示树控件上的虚线。 false</description>
+			<name>lines</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>dnd boolean 定义是否启用拖拽功能。 false</description>
+			<name>dnd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>data array 参考api,暂时不建议使用 null</description>
+			<name>dataArray</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onClick node 在用户点击一个节点的时候触发</description>
+			<name>onClick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onDblClick node 在用户双击一个节点的时候触发。</description>
+			<name>onDblClick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeLoad node, param 在请求加载远程数据之前触发，返回false可以取消加载操作。
+			</description>
+			<name>onBeforeLoad</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onLoadSuccess node, data 在数据加载成功以后触发</description>
+			<name>onLoadSuccess</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onLoadError arguments
+				在数据加载失败的时候触发，arguments参数和jQuery的$.ajax()函数里面的'error'回调函数的参数相同
+			</description>
+			<name>onLoadError</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeExpand node 在节点展开之前触发，返回false可以取消展开操作。
+			</description>
+			<name>onBeforeExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onExpand node 在节点展开的时候触发</description>
+			<name>onExpand</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeCollapse node 在节点折叠之前触发，返回false可以取消折叠操作
+			</description>
+			<name>onBeforeCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onCollapse node 在节点折叠的时候触发。</description>
+			<name>onCollapse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeCheck node, checked
+				在用户点击勾选复选框之前触发，返回false可以取消选择动作。（该事件自1.3.1版开始可用）</description>
+			<name>onBeforeCheck</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onCheck node, checked 在用户点击勾选复选框的时候触发</description>
+			<name>onCheck</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeSelect node 在用户选择一个节点之前触发，返回false可以取消选择动作
+			</description>
+			<name>onBeforeSelect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onSelect node 在用户选择节点的时候触发</description>
+			<name>onSelect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onContextMenu e, node 在右键点击节点的时候触发</description>
+			<name>onContextMenu</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeDrag node
+				在开始拖动节点之前触发，返回false可以拒绝拖动。（该事件自1.3.2版开始可用）</description>
+			<name>onBeforeDrag</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onStartDrag node 在开始拖动节点的时候触发。（该事件自1.3.2版开始可用）
+			</description>
+			<name>onStartDrag</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onStopDrag node 在停止拖动节点的时候触发。（该事件自1.3.2版开始可用）
+			</description>
+			<name>onStopDrag</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onDragEnter target, source
+				在拖动一个节点进入到某个目标节点并释放的时候触发，返回false可以拒绝拖动。target：释放的目标节点元素。source：开始拖动的源节点。（该事件自1.3.2版开始可用）
+			</description>
+			<name>onDragEnter</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onDragOver target, source
+				在拖动一个节点经过某个目标节点并释放的时候触发，返回false可以拒绝拖动。target：释放的目标节点元素。source：开始拖动的源节点。（该事件自1.3.2版开始可用）
+			</description>
+			<name>onDragOver</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onDragLeave target, source
+				在拖动一个节点离开某个目标节点并释放的时候触发，返回false可以拒绝拖动。target：释放的目标节点元素。source：开始拖动的源节点。（该事件自1.3.2版开始可用）
+			</description>
+			<name>onDragLeave</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeDrop target, source, point
+				在拖动一个节点之前触发，返回false可以拒绝拖动。target：释放的目标节点元素。source：开始拖动的源节点。point：表示哪一种拖动操作，可用值有：'append','top'或
+				'bottom'。（该事件自1.3.3版开始可用）</description>
+			<name>onBeforeDrop</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onDrop target, source, point
+				当节点位置被拖动时触发。target：DOM对象，需要被拖动动的目标节点。source：源节点。point：表示哪一种拖动操作，可用值有：'append','top'
+				或 'bottom'。</description>
+			<name>onDrop</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onBeforeEdit node 在编辑节点之前触发。</description>
+			<name>onBeforeEdit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onAfterEdit node 在编辑节点之后触发。</description>
+			<name>onAfterEdit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description> onCancelEdit node 在取消编辑操作的时候触发。</description>
+			<name>onCancelEdit</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+
+
+	</tag>
+</taglib>

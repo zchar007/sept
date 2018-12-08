@@ -1,0 +1,62 @@
+.sept-body-container {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: red;
+	overflow: hidden;
+	font-family: 'Lucida Console', Monaco, monospace;
+	font-size: 24;
+	position:absolute;
+}
+
+.sept-body-container .sept-div-container {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	background-color: #d5e4f2;;
+	overflow: hidden;
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 24;
+}
+
+.sept-layout {
+	margin: 2px;
+}
+
+.sept-layout-hlayout {
+	width: auto;
+	height: auto;
+	float: left;
+}
+
+.sept-layout-vlayout {
+	width: auto;
+	height: auto;
+}
+
+.sept-clear {
+	clear: both
+}
+
+.sept-response-container {
+	width: 1024px;
+	height: 700px;
+	background-color: red;
+}
+
+.sept-response-container .sept-response-head {
+	width: 100%;
+	height: 80%;
+	background-color: green;
+	position: absolute;
+}
+
+.sept-iframe-container {
+	width: 95%;
+	height: 100%;
+	margin-top: 40px;
+	background-color: green;
+	border: 5px solid red;
+	position: inherit;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="logonInterface" class="com.sept.support.interfaces.def.SeptLogon" /><!-- 
+		scope可获取多个实例 -->
+	<bean id="logonHandler" class="com.sept.support.interfaces.logon.LogonHandler">
+		<property name="logonInterface" ref="logonInterface" />
+	</bean>
+	<bean id="userBean" class="com.sept.support.interfaces.def.CurrentUser"
+		scope="prototype" /><!-- scope可获取多个实例 -->
+	<bean id="threadBean" class="com.sept.support.interfaces.def.SeptThread"
+		scope="prototype" /><!-- scope可获取多个实例 -->
+	<bean id="logBean" class="com.sept.demo.log.LogIt"
+		scope="prototype" /><!-- scope可获取多个实例 -->
+</beans>

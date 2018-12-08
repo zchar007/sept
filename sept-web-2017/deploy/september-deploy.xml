@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="sept.deploy.xsd">
+	<deploy type="sql">
+		<property name="SPRING-DBNAME" value="applicationContext-jdbc.xml" />
+		<property name="SPRING-DBABLE" value="false" />
+	</deploy>
+	<deploy type="rar">
+		<property name="UNRAR" value="./Rar2/UnRAR.exe" />
+		<property name="RAR" value="./Rar2/Rar.exe" />
+	</deploy>
+	<deploy type="debug">
+		<property name="DEBUGMODEL" value="true" />
+		<property name="DEBUGHEAD" value="" />
+	</deploy>
+	<deploy type="ftp">
+		<property name="FTPURL" value="10.1.82.253"/>
+		<property name="FTPCLIENTURL" value="ftp://10.1.82.253/"/>
+		<property name="USER" value="zcharwork@outlook.com"/>
+		<property name="KEY" value="1118915zcz"/>
+	</deploy>
+	<deploy type="encrypt">
+		<property name="txt" value="data"/>
+		<property name="data" value="txt"/>
+		<property name="rar" value="bab"/>
+		<property name="bab" value="rar"/>
+	</deploy>
+	<deploy type="interactivedict">
+		<!-- 在web应用中使用，可修改此处 -->
+		<!-- 关于前后台交互的一些关键参数key -->
+		<!-- 前台——>后台 -->
+		<property name="INTERACTIVE_TYPE" value="__DATA__TYPE__"/><!-- 交互数据类型KEY -->
+		<property name="INTERACTIVE_JSON_DATE" value="__JSON_DATA__"/><!--JSON数据KEY -->
+		<property name="INTERACTIVE_JSON_DATE_TYPE" value="__JSON_DATA_TYPE__"/><!-- JSON数据的内部字段类型 -->
+		<!-- 后台——>前台 -->
+		<property name="INTERACTIVE_ERROR_FLAG" value="__ERRROR__FLAG__"/><!--错误标志__有错误才会返回 -->
+		<property name="INTERACTIVE_ERROR_TEXT" value="__ERRROR__TEXT__"/><!--错误信息__有错误才会返回 -->
+		<!-- 关于前后台交互的一些关键参数value -->
+		<!-- 前台——>后台 -->
+		<property name="INTERACTIVE_TYPE_JSON" value="JSON"/><!-- 交互数据类型JSON -->
+		<property name="INTERACTIVE_TYPE_XML" value="XML"/><!--交互数据类型XML -->
+		<!-- 后台——>前台 -->
+		<property name="INTERACTIVE_ERROR_BUSI" value="0"/><!--交互数据类型JSON -->
+		<property name="INTERACTIVE_ERROR_APP" value="1"/><!--交互数据类型XML -->
+	</deploy>
+</deploys>

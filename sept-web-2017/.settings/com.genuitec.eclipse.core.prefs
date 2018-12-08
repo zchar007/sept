@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=deploy/september-deploy.xml,deploy/sept.deploy.xml
+validator.Unchecked=

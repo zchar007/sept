@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE d SYSTEM "Data.dtd">
+<d t="do" tl="id:n,xm:s,nl:n,gz:ds">
+	<p k="id" v="3333333333333333333333333" />
+	<p k="xm" v="张三" />
+	<p k="nl" v="20" />
+	<p k="gz">
+		<d t="do" tl="gzmc:s,jfgz:n">
+			<r l="1">
+				<p k="gzmc" v="实际工资1" />
+				<p k="jfgz" v="8001.0" />
+			</r>
+			<r l="1">
+				<p k="gzmc" v="实际工资2" />
+				<p k="jfgz" v="8002.0" />
+			</r>
+			<r l="1">
+				<p k="gzmc" v="实际工资3" />
+				<p k="jfgz" v="8003.0" />
+			</r>
+		</d>
+	</p>
+</d>

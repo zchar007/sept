@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xmls/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xmls/j2ee http://java.sun.com/xmls/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>A tag library exercising SimpleTag handlers.</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>FreamworkCenter</short-name>
+	<uri>/STag</uri>
+	<!-- scriptless 仅仅能包含自定义 -->
+	<!-- 总body标签 -->
+	<tag>
+		<description>总父标签,可作为单独页面使用</description>
+		<name>body</name>
+		<tag-class>com.sept.web.taglib.common.body.BodyTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>skin</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>root</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>pageIcon</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>description</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>keywords</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>原生html编写区域</description>
+		<name>diy</name>
+		<tag-class>com.sept.web.taglib.common.diy.DiyTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+</taglib>
