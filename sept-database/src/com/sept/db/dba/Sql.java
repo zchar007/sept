@@ -32,7 +32,7 @@ import com.sept.util.TypeUtil;
 
 public class Sql implements ISql {
 	protected static String defaultDataSource;
-	private String dbName = null;
+	private String dbSource = null;
 	private ArrayList<Object> alParas = null;
 	private ArrayList<ArrayList<Object>> alBatchParas = null;
 	private String nowSql = null;
@@ -51,7 +51,7 @@ public class Sql implements ISql {
 	}
 
 	public Sql(String dbName) {
-		this.dbName = dbName;
+		this.dbSource = dbName;
 	}
 
 	/**
@@ -353,8 +353,8 @@ public class Sql implements ISql {
 	private int executeUpdate(String sql, ArrayList<Object> alTempPara) throws AppException {
 		int vi = 0;
 		try {
-			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
-			Transaction trans = TransactionManager.getTransaction(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbSource);
+			Transaction trans = TransactionManager.getTransaction(this.dbSource);
 
 			if (!trans.isUnderTransaction()) {
 				throw new AppException("当前数据库操作[" + this.nowSql + "]未正常开启事物！");
@@ -420,13 +420,13 @@ public class Sql implements ISql {
 	private DataStore executeQuery(String sql, ArrayList<Object> alTempPara) throws AppException {
 		Transaction tm;
 		try {
-			tm = TransactionManager.getTransaction(this.dbName);
+			tm = TransactionManager.getTransaction(this.dbSource);
 
 			if (!tm.isUnderTransaction()) {
 				throw new AppException("还未开启事物！");
 			}
 
-			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbSource);
 			final ArrayList<Object> exePara = alTempPara;
 
 			PreparedStatementSetter pss = new PreparedStatementSetter() {
@@ -515,7 +515,7 @@ public class Sql implements ISql {
 					return ds;
 				}
 			};
-			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbName);
+			this.jdbcTemplate = DBSessionUtil.getJdbcTemplate(this.dbSource);
 			this.jdbcTemplate.setFetchSize(1000);
 			DataStore ds = (DataStore) this.jdbcTemplate.query(sql, pss, resultSetExtractor);
 			return ds;
@@ -799,5 +799,13 @@ public class Sql implements ISql {
 	public String getSql() {
 		return this.nowSql;
 
+	}
+
+	public String getDbSource() {
+		return dbSource;
+	}
+
+	public void setDbSource(String dbSource) {
+		this.dbSource = dbSource;
 	}
 }

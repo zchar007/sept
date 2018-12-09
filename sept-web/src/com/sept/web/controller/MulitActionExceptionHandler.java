@@ -34,9 +34,8 @@ public class MulitActionExceptionHandler implements HandlerExceptionResolver {
 			}
 			error += errortext;
 			pdo.put("exception", error);
-			return new ModelAndView("sept-web/error/appexception", pdo);
 		}
-		return null;
+		return new ModelAndView("sept-web/error/appexception", pdo);
 	}
 
 }

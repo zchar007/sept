@@ -181,7 +181,6 @@ public class FilePathUtil {
 	 * @return
 	 */
 	public final static String getFileType(String fileName) {
-
 		return fileName.substring(fileName.lastIndexOf(".") + 1);
 	}
 	

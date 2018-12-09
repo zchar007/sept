@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 
 public class FileByteReader {
@@ -46,6 +47,12 @@ public class FileByteReader {
 		this(url, defaulSize);
 	}
 
+	/**
+	 * 读取一定长度的byte
+	 * 
+	 * @return
+	 * @throws AppException
+	 */
 	public byte[] read() throws AppException {
 		synchronized (key) {
 			try {
@@ -67,6 +74,14 @@ public class FileByteReader {
 		}
 	}
 
+	/**
+	 * 从指定位置读取byte
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws AppException
+	 */
 	public byte[] readJump(long start, long end) throws AppException {
 		synchronized (key) {
 
@@ -101,26 +116,44 @@ public class FileByteReader {
 		}
 	}
 
+	/**
+	 * 关闭流
+	 * 
+	 * @throws AppException
+	 */
 	public void close() throws AppException {
 		synchronized (key) {
 			try {
-				fileForByte.close();
+				this.fileForByte.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				LogHandler.error(e);
 			}
 			try {
-				fileForJump.close();
+				this.fileForJump.close();
 			} catch (Exception e) {
+				LogHandler.error(e);
 			}
 		}
 	}
 
+	/**
+	 * 获取大小
+	 * 
+	 * @return
+	 */
 	public long getSize() {
 		synchronized (key) {
 			return this.file.length();
 		}
 	}
 
+	/**
+	 * 写入byte
+	 * 
+	 * @param bytes
+	 * @param isAppend
+	 * @throws AppException
+	 */
 	public void write(byte[] bytes, boolean isAppend) throws AppException {
 		synchronized (key) {
 			FileOutputStream fos = null;
@@ -153,6 +186,11 @@ public class FileByteReader {
 		}
 	}
 
+	/**
+	 * 重置流
+	 * 
+	 * @throws AppException
+	 */
 	public void reset() throws AppException {
 		synchronized (key) {
 			try {

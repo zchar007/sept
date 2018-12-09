@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 
 /**
@@ -22,6 +23,12 @@ public class FileLineReader {
 	private int readNumber = 0;
 	private Object key = new Object();
 
+	/**
+	 * 
+	 * @param url
+	 *            文件位置
+	 * @throws AppException
+	 */
 	public FileLineReader(String url) throws AppException {
 		try {
 			this.file = new File(url);
@@ -36,6 +43,11 @@ public class FileLineReader {
 		}
 	}
 
+	/**
+	 * 读取一行数据，循环调用循环读取
+	 * 
+	 * @return
+	 */
 	public String readLine() {
 		synchronized (key) {
 			if (null == this.brForList) {
@@ -53,6 +65,13 @@ public class FileLineReader {
 		}
 	}
 
+	/**
+	 * 跳跃读取，读取指定行，不会影响顺序读取
+	 * 
+	 * @param line
+	 * @return
+	 * @throws AppException
+	 */
 	public String readJump(int line) throws AppException {
 		synchronized (key) {
 			if (line <= 0)
@@ -71,7 +90,6 @@ public class FileLineReader {
 					k++;
 				}
 			} catch (Exception e) {
-
 				throw new AppException(-11, e.getMessage());
 			} finally {
 				try {
@@ -85,23 +103,31 @@ public class FileLineReader {
 		}
 	}
 
+	/**
+	 * 关闭流
+	 * 
+	 * @throws AppException
+	 */
 	public void close() throws AppException {
 		synchronized (key) {
 			try {
 				this.brForList.close();
 			} catch (Exception e) {
-
-				throw new AppException(-11, e.getMessage());
+				LogHandler.error(e);
 			}
 			try {
 				this.brForJump.close();
 			} catch (Exception e) {
-
-				throw new AppException(-11, e.getMessage());
+				LogHandler.error(e);
 			}
 		}
 	}
 
+	/**
+	 * 读取所有行
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> read() {
 		synchronized (key) {
 			ArrayList<String> aList = new ArrayList<String>();
@@ -114,18 +140,33 @@ public class FileLineReader {
 
 	}
 
+	/**
+	 * 获取总行数
+	 * 
+	 * @return
+	 */
 	public long getLineCount() {
 		synchronized (key) {
 			return this.brForList.lines().count();
 		}
 	}
 
+	/**
+	 * 获取文件大小
+	 * 
+	 * @return
+	 */
 	public long getSize() {
 		synchronized (key) {
 			return this.file.length();
 		}
 	}
 
+	/**
+	 * 读取所有数据，每行以换行符连接
+	 * 
+	 * @return
+	 */
 	public String readAll() {
 		synchronized (key) {
 			String returnStr = "";
@@ -137,6 +178,13 @@ public class FileLineReader {
 		}
 	}
 
+	/**
+	 * 写入数据
+	 * 
+	 * @param message
+	 * @param isAppend
+	 * @throws AppException
+	 */
 	public void write(String message, boolean isAppend) throws AppException {
 		synchronized (key) {
 			ArrayList<String> alSave = new ArrayList<>();
@@ -178,6 +226,11 @@ public class FileLineReader {
 		}
 	}
 
+	/**
+	 * 重置流
+	 * 
+	 * @throws AppException
+	 */
 	public void reset() throws AppException {
 		synchronized (key) {
 			try {
@@ -189,7 +242,15 @@ public class FileLineReader {
 		}
 	}
 
-	public static void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
+	/**
+	 * 静态保存方法
+	 * 
+	 * @param alSave
+	 * @param url
+	 * @param isAppend
+	 * @throws AppException
+	 */
+	public static final void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
@@ -219,7 +280,15 @@ public class FileLineReader {
 		}
 	}
 
-	public static void saveFile(String message, String url, boolean isAppend) throws AppException {
+	/**
+	 * 保存字符串到文件中，非追加不可往文件中重写数据
+	 * 
+	 * @param message
+	 * @param url
+	 * @param isAppend
+	 * @throws AppException
+	 */
+	public static final void saveFile(String message, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
@@ -246,13 +315,4 @@ public class FileLineReader {
 			throw new AppException(-12, e.getMessage());
 		}
 	}
-
-	public static void main(String[] args) throws AppException {
-		FileLineReader fs = new FileLineReader("D://test.txt");
-		// System.out.println(fs.readJump(2));
-		// System.out.println(fs.readLine());
-		System.out.println(fs.getLineCount());
-
-	}
-
 }

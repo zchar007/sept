@@ -13,18 +13,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.util.SecUtil;
 
 public class FileIOTool {
-	
 
 	/**
 	 * 写文本到文件
 	 * 
-	 * @param filePath    文件路径
-	 * @param fileContent 文件内容
-	 * @param appended    是否追加
+	 * @param filePath
+	 *            文件路径
+	 * @param fileContent
+	 *            文件内容
+	 * @param appended
+	 *            是否追加
 	 */
 	public static void writeStrToFile(String filePath, String fileContent, boolean appended) throws AppException {
 		String path = filePath.substring(0, filePath.lastIndexOf(File.separator));
@@ -55,8 +58,10 @@ public class FileIOTool {
 	/**
 	 * 写文件，不追加
 	 * 
-	 * @param filePath    文件路径
-	 * @param fileContent 文件内容
+	 * @param filePath
+	 *            文件路径
+	 * @param fileContent
+	 *            文件内容
 	 */
 	public static void writeStrToFile(String filePath, String fileContent) throws AppException {
 		writeStrToFile(filePath, fileContent, false);
@@ -67,7 +72,8 @@ public class FileIOTool {
 	 * 
 	 * @author:ZC Oct 20, 2008
 	 * @param filebyte
-	 * @param filepath :路径名+文件名
+	 * @param filepath
+	 *            :路径名+文件名
 	 * @throws AppException
 	 */
 	public static void writeBytesToFile(byte[] filebyte, String filepath, String filename) throws AppException {
@@ -115,7 +121,7 @@ public class FileIOTool {
 	 * @date 创建时间 May 29, 2010
 	 * @since V1.0
 	 */
-	public static byte[] getBytesFromFile(File file) throws AppException, IOException {
+	public static byte[] getBytesFromFile(File file) throws AppException {
 		InputStream is = null;
 		try {
 			is = new FileInputStream(file);
@@ -138,8 +144,13 @@ public class FileIOTool {
 		} catch (IOException e) {
 			throw new AppException("读取文件内容异常.错误信息为：" + e.getMessage());
 		} finally {
-			if (is != null)
-				is.close();
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					LogHandler.error(e);
+				}
+			}
 		}
 	}
 

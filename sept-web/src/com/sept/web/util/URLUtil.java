@@ -25,4 +25,15 @@ public class URLUtil {
 		}
 		return ip;
 	}
+
+	public static final String getRequestUrl(HttpServletRequest request) {
+		String url = "http://" + request.getServerName() // 服务器地址
+				+ ":" + request.getServerPort()// 端口号
+				+ request.getRequestURI();
+		return url;
+	}
+
+	public static final String getRequestData(HttpServletRequest request) {
+		return request.getQueryString();
+	}
 }

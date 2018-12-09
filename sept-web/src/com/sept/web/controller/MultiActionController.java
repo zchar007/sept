@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 import com.sept.datastructure.DataObject;
 import com.sept.datastructure.DataStore;
@@ -22,6 +22,8 @@ import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.exception.BizException;
 import com.sept.project.context.GlobalContext;
+import com.sept.web.exception.NoSuchHanderMethodException;
+import com.sept.web.util.URLUtil;
 
 /**
  * 
@@ -53,7 +55,7 @@ public class MultiActionController extends AbstractController {
 		pdo.put("age", 10);
 		throw new BizException("我这边错了");
 
-		//throw new AppException("我这边错了");
+		// throw new AppException("我这边错了");
 		// return MVUtil.writeDataObject(response,
 		// pdo);//{"xl":"本科","name":"张三","age":"10"}
 		// return MVUtil.writeDataStore(response,
@@ -93,13 +95,13 @@ public class MultiActionController extends AbstractController {
 				return new ModelAndView();
 			}
 			return invokeNamedMethod(methodName, request, response);
-		} catch (NoSuchRequestHandlingMethodException ex) {
-			return handleNoSuchRequestHandlingMethod(ex, request, response);
+		} catch (NoHandlerFoundException ex) {
+			return handleNoHandlerFoundException(ex, request, response);
 		}
 	}
 
-	private ModelAndView handleNoSuchRequestHandlingMethod(NoSuchRequestHandlingMethodException ex,
-			HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private ModelAndView handleNoHandlerFoundException(NoHandlerFoundException ex, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		ex.printStackTrace();
 		LogHandler.warn(ex.getMessage());
 		pageNotFoundLogger.warn(ex.getMessage());
@@ -121,7 +123,7 @@ public class MultiActionController extends AbstractController {
 			throws Exception {
 		Method method = this.handlerMethodMap.get(methodName);
 		if (method == null) {
-			throw new NoSuchRequestHandlingMethodException(methodName, getClass());
+			throw new NoSuchHanderMethodException(URLUtil.getRequestUrl(request), methodName, this.getClass());
 		}
 		DataObject param = this.getParamsFromRequest(request);
 		if (null == param) {
@@ -129,7 +131,6 @@ public class MultiActionController extends AbstractController {
 		}
 		ModelAndView mv = this.doMethod(method, param, request, response);
 		return mv;
-
 	}
 
 	/**
@@ -270,8 +271,7 @@ public class MultiActionController extends AbstractController {
 	 * @throws NoSuchRequestHandlingMethodException
 	 * @author zchar.2018年11月19日下午3:24:18
 	 */
-	private String getHandlerMethodName(HttpServletRequest request)
-			throws AppException, NoSuchRequestHandlingMethodException {
+	private String getHandlerMethodName(HttpServletRequest request) throws AppException, NoSuchHanderMethodException {
 		// 默认的method_key是method,如果连method_key和默认的method都没有，说明需要返回cookie信息
 		String method_key = GlobalContext.DEFAULT_METHOD_KEY;
 		if (null == method_key) {
@@ -289,7 +289,7 @@ public class MultiActionController extends AbstractController {
 			return null;
 		}
 		if (!this.handlerMethodMap.containsKey(method)) {
-			throw new NoSuchRequestHandlingMethodException(method, this.getClass());
+			throw new NoSuchHanderMethodException(URLUtil.getRequestUrl(request), method, this.getClass());
 		}
 		return method;
 	}
