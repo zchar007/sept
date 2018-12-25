@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.sept.exception.AppException;
 
@@ -15,15 +16,15 @@ public final class DateUtil {
 	/*
 	 * 获取当前时间的各个参数
 	 */
-	public final static HashMap<String, Integer> getCurrentHMTime() {
+	public final static Map<String, Integer> getCurrentHMTime() {
 		return getHMTime(new Date());
 	}
 
 	/*
 	 * 获取时间的各个参数
 	 */
-	public final static HashMap<String, Integer> getHMTime(Date date) {
-		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+	public final static Map<String, Integer> getHMTime(Date date) {
+		Map<String, Integer> hm = new HashMap<String, Integer>();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		hm.put("year", calendar.get(Calendar.YEAR));

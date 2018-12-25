@@ -7,13 +7,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 import com.sept.exception.AppException;
 
 public final class JSONUtil {
 
+	/**
+	 * 各种对象转成Json字符串
+	 * 
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	@SuppressWarnings("unchecked")
-	 public static final String toJson(Object o) throws AppException {
+	public static final String toJson(Object o) throws AppException {
 		String cname = o.getClass().getName();
 		if (o instanceof String || cname.equals("java.lang.String") || o instanceof StringBuffer
 				|| cname.equals("java.lang.StringBuffer") || o instanceof StringBuilder
@@ -76,7 +82,13 @@ public final class JSONUtil {
 		throw new RuntimeException("Unsupported type: " + o.getClass().getName() + "--" + o.toString());
 	}
 
-	 public static final String string2Json(String s) {
+	/**
+	 * String 转成字符串
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static final String string2Json(String s) {
 		StringBuilder sb = new StringBuilder(s.length() + 20);
 		sb.append('"');
 		for (int i = 0; i < s.length(); i++) {
@@ -114,6 +126,13 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * map转成字符串
+	 * 
+	 * @param map
+	 * @return
+	 * @throws AppException
+	 */
 	public static final String map2Json(Map<String, Object> map) throws AppException {
 		if (map.isEmpty())
 			return "{}";
@@ -133,6 +152,13 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * list转成字符串
+	 * 
+	 * @param list
+	 * @return
+	 * @throws AppException
+	 */
 	public static final String list2Json(List<Object> list) throws AppException {
 		if (list.size() == 0) {
 			return "{}";
@@ -141,6 +167,13 @@ public final class JSONUtil {
 		return toJson(DataObjectArray);
 	}
 
+	/**
+	 * array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 * @throws AppException
+	 */
 	public static final String array2Json(Object[] array) throws AppException {
 		if (array.length == 0)
 			return "[]";
@@ -155,6 +188,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * 字符串arrat转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String intArray2Json(int[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -169,6 +208,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * long类型arra转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String longArray2Json(long[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -183,6 +228,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * boolean类型array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String booleanArray2Json(boolean[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -197,6 +248,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * float类型array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String floatArray2Json(float[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -211,6 +268,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * double类型array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String doubleArray2Json(double[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -225,6 +288,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * short类型array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String shortArray2Json(short[] array) {
 		if (array.length == 0)
 			return "[]";
@@ -239,6 +308,12 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * byte类型array转成字符串
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public static final String byteArray2Json(byte[] array) {
 		if (array.length == 0)
 			return "[]";

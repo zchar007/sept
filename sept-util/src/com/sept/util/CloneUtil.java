@@ -21,11 +21,15 @@ public class CloneUtil {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bout);
 		oos.writeObject(object);
-
+		oos.flush();
 		ByteArrayInputStream bin = new ByteArrayInputStream(bout.toByteArray());
 		ObjectInputStream ois = new ObjectInputStream(bin);
 		@SuppressWarnings("unchecked")
 		T objT = (T) ois.readObject();
+		ois.close();
+		bin.close();
+		oos.close();
+		bout.close();
 		return objT;
 	}
 

@@ -9,6 +9,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
@@ -211,12 +213,38 @@ public class BarCodeImgUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		String str = BarCodeImgUtil.getBarImageBase64(1, 60,
-//				"20110312321321ee321dwqdwwqewqeq");
-//		File f = new File("D:/test12eqwewqqwsd12312e31.bmp");
-		// f.createNewFile();
-		// FileSecurityByByte fsbb = new FileSecurityByByte(f.getAbsolutePath());
-		// fsbb.write(SecUtil.base64Decode(str));
-		// fsbb.close();
+		String str = BarCodeImgUtil.get39BarCodeImageByte(500, 100, "who am Isfdsfdsfdsfsdfsdfdsfdsfds");
+		write(SecUtil.base64Decode(str), "D:/test12eqwewqqwsd12312e31.bmp", false);
+	}
+
+	/**
+	 * 新的追加写入不会更改原读取顺序，但非追加性写入会重置原读写顺序
+	 * 
+	 * @param alSave
+	 * @param isAppend
+	 * @throws AppException
+	 */
+	public static void write(byte[] bytes, String url, boolean isAppend) throws AppException {
+		try {
+			File file = new File(url);
+			if (!isAppend) {// 不是追加
+				if (file.exists()) {
+					throw new AppException("文件[" + url + "]已存在且不为追加！");
+				} else {
+					file.createNewFile();
+				}
+			} else {
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+			}
+
+			FileOutputStream fos = new FileOutputStream(file, isAppend);
+			fos.write(bytes);
+			fos.flush();
+			fos.close();
+		} catch (Exception e) {
+			throw new AppException(-12, e.getMessage());
+		}
 	}
 }

@@ -35,7 +35,7 @@ public class ImageUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Image getAnySize(Image img, int sizeX, int sizeY) throws IOException {
+	public static Image resizeImage(Image img, int sizeX, int sizeY) throws IOException {
 		if (img == null)
 			return null;
 		BufferedImage bfi = toBufferedImage(img);
@@ -59,24 +59,12 @@ public class ImageUtil {
 			return (BufferedImage) image;
 		}
 
-		// This code ensures that all the pixels in the image are loaded
 		image = new ImageIcon(image).getImage();
 
-		// Determine if the image has transparent pixels; for this method's
-		// implementation, see e661 Determining If an Image Has Transparent
-		// Pixels
-		// boolean hasAlpha = hasAlpha(image);
-
-		// Create a buffered image with a format that's compatible with the
-		// screen
 		BufferedImage bimage = null;
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			// Determine the type of transparency of the new buffered image
 			int transparency = Transparency.OPAQUE;
-			/*
-			 * if (hasAlpha) { transparency = Transparency.BITMASK; }
-			 */
 
 			// Create the buffered image
 			GraphicsDevice gs = ge.getDefaultScreenDevice();
@@ -89,10 +77,6 @@ public class ImageUtil {
 		if (bimage == null) {
 			// Create a buffered image using the default color model
 			int type = BufferedImage.TYPE_INT_RGB;
-			// int type = BufferedImage.TYPE_3BYTE_BGR;//by wang
-			/*
-			 * if (hasAlpha) { type = BufferedImage.TYPE_INT_ARGB; }
-			 */
 			bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
 		}
 
@@ -116,8 +100,8 @@ public class ImageUtil {
 	 * @param h
 	 * @return
 	 */
-	public static BufferedImage getSubimage(Image img, int x, int y, int w, int h) {
-		return getSubimage(toBufferedImage(img), x, y, w, h);
+	public static BufferedImage subImage(Image img, int x, int y, int w, int h) {
+		return subImage(toBufferedImage(img), x, y, w, h);
 	}
 
 	/**
@@ -130,7 +114,7 @@ public class ImageUtil {
 	 * @param h
 	 * @return
 	 */
-	public static BufferedImage getSubimage(BufferedImage img, int x, int y, int w, int h) {
+	public static BufferedImage subImage(BufferedImage img, int x, int y, int w, int h) {
 		return img.getSubimage(x, y, w, h);
 	}
 
@@ -144,8 +128,6 @@ public class ImageUtil {
 	 */
 	public static BufferedImage getGsPic(String url, int index) throws IOException {
 		File file = new File(url);
-		// String url2 = file.getParent();
-		// System.out.println(url2);
 		BufferedImage bImage = getGsPic(ImageIO.read(file));
 		for (int i = 0; i < index; i++) {
 			bImage = getGsPic(bImage);
@@ -177,17 +159,12 @@ public class ImageUtil {
 	 */
 	public static BufferedImage getGsPic(BufferedImage img) {
 		HashMap<String, int[]> hMap = new HashMap<String, int[]>();
-
-		// g2d.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null),
-		// null);
 		int width = img.getWidth();
 		int height = img.getHeight();
 		int minx = img.getMinX();
 		int miny = img.getMinY();
 		BufferedImage imgWriter = new BufferedImage(width, height, img.getType());
 		Graphics2D g2d = (Graphics2D) imgWriter.getGraphics();
-		// System.out.println("width=" + width + ",height=" + height + ".");
-		// System.out.println("minx=" + minx + ",miniy=" + miny + ".");
 		for (int i = minx; i < width; i++) {
 			for (int j = miny; j < height; j++) {
 				int pixel = img.getRGB(i, j); // 下面三行代码将一个数字转换为RGB数字
@@ -196,9 +173,6 @@ public class ImageUtil {
 				rgb[1] = (pixel & 0xff00) >> 8;
 				rgb[2] = (pixel & 0xff);
 				hMap.put(i + "_" + j, rgb);
-
-				// System.out.println("i=" + i + ",j=" + j + ":(" + rgb[0] + ","
-				// + rgb[1] + "," + rgb[2] + ")");
 			}
 		}
 
@@ -240,8 +214,6 @@ public class ImageUtil {
 	 */
 	public static int[] getAvageRGB(ArrayList<int[]> al) {
 		int R = 0, G = 0, B = 0;
-		// int R1 = 0, G1 = 0, B1 = 0;
-
 		for (int[] RGB : al) {
 			R += RGB[0];
 			G += RGB[1];
@@ -254,20 +226,8 @@ public class ImageUtil {
 
 		return rgb;
 	}
-
-	/**
-	 * 获取均值
-	 * 
-	 * @param al
-	 * @return
-	 */
-	public static int getAvage(ArrayList<Integer> al) {
-		int avage = 0;
-		for (int i = 0; i < al.size(); i++) {
-			avage += al.get(i);
-		}
-		avage = avage / al.size();
-		return avage;
-	}
+	
+	
+	
 
 }

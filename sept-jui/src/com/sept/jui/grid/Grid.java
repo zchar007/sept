@@ -192,6 +192,10 @@ public class Grid extends JTable implements ActionListener {
 		this.model.removeRow(index);
 	}
 
+	public void updateRow(int index, DataObject row) {
+		this.model.updateRow(index, row);
+
+	}
 	/**
 	 * 更新数据，覆盖原数据
 	 * 

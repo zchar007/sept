@@ -4,7 +4,7 @@ public class ProjectDeploy extends AbstractDeployContext {
 	private String projectname;
 
 	@Override
-	protected void defaultParam() {
+	protected void defaultParams() {
 		this.projectname = "sept.unknow";
 	}
 

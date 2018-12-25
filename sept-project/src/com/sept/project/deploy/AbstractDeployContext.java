@@ -8,11 +8,11 @@ package com.sept.project.deploy;
  */
 public abstract class AbstractDeployContext {
 	public AbstractDeployContext() {
-		this.defaultParam();
+		this.defaultParams();
 	}
 
 	/** 默认一些参数 **/
-	protected abstract void defaultParam();
+	protected abstract void defaultParams();
 
 	/** 修正一些东西，在不配置的时候默认上 **/
 	public abstract void init();

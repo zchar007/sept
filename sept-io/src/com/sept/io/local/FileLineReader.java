@@ -250,7 +250,7 @@ public class FileLineReader {
 	 * @param isAppend
 	 * @throws AppException
 	 */
-	public static final void saveFile(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
+	public static final void write(ArrayList<String> alSave, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加
@@ -288,7 +288,7 @@ public class FileLineReader {
 	 * @param isAppend
 	 * @throws AppException
 	 */
-	public static final void saveFile(String message, String url, boolean isAppend) throws AppException {
+	public static final void write(String message, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加

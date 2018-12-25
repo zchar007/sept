@@ -209,7 +209,7 @@ public class FileByteReader {
 	 * @param isAppend
 	 * @throws AppException
 	 */
-	public static void saveFile(byte[] bytes, String url, boolean isAppend) throws AppException {
+	public static void write(byte[] bytes, String url, boolean isAppend) throws AppException {
 		try {
 			File file = new File(url);
 			if (!isAppend) {// 不是追加

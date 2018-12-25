@@ -8,7 +8,7 @@ import com.sept.debug.log4j.LogHandler;
 import com.sept.exception.AppException;
 import com.sept.project.context.ContextUtil;
 
-public class DeployFactory {
+public class $ {
 	private static String CONF_URL = "applicationContext-deploy.xml";
 	private static final HashMap<Class<?>, AbstractDeployContext> hmConfigs = new HashMap<>();
 	private static ApplicationContext ac;

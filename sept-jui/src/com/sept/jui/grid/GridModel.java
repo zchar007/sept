@@ -61,7 +61,7 @@ public class GridModel extends DefaultTableModel {
 				String realName = gridClumn.getName();
 				Object value = null;
 				if (realName.equals(GridLineNumberColumn.DEFAULT_NAME)) {
-					//System.out.println(i);
+					// System.out.println(i);
 					objs[i][j] = gridClumn.dealValue(i + 1);
 					continue;
 				}
@@ -193,7 +193,8 @@ public class GridModel extends DefaultTableModel {
 						|| this.gridColumns.get(j) instanceof ButtonColumn) {
 					continue;
 				}
-				//System.out.println(((GridColumn) this.gridColumns.get(j)).getName() + ":" + this.getValueAt(i, j));
+				// System.out.println(((GridColumn) this.gridColumns.get(j)).getName() + ":" +
+				// this.getValueAt(i, j));
 				values.put(values.rowCount() - 1, ((GridColumn) this.gridColumns.get(j)).getName(),
 						this.gridColumns.get(j).dealValue4Get(this.getValueAt(i, j)));
 			}
@@ -215,7 +216,8 @@ public class GridModel extends DefaultTableModel {
 					|| this.gridColumns.get(j) instanceof ButtonColumn) {
 				continue;
 			}
-			//System.out.println(((GridColumn) this.gridColumns.get(j)).getName() + ":" + this.getValueAt(rowIndex, j));
+			// System.out.println(((GridColumn) this.gridColumns.get(j)).getName() + ":" +
+			// this.getValueAt(rowIndex, j));
 
 			values.put(((GridColumn) this.gridColumns.get(j)).getName(),
 					this.gridColumns.get(j).dealValue4Get(this.getValueAt(rowIndex, j)));
@@ -235,5 +237,10 @@ public class GridModel extends DefaultTableModel {
 			return !readonly;
 		}
 		return false;
+	}
+
+	public void updateRow(int index, DataObject row) {
+		
+		this.setValueAt(aValue, row, column);
 	}
 }

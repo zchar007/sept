@@ -37,6 +37,12 @@ public class TypeUtil {
 		types.put("o", Object.class);
 	}
 
+	/**
+	 * 是不是typeUtil中囊括的类型
+	 * 
+	 * @param typeName
+	 * @return
+	 */
 	public static boolean isType(String typeName) {
 		return types.containsKey(typeName.toLowerCase());
 	}
@@ -138,6 +144,13 @@ public class TypeUtil {
 		return types;
 	}
 
+	/**
+	 * 对象转为Blob
+	 * 
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static Blob objectToBlob(Object o) throws AppException {
 		if (null == o) {
 			return null;
@@ -149,6 +162,13 @@ public class TypeUtil {
 		throw new AppException("不支持的跨类型转换");
 	}
 
+	/**
+	 * 对象转为Clob
+	 * 
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static Clob objectToClob(Object o) throws AppException {
 		if (null == o) {
 			return null;
@@ -160,6 +180,13 @@ public class TypeUtil {
 		throw new AppException("不支持的跨类型转换");
 	}
 
+	/**
+	 * 对象转为String
+	 * 
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static String objectToString(Object o) throws AppException {
 		if (null == o) {
 			return null;
@@ -207,6 +234,12 @@ public class TypeUtil {
 
 	}
 
+	/**
+	 * 对象转为Int
+	 * 
+	 * @param o
+	 * @return
+	 */
 	public static int objectToInt(Object o) {
 		if (null == o) {
 			return 0;
@@ -253,6 +286,12 @@ public class TypeUtil {
 		return 0;
 	}
 
+	/**
+	 * 对象转为Float
+	 * 
+	 * @param o
+	 * @return
+	 */
 	public static float objectToFloat(Object o) {
 		if (null == o) {
 			return 0;
@@ -299,6 +338,12 @@ public class TypeUtil {
 		return 0;
 	}
 
+	/**
+	 * 对象转为Long
+	 * 
+	 * @param o
+	 * @return
+	 */
 	public static long objectToLong(Object o) {
 		if (null == o) {
 			return 0;
@@ -345,6 +390,12 @@ public class TypeUtil {
 		return 0;
 	}
 
+	/**
+	 * 对象转为double
+	 * 
+	 * @param o
+	 * @return
+	 */
 	public static double objectToDouble(Object o) {
 		if (null == o) {
 			return 0;
@@ -391,11 +442,23 @@ public class TypeUtil {
 		return 0;
 	}
 
+	/**
+	 * 对象转为boolean
+	 * 
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static boolean objectToBoolean(Object o) throws AppException {
 		String object = objectToString(o);
 		return "true".equals(object);
 	}
-
+	/**
+	 * 对象转为Date
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static Date objectToDate(Object o) throws AppException {
 		if (null == o) {
 			return null;
@@ -403,7 +466,6 @@ public class TypeUtil {
 		String cname = o.getClass().getName();
 
 		if (o instanceof Date || cname.equals("java.util.Date")) {
-
 			return (Date) o;
 		}
 		if (o instanceof java.sql.Date || cname.equals("java.sql.Date")) {
@@ -418,9 +480,13 @@ public class TypeUtil {
 
 		return DateUtil.formatStrToDate(object);
 	}
-
+	/**
+	 * 对象转为Bigdecimal
+	 * @param o
+	 * @return
+	 * @throws AppException
+	 */
 	public static BigDecimal objectToBigDecimal(Object o) throws AppException {
-
 		return new BigDecimal(objectToString(o));
 	}
 

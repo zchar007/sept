@@ -5,6 +5,13 @@ import java.security.MessageDigest;
 import com.sept.exception.AppException;
 
 public class Md5Util {
+	/**
+	 * md5加密
+	 * 
+	 * @param plainText
+	 * @return
+	 * @throws AppException
+	 */
 	public static String hex_md5(String plainText) throws AppException {
 		String str_MD5 = plainText;
 		try {

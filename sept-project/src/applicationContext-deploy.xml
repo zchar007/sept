@@ -10,6 +10,6 @@
 	<bean id="ProjectDeploy" 
 		class="com.sept.project.deploy.ProjectDeploy" init-method="init"
 		destroy-method="close">
-		<property name="projectname" value="sept.test" />
-	</bean>
+<!-- 		<property name="projectname" value="sept.test" />
+ -->	</bean>
 </beans>
