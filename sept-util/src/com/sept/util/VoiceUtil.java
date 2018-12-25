@@ -36,7 +36,6 @@ public class VoiceUtil {
 			// 执行朗读
 			Dispatch.call(sapo, "Speak", new Variant(
 					message));
-			Dispatch.get
 
 		} catch (Exception e) {
 			e.printStackTrace();
